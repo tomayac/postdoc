@@ -5,8 +5,8 @@ NOTE
   "@context": "http://example.org/json-ld/contexts/context.jsonld",
   "title": "Sintel—Trailer",
   "license": "http://creativecommons.org/licenses/by/3.0/",
-  "width": "854",
-  "height": "480"
+  "width": 854,
+  "height": 480
 }
 
 cue1
@@ -16,8 +16,8 @@ cue1
   "tags": ["wind scene", "opening credits"],
   "actors": ["http://example.org/actors/sintel/sintel"],
   "style": "-webkit-filter: grayscale(100%)",
-  "playbackRate": "3.0",
-  "volume": "0.1"
+  "playbackRate": 3.0,
+  "volume": 0.1
 }
 
 cue2
@@ -34,8 +34,8 @@ cue3
   "@context": "http://example.org/json-ld/contexts/context.jsonld",
   "tags": ["shaman scene"],
   "style": "-webkit-filter: grayscale(0%)",
-  "playbackRate": "0.5",
-  "volume": "1.0"
+  "playbackRate": 0.5,
+  "volume": 1.0
 }
 
 cue4
@@ -53,8 +53,8 @@ cue5
   "tags": ["fight scene"],
   "actors": ["http://example.org/actors/sintel/sintel"],
   "style": "-webkit-filter: grayscale(100%)",
-  "playbackRate": "3.0",
-  "volume": "0.1"
+  "playbackRate": 3.0,
+  "volume": 0.1
 }
 
 cue6
@@ -64,8 +64,8 @@ cue6
   "tags": ["searching scene"],
   "actors": ["http://example.org/actors/sintel/sintel"],
   "style": "-webkit-filter: grayscale(0%)",
-  "playbackRate": "1.0",
-  "volume": "1.0"
+  "playbackRate": 1.0,
+  "volume": 1.0
 }
 
 cue7
@@ -75,8 +75,8 @@ cue7
   "tags": ["dragon scene"],
   "actors": ["http://example.org/actors/sintel/sintel", "http://example.org/actors/sintel/dragon"],
   "style": "-webkit-filter: grayscale(100%)",
-  "playbackRate": "3.0",
-  "volume": "0.1"
+  "playbackRate": 3.0,
+  "volume": 0.1
 }
 
 cue8
@@ -86,8 +86,8 @@ cue8
   "tags": ["desert scene"],
   "actors": ["http://example.org/actors/sintel/sintel"],
   "style": "-webkit-filter: grayscale(0%)",
-  "playbackRate": "1.0",
-  "volume": "1.0"
+  "playbackRate": 1.0,
+  "volume": 1.0
 }
 
 cue9
@@ -97,8 +97,8 @@ cue9
   "tags": ["desert scene"],
   "actors": ["http://example.org/actors/sintel/sintel"],
   "style": "-webkit-filter: grayscale(100%)",
-  "playbackRate": "3.0",
-  "volume": "0.1"
+  "playbackRate": 3.0,
+  "volume": 0.1
 }
 
 cue10
@@ -108,8 +108,8 @@ cue10
   "tags": ["alone scene", "closing credits"],
   "actors": ["http://example.org/actors/sintel/sintel"],
   "style": "-webkit-filter: grayscale(0%)",
-  "playbackRate": "1.0",
-  "volume": "1.0"
+  "playbackRate": 1.0,
+  "volume": 1.0
 }
 
 cue11
@@ -118,6 +118,6 @@ cue11
   "@context": "http://example.org/json-ld/contexts/context.jsonld",
   "tags": ["closing credits"],
   "style": "-webkit-filter: grayscale(100%)",
-  "playbackRate": "3.0",
-  "volume": "0.1"
+  "playbackRate": 3.0,
+  "volume": 0.1
 }

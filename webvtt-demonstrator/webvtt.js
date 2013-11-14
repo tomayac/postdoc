@@ -142,10 +142,12 @@
     var jsonLd = {
       "@context": {
         annotation: 'http://example.org/annotation',
-        hasFragment: 'http://www.w3.org/ns/ma-ont#hasFragment'
+        hasFragment: 'http://www.w3.org/ns/ma-ont#hasFragment',
+        MediaResource: 'http://www.w3.org/ns/ma-ont#MediaResource',
+        MediaFragment: 'http://www.w3.org/ns/ma-ont#MediaFragment'
       },
       "@id": src,
-      "@type": 'http://www.w3.org/ns/ma-ont#MediaResource',
+      "@type": 'MediaResource',
       hasFragment: []
     };
     for (var i = 0, lenI = cues.length; i < lenI; i++) {
@@ -153,7 +155,7 @@
       var mediaFragment = {};
       jsonLd.hasFragment.push(mediaFragment);
       mediaFragment['@id'] = src + '#t=' + cue.startTime + ',' + cue.endTime;
-      mediaFragment['@type'] = 'http://www.w3.org/ns/ma-ont#MediaFragment';
+      mediaFragment['@type'] = 'MediaFragment';
       mediaFragment.annotations = JSON.parse(cue.text);
     }
     var fragment = document.createDocumentFragment();
