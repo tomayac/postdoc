@@ -1,0 +1,419 @@
+@charset "UTF-8";
+
+/** 
+ * Default CSS Drop-Down Menu Theme
+ *
+ * @file		default.css
+ * @name		Default
+ * @version		0.1.1
+ * @type		transitional
+ * @browsers	Windows: IE5+, Opera7+, Firefox1+
+ *				Mac OS: Safari2+, Firefox2+
+ *
+ * @link		http://www.lwis.net/
+ * @copyright	2008 Live Web Institute. All Rights Reserved.
+ *
+ * Module Classes: *.dir {} *.on {} *.open {} li.hover {} li.first {} li.last {}
+ * Expected directory tag - li
+ *
+ */
+
+
+/*-------------------------------------------------/
+ * @section		Base Drop-Down Styling
+ * @structure	ul (unordered list)
+ *				ul li (list item)
+ *				ul li a (links)
+ *				/*\.class|(li|a):hover/
+ * @level sep	ul
+ */
+
+
+/* fco : rien de special à ce niveau 
+ *       temporairement on teste avec largeur 840px et boutons 131px 
+ **/
+ul.dropdown {
+    width: 1006px;
+    font-size: 100%;
+}
+
+ul.dropdown a {
+    font-size: 100%;
+}
+
+	ul.dropdown li {
+	 border-style: solid;
+	 border-width: 0;
+	 border-color: #FFFFFF;
+	 background-color: #EBECF1;
+	 color: #000000;
+	}
+
+    /* fco : pour le moment on met de côté
+	ul.dropdown li.hover,
+	ul.dropdown li:hover {
+	 background-color: #eee;
+	 color: #000;
+	}
+
+	ul.dropdown a:hover		{ color: #000; }
+	ul.dropdown a:active	{ color: #ffa500; }
+    */
+
+	ul.dropdown a:link,
+	ul.dropdown a:visited	{ 
+            display: block;
+            background-color: #FFFFFF;
+            font-weight: bold;
+            color: #000000; 
+            text-decoration: none; 
+            }
+
+
+	/* -- level mark -- */
+
+        /* fco : pour le moment on met de côté */
+	ul.dropdown ul {
+            #padding-top: 0.25em;
+            margin-left: -1em;
+	    }
+
+		ul.dropdown ul li:first-child {
+                 padding-top: 1.5em;
+                 background: url(++resource++liris.Theme.images/ombre_first-child.png) no-repeat 0 0;
+                }
+
+		ul.dropdown ul li {
+                 line-height: 1.6em;
+                 width: 222px;
+                 background: url(++resource++liris.Theme.images/ombre_li.png) repeat-y scroll 0 0 transparent;
+                 #padding:0.25em 2em;
+                 padding:0 2.5em;
+
+                 border-left-width: 0;
+		 font-weight: normal;
+		}
+
+		ul.dropdown ul li.lastmenuitem {
+                 padding-bottom: 2em;
+                 background-image: url(++resource++liris.Theme.images/ombre_last-child.png);
+                }
+
+
+/*-------------------------------------------------/
+ * @section		Support Class `dir`
+ * @level sep	ul, .class
+ */
+
+/* Temporairement on teste avec largeur 840px et boutons 131px 
+ */
+ul.dropdown *.dir {
+    border-width: 0 0 0 2px;
+    width: 191px;
+}
+
+ul.dropdown li.dir > a {
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    border-style: solid;
+    border-width: 0 0 10px 0;
+    padding: 0 1.5em;
+}
+
+/* TEST DE REMPLACEMENT DE "li.dir > a" ar "li.dir > span" */
+ul.dropdown li.dir > span {
+    font-weight: bold;
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    border-style: solid;
+    border-width: 0 0 10px 0;
+    padding: 0 1.5em;
+}
+/* FIN TEST DE REMPLACEMENT */
+
+ul.dropdown li#accueil > a {
+    margin: 0;
+    padding: 0;
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    border-width: 0;
+}
+
+ul.dropdown li#accueil > a > img {
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+}
+
+/* -- Components override -- */
+
+ul.dropdown-horizontal ul *.dir {
+ padding-right: 15px;
+}
+
+/* TEST DE REMPLACEMENT DE "li.dir > a" par "li.dir > span" */
+body.section-actualites ul.dropdown li#actualites > span,
+body.section-actualites-en ul.dropdown li#actualites > span,
+body.section-evenements ul.dropdown li#actualites > span,
+body.section-evenements-en ul.dropdown li#actualites > span {
+    color: #B6397D;
+}
+
+ul.dropdown > li#actualites > span {
+    border-bottom-color: #B6397D;
+}
+
+    ul.dropdown li#actualites > span:hover,
+    ul.dropdown li#actualites ul a:hover {
+        color: #B6397D;
+    }
+
+    ul.dropdown li#actualites ul li:first-child a:hover {
+        color: #FF8D40;
+    }
+
+ul.dropdown li#presentation > span {
+    border-bottom-color: #78A93C;
+}
+
+    ul.dropdown li#presentation > span:hover,
+    ul.dropdown li#presentation ul a:hover {
+        color: #649A36;
+    }
+
+body.section-membres ul.dropdown li#presentation > span,
+body.section-presentation-en ul.dropdown li#presentation > span,
+body.section-presentation ul.dropdown li#presentation > span {
+    color: #649A36;
+}
+
+ul.dropdown li#research > span {
+    border-bottom-color: #99CDFF;
+}
+
+    ul.dropdown li#research > span:hover,
+    ul.dropdown li#research ul a:hover {
+        color: #3287CF;
+    }
+
+body.section-equipes ul.dropdown li#research > span,
+body.section-axes ul.dropdown li#research > span,
+body.section-la-recherche ul.dropdown li#research > span,
+body.section-la-recherche-en ul.dropdown li#research > span,
+body.section-projets-transversaux ul.dropdown li#research > span,
+body.section-projets-transversaux-en ul.dropdown li#research > span,
+body.section-relations-partenariales ul.dropdown li#research > span,
+body.section-relations-partenariales-en ul.dropdown li#research > span,
+body.section-relations-internationales ul.dropdown li#research > span,
+body.section-relations-internationales-en ul.dropdown li#research > span,
+body.section-plateformes ul.dropdown li#research > span,
+body.section-plateformes-en ul.dropdown li#research > span,
+body.section-animation-scientifique ul.dropdown li#research > span,
+body.section-animation-scientifique-en ul.dropdown li#research > span {
+    color: #3287CF;
+}
+
+ul.dropdown li#publis > span {
+    border-bottom-color: #9571B2;
+}
+
+    ul.dropdown li#publis > span:hover,
+    ul.dropdown li#publis ul a:hover {
+        color: #663398;
+    }
+
+body.section-publis ul.dropdown li#publis > span,
+body.section-production ul.dropdown li#publis > span,
+body.section-production-en ul.dropdown li#publis > span {
+    color: #663398;
+}
+
+ul.dropdown li#emploi > span {
+    border-bottom-color: #5CA1DA;
+}
+
+    ul.dropdown li#emploi > span:hover,
+    ul.dropdown li#emploi ul a:hover {
+        color: #3287CF;
+    }
+
+body.section-recrutement ul.dropdown li#emploi > span,
+body.section-recrutement-en ul.dropdown li#emploi > span {
+    color: #3287CF;
+}
+
+ul.dropdown li.intranet > span {
+    border-bottom-color: #B7B90C;
+}
+
+    ul.dropdown li.class > span:hover,
+    ul.dropdown li.class ul a:hover {
+        color: #B7B90C;
+    }
+
+/*
+body.section-guide ul.dropdown li.intranet > span,
+body.section-intranet ul.dropdown li.intranet > span {
+    color: #B7B90C;
+}
+*/
+/* FIN TEST DE REMPLACEMENT */
+
+/* ADAPTATIONS POUR L'INTRANET 
+ * ---------------------------
+ * 1. ADAPTATION DE LA LONGUEUR DES SOUS-MENUS POUR L'INTRANET 
+ *    Il faudrait des "images bordures" plus larges que les actuels ombre-li.png etc 
+ *    pour la partie intranet
+ *
+ * 2. Et quid du guide qui n'est pas dans l'intranet ?
+ *
+body.section-intranet ul.dropdown ul li {
+    width: 250px;
+}
+*/
+/* 3. Couleurs de l'intranet : gris du sitemap pour le moment */
+body.section-intranet ul.dropdown li > span:hover,
+body.section-intranet ul.dropdown ul a:hover {
+    color: #76797C;
+}
+/* FIND ADAPTATION DE LA LONGUEUR DES SOUS-MENUS POUR L'INTRANET */
+
+/******************************************************************************
+ *
+ * Styles pour le sitemap de bas de page
+ *
+ ******************************************************************************/
+
+#liris-sitemap {
+    margin: 1em 0 0 0;
+    padding: 1em 0;
+    border-top: 10px solid #5CA1DA;
+    border-bottom: 10px solid #5CA1DA;
+}
+
+/* Elements de menu trop large à 103%, le défaut body a: 90% est un peu petit, 95 ? 
+ * => margin-right: 1.6em -> 1em  
+ **/
+#liris-sitemap a {
+    font-size: 95%;
+}
+
+/*
+    border-top: 10px solid #000000;
+    border-bottom: 10px solid #000000;
+    */
+body.section-intranet #liris-sitemap {
+    border-top: 10px solid #B7B90C;
+    border-bottom: 10px solid #B7B90C;
+}
+
+body.section-actualites #liris-sitemap,
+body.section-actualites-en #liris-sitemap {
+    border-top: 10px solid #B6397D;
+    border-bottom: 10px solid #B6397D;
+}
+
+body.section-presentation #liris-sitemap,
+body.section-presentation-en #liris-sitemap,
+body.section-membres #liris-sitemap,
+body.section-contacts #liris-sitemap,
+body.section-acces #liris-sitemap,
+body.section-acces-en #liris-sitemap {
+    border-top: 10px solid #78A93C;
+    border-bottom: 10px solid #78A93C;
+}
+
+body.section-la-recherche #liris-sitemap,
+body.section-la-recherche-en #liris-sitemap,
+body.section-equipes #liris-sitemap,
+body.section-axes #liris-sitemap,
+body.section-projets-transversaux #liris-sitemap,
+body.section-projets-transversaux-en #liris-sitemap,
+body.section-relations-partenariales #liris-sitemap,
+body.section-relations-partenariales-en #liris-sitemap,
+body.section-relations-internationales #liris-sitemap,
+body.section-relations-internationales-en #liris-sitemap,
+body.section-plateformes #liris-sitemap,
+body.section-plateformes-en #liris-sitemap,
+body.section-animation-scientifique #liris-sitemap,
+body.section-animation-scientifique-en #liris-sitemap {
+    border-top: 10px solid #99CDFF;
+    border-bottom: 10px solid #99CDFF;
+}
+
+body.section-publis #liris-sitemap,
+body.section-production #liris-sitemap,
+body.section-production-en #liris-sitemap {
+    border-top: 10px solid #9571B2;
+    border-bottom: 10px solid #9571B2;
+}
+
+body.section-front-page #liris-sitemap,
+body.section-front-page-en #liris-sitemap,
+body.section-recrutement #liris-sitemap,
+body.section-recrutement-en #liris-sitemap {
+    border-top: 10px solid #5CA1DA;
+    border-bottom: 10px solid #5CA1DA;
+}
+
+body.section-evenements #liris-sitemap,
+body.section-evenements-en #liris-sitemap {
+    border-top: 10px solid #FF8D40;
+    border-bottom: 10px solid #FF8D40;
+}
+
+ul.liris-horizontal-sitemap {
+    width: 1006px;
+    float: left;
+    position: relative;
+}
+
+ul.liris-horizontal-sitemap, ul.liris-horizontal-sitemap li, ul.liris-horizontal-sitemap ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Avec des liens à 90% margin-right 1.6em, à 95% margin-right 1em
+ * Attention au menu intranet
+ */
+ul.liris-horizontal-sitemap li {
+    float: left;
+    vertical-align: middle;
+    margin-right: 1.6em;
+    #width: 200px;
+}
+
+ul.liris-horizontal-sitemap > li.dir {
+    line-height: 3.5em;
+}
+
+ul.liris-horizontal-sitemap > li.dir > a {
+    font-weight: bold;
+}
+
+/* TEST DE REMPLACEMENT DE "li.dir > a" ar "li.dir > span" */
+ul.liris-horizontal-sitemap > li.dir > span {
+    font-weight: bold;
+}
+/* FIN TEST DE REMPLACEMENT */
+
+ul.liris-horizontal-sitemap ul li {
+    float: none;
+}
+
+ul.liris-horizontal-sitemap a {
+    color: #000;
+    text-decoration: none;
+}
+
+ul.liris-horizontal-sitemap a:hover {
+    color: #76797C;
+}
+#liris-sitemap p.fin-sitemap {
+    clear: both;
+    height: 1px;
+}

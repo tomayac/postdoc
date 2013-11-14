@@ -1,0 +1,17 @@
+::cue(.meta-scene-actors) {
+  color: red;
+  font-style: italic;
+}
+
+::cue(.meta-tags) {
+  color: green;
+  font-style: italic;
+}
+
+pre {
+  width: 840px;
+  border: dashed 2px darkgray;
+  color: black;
+  font-weight: bold;
+  padding: 5px;
+}

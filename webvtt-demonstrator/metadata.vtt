@@ -1,0 +1,123 @@
+WEBVTT
+
+NOTE
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "title": "Sintel—Trailer",
+  "license": "http://creativecommons.org/licenses/by/3.0/",
+  "width": "854",
+  "height": "480"
+}
+
+cue1
+00:00:00.000 --> 00:00:12.000
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["wind scene", "opening credits"],
+  "actors": ["http://example.org/actors/sintel/sintel"],
+  "style": "-webkit-filter: grayscale(100%)",
+  "playbackRate": "3.0",
+  "volume": "0.1"
+}
+
+cue2
+00:00:12.000 --> 00:00:13.500
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "actors": ["http://example.org/actors/sintel/shaman"],
+  "spatialFragment": "xywh=350,120,200,200"
+}
+
+cue3
+00:00:12.000 --> 00:00:15.000
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["shaman scene"],
+  "style": "-webkit-filter: grayscale(0%)",
+  "playbackRate": "0.5",
+  "volume": "1.0"
+}
+
+cue4
+00:00:14.000 --> 00:00:15.500
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "actors": ["http://example.org/actors/sintel/sintel"],
+  "spatialFragment": "xywh=280,120,200,220"
+}
+
+cue5
+00:00:15.000 --> 00:00:18.500
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["fight scene"],
+  "actors": ["http://example.org/actors/sintel/sintel"],
+  "style": "-webkit-filter: grayscale(100%)",
+  "playbackRate": "3.0",
+  "volume": "0.1"
+}
+
+cue6
+00:00:18.500 --> 00:00:20.500
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["searching scene"],
+  "actors": ["http://example.org/actors/sintel/sintel"],
+  "style": "-webkit-filter: grayscale(0%)",
+  "playbackRate": "1.0",
+  "volume": "1.0"
+}
+
+cue7
+00:00:20.500 --> 00:00:36.500
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["dragon scene"],
+  "actors": ["http://example.org/actors/sintel/sintel", "http://example.org/actors/sintel/dragon"],
+  "style": "-webkit-filter: grayscale(100%)",
+  "playbackRate": "3.0",
+  "volume": "0.1"
+}
+
+cue8
+00:00:36.500 --> 00:00:39.000
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["desert scene"],
+  "actors": ["http://example.org/actors/sintel/sintel"],
+  "style": "-webkit-filter: grayscale(0%)",
+  "playbackRate": "1.0",
+  "volume": "1.0"
+}
+
+cue9
+00:00:39.000 --> 00:00:41.500
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["desert scene"],
+  "actors": ["http://example.org/actors/sintel/sintel"],
+  "style": "-webkit-filter: grayscale(100%)",
+  "playbackRate": "3.0",
+  "volume": "0.1"
+}
+
+cue10
+00:00:41.500 --> 00:00:43.000
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["alone scene", "closing credits"],
+  "actors": ["http://example.org/actors/sintel/sintel"],
+  "style": "-webkit-filter: grayscale(0%)",
+  "playbackRate": "1.0",
+  "volume": "1.0"
+}
+
+cue11
+00:00:43.000 --> 00:00:52.000
+{
+  "@context": "http://example.org/json-ld/contexts/context.jsonld",
+  "tags": ["closing credits"],
+  "style": "-webkit-filter: grayscale(100%)",
+  "playbackRate": "3.0",
+  "volume": "0.1"
+}
