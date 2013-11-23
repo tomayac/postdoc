@@ -1,6 +1,49 @@
 \documentclass{sig-alternate}
 
 \usepackage[utf8]{inputenc}
+\usepackage[hyphens]{url}
+\usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+
+% listings and Verbatim environment
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{verbatim}
+\newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
+\newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
+\newcommand{\smalllistingsize}{\fontsize{7.5pt}{9.5pt}}
+\newcommand{\listingsize}{\defaultlistingsize}
+\RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
+\lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
+        aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+        framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+
+% use Courier from this point onward
+\let\oldttdefault\ttdefault
+\renewcommand{\ttdefault}{pcr}
+\let\oldurl\url
+\renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={push, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{darkgray},
+  stringstyle=\color{red},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+% linewrap symbol
+\usepackage{color}
+\definecolor{grey}{RGB}{130,130,130}
+\newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
 
 \begin{document}
 %
@@ -96,6 +139,81 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 \cite{vandeursen2012mediafragmentannotations}
 
 \section{Enabling Technologies}
+
+\subsection{Web Video Text Tracks format (WebVTT)}
+
+The Web Video Text Tracks format (WebVTT,~\cite{pfeiffer2013webvtt})
+is intended for marking up external text track resources
+for the purpose of captioning video content.
+The recommended file extension is \texttt{vtt},
+the MIME type is \texttt{text/vtt}.
+WebVTT files are encoded in UTF-8 and
+start with the required string \texttt{WEBVTT}.
+Each file consists of items called \emph{cues}
+that are separated by an empty line.
+Each cue has a~start time and an end time in
+\texttt{hh:mm:ss.milliseconds} format,
+separated by a~stylized ASCII arrow \texttt{-}\texttt{->}.
+The cue payload follows in the line after the cue timings part
+and can span multiple lines.
+Typically, the cue payload contains text,
+but can also contain textual data serialization formats like JSON.
+Cues can optionally have unique IDs
+in form of an identifier followed by a~colon in the line
+above the cue timings part.
+\autoref{listing:webvtt} shows an exemplary WebVTT file.
+
+\begin{lstlisting}[caption={Exemplary WebVTT file%
+~\cite{pfeiffer2013webvtt} with two cues
+with the IDs \texttt{cue1} and \texttt{cue2} respectively},
+  label=listing:webvtt, float=h!]
+WEBVTT
+
+cue1:
+00:00:01.000 --> 00:00:04.000
+Never drink liquid nitrogen.
+
+cue2:
+00:00:05.000 --> 00:00:09.000
+- It will perforate your stomach.
+- You could die.
+\end{lstlisting}
+
+Web browsers support five different kinds of WebVTT text tracks,
+listed in \autoref{table:texttrackkinds}
+
+\begin{table*}[h]\footnotesize
+\begin{tabular}{ r p{15cm} }
+\textbf{WebVTT Kind} & \textbf{Description}\\
+
+subtitles & Transcription or translation of the dialogue,
+suitable for when the sound is available but not understood
+(\emph{e.g.}, because the user does not understand the language). Overlaid on the video.\\
+
+captions & Transcription or translation of the dialogue,
+sound effects, relevant musical cues,
+and other relevant audio information,
+suitable for when sound is unavailable or not clearly audible
+(\emph{e.g.}, because the user is deaf). Overlaid on the video;
+labeled as appropriate for the hard-of-hearing.\\
+
+descriptions & Textual descriptions of the video component
+of the media resource, intended for audio synthesis
+when the visual component is obscured, unavailable, or not usable
+(\emph{e.g.}, because the user is interacting with the application
+without a screen while driving, or because the user is blind).
+Synthesized as audio.\\
+
+chapters & Chapter titles, intended to be used for navigating
+the media resource. Displayed as an interactive (potentially nested)
+list in the user agent's interface.\\
+
+metadata & Tracks intended for use from script.
+Not displayed by the user agent.\\
+\end{tabular}
+  \caption{Different WebVTT text track kinds}
+  \label{table:texttrackkinds}
+\end{table*}
 
 \section{Implementation}
 
