@@ -158,25 +158,30 @@ The cue payload follows in the line after the cue timings part
 and can span multiple lines.
 Typically, the cue payload contains text,
 but can also contain textual data serialization formats like JSON.
+Spans of text associated with a~specific voice can be annotated
+in form of WebVTT cue voice spans.
+A WebVTT voice tag, denoted by \texttt{<v VOICE>}, has a~value,
+which is the name of the voice.
 Cues can optionally have unique IDs
 in form of an identifier followed by a~colon in the line
 above the cue timings part.
 \autoref{listing:webvtt} shows an exemplary WebVTT file.
 
-\begin{lstlisting}[caption={Exemplary WebVTT file%
-~\cite{pfeiffer2013webvtt} with two cues
-with the IDs \texttt{cue1} and \texttt{cue2} respectively},
+\begin{lstlisting}[caption={Sample WebVTT file with two cues
+    with the IDs \texttt{qpc-vincent} and
+    \texttt{qpc-jules} respectively},
   label=listing:webvtt, float=h!]
 WEBVTT
 
-cue1:
-00:00:01.000 --> 00:00:04.000
-Never drink liquid nitrogen.
+qpc-vincent:
+00:07:55.185 --> 00:08:00.247
+<v Vincent>And you know what they call
+a Quarter-Pounder with Cheese in Paris?
 
-cue2:
-00:00:05.000 --> 00:00:09.000
-- It will perforate your stomach.
-- You could die.
+qpc-jules:
+00:08:00.290 --> 00:08:01.917
+<v Jules>They don't call it
+a Quarter-Pounder with Cheese?
 \end{lstlisting}
 
 \subsubsection{WebVTT in Web Browsers}
@@ -270,6 +275,48 @@ Linked Data in Web-based programming environments,
 to build interoperable Web services,
 and to store Linked Data in JSON-based storage engines.
 We use JSON-LD as payload of \texttt{TextTrackCue} elements.
+
+\subsection{Media Fragments URI}
+
+Media Fragments URI~\cite{troncy2012mediafragments}
+specifies a~syntax for constructing media fragments URIs
+and explains how to handle them when used over the HTTP protocol.
+The syntax is based on the specification of
+particular name-value pairs that can be used in URI query strings
+and URI fragment identifiers to restrict a~media resource
+to a~certain fragment.
+Media Fragments as described in the basic version
+of the specification supports temporal and spatial media fragments.
+The \emph{temporal dimension} is denoted
+by the parameter name \texttt{t} and specified as an interval
+with a~begin time and an end time.
+Either one or both parameters may be omitted,
+with the begin time defaulting to 0 seconds
+and the end time defaulting to the duration of the source media item.
+The interval is half-open: the begin time is considered
+part of the interval, whereas the end time is considered
+to be the first time point that is not part of the interval.
+The \emph{spatial dimension} selects
+an area of pixels from media items.
+In the current version of the specification,
+only rectangular selections are supported.
+Rectangles can be specified as pixel coordinates or percentages.
+Rectangle selection is denoted by the parameter name \texttt{xywh}.
+The value is either \texttt{pixel:} or \texttt{percent:}
+(defaulting to \texttt{pixel:}) and four comma-separated integers.
+The integers denote $x$, $y$, $width$, and $height$ respectively,
+with $x = 0$ and $y = 0$ being the top left corner of the media item.
+If \texttt{percent:} is used, $x$ and $width$ are interpreted
+as a~percentage of the width of the original media item,
+$y$ and $height$ are interpreted as a~percentage
+of the original height.
+
+The Ontology for Media Resources~\cite{lee2012mediaontology}
+serves to bridge different description methods of media resources
+and to provide a~core set of descriptive properties.
+Combined with Media Fragments URI,
+this allows for making statements about media items
+and fragments thereof.
 
 \section{Implementation}
 
