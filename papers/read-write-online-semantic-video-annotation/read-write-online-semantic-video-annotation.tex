@@ -251,6 +251,26 @@ Not displayed by the user agent.\\
   \label{table:texttrackkinds}
 \end{table*}
 
+\subsection{JSON-LD}
+
+The \emph{JavaScript Object Notation}
+(JSON\footnote{\url{http://json.org/}})
+is a~(by now) language-independent textual syntax
+for serializing objects, arrays, numbers, strings, booleans, and null.
+\emph{Linked Data}~\cite{bizer2009linkeddata}
+describes a~method of publishing structured data
+so that it can be interlinked and become more useful,
+which builds upon standard Web technologies such as HTTP, RDF and URIs.
+Based on top of JSON, the
+\emph{JavaScript Object Notation for Linked Data}
+(JSON-LD,~\cite{sporny2013jsonld}) is a~method for transporting
+Linked Data with a~smooth upgrade path from JSON to JSON-LD.
+It is primarily intended to be a~way to use
+Linked Data in Web-based programming environments,
+to build interoperable Web services,
+and to store Linked Data in JSON-based storage engines.
+We use JSON-LD as payload of \texttt{TextTrackCue} elements.
+
 \section{Implementation}
 
 \section{Evaluation and Discussion}
