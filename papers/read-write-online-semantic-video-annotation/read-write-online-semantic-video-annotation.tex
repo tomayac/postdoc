@@ -123,6 +123,9 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 \maketitle
 \begin{abstract}
 Lorem ipsum
+% BE Mettre tout de suite les apports principaux 
+% BE De mon point de vue : proposer un cadre technologique pour l'annotation sémantique de vidéos utilisant au maximum les standards du WEB (pour notamment bénéficier de "fonctions natives" de traitement de ces %annotations, offertes par les navigateurs)
+% BE ce qui signifie de ce fait : définir ce que l'on entend par annotation sémantique de vidéos, définir simplement les mécanismes dont on a besoin, faire le matching entre les mécanismes identifiés et les techno. proposées % dans notre cadre technologique.
 \end{abstract}
 
 \category{H.4}{Information Systems Applications}{Miscellaneous}
@@ -143,7 +146,7 @@ Lorem ipsum
 \subsection{Web Video Text Tracks format (WebVTT)}
 
 The Web Video Text Tracks format (WebVTT,~\cite{pfeiffer2013webvtt})
-is intended for marking up external text track resources
+is intended for marking up external text track resources mainly
 for the purpose of captioning video content.
 The recommended file extension is \texttt{vtt},
 the MIME type is \texttt{text/vtt}.
@@ -158,12 +161,16 @@ The cue payload follows in the line after the cue timings part
 and can span multiple lines.
 Typically, the cue payload contains text,
 but can also contain textual data serialization formats like JSON.
+% BE : pas important à mon avis pour le papier, à supprimer
 Spans of text associated with a~specific voice can be annotated
 in form of WebVTT cue voice spans.
 A WebVTT voice tag, denoted by \texttt{<v VOICE>}, has a~value,
 which is the name of the voice.
+% BE : FIN
 Cues can optionally have unique IDs
-in form of an identifier followed by a~colon in the line
+in form of an identifier
+% BE : Soit tu décris ce qu'on appelle identifier, soit tu mets directement Cues can optionally have unique identifiers followed...
+followed by a~colon in the line
 above the cue timings part.
 \autoref{listing:webvtt} shows an exemplary WebVTT file.
 
