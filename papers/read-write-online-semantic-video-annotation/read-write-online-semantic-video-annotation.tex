@@ -1,6 +1,7 @@
 \documentclass{sig-alternate}
 
 \usepackage[utf8]{inputenc}
+\usepackage{enumitem}
 \usepackage[hyphens]{url}
 \usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
 
@@ -337,8 +338,15 @@ and to provide a~core set of descriptive properties.
 Combined with Media Fragments URI,
 this allows for making statements about media items
 and fragments thereof.
+  
+\section{Evaluation and Discussion}
 
-\section{Hypervideo}
+We evaluate or annotation model and related technology stack
+based on a~state-of-the-art hypervideo model by
+Sadallah \emph{et~al.}\ detailed in~\cite{sadallah2012hypervideo}
+that resulted out of careful studies of prior art in the field.
+
+\subsection{Hypervideo Model}
 
 In~\cite{sadallah2012hypervideo}, Sadallah \emph{et~al.}\ define
 \emph{hypervideo} as being \textit{``an interactive video-centric
@@ -355,12 +363,25 @@ of the recent years and found a~number of
 recurring visualization and interaction patterns
 that we will summarize in the following.
 
-\begin{description}
-  \item[Video player and controls:]  \item[Timeline:]  \item[Textual overlay:]  \item[Graphical overlay:]  \item[Hotspot:]  \item[ToC:]
-  \item[Maps:]  \item[Transcript:]
+\begin{description}[leftmargin=*]
+  \item[Video player and controls:] Hypervideo systems by definition
+    provide one or multiple video players, however,
+    the corresponding video controls are not necessarily exposed.  \item[Timeline:] A~timeline is the spatial representation
+    of temporally situated metadata in a~video.
+    The most common timeline pattern shows the
+    time along the x-axis and corresponding metadata along the y-axis.  \item[Textual or graphical overlay:] Additional textual or graphical
+    information can be displayed in form of overlays on the video.
+    Overlays can also serve as external or video-internal hyperlinks,
+    referred to as hotspots.  \item[Textual or graphical table of contents:]
+    If a~video is logically separated
+    into different parts, a~table of contents lists these
+    in textual or graphical form and makes them navigable
+    or visually summarizes them, referred to as video map.  \item[Transcript:] The textual document
+    of the transcribed audiovisual content of a~video 
+    allows for following along the video by reading
+    and also serves for navigating to the corresponding
+    parts of the video.
 \end{description}  
-  
-\section{Evaluation and Discussion}
 
 \section{Future Work and Conclusions}
 
