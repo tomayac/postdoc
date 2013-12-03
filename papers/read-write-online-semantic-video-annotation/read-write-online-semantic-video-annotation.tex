@@ -113,14 +113,14 @@ Rik Van de Walle\\
 
 \maketitle
 \begin{abstract}
-In this paper, we present and evaluate
+We present and evaluate
 a~video annotation model and related technology stack
 wholly based on HTML5 Web standards
 and optimally leveraging native functionality
 already present in modern Web browsers,
-which together allows for fully Read/Write-enabled
+which allows for fully Read/Write-enabled
 semantic and representational video annotations.
-At video consumption time, such video annotations
+At time of video consumption, such video annotations
 can already be existent as is the case
 with annotations created by the video producer
 (\emph{i.e.},~annotations of type \emph{Read}),
@@ -131,6 +131,10 @@ semantic and representational annotations.
 Semantic annotations are related to meaning in videos,
 whereas representational annotations are related to
 ways in which videos get represented to the viewer.
+By leveraging JSON-LD and WebVTT as enabling technologies,
+we are able to publish our annotations as Linked Data,
+both for classical Semantic Web clients
+as well as for common search engines.
 We evaluate our technology stack and annotation model
 based on a~state-of-the-art hypervideo model.
 \end{abstract}
@@ -374,6 +378,55 @@ and to provide a~core set of descriptive properties.
 Combined with Media Fragments URI,
 this allows for making statements about media items
 and fragments thereof.
+
+\section{Implementation}
+
+\subsection{Supported Annotation Types}
+
+Currently, our system allows for semantic and representational
+annotations of the following types.
+
+\paragraph{Semantic Annotations}
+
+\begin{description}[leftmargin=*]
+  \item[Tags:] 
+  \item[Actors:] 
+  
+\end{description}
+
+\paragraph{Representational Annotations}
+
+\begin{description}[leftmargin=*]
+  \item[Style:] Representational annotations of
+    type \texttt{style}
+    allow for adding Cascading Style Sheet%
+    \footnote{\url{http://www.w3.org/Style/CSS/}}
+    styles to the corresponding \texttt{video} element
+    of the current \texttt{TextTrack} element.
+    This allows for the full range of visual effects,
+    including (but not limited to) color filters,
+    zoom effects, transparency, and 2D or 3D transformations
+    and animations. 
+  \item[Playback Rate:] The \texttt{playbackRate}
+    annotation type allows for specifying the effective
+    playback rate of the corresponding \texttt{video} element
+    of the current \texttt{TextTrack} element.
+    The playback rate is expressed as a~multiple or fraction
+    of the intrinsic speed of the video.
+  \item[Volume:] The \texttt{volume} annotation type allows for
+    specifying the volume of the corresponding \texttt{video}
+    element of the current \texttt{TextTrack} element
+    on a~scale from 0.0 to 1.0.
+  \item[HTML:] Via the \texttt{html} annotation type,
+    freeform HTML code can be added on top of the corresponding
+    \texttt{video} element of the current \texttt{TextTrack}
+    element. This allows for the addition of graphical,
+    textual, or combined overlays that can also contain
+    hyperlinks to other videos or media fragments within the
+    current video.
+\end{description}
+
+
   
 \section{Evaluation and Discussion}
 
