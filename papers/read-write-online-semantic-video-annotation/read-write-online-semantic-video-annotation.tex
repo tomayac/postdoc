@@ -386,47 +386,75 @@ and fragments thereof.
 Currently, our system allows for semantic and representational
 annotations of the following types.
 
-\paragraph{Semantic Annotations}
-
-\begin{description}[leftmargin=*]
-  \item[Tags:] 
-  \item[Actors:] 
-  
-\end{description}
-
 \paragraph{Representational Annotations}
 
 \begin{description}[leftmargin=*]
-  \item[Style:] Representational annotations of
-    type \texttt{style}
-    allow for adding Cascading Style Sheet%
+  \item[Spatial Fragments:] Via the \texttt{spatialFragment}
+    annotation type, rectangular spatial fragments
+    of the temporal fragment of the \texttt{video} element
+    of the current \texttt{TextTrack} element can be selected.
+    The selected spatial fragment is highlighted by a~rectangular
+    frame on top of the video.
+  \item[Style:] Annotations of
+    type \texttt{style} allow for adding Cascading Style Sheet%
     \footnote{\url{http://www.w3.org/Style/CSS/}}
-    styles to the corresponding \texttt{video} element
-    of the current \texttt{TextTrack} element.
-    This allows for the full range of visual effects,
+    styles to the corresponding temporal fragment of the
+    \texttt{video} element of the current
+    \texttt{TextTrack} element.
+    This allows for a~range of visual effects,
     including (but not limited to) color filters,
     zoom effects, transparency, and 2D or 3D transformations
     and animations. 
   \item[Playback Rate:] The \texttt{playbackRate}
     annotation type allows for specifying the effective
-    playback rate of the corresponding \texttt{video} element
-    of the current \texttt{TextTrack} element.
-    The playback rate is expressed as a~multiple or fraction
-    of the intrinsic speed of the video.
+    playback rate of the corresponding temporal fragment of the
+    \texttt{video} element of the current
+    \texttt{TextTrack} element.
+    The playback rate is expressed as multiple or fraction
+    of the intrinsic video speed.
   \item[Volume:] The \texttt{volume} annotation type allows for
-    specifying the volume of the corresponding \texttt{video}
-    element of the current \texttt{TextTrack} element
-    on a~scale from 0.0 to 1.0.
+    specifying the volume of the corresponding
+    temporal fragment of the
+    \texttt{video} element of the current
+    \texttt{TextTrack} element on a~scale
+    ranging from 0.0 (silent) to 1.0 (loudest).
   \item[HTML:] Via the \texttt{html} annotation type,
-    freeform HTML code can be added on top of the corresponding
-    \texttt{video} element of the current \texttt{TextTrack}
-    element. This allows for the addition of graphical,
-    textual, or combined overlays that can also contain
-    hyperlinks to other videos or media fragments within the
-    current video.
+    freeform HTML code can be added on top of the
+    corresponding temporal fragment of the
+    \texttt{video} element of the
+    current \texttt{TextTrack} element.
+    This allows for the addition of graphical,
+    textual, or combined overlays that can contain
+    links to (temporal fragments of)
+    other videos or within the current video.
 \end{description}
 
+\paragraph{Semantic Annotations}
 
+\begin{description}[leftmargin=*]
+  \item[Tags:] Semantic annotations of type \texttt{tags}
+    allow for adding plain-text tags or semantic tags 
+    in form of references to unique, well-defined concepts
+    with their own URLs to the corresponding
+    temporal fragment of the
+    \texttt{video} element of the current
+    \texttt{TextTrack} element.
+  \item[Actors:] The \texttt{actors} annotation type allows for
+    the actors in the corresponding temporal
+    fragment of the \texttt{video} element of the current
+    \texttt{TextTrack} element to be denoted.
+    Plain-text or semantic labels 
+    in form of references to unique, well-defined concepts
+    with their own URLs are possible.
+  \item[RDF Graph:] The \texttt{rdfGraph} annotation type
+    allows for adding an arbitrary set of RDF triples
+    to the corresponding temporal fragment of the
+    \texttt{video} element of the current
+    \texttt{TextTrack} element. In combination with the
+    representational annotation type \texttt{spatialFragment},
+    semantic annotations of objects
+    in video fragments are possible.
+\end{description}
   
 \section{Evaluation and Discussion}
 
