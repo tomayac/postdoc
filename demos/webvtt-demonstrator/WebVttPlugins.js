@@ -1,9 +1,13 @@
 (function (root) {
-  var plugins = {
-    tags: function (video, cue, value, opt_speaker) {
+  function WebVttPlugins(video) {
+    this._video = video;
+  }
+
+  WebVttPlugins.prototype = {
+    tags: function (cue, value, opt_speaker) {
       var valueStringified = value.toString();
-      for (var i = 0, lenI = video.textTracks.length; i < lenI; i++) {
-        var textTrack = video.textTracks[i];
+      for (var i = 0, lenI = this._video.textTracks.length; i < lenI; i++) {
+        var textTrack = this._video.textTracks[i];
         if (textTrack.mode === 'showing' || textTrack.default) {
           for (var j = 0, lenJ = textTrack.activeCues.length; j < lenJ; j++) {
             if (textTrack.activeCues[j].id === valueStringified) {
@@ -22,21 +26,21 @@
       }
     },
 
-    actors: function (video, cue, value) {
-      plugins.tags(video, cue, value,
-          '<v.meta-scene-actors>Scene Actors: ');
+    actors: function (cue, value) {
+      this.tags(cue, value, '<v.meta-scene-actors>Scene Actors: ');
     },
 
-    volume: function (video, cue, value) {
-      video.volume = parseFloat(value);
+    volume: function (cue, value) {
+      this._video.volume = parseFloat(value);
     },
 
-    playbackRate: function (video, cue, value) {
-      video.playbackRate = parseFloat(value);
+    playbackRate: function (cue, value) {
+      this._video.playbackRate = parseFloat(value);
     },
 
-    style: function (video, cue, value) {
-      var className = 'cue-' +
+    style: function (cue, value) {
+      var video = this._video,
+          className = 'cue-' +
           cue.startTime.toString().replace(/\./g, '_') + '-' +
           cue.endTime.toString().replace(/\./g, '_');
       if (!document.querySelector('#' + className)) {
@@ -68,7 +72,7 @@
       }
     },
 
-    spatialFragment: function (video, cue, value) {
+    spatialFragment: function (cue, value) {
       var components = value.replace(/^xywh=/, '').split(/,/);
       var x = components[0];
       var y = components[1];
@@ -80,10 +84,10 @@
           cue.endTime.toString().replace(/\./g, '_');
       div.id = id;
       div.style.border = 'solid 4px yellow';
-      video.parentNode.appendChild(div);
+      this._video.parentNode.appendChild(div);
       div.style.position = 'absolute';
-      div.style.left = (video.offsetLeft + parseInt(x, 10)) + 'px';
-      div.style.top = (video.offsetTop + parseInt(y, 10)) + 'px';
+      div.style.left = (this._video.offsetLeft + parseInt(x, 10)) + 'px';
+      div.style.top = (this._video.offsetTop + parseInt(y, 10)) + 'px';
       div.style.width = width + 'px';
       div.style.height = height + 'px';
       div.style.zIndex = 10000;
@@ -96,5 +100,5 @@
     }
   };
 
-  root.WebVttPlugins = plugins;
+  root.WebVttPlugins = WebVttPlugins;
 })(window);

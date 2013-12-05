@@ -23,14 +23,15 @@
       });
       video.play();
     }, false);
+    video._plugins = new WebVttPlugins(video);
   }
 
   function applyCues(video, cues) {
     forEach(cues, function (cue) {
       var cueData = JSON.parse(cue.text);
       for (var pluginName in cueData)
-        if (WebVttPlugins[pluginName])
-          WebVttPlugins[pluginName](video, cue, cueData[pluginName]);
+        if (video._plugins[pluginName])
+          video._plugins[pluginName](cue, cueData[pluginName]);
     });
   }
 
