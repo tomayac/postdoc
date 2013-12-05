@@ -17,8 +17,9 @@
       }
     }
     video.addEventListener('canplaythrough', function() {
-      metadataTextTracks.forEach(function(textTrack) {
-        webVttToJsonLd(textTrack.cues, video.currentSrc);
+      metadataTextTracks.forEach(function (textTrack) {
+        var document = new WebVttDocument(textTrack.cues, video.currentSrc);
+        displayCode(document.toJSON());
       });
       video.play();
     }, false);
@@ -138,32 +139,11 @@
     }
   }
 
-  function webVttToJsonLd(cues, src) {
-    var jsonLd = {
-      "@context": {
-        annotation: 'http://example.org/annotation',
-        hasFragment: 'http://www.w3.org/ns/ma-ont#hasFragment',
-        MediaResource: 'http://www.w3.org/ns/ma-ont#MediaResource',
-        MediaFragment: 'http://www.w3.org/ns/ma-ont#MediaFragment'
-      },
-      "@id": src,
-      "@type": 'MediaResource',
-      hasFragment: []
-    };
-    for (var i = 0, lenI = cues.length; i < lenI; i++) {
-      var cue = cues[i];
-      var mediaFragment = {};
-      jsonLd.hasFragment.push(mediaFragment);
-      mediaFragment['@id'] = src + '#t=' + cue.startTime + ',' + cue.endTime;
-      mediaFragment['@type'] = 'MediaFragment';
-      mediaFragment.annotations = JSON.parse(cue.text);
-    }
-    var fragment = document.createDocumentFragment();
-    var pre = document.createElement('pre');
-    pre.innerHTML = JSON.stringify(jsonLd, null, 2);
+  function displayCode(source) {
+    var fragment = document.createDocumentFragment(),
+        pre = document.createElement('pre');
+    pre.innerHTML = JSON.stringify(source, null, 2);
     fragment.appendChild(pre);
     document.body.appendChild(fragment);
-    return JSON.stringify(jsonLd, null, 2);
   }
-
 })();
