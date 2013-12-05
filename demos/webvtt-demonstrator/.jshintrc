@@ -1,0 +1,17 @@
+{
+  "browser": true,
+  "loopfunc": true,
+  "proto": true,
+  "expr": true,
+  "boss": true,
+  "trailing": true,
+  "strict": false,
+  "undef": true,
+  "unused": true,
+  "white": true,
+  "indent": 2,
+  "globals": {
+    "WebVttDocument": true,
+    "TextTrackCue": true
+  }
+}

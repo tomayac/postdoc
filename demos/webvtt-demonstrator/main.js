@@ -1,4 +1,4 @@
-(function() {
+(function () {
 
   var videos = document.querySelectorAll('video');
   for (var i = 0, lenI = videos.length; i < lenI; i++) {
@@ -7,16 +7,15 @@
     var metadataTextTracks = [];
     for (var j = 0, lenJ = textTracks.length; j < lenJ; j++) {
       var textTrack = textTracks[j];
-      console.log(textTrack);
       if (textTrack.kind === 'metadata') {
         metadataTextTracks.push(textTrack);
         textTrack.mode = 'hidden';
-        textTrack.addEventListener('cuechange', function(e) {
+        textTrack.addEventListener('cuechange', function (e) {
           oncuechange(e, video);
         }, false);
       }
     }
-    video.addEventListener('canplaythrough', function() {
+    video.addEventListener('canplaythrough', function () {
       metadataTextTracks.forEach(function (textTrack) {
         var document = new WebVttDocument(textTrack.cues, video.currentSrc);
         displayCode(document.toJSON());
@@ -26,7 +25,7 @@
   }
 
   var plugins = {
-    tags: function(video, activeCue, value, opt_speaker) {
+    tags: function (video, activeCue, value, opt_speaker) {
       var valueStringified = value.toString();
       for (var i = 0, lenI = video.textTracks.length; i < lenI; i++) {
         var textTrack = video.textTracks[i];
@@ -47,17 +46,17 @@
         }
       }
     },
-    actors: function(video, activeCue, value) {
+    actors: function (video, activeCue, value) {
       plugins.tags(video, activeCue, value,
           '<v.meta-scene-actors>Scene Actors: ');
     },
-    volume: function(video, activeCue, value) {
+    volume: function (video, activeCue, value) {
       video.volume = parseFloat(value);
     },
-    playbackRate: function(video, activeCue, value) {
+    playbackRate: function (video, activeCue, value) {
       video.playbackRate = parseFloat(value);
     },
-    style: function(video, activeCue, value) {
+    style: function (video, activeCue, value) {
       var className = 'cue-' +
           activeCue.startTime.toString().replace(/\./g, '_') + '-' +
           activeCue.endTime.toString().replace(/\./g, '_');
@@ -68,11 +67,11 @@
         style.setAttribute('type', 'text/css');
         document.head.appendChild(style);
         video.classList.add(className);
-        (function(currentClassName) {
-          activeCue.addEventListener('exit', function(e) {
+        (function () {
+          activeCue.addEventListener('exit', function () {
             var classList = video.classList;
             classList.remove(className);
-            currentTime = parseFloat(video.currentTime);
+            var currentTime = parseFloat(video.currentTime);
             try {
               document.querySelector('#' + className).remove();
               // not all cue.onexit events always fire, so clean up manually
@@ -85,14 +84,13 @@
                   document.querySelector('#' + currentClassName).remove();
                 }
               }
-            } catch(e) {
-              // no-op
             }
+            catch (e) { }
           }, false);
-        })(className);
+        })();
       }
     },
-    spatialFragment: function(video, activeCue, value) {
+    spatialFragment: function (video, activeCue, value) {
       var components = value.replace(/^xywh=/, '').split(/,/);
       var x = components[0];
       var y = components[1];
@@ -111,13 +109,12 @@
       div.style.width = width + 'px';
       div.style.height = height + 'px';
       div.style.zIndex = 10000;
-      (function(currentId) {
-        activeCue.addEventListener('exit', function(e) {
+      (function (currentId) {
+        activeCue.addEventListener('exit', function () {
           try {
             document.querySelector('#' + currentId).remove();
-          } catch(e) {
-            // no-op
           }
+          catch (e) { }
         }, false);
       })(id);
     }
