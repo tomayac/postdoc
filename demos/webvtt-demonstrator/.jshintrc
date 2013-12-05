@@ -12,6 +12,7 @@
   "indent": 2,
   "globals": {
     "WebVttDocument": true,
+    "WebVttPlugins": true,
     "TextTrackCue": true
   }
 }
