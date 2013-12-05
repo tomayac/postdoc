@@ -1,6 +1,6 @@
 (function (root) {
   var plugins = {
-    tags: function (video, activeCue, value, opt_speaker) {
+    tags: function (video, cue, value, opt_speaker) {
       var valueStringified = value.toString();
       for (var i = 0, lenI = video.textTracks.length; i < lenI; i++) {
         var textTrack = video.textTracks[i];
@@ -11,8 +11,8 @@
             }
           }
           var newCue = new TextTrackCue(
-              activeCue.startTime,
-              activeCue.endTime,
+              cue.startTime,
+              cue.endTime,
               (opt_speaker ? opt_speaker : '<v.meta-tags>Scene Tags: ') +
                   value.join(', '));
           newCue.id = valueStringified;
@@ -22,23 +22,23 @@
       }
     },
 
-    actors: function (video, activeCue, value) {
-      plugins.tags(video, activeCue, value,
+    actors: function (video, cue, value) {
+      plugins.tags(video, cue, value,
           '<v.meta-scene-actors>Scene Actors: ');
     },
 
-    volume: function (video, activeCue, value) {
+    volume: function (video, cue, value) {
       video.volume = parseFloat(value);
     },
 
-    playbackRate: function (video, activeCue, value) {
+    playbackRate: function (video, cue, value) {
       video.playbackRate = parseFloat(value);
     },
 
-    style: function (video, activeCue, value) {
+    style: function (video, cue, value) {
       var className = 'cue-' +
-          activeCue.startTime.toString().replace(/\./g, '_') + '-' +
-          activeCue.endTime.toString().replace(/\./g, '_');
+          cue.startTime.toString().replace(/\./g, '_') + '-' +
+          cue.endTime.toString().replace(/\./g, '_');
       if (!document.querySelector('#' + className)) {
         var style = document.createElement('style');
         style.id = className;
@@ -46,7 +46,7 @@
         style.setAttribute('type', 'text/css');
         document.head.appendChild(style);
         video.classList.add(className);
-        activeCue.addEventListener('exit', function () {
+        cue.addEventListener('exit', function () {
           var classList = video.classList;
           classList.remove(className);
           var currentTime = parseFloat(video.currentTime);
@@ -68,7 +68,7 @@
       }
     },
 
-    spatialFragment: function (video, activeCue, value) {
+    spatialFragment: function (video, cue, value) {
       var components = value.replace(/^xywh=/, '').split(/,/);
       var x = components[0];
       var y = components[1];
@@ -76,8 +76,8 @@
       var height = components[3];
       var div = document.createElement('div');
       var id = 'cue-' +
-          activeCue.startTime.toString().replace(/\./g, '_') + '-' +
-          activeCue.endTime.toString().replace(/\./g, '_');
+          cue.startTime.toString().replace(/\./g, '_') + '-' +
+          cue.endTime.toString().replace(/\./g, '_');
       div.id = id;
       div.style.border = 'solid 4px yellow';
       video.parentNode.appendChild(div);
@@ -87,7 +87,7 @@
       div.style.width = width + 'px';
       div.style.height = height + 'px';
       div.style.zIndex = 10000;
-      activeCue.addEventListener('exit', function () {
+      cue.addEventListener('exit', function () {
         try {
           document.querySelector('#' + id).remove();
         }

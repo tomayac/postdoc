@@ -1,5 +1,5 @@
 (function (root) {
-  var map = Array.prototype.map;
+  var map = Function.prototype.call.bind([].map);
   var ma = 'http://www.w3.org/ns/ma-ont#';
 
   function WebVttDocument(cues, videoUrl) {
@@ -18,7 +18,7 @@
         },
         '@id': this._videoUrl,
         '@type': 'MediaResource',
-        hasFragment: map.call(this._cues, function (cue) {
+        hasFragment: map(this._cues, function (cue) {
           return {
             '@id': this._videoUrl + '#t=' + cue.startTime + ',' + cue.endTime,
             '@type': 'MediaFragment',

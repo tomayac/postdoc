@@ -1,8 +1,9 @@
 (function () {
+  var forEach = Function.prototype.call.bind([].forEach);
 
-  var videos = document.querySelectorAll('video');
-  for (var i = 0, lenI = videos.length; i < lenI; i++) {
-    var video = videos[i];
+  forEach(document.querySelectorAll('video'), enableMetadataDisplay);
+
+  function enableMetadataDisplay(video) {
     var textTracks = video.textTracks;
     var metadataTextTracks = [];
     for (var j = 0, lenJ = textTracks.length; j < lenJ; j++) {
@@ -10,8 +11,8 @@
       if (textTrack.kind === 'metadata') {
         metadataTextTracks.push(textTrack);
         textTrack.mode = 'hidden';
-        textTrack.addEventListener('cuechange', function (e) {
-          oncuechange(e, video);
+        textTrack.addEventListener('cuechange', function (event) {
+          applyCues(video, event.target.activeCues);
         }, false);
       }
     }
@@ -24,20 +25,13 @@
     }, false);
   }
 
-  function oncuechange(e, video) {
-    var activeCues = e.target.activeCues;
-    for (var i = 0, len = activeCues.length; i < len; i++) {
-      var activeCue = activeCues[i];
-      if (!activeCue) {
-        return;
-      }
-      var data = JSON.parse(activeCue.text);
-      for (var key in data) {
-        if (WebVttPlugins[key]) {
-          WebVttPlugins[key](video, activeCue, data[key]);
-        }
-      }
-    }
+  function applyCues(video, cues) {
+    forEach(cues, function (cue) {
+      var cueData = JSON.parse(cue.text);
+      for (var pluginName in cueData)
+        if (WebVttPlugins[pluginName])
+          WebVttPlugins[pluginName](video, cue, cueData[pluginName]);
+    });
   }
 
   function displayCode(source) {
