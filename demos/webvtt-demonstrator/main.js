@@ -1,38 +1,20 @@
 (function () {
   var forEach = Function.prototype.call.bind([].forEach);
 
-  forEach(document.querySelectorAll('video'), enableMetadataDisplay);
+  forEach(document.querySelectorAll('video'), activateVideo);
 
-  function enableMetadataDisplay(video) {
-    var textTracks = video.textTracks;
-    var metadataTextTracks = [];
-    for (var j = 0, lenJ = textTracks.length; j < lenJ; j++) {
-      var textTrack = textTracks[j];
-      if (textTrack.kind === 'metadata') {
-        metadataTextTracks.push(textTrack);
-        textTrack.mode = 'hidden';
-        textTrack.addEventListener('cuechange', function (event) {
-          applyCues(video, event.target.activeCues);
-        }, false);
-      }
-    }
-    video.addEventListener('canplaythrough', function () {
-      metadataTextTracks.forEach(function (textTrack) {
-        var document = new WebVttDocument(textTrack.cues, video.currentSrc);
-        displayCode(document.toJSON());
+  function activateVideo(videoElement) {
+    var video = new Video(videoElement);
+
+    // Display the metadata when loaded
+    video.addEventListener('loadedmetadata', function () {
+      video.metadataTracks.forEach(function (track) {
+        displayCode(new WebVttDocument(track.cues, video.currentSrc).toJSON());
       });
-      video.play();
-    }, false);
-    video._plugins = new WebVttPlugins(video);
-  }
-
-  function applyCues(video, cues) {
-    forEach(cues, function (cue) {
-      var cueData = JSON.parse(cue.text);
-      for (var pluginName in cueData)
-        if (video._plugins[pluginName])
-          video._plugins[pluginName](cue, cueData[pluginName]);
     });
+
+    // Play the video when ready
+    video.addEventListener('canplaythrough', video.play);
   }
 
   function displayCode(source) {
