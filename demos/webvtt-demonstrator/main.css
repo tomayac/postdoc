@@ -1,3 +1,65 @@
+html, input {
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 11pt;
+}
+
+body {
+  width: 800px;
+  margin: 0 auto;
+}
+
+form {
+  margin: 2em 0;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+form ul {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+}
+
+form li {
+  margin: .5em 0;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 14pt;
+  padding: 0 0 1em;
+}
+
+label {
+  display: inline-block;
+  width: 70px;
+  font-weight: bold;
+}
+
+label::after {
+  content: ":";
+}
+
+form p {
+  padding-left: 70px;
+}
+
+input[type=range] {
+  width: 500px;
+}
+
+input[type=button] {
+  font-size: 14pt;
+}
+
+#code {
+  display: none;
+}
+
 ::cue(.meta-scene-actors) {
   color: red;
   font-style: italic;

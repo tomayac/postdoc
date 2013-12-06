@@ -1,20 +1,17 @@
 (function () {
   var forEach = Function.prototype.call.bind([].forEach);
 
-  forEach(document.querySelectorAll('video'), activateVideo);
+  var video = new Video(document.querySelector('#editor video'));
+  var editor = new CueEditor(video);
 
-  function activateVideo(videoElement) {
-    var video = new Video(videoElement);
+  showMetadata(video);
 
-    // Display the metadata when loaded
+  function showMetadata(video) {
     video.addEventListener('loadedmetadata', function () {
       video.metadataTracks.forEach(function (track) {
         displayCode(new WebVttDocument(track.cues, video.currentSrc).toJSON());
       });
     });
-
-    // Play the video when ready
-    video.addEventListener('canplaythrough', video.play);
   }
 
   function displayCode(source) {
@@ -22,6 +19,6 @@
         pre = document.createElement('pre');
     pre.innerHTML = JSON.stringify(source, null, 2);
     fragment.appendChild(pre);
-    document.body.appendChild(fragment);
+    document.getElementById('code').appendChild(fragment);
   }
 })();
