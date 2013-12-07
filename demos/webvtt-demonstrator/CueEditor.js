@@ -46,33 +46,29 @@
     },
 
     _displayCues: function (cues) {
-      var self = this;
       this._cueList.innerHTML = '';
       if (cues.length) {
         forEach(cues, function (cue) {
-          var cueElement = addChild(self._cueList, 'li'),
+          var cueElement = addChild(this._cueList, 'li'),
               cueLink = addChild(cueElement, 'a', cue.id);
           cueLink.href = 'javascript:';
-          cueLink.addEventListener('click', function () { self.editCue(cue); });
-        });
+          cueLink.addEventListener('click', this.editCue.bind(this, cue));
+        }, this);
       }
       else {
-        addChild(addChild(self._cueList, 'li'), 'em', '(none)');
+        addChild(addChild(this._cueList, 'li'), 'em', '(none)');
       }
     },
 
     editCue: function (cue) {
+      var metadataCue = new MetadataCue(this._video, cue);
       this._editForm.setAttribute('style', 'display: inherit');
-      this._editedCue = cue;
-      this._name.value = cue.id;
+      this._editedCue = metadataCue;
+      this._name.value = metadataCue.id;
       this._name.disabled = true;
-      this._start.value = cue.startTime;
-      this._end.value = cue.endTime;
-
-      var propertyValues = JSON.parse(cue.text);
-      forEach(this._properties, function (propertyInput) {
-        propertyInput.value = JSON.stringify(propertyValues[propertyInput.id]);
-      });
+      this._start.value = metadataCue.startTime;
+      this._end.value = metadataCue.endTime;
+      forEach(this._properties, function (property) { property.value = metadataCue[property.id] || ''; });
     },
   };
 

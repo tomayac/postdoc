@@ -12,10 +12,10 @@
   "white": true,
   "indent": 2,
   "globals": {
-    "CueEditor": true,
     "Video": true,
+    "MetadataCue": true,
+    "CueEditor": true,
     "WebVttDocument": true,
-    "WebVttPlugins": true,
     "TextTrackCue": true
   }
 }

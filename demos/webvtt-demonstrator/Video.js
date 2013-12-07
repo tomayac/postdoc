@@ -11,24 +11,30 @@
     var metadataTracks = filter(element.textTracks, function (t) { return t.kind === 'metadata'; }),
         metadataTrack = metadataTracks[0] || element.addTextTrack('metadata');
     metadataTrack.mode = 'hidden';
-    metadataTrack.addEventListener('cuechange', function () { element.applyCues(this.activeCues); });
-
-    // set properties
+    metadataTrack.addEventListener('cuechange', function () { element.activateCues(this.activeCues); });
     element.metadataTrack = metadataTrack;
-    element._plugins = new WebVttPlugins(element);
+
     return element;
   }
 
   Video.prototype = {
-    applyCue: function (cue) {
-      var cueData = JSON.parse(cue.text);
-      for (var pluginName in cueData)
-        if (this._plugins[pluginName])
-          this._plugins[pluginName](cue, cueData[pluginName]);
+    activateCue: function (cue) {
+      var metadataCue = new MetadataCue(this, cue);
+      metadataCue.activate();
+
+      // remove the cue when it's no longer among the active cues
+      this.metadataTrack.addEventListener('cuechange',
+        function deactivate() {
+          var isActive = filter(this.activeCues, function (c) { return c === cue; }).length !== 0;
+          if (!isActive) {
+            metadataCue.deactivate();
+            this.removeEventListener('cuechange', deactivate);
+          }
+        });
     },
 
-    applyCues: function (cues) {
-      forEach(cues, this.applyCue.bind(this));
+    activateCues: function (cues) {
+      forEach(cues, this.activateCue, this);
     },
 
     getWebVttDocument: function () {
