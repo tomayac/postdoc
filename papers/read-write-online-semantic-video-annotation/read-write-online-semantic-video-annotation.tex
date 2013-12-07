@@ -147,6 +147,45 @@ based on a~state-of-the-art hypervideo model.
 
 \section{Introduction}
 
+With the ever-growing number of implemented HTML5~\cite{berjon2013html5}
+technologies in common Web browsers,
+finally video has become a~first class citizen on the Web.
+The \texttt{<video>} element has broad support
+on all device classes,
+starting from cellphones to tablets to full-size desktop PCs.
+Videos can be intermixed with other multimedia content,
+which allows for rich, interactive experiences%
+\footnote{\url{http://www.chromeexperiments.com/}}
+based on spatiotemporal annotations
+not believed possible on the Web some years ago.
+Yet the creation of such annotations
+has mainly remained a~thing of Web content producers,
+not content consumers or standard Web users.
+While on common video platforms people
+can leave comments \emph{about videos},
+more rich annotations \emph{of videos} are not possible,
+nor exists a~commonly accepted, open format to share annotations.
+
+In this paper, we propose an annotation model
+and related technology stack that allows both,
+video consumers and video producers to create 
+rich, interactive video experiences
+in a~collaborative Read/Write manner.
+We support representational and semantic annotations,
+so that annotators can have an impact
+on the look and feel of videos,
+but also make semantic statements
+about the meaning of the video itself, fragments of it,
+or objects within it.
+The created annotations are interchangeable
+and not bound to a~specific video hosting platform,
+as they are fully based on the Web standards
+JSON-LD~\cite{sporny2013jsonld}
+and WebVTT~\cite{pfeiffer2013webvtt}.
+
+The remainder of this paper is organized as follows.
+\todo{Describe paper structure}
+
 \section{Related Work}
 
 The online video hosting platform YouTube%
