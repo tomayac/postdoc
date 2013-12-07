@@ -99,6 +99,24 @@
       delete this._styleElement;
     });
 
+  defineCueProperty('spatialFragment', null,
+    function activate(coordinates) {
+      var xywh = coordinates.match(/^xywh=(\d+),(\d+),(\d+),(\d+)/);
+      if (xywh) {
+        var rectangle = this._rectangle = document.createElement('div');
+        rectangle.classList.add('highlight');
+        rectangle.style.left   = (this._video.offsetLeft + parseInt(xywh[1], 10)) + 'px';
+        rectangle.style.top    = (this._video.offsetTop  + parseInt(xywh[2], 10)) + 'px';
+        rectangle.style.width  = xywh[3] + 'px';
+        rectangle.style.height = xywh[4] + 'px';
+        document.body.appendChild(rectangle);
+      }
+    },
+    function deactivate() {
+      this._rectangle && document.body.removeChild(this._rectangle);
+      delete this._rectangle;
+    });
+
   root.MetadataCue = MetadataCue;
 })(window);
 

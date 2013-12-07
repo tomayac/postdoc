@@ -81,6 +81,12 @@ input[type=button] {
   font-style: italic;
 }
 
+.highlight {
+  z-index: 10000;
+  position: absolute;
+  border: solid 4px yellow;
+}
+
 pre {
   width: 840px;
   border: dashed 2px darkgray;
