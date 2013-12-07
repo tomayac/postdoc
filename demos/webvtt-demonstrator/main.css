@@ -56,6 +56,17 @@ input[type=button] {
   font-size: 14pt;
 }
 
+#activeCues ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#activeCues li {
+  display: inline;
+  margin-right: 10px;
+}
+
 #code {
   display: none;
 }
