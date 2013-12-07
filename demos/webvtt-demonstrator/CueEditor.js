@@ -48,12 +48,17 @@
     _displayCues: function (cues) {
       var self = this;
       this._cueList.innerHTML = '';
-      forEach(cues, function (cue) {
-        var cueElement = addChild(self._cueList, 'li'),
-            cueLink = addChild(cueElement, 'a', cue.id);
-        cueLink.href = 'javascript:';
-        cueLink.addEventListener('click', function () { self.editCue(cue); });
-      });
+      if (cues.length) {
+        forEach(cues, function (cue) {
+          var cueElement = addChild(self._cueList, 'li'),
+              cueLink = addChild(cueElement, 'a', cue.id);
+          cueLink.href = 'javascript:';
+          cueLink.addEventListener('click', function () { self.editCue(cue); });
+        });
+      }
+      else {
+        addChild(addChild(self._cueList, 'li'), 'em', '(none)');
+      }
     },
 
     editCue: function (cue) {
