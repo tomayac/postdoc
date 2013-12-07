@@ -48,7 +48,7 @@ form p {
   padding-left: 70px;
 }
 
-input[type=range] {
+input[type=range], .property input {
   width: 500px;
 }
 
@@ -58,7 +58,7 @@ input[type=button] {
 
 #activeCues ul {
   list-style: none;
-  margin: 0;
+  margin: 1em 0;
   padding: 0;
 }
 
@@ -68,6 +68,10 @@ input[type=button] {
 }
 
 #code {
+  display: none;
+}
+
+#editor form {
   display: none;
 }
 

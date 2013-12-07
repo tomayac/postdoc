@@ -8,7 +8,7 @@
       element[name] = Video.prototype[name];
 
     // find or create main metadata track
-    var metadataTracks = filter(element.textTracks, function (t) { return t.kind === 'metadata' }),
+    var metadataTracks = filter(element.textTracks, function (t) { return t.kind === 'metadata'; }),
         metadataTrack = metadataTracks[0] || element.addTextTrack('metadata');
     metadataTrack.mode = 'hidden';
     metadataTrack.addEventListener('cuechange', function () { element.applyCues(this.activeCues); });

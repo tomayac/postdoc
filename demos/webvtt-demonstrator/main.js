@@ -1,9 +1,8 @@
 (function () {
-  var forEach = Function.prototype.call.bind([].forEach);
-
   var video = new Video(document.querySelector('#editor video'));
   var editor = new CueEditor(video);
 
+  editor.init();
   showMetadata(video);
 
   function showMetadata(video) {

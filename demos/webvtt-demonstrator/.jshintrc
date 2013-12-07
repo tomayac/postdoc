@@ -1,5 +1,6 @@
 {
   "browser": true,
+  "scripturl": true,
   "loopfunc": true,
   "proto": true,
   "expr": true,
@@ -11,6 +12,8 @@
   "white": true,
   "indent": 2,
   "globals": {
+    "CueEditor": true,
+    "Video": true,
     "WebVttDocument": true,
     "WebVttPlugins": true,
     "TextTrackCue": true
