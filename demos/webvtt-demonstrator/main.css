@@ -67,11 +67,7 @@ input[type=button] {
   margin-right: 10px;
 }
 
-#code {
-  display: none;
-}
-
-#editor form {
+.hidden {
   display: none;
 }
 

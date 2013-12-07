@@ -43,6 +43,9 @@
           start.value = end.value;
         self._editedCue.endTime = video.currentTime = end.value;
       });
+
+      // cancel button
+      $('#cancel').addEventListener('click', function () { editForm.classList.add('hidden'); });
     },
 
     _displayCues: function (cues) {
@@ -62,7 +65,7 @@
 
     editCue: function (cue) {
       var metadataCue = new MetadataCue(this._video, cue);
-      this._editForm.setAttribute('style', 'display: inherit');
+      this._editForm.classList.remove('hidden');
       this._editedCue = metadataCue;
       this._name.value = metadataCue.id;
       this._name.disabled = true;
