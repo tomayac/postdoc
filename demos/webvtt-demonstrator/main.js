@@ -14,7 +14,7 @@
 
   function displayCode(source) {
     var pre = document.createElement('pre');
-    pre.innerHTML = JSON.stringify(source, null, 2);
+    pre.innerText = JSON.stringify(source, null, 2);
     document.getElementById('code').appendChild(pre);
   }
 })();

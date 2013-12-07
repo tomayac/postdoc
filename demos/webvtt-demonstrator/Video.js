@@ -14,7 +14,7 @@
     metadataTrack.addEventListener('cuechange', function () { element.applyCues(this.activeCues); });
 
     // set properties
-    element._metadataTrack = metadataTrack;
+    element.metadataTrack = metadataTrack;
     element._plugins = new WebVttPlugins(element);
     return element;
   }
@@ -32,7 +32,7 @@
     },
 
     getWebVttDocument: function () {
-      return new WebVttDocument(this, this._metadataTrack.cues);
+      return new WebVttDocument(this, this.metadataTrack.cues);
     },
   };
 
