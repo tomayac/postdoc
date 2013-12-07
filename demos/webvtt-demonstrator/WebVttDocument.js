@@ -2,9 +2,9 @@
   var map = Function.prototype.call.bind([].map);
   var ma = 'http://www.w3.org/ns/ma-ont#';
 
-  function WebVttDocument(cues, videoUrl) {
+  function WebVttDocument(video, cues) {
+    this._video = video;
     this._cues = cues;
-    this._videoUrl = videoUrl;
   }
 
   WebVttDocument.prototype = {
@@ -20,11 +20,11 @@
         '@type': 'MediaResource',
         hasFragment: map(this._cues, function (cue) {
           return {
-            '@id': this._videoUrl + '#t=' + cue.startTime + ',' + cue.endTime,
+            '@id': this._video.currentSrc + '#t=' + cue.startTime + ',' + cue.endTime,
             '@type': 'MediaFragment',
             annotations: JSON.parse(cue.text),
           };
-        }),
+        }, this),
       };
     },
   };

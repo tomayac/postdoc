@@ -9,7 +9,7 @@
   function showMetadata(video) {
     video.addEventListener('loadedmetadata', function () {
       video.metadataTracks.forEach(function (track) {
-        displayCode(new WebVttDocument(track.cues, video.currentSrc).toJSON());
+        displayCode(new WebVttDocument(video, track.cues).toJSON());
       });
     });
   }
