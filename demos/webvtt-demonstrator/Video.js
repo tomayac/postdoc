@@ -1,21 +1,21 @@
 (function (root) {
   var forEach = Function.prototype.call.bind([].forEach);
+  var filter  = Function.prototype.call.bind([].filter);
 
   function Video(element) {
     // add prototype functions
     for (var name in Video.prototype)
       element[name] = Video.prototype[name];
 
+    // find or create main metadata track
+    var metadataTracks = filter(element.textTracks, function (t) { return t.kind === 'metadata' }),
+        metadataTrack = metadataTracks[0] || element.addTextTrack('metadata');
+    metadataTrack.mode = 'hidden';
+    metadataTrack.addEventListener('cuechange', function () { element.applyCues(this.activeCues); });
+
     // set properties
+    element._metadataTrack = metadataTrack;
     element._plugins = new WebVttPlugins(element);
-    element.metadataTracks = [];
-    forEach(element.textTracks, function (track) {
-      if (track.kind === 'metadata') {
-        element.metadataTracks.push(track);
-        track.mode = 'hidden';
-        track.addEventListener('cuechange', function () { element.applyCues(track.activeCues); });
-      }
-    });
     return element;
   }
 
@@ -29,6 +29,10 @@
 
     applyCues: function (cues) {
       forEach(cues, this.applyCue.bind(this));
+    },
+
+    getWebVttDocument: function () {
+      return new WebVttDocument(this, this._metadataTrack.cues);
     },
   };
 

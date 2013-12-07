@@ -8,17 +8,13 @@
 
   function showMetadata(video) {
     video.addEventListener('loadedmetadata', function () {
-      video.metadataTracks.forEach(function (track) {
-        displayCode(new WebVttDocument(video, track.cues).toJSON());
-      });
+      displayCode(video.getWebVttDocument().toJSON());
     });
   }
 
   function displayCode(source) {
-    var fragment = document.createDocumentFragment(),
-        pre = document.createElement('pre');
+    var pre = document.createElement('pre');
     pre.innerHTML = JSON.stringify(source, null, 2);
-    fragment.appendChild(pre);
-    document.getElementById('code').appendChild(fragment);
+    document.getElementById('code').appendChild(pre);
   }
 })();
