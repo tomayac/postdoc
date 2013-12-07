@@ -25,21 +25,23 @@
     _deactivators: {},
 
     activate: function () {
-      if (this._baseCue._activated) return;
-      this._baseCue._activated = true;
-
-      for (var key in this._activators) {
-        var settings = this._cueSettings[key];
-        if (settings)
-          this._activators[key].call(this, settings);
+      if (!this._baseCue._activated) {
+        this._activated = this._baseCue._activated = true;
+        for (var key in this._activators) {
+          var settings = this._cueSettings[key];
+          if (settings)
+            this._activators[key].call(this, settings);
+        }
       }
     },
 
     deactivate: function () {
-      delete this._baseCue._activated;
-      for (var key in this._deactivators) {
-        var deactivator = this._deactivators[key];
-        deactivator && deactivator.call(this);
+      if (this._activated) {
+        this._activated = this._baseCue._activated = false;
+        for (var key in this._deactivators) {
+          var deactivator = this._deactivators[key];
+          deactivator && deactivator.call(this);
+        }
       }
     },
   };
