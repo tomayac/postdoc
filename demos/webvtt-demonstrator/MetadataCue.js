@@ -15,7 +15,7 @@
     baseCue._metadataCue = this;
 
     // parse JSON data from the original TextTrackCue
-    var cueData = JSON.parse(baseCue.text),
+    var cueData = baseCue.text ? JSON.parse(baseCue.text) : {},
         cueSettings = this._cueSettings = {};
     for (var key in this._activators)
       cueSettings[key] = cueData[key];

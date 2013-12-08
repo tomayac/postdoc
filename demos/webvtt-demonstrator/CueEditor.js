@@ -69,6 +69,17 @@
         editForm.classList.add('hidden');
       });
 
+      // add link
+      video.addEventListener('loadedmetadata', function () {
+        var addLink = $('#add'), newCueId = metadataTrack.cues.length;
+        addLink.addEventListener('click', function () {
+          var cue = new TextTrackCue(video.currentTime, video.duration, '');
+          cue.id = 'cue' + newCueId++;
+          metadataTrack.addCue(cue);
+          self.editCue(cue);
+        });
+      });
+
       // save button
       $('#save').addEventListener('click', function () {
         new WebVttDocument(video, metadataTrack).writeToStorage();
@@ -83,18 +94,15 @@
 
     // Displays the specified cues as links that afford editing
     _displayCues: function (cues) {
-      this._cueList.innerHTML = '';
-      if (cues.length) {
-        forEach(cues, function (cue) {
-          var cueElement = createChild(this._cueList, 'li'),
-              cueLink = createChild(cueElement, 'a', cue.id);
-          cueLink.href = 'javascript:';
-          cueLink.addEventListener('click', this.editCue.bind(this, cue));
-        }, this);
-      }
-      else {
-        createChild(createChild(this._cueList, 'li'), 'em', '(none)');
-      }
+      var cueList = this._cueList;
+      forEach(cueList.querySelectorAll('.cue'), function (c) { cueList.removeChild(c); });
+      forEach(cues, function (cue) {
+        var cueElement = createChild(cueList, 'li'),
+            cueLink = createChild(cueElement, 'a', cue.id);
+        cueElement.classList.add('cue');
+        cueLink.href = 'javascript:';
+        cueLink.addEventListener('click', this.editCue.bind(this, cue));
+      }, this);
     },
 
     // Opens the specified cue in the editor panel
