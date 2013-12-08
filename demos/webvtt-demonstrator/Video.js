@@ -9,7 +9,13 @@
 
     // find or create main metadata track
     var metadataTracks = filter(element.textTracks, function (t) { return t.kind === 'metadata'; }),
-        metadataTrack = metadataTracks[0] || element.addTextTrack('metadata');
+        metadataTrack = metadataTracks[0] || element.addTextTrack('metadata'),
+        storedTrack = WebVttDocument.loadFromStorage(element, metadataTrack.label);
+    storedTrack && element.addEventListener('loadedmetadata', function () {
+      while (metadataTrack.cues.length !== 0)
+        metadataTrack.removeCue(metadataTrack.cues[0]);
+      storedTrack.cues.forEach(function (cue) { metadataTrack.addCue(cue); });
+    });
     metadataTrack.mode = 'hidden';
     metadataTrack.addEventListener('cuechange', function () { element.activateCues(this.activeCues); });
     element.metadataTrack = metadataTrack;
@@ -38,7 +44,7 @@
     },
 
     getWebVttDocument: function () {
-      return new WebVttDocument(this, this.metadataTrack.cues);
+      return new WebVttDocument(this, this.metadataTrack);
     },
   };
 

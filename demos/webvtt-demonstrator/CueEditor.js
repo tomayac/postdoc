@@ -54,8 +54,19 @@
         self._editedCue.endTime = video.currentTime = end.value;
       });
 
-      // cancel button
-      $('#cancel').addEventListener('click', function () { editForm.classList.add('hidden'); });
+      // close button
+      $('#close').addEventListener('click', function () { editForm.classList.add('hidden'); });
+
+      // save button
+      $('#save').addEventListener('click', function () {
+        new WebVttDocument(video, video.metadataTrack).writeToStorage();
+      });
+
+      // reset button
+      $('#reset').addEventListener('click', function () {
+        WebVttDocument.removeFromStorage(video, video.metadataTrack.label);
+        window.location.reload();
+      });
     },
 
     _displayCues: function (cues) {
