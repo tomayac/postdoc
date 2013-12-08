@@ -13,7 +13,7 @@
   CueEditor.prototype = {
     // Initializes the editor by binding HTML elements to this editor's video
     init: function () {
-      var self = this, video = this._video,
+      var self = this, video = this._video, metadataTrack = video.metadataTrack,
           editForm = this._editForm = $('#editor form'),
           name = this._name = $('#name'),
           start = this._start = $('#start'),
@@ -22,14 +22,14 @@
           cueList = this._cueList = $('#activeCues ul');
 
       // cue list
-      video.metadataTrack.addEventListener('cuechange', function () {
-        self._displayCues(video.metadataTrack.activeCues);
+      metadataTrack.addEventListener('cuechange', function () {
+        self._displayCues(metadataTrack.activeCues);
       });
 
       // style control
       name.addEventListener('change', function () {
         self._editedCue.id = name.value;
-        self._displayCues(video.metadataTrack.activeCues);
+        self._displayCues(metadataTrack.activeCues);
       });
 
       // property controls
@@ -61,14 +61,22 @@
       // close button
       $('#close').addEventListener('click', function () { editForm.classList.add('hidden'); });
 
+      // delete button
+      $('#delete').addEventListener('click', function () {
+        metadataTrack.removeCue(self._editedCueBase);
+        self._editedCue.deactivate();
+        self._displayCues(metadataTrack.activeCues);
+        editForm.classList.add('hidden');
+      });
+
       // save button
       $('#save').addEventListener('click', function () {
-        new WebVttDocument(video, video.metadataTrack).writeToStorage();
+        new WebVttDocument(video, metadataTrack).writeToStorage();
       });
 
       // reset button
       $('#reset').addEventListener('click', function () {
-        WebVttDocument.removeFromStorage(video, video.metadataTrack.label);
+        WebVttDocument.removeFromStorage(video, metadataTrack.label);
         window.location.reload();
       });
     },
@@ -94,6 +102,7 @@
       var metadataCue = new MetadataCue(this._video, cue);
       this._editForm.classList.remove('hidden');
       this._editedCue = metadataCue;
+      this._editedCueBase = cue;
       this._name.value = metadataCue.id;
       this._name.disabled = true;
       this._start.value = metadataCue.startTime;
