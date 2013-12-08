@@ -9,7 +9,7 @@
 
   WebVttDocument.prototype = {
     toJSON: function () {
-      return {
+      return JSON.stringify({
         '@context': {
           annotation: 'http://example.org/annotation',
           hasFragment: ma + 'hasFragment',
@@ -25,7 +25,7 @@
             annotations: JSON.parse(cue.text),
           };
         }, this),
-      };
+      }, null, 2);
     },
   };
 

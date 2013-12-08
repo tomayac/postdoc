@@ -13,7 +13,7 @@
 
   function displayCode(source) {
     var pre = document.createElement('pre');
-    pre.innerText = JSON.stringify(source, null, 2);
+    pre.innerText = source;
     document.getElementById('code').appendChild(pre);
   }
 })();
