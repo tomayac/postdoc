@@ -172,8 +172,8 @@ video consumers and video producers to create
 rich, interactive video experiences
 in a~collaborative Read/Write manner.
 We support representational and semantic annotations,
-so that annotators can have an impact
-on the look and feel of videos,
+so that annotators can change
+the look and feel of videos,
 but also make semantic statements
 about the meaning of the video itself, fragments of it,
 or objects within it.
@@ -229,6 +229,59 @@ Concretely, their systems allows for linking, displaying
 browsing, and bookmarking of media fragments,
 providing structured annotations for media fragments,
 and experiencing synchronized media and annotations.
+
+The Synchronized Multimedia Integration Language\linebreak
+(SMIL,~\cite{bulterman2006smil})
+defines an XML-based language that allows authors
+to write interactive multimedia presentations.
+Using SMIL, an author can describe the temporal behavior
+of a~multimedia presentation, associate hyperlinks
+with media objects, and describe the layout
+of the presentation on a~screen.
+% SMIL components can be used for integrating timing
+% into XHTML~\cite{pemberton2002xhtml}
+% and into SVG~\cite{ferraiolo2003svg}.
+SMIL features are not commonly supported 
+in modern Web browsers and special plugins or native software
+are required for their consumption,
+albeit in 2002 there was a~mostly Microsoft-led attempt
+in form of the HTML+TIME submission~\cite{schmitz1998htmltime}
+and, based thereon, the XHTML+SMIL Profile note%
+~\cite{newman2002xhtmlsmil}
+to integrate SMIL semantics with (X)HTML and CSS.
+Despite its initially active role in the W3C working group
+that developed the SMIL standard,
+Microsoft later decided to not further support SMIL
+due to a~perceived overlap with several existing standards.
+
+The Component-based Hypervideo Model
+(CHM,~\cite{sadallah2012hypervideo})
+proposes a~formal model for hypervideo documents
+and offers a~practical framework that allows for
+the design of Web-oriented hypervideos.
+CHM annotations are defined as any data associated to
+a~logical spatiotemporal video fragment.
+A~first version of the proposed framework
+has been released in form of the WebCHM prototype
+that integrates with existing Web technologies
+via a~declarative syntax.
+Support for temporal semantics is ensured through  
+an implementation of SMIL Timesheets~\cite{vuorimaa2012timesheets}
+in a~JavaScript library.
+
+Popcorn.js\footnote{\url{http://popcornjs.org/}}
+is an HTML5 media framework written in JavaScript
+aimed at filmmakers, Web developers,
+and users interested in creating
+time-based interactive media on the Web.
+Popcorn.js is part of Mozilla's Popcorn project
+and adds interactivity and context to online video
+by letting users link social media, news feeds,
+data visualizations, and other content directly to moving images.
+The Mozilla PopcornMaker%
+\footnote{\url{https://popcorn.webmaker.org/}}
+is an interactive Web authoring environment
+that allows for videos to be annotated on a~video timeline.
 
 \section{Enabling Technologies}
 
