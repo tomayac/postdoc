@@ -1,13 +1,17 @@
+/* A CueEditor allows to edit metadata cues, binding the HTML editor elements to functionality. */
+
 (function (root) {
   var $  = document.querySelector.bind(document);
   var $$ = document.querySelectorAll.bind(document);
   var forEach = Function.prototype.call.bind([].forEach);
 
+  // Creates a new CueEditor
   function CueEditor(video) {
     this._video = video;
   }
 
   CueEditor.prototype = {
+    // Initializes the editor by binding HTML elements to this editor's video
     init: function () {
       var self = this, video = this._video,
           editForm = this._editForm = $('#editor form'),
@@ -69,21 +73,23 @@
       });
     },
 
+    // Displays the specified cues as links that afford editing
     _displayCues: function (cues) {
       this._cueList.innerHTML = '';
       if (cues.length) {
         forEach(cues, function (cue) {
-          var cueElement = addChild(this._cueList, 'li'),
-              cueLink = addChild(cueElement, 'a', cue.id);
+          var cueElement = createChild(this._cueList, 'li'),
+              cueLink = createChild(cueElement, 'a', cue.id);
           cueLink.href = 'javascript:';
           cueLink.addEventListener('click', this.editCue.bind(this, cue));
         }, this);
       }
       else {
-        addChild(addChild(this._cueList, 'li'), 'em', '(none)');
+        createChild(createChild(this._cueList, 'li'), 'em', '(none)');
       }
     },
 
+    // Opens the specified cue in the editor panel
     editCue: function (cue) {
       var metadataCue = new MetadataCue(this._video, cue);
       this._editForm.classList.remove('hidden');
@@ -96,7 +102,8 @@
     },
   };
 
-  function addChild(parent, tagName, text) {
+  // Creates a child element for the parent
+  function createChild(parent, tagName, text) {
     var element = document.createElement(tagName);
     parent.appendChild(element);
     if (text)

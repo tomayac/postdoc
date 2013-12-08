@@ -1,7 +1,10 @@
+/* A WebVttDocument represents a metadata track's cues and allows to store them. */
+
 (function (root) {
   var map = Function.prototype.call.bind([].map);
   var ma = 'http://www.w3.org/ns/ma-ont#';
 
+  // Creates a new WebVttDocument
   function WebVttDocument(video, track) {
     this._video = video;
     this.cues = track.cues;
@@ -9,6 +12,7 @@
   }
 
   WebVttDocument.prototype = {
+    // Returns a JSON representation of this WebVTT document
     toJSON: function () {
       return JSON.stringify({
         '@context': {
@@ -17,7 +21,7 @@
           MediaResource: ma + 'MediaResource',
           MediaFragment: ma + 'MediaFragment'
         },
-        '@id': this._videoUrl,
+        '@id': this._video.currentSrc,
         '@type': 'MediaResource',
         hasFragment: map(this.cues, function (cue) {
           return {
@@ -30,11 +34,13 @@
       }, null, 2);
     },
 
+    // Writes the WebVTT document to local storage
     writeToStorage: function () {
       localStorage[this._documentId] = this.toJSON();
     },
   };
 
+  // Loads a WebVTT document from local storage (if it exists)
   WebVttDocument.loadFromStorage = function (video, trackLabel) {
     var documentId = video.currentSrc + '|' + trackLabel;
     if (!(documentId in localStorage)) return;
@@ -49,6 +55,7 @@
     return new WebVttDocument(video, { cues: cues, label: trackLabel });
   };
 
+  // Removes a WebVTT document from local storage
   WebVttDocument.removeFromStorage = function (video, trackLabel) {
     var documentId = video.currentSrc + '|' + trackLabel;
     delete localStorage[documentId];

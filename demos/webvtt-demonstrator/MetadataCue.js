@@ -1,6 +1,9 @@
+/* A MetadataCue allows to activate specific metadata properties of a TextTrackCue. */
+
 (function (root) {
   var filter = Function.prototype.call.bind([].filter);
 
+  // Creates a new MetadataCue associated with the specified TextTrackCue
   function MetadataCue(video, baseCue) {
     // only instantiate one MetadataCue per TextTrackCue
     if (baseCue._metadataCue)
@@ -11,7 +14,7 @@
     this._baseCue = baseCue;
     baseCue._metadataCue = this;
 
-    // parse JSON data from cue
+    // parse JSON data from the original TextTrackCue
     var cueData = JSON.parse(baseCue.text),
         cueSettings = this._cueSettings = {};
     for (var key in this._activators)
@@ -24,19 +27,25 @@
   }
 
   var prototype = MetadataCue.prototype = {
+    // Functions that activate specific metadata properties
     _activators: {},
 
+    // Functions that deactivate specific metadata properties
     _deactivators: {},
 
+    // Gets and sets the ID of the cue
     get id() { return this._baseCue.id; },
     set id(value)   { this._baseCue.id = value; },
 
+    // Gets and sets the start time of the cue
     get startTime() { return this._baseCue.startTime; },
     set startTime(value)   { this._baseCue.startTime = value; },
 
+    // Gets and sets the end time of the cue
     get endTime() { return this._baseCue.endTime; },
     set endTime(value)   { this._baseCue.endTime = value; },
 
+    // Activates all properties of this cue
     activate: function () {
       if (!this._activated) {
         this._activated = true;
@@ -48,6 +57,7 @@
       }
     },
 
+    // Deactivates all properties of this cue
     deactivate: function () {
       if (this._activated) {
         this._activated = false;
@@ -58,6 +68,7 @@
       }
     },
 
+    // If activated, reactivates the properties of this cue to reflect changes
     refresh: function () {
       if (this._activated) {
         this.deactivate();
@@ -65,6 +76,7 @@
       }
     },
 
+    // Returns a JSON representation of this cue
     toJSON: function () {
       var settings = { '@context': 'http://example.org/json-ld/contexts/context.jsonld' };
       for (var key in this._cueSettings)
@@ -74,7 +86,8 @@
     },
   };
 
-  function defineCueProperty(name, parse, activator, deactivator) {
+  // Defines a metadata property supported by MetadataCue
+  function defineMetadataCueProperty(name, parse, activator, deactivator) {
     Object.defineProperty(prototype, name, {
       get: function () {
         return this._cueSettings[name];
@@ -89,7 +102,8 @@
     prototype._deactivators[name] = deactivator;
   }
 
-  defineCueProperty('tags',
+  // The `tags` property displays tags for a certain scene
+  defineMetadataCueProperty('tags',
     function parse(value) { return value.split(/\s*,\s*/); },
     function activate(tags) {
       var text = '<v.meta-tags>Scene Tags: ' + tags.join(', '),
@@ -101,7 +115,8 @@
       delete this._tagsCue;
     });
 
-  defineCueProperty('actors',
+  // The `actors` property displays actor names
+  defineMetadataCueProperty('actors',
     function parse(value) { return value.split(/\s*,\s*/); },
     function activate(actors) {
       var text = '<v.meta-scene-actors>Scene Actors: ' + actors.join(', '),
@@ -113,15 +128,18 @@
       delete this._actorsCue;
     });
 
-  defineCueProperty('volume',
+  // The `volume` property sets the volume
+  defineMetadataCueProperty('volume',
     function parse(value) { return parseFloat(value); },
     function activate(volume) { this._video.volume = volume; });
 
-  defineCueProperty('playbackRate',
+  // The `playbackRate` property sets the playback rate
+  defineMetadataCueProperty('playbackRate',
     function parse(value) { return parseFloat(value); },
     function activate(playbackRate) { this._video.playbackRate = playbackRate; });
 
-  defineCueProperty('style', null,
+  // The `style` property applies a CSS style to the video
+  defineMetadataCueProperty('style', null,
     function activate(style) {
       var styleElement = this._styleElement = document.createElement('style');
       styleElement.setAttribute('type', 'text/css');
@@ -133,7 +151,8 @@
       delete this._styleElement;
     });
 
-  defineCueProperty('spatialFragment', null,
+  // The `spatialFragment` property highlights a spatial fragment
+  defineMetadataCueProperty('spatialFragment', null,
     function activate(coordinates) {
       var xywh = coordinates.match(/^xywh=(\d+),(\d+),(\d+),(\d+)/);
       if (xywh) {
