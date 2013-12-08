@@ -28,6 +28,16 @@
         self._displayCues(video.metadataTrack.activeCues);
       });
 
+      // property controls
+      function onPropertyChange(event) {
+        self._editedCue[event.target.id] = event.target.value;
+      }
+      forEach(properties, function (property) {
+        forEach(['change', 'keyup'], function (eventName) {
+          property.addEventListener(eventName, onPropertyChange);
+        });
+      });
+
       // start and end controls
       video.addEventListener('loadedmetadata', function () {
         start.value = start.min = end.min = 0;

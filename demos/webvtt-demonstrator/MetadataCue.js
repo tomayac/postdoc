@@ -2,18 +2,22 @@
   var filter = Function.prototype.call.bind([].filter);
 
   function MetadataCue(video, baseCue) {
+    // only instantiate one MetadataCue per TextTrackCue
+    if (baseCue._metadataCue)
+      return baseCue._metadataCue;
+
+    // set properties
     this._video = video;
     this._baseCue = baseCue;
+    baseCue._metadataCue = this;
 
+    // parse JSON data from cue
     var cueData = JSON.parse(baseCue.text),
         cueSettings = this._cueSettings = {};
     for (var key in this._activators)
       cueSettings[key] = cueData[key];
 
-    this.id = baseCue.id;
-    this.startTime = baseCue.startTime;
-    this.endTime = baseCue.endTime;
-
+    // find or create a track to which textual cues will be added
     var visibleTracks = filter(video.textTracks,
                                function (t) { return t.mode === 'showing' || t.default; });
     this._textTrack = visibleTracks[0] || video.addTextTrack('captions');
@@ -24,9 +28,18 @@
 
     _deactivators: {},
 
+    get id() { return this._baseCue.id; },
+    set id(value)   { this._baseCue.id = value; },
+
+    get startTime() { return this._baseCue.startTime; },
+    set startTime(value)   { this._baseCue.startTime = value; },
+
+    get endTime() { return this._baseCue.endTime; },
+    set endTime(value)   { this._baseCue.endTime = value; },
+
     activate: function () {
-      if (!this._baseCue._activated) {
-        this._activated = this._baseCue._activated = true;
+      if (!this._activated) {
+        this._activated = true;
         for (var key in this._activators) {
           var settings = this._cueSettings[key];
           if (settings)
@@ -37,19 +50,31 @@
 
     deactivate: function () {
       if (this._activated) {
-        this._activated = this._baseCue._activated = false;
+        this._activated = false;
         for (var key in this._deactivators) {
           var deactivator = this._deactivators[key];
           deactivator && deactivator.call(this);
         }
       }
     },
+
+    refresh: function () {
+      if (this._activated) {
+        this.deactivate();
+        this.activate();
+      }
+    },
   };
 
   function defineCueProperty(name, parse, activator, deactivator) {
     Object.defineProperty(prototype, name, {
-      get: function () { return this._cueSettings[name]; },
-      set: function (value) { this._cueSettings[name] = parse ? parse(value) : value; },
+      get: function () {
+        return this._cueSettings[name];
+      },
+      set: function (value) {
+        this._cueSettings[name] = parse ? parse(value) : value;
+        this.refresh();
+      },
     });
     prototype._activators[name] = activator;
     prototype._deactivators[name] = deactivator;
