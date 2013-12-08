@@ -64,6 +64,14 @@
         this.activate();
       }
     },
+
+    toJSON: function () {
+      var settings = { '@context': 'http://example.org/json-ld/contexts/context.jsonld' };
+      for (var key in this._cueSettings)
+        if (this._cueSettings[key])
+          settings[key] = this._cueSettings[key];
+      return JSON.stringify(settings, null, 2);
+    },
   };
 
   function defineCueProperty(name, parse, activator, deactivator) {
@@ -73,6 +81,7 @@
       },
       set: function (value) {
         this._cueSettings[name] = parse ? parse(value) : value;
+        this._baseCue.text = this.toJSON();
         this.refresh();
       },
     });
