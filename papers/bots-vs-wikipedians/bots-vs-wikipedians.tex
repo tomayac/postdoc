@@ -1,0 +1,108 @@
+\documentclass{sig-alternate}
+
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+
+% listings and Verbatim environment
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{verbatim}
+\newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
+\newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
+\newcommand{\smalllistingsize}{\fontsize{7.5pt}{9.5pt}}
+\newcommand{\listingsize}{\defaultlistingsize}
+\RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
+\lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
+        aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+        framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+
+% use Courier from this point onward
+\let\oldttdefault\ttdefault
+\renewcommand{\ttdefault}{pcr}
+\let\oldurl\url
+\renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={push, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{darkgray},
+  stringstyle=\color{red},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+% linewrap symbol
+\usepackage{color}
+\definecolor{grey}{RGB}{130,130,130}
+\newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
+
+\newcommand{\todo}[1]{\fcolorbox{blue}{white}{\parbox{7cm}{\color{blue}{#1}}}}
+
+\begin{document}
+%
+% --- Author Metadata here ---
+\conferenceinfo{International World Wide Web Conference}{2014 Seoul, Korea}
+\CopyrightYear{2014} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
+\title{Bots vs. Wikipedians, Anons vs. Logged-In Humans:\\ A Global Study of Edit Activity on Wikipedia and Wikidata}
+
+\numberofauthors{1}
+
+\author{
+% 1st. author
+\alignauthor
+Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{Université de Lyon, CNRS Université Lyon~1, LIRIS, UMR5205, F-69622}}\\
+       \affaddr{Google Germany GmbH}\\
+       \affaddr{ABC-Str.~19}\\
+       \affaddr{20354 Hamburg, Germany}\\
+       \email{tomac@google.com}
+}
+
+\maketitle
+\begin{abstract}
+Wikipedia is a~global crowdsourced encyclopedia
+that at time of writing is available in 281 languages.
+Wikidata is a~likewise global crowdsourced knowledge base
+that provides shared facts to be used by Wikipedias.
+In the context of this research, we have developed
+an application capable of monitoring
+realtime edit activity of all language versions
+of Wikipedia and Wikidata.
+This application allows us and others to easily analyze edits
+in order to answer questions such as
+``Bots \emph{vs.}\ Wikipedians, who edits more?'',
+``Anonymous \emph{vs.}\ logged-in humans, who edits what?'',
+or ``Who are the bots and what do they edit?''.
+To the best of our knowledge,
+this is the first time such analyses
+were done for really \emph{all} Wikipedias%
+---big and small---and for Wikidata.
+For evaluation purposes, our application is available publicly at
+\url{http://wikipedia-edits.herokuapp.com/},
+its code has been open-sourced under the Apache~2.0 license.
+\end{abstract}
+
+\category{ToDo}{\todo{category}}{}
+
+\terms{\todo{terms}}
+
+\keywords{\todo{keywords}}
+
+\section{Introduction}
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}
