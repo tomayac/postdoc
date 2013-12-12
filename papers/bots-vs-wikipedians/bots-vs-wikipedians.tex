@@ -5,6 +5,8 @@
 \usepackage[hyphens]{url}
 \usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
 
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+
 % listings and Verbatim environment
 \usepackage{fancyvrb}
 \usepackage{relsize}
@@ -46,7 +48,9 @@
 \definecolor{grey}{RGB}{130,130,130}
 \newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
 
-\newcommand{\todo}[1]{\fcolorbox{blue}{white}{\parbox{7cm}{\color{blue}{#1}}}}
+% todo macro
+\usepackage{color}
+\newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
 
 \begin{document}
 %
@@ -107,13 +111,16 @@ on January 15, 2001 by Jimmy Wales
 and Larry Sanger~\cite{sanger05historywikipedia},
 albeit the fundamental technology and the underlying concepts are older.
 Wikipedia's direct predecessor was Nupedia~\todo{nupedia citation},
-an online encyclopedia that was exclusively edited by experts,
+an online encyclopedia that was exclusively edited by experts
+following a~strict peer-review process,
 and Wikipedia's initial role was to serve
-for providing draft articles and collect ideas for Nupedia.
+for collaborating on draft articles and collect ideas for Nupedia.
 What happened in practice was that Wikipedia rapidly overtook Nupedia
 and at time of writing is now a~global project
-available in 287 languages and overall more than 30 million articles.
+available in 287 languages and overall more than 30 million articles%
+~\todo{stats reference}.
 
+Wikidata~\cite{vrandecic2012wikidata}
 
 \section{Related Work}
 
