@@ -115,7 +115,7 @@ happened in the course of the 90ies
 and started a~new era of freely and openly
 available knowledge accessible to everybody.
 The free online encyclopedia Wikipedia%
-\footnote{\url{http://www.wikipedia.org/}}~\cite{sanger05historywikipedia} was formally launched
+\footnote{Wikipedia: \url{http://www.wikipedia.org/}}~\cite{sanger05historywikipedia} was formally launched
 on January 15, 2001 by Jimmy Wales
 and Larry Sanger,
 albeit the fundamental technology and the underlying concepts are older.
@@ -129,7 +129,7 @@ What happened in practice was that Wikipedia rapidly overtook Nupedia
 as there was no peer-review burden
 and at time of writing is now a~global project
 available in 287 languages and overall more than 30 million articles.%
-~\footnote{\url{http://stats.wikimedia.org/}}
+~\footnote{Wikipedia statistics: \url{http://stats.wikimedia.org/}}
 
 \paragraph{International Expansion}
 
@@ -150,7 +150,7 @@ with the purpose of automatically editing Wikipedia.
 After occasional smaller-scale tests,
 the first large-scale bot operation
 was started in October 2002 by Derek Ramsey,%
-\footnote{\url{http://en.wikipedia.org/wiki/Wikipedia\%3AHistory_of_Wikipedia_bots}}
+\footnote{History of Wikipedia bots: \url{http://en.wikipedia.org/wiki/Wikipedia\%3AHistory_of_Wikipedia_bots}}
 who created a~bot to add a~large number
 of articles about United States towns
 based on tabular information
@@ -162,17 +162,25 @@ Today, bots are not only used to generate articles,
 but also to fight vandalism and spam,
 to correct typographic errors,
 to improve references, and many more automatable tasks.%
-\footnote{\url{http://en.wikipedia.org/wiki/Category:Wikipedia_bots}}
+\footnote{Wikipedia bots by purpose: \url{http://en.wikipedia.org/wiki/Category:Wikipedia_bots_by_purpose}}
 
 \paragraph{The Knowledge Base Wikidata}
 
-Wikidata\footnote{\url{http://www.wikidata.org/}}~\cite{vrandecic2012wikidata}
+As Wikipedia is a~truly global effort,
+sharing non-language-dependent facts
+like population figures centrally
+in a~knowledge base makes a~lot of sense.
+Wikidata\footnote{Wikidata: \url{http://www.wikidata.org/}}~\cite{vrandecic2012wikidata}
 is a~free knowledge base that can be read
-and edited by humans and machines alike.
+and edited by both humans and bots.
 The knowledge base centralizes access to
 and management of structured data,
 such as references between Wikipedias
 and statistical information that can be used in articles.
+Controversial facts such as borders in conflict regions
+can be added with multiple values with sources,
+so that Wikipedia article can,
+dependent on their standpoint, choose their source.
 
 \section{Related Work}
 
@@ -190,7 +198,39 @@ Please note that the lengthy dump process (many weeks) means a~delay in publishi
 
 \url{http://en.wikipedia.org/wiki/Category:All_Wikipedia_bots}
 
+\section{Implementation Details}
 
+\paragraph{Wikipedia Recent Changes}
+
+Whenever a~human or bot changes an article
+of any of the 287 Wikipedias,%
+\footnote{List of Wikipedias by size:
+\url{http://meta.wikimedia.org/wiki/List_of_Wikipedias}}
+a~change event gets communicated by a~chat bot
+over Wikipedia's own Internet Relay Chat~(IRC) server (\url{irc.wikimedia.org}),%
+\footnote{Raw IRC feeds of recent changes:
+\url{http://meta.wikimedia.org/wiki/IRC/Channels\#Raw_feeds}}
+so that parties interested in the data
+can listen to the changes as they happen.
+For each language version, there is
+a~specific chat room following the pattern
+\texttt{"\#" + language + ".wikipedia"}.
+For example, changes to Catalan Wikipedia articles
+will be streamed to the room \texttt{\#ca.wikipedia}.
+An exception from the pattern is the room
+\texttt{\#wikidata.wikipedia} for the language-independent
+knowledge base Wikidata~\cite{vrandecic2012wikidata}.
+A~sample original chat message with the components separated
+by the asterisk character \texttt{`*'}
+announcing a~change to an article
+can be seen in the following.
+\texttt{"[[Keep Calm and Carry On]] http://en.wikipedia.org/w/index.php?diff=585806152\\ \&oldid=585805943 * 74.197.171.148 * (+14) /* Paro-\\ dies */"}.
+The message components are \emph{(i)}~article name, \emph{(ii)}~revision URL,
+\emph{(iii)}~Wikipedia editor handle, and finally
+\emph{(iv)}~change size and change description.
+
+\paragraph{Server-Sent Events}
+~\cite{hickson2012sse}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
