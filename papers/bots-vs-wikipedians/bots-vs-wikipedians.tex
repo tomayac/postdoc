@@ -8,6 +8,7 @@
 \newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
 
 % listings and Verbatim environment
+\usepackage{xcolor}
 \usepackage{fancyvrb}
 \usepackage{relsize}
 \usepackage{listings}
@@ -29,7 +30,7 @@
 \renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
 
 \lstdefinelanguage{JavaScript}{
-  keywords={push, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywords={addEventListener, onmessage, alert, push, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
   keywordstyle=\bfseries,
   ndkeywords={class, export, boolean, throw, implements, import, this},
   ndkeywordstyle=\color{darkgray}\bfseries,
@@ -37,7 +38,7 @@
   sensitive=false,
   comment=[l]{//},
   morecomment=[s]{/*}{*/},
-  commentstyle=\color{darkgray},
+  commentstyle=\color{blue},
   stringstyle=\color{red},
   morestring=[b]',
   morestring=[b]"
@@ -230,7 +231,51 @@ The message components are \emph{(i)}~article name, \emph{(ii)}~revision URL,
 \emph{(iv)}~change size and change description.
 
 \paragraph{Server-Sent Events}
-~\cite{hickson2012sse}
+Server-Sent Events~\cite{hickson2012sse}
+defines an API for opening an HTTP connection
+for receiving push notifications from a~server
+in the form of DOM events.
+The \texttt{EventSource} interface enable servers
+to push data to Web pages over HTTP.
+Using this API consists of creating
+an \texttt{EventSource} object and registering an event listener,
+as can be seen in \autoref{code:sse-client}.
+
+\begin{lstlisting}[caption={Creation of an \texttt{EventSource}
+  object and registering an event listener},
+  label=code:sse-client, float=b!, language=JavaScript]
+var source = new EventSource('/sse');
+source.onmessage = function (event) {
+  alert(event.data);
+};
+
+// generic event listener
+source.addEventListener('message', function(e) {
+  alert(e.data);
+}, false);
+
+// en.wikipedia.org event listener
+source.addEventListener('enedit', function(e) {
+  alert(e.data);
+}, false);
+
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Server-Sent Event of type ``enedit''
+  (formatted for legibility)},
+  label=code:sse-server, float=b!, language=JavaScript]
+event: enedit
+data: {
+    "article": "Golden_Globe_Award_for_Best_Actress_-_Motion_Picture_Musical_or_Comedy",
+    "editor": "en:86.150.237.133",
+    "isBot": false,
+    "language": "en",
+    "delta": "+9",
+    "comment": "/* 2010s */",
+    "diffUrl": "http://en.wikipedia.org/w/api.php?action=compare&torev=585820379&fromrev=585776128&format=json",
+    "languageClusterUrl": "http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&format=json&lllimit=500&titles=Golden_Globe_Award_for_Best_Actress_-_Motion_Picture_Musical_or_Comedy"
+}
+\end{lstlisting}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
