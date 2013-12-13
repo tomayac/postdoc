@@ -203,6 +203,9 @@ and analyzed articles, authors, edits, and links,
 as well as content and quality.
 A~similar study on Wikipedia research dating from 2006
 has been conducted by Ayers~\cite{ayers2006researchingwikipedia}.
+Unlike the methods described in%
+~\cite{ayers2006researchingwikipedia,voss2005measuring,zachte2013wikidata,zachte2013wikipedia},
+our approach works in realtime.
 In~\cite{ciampaglia2010empiricalanalysis}, Ciampaglia and Vancheri
 perform an empirical analysis of user participation
 excluding bots in five large Wikipedias.
@@ -211,6 +214,12 @@ various means to measure user contributions to Wikipedia.
 As a~part of their study, they analyze bot editors
 that, if they were included, created massive outliers
 in the introduced measures.
+In contrast to the approaches%
+~\cite{adler2008measuringauthor,ciampaglia2010empiricalanalysis},
+we do not exclude bots for our analysis,
+but rather include them as equal citizens,
+while at the same time still allowing for dynamically
+disregarding them if need be.
 Several tools provide processed page view statistics
 based on database dumps, examples are
 \emph{Wikipedia article traffic statistics}%
@@ -222,6 +231,19 @@ based on database dumps, examples are
 or finally \emph{Wikipedia Page Views}%
 \footnote{Wikipedia Page Views: \url{http://wikistats.ins.cwi.nl/}}
 by Hannes Mühleisen.
+We do not focus on page view statistics based on database dumps,
+but realtime article edit statistics instead.
+In~\cite{boukhelifa2010realtime}, Boukhelifa \emph{et~al.}\
+classify statistics tools in the categories global and local.
+According to this classification,
+local tools focus on individual articles or users
+and therefore require time-consuming on-the-fly computations.
+In contrast,  global tools
+show the evolution of aggregated data
+for all Wikipedias,
+but without acquiring realtime data.
+According to this classification, our approach can be
+classified as global, however, with realtime support.
 
 \section{Implementation Details}
 
