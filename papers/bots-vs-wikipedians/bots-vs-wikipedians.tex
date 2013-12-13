@@ -201,6 +201,16 @@ in 2005 Voß~\cite{voss2005measuring} gave
 an overview on Wikipedia research
 and analyzed articles, authors, edits, and links,
 as well as content and quality.
+A~similar study on Wikipedia research dating from 2006
+has been conducted by Ayers~\cite{ayers2006researchingwikipedia}.
+In~\cite{ciampaglia2010empiricalanalysis}, Ciampaglia and Vancheri
+perform an empirical analysis of user participation
+excluding bots in five large Wikipedias.
+Adler \emph{et~al.}\ study in~\cite{adler2008measuringauthor}
+various means to measure user contributions to Wikipedia.
+As a~part of their study, they analyze bot editors
+that, if they were included, created massive outliers
+in the introduced measures.
 
 \section{Implementation Details}
 
@@ -303,7 +313,7 @@ source.addEventListener('enedit', function(e) {
 \end{lstlisting}
 
 \begin{figure*}[hbt]
-  \includegraphics[width=\linewidth]{bots-vs-wikipedians.png}
+  \fbox{\includegraphics[width=\linewidth]{bots-vs-wikipedians.png}}
   \caption{Screenshot of the application available at \url{http://wikipedia-edits.herokuapp.com/} (cropped)}
   \label{fig:screenshot}
 \end{figure*}
