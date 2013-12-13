@@ -185,11 +185,17 @@ dependent on their standpoint, choose their source.
 
 \section{Related Work}
 
-The Wikimedia Foundation themselves provide regular
-statistics for all Wikipedias~\cite{zachte2013wikipedia}
-with ten or more articles and edits in the previous month,
-as well as statistics for Wikidata~\cite{zachte2013wikidata}.
-These statistics are based on recent database dump files
+The Wikimedia Foundation themselves provide
+statistics for all Wikipedias
+with ten or more articles and edits in the previous month%
+~\cite{zachte2013wikipedia},
+as well as statistics for Wikidata~\cite{zachte2013wikidata},
+a~regular Wikipedia article on Wikipedia statistics%
+~\cite{wikipedia2013stats},
+and a~special auto-updating page on global high-level
+Wikipedia statistics~\cite{wikipedia2013special}.
+~\cite{zachte2013wikidata} and~\cite{zachte2013wikipedia}
+are based on recent database dump files
 and contain a~note that \textit{``the lengthy dump process
 (many weeks) means [that] a~delay in publishing these statistics
 is always to be expected''}.
@@ -203,8 +209,8 @@ and analyzed articles, authors, edits, and links,
 as well as content and quality.
 A~similar study on Wikipedia research dating from 2006
 has been conducted by Ayers~\cite{ayers2006researchingwikipedia}.
-Unlike the methods described in%
-~\cite{ayers2006researchingwikipedia,voss2005measuring,zachte2013wikidata,zachte2013wikipedia},
+Unlike the methods described in~%
+\cite{ayers2006researchingwikipedia,voss2005measuring,zachte2013wikidata,zachte2013wikipedia},
 our approach works in realtime.
 In~\cite{ciampaglia2010empiricalanalysis}, Ciampaglia and Vancheri
 perform an empirical analysis of user participation
@@ -220,6 +226,36 @@ we do not exclude bots for our analysis,
 but rather include them as equal citizens,
 while at the same time still allowing for dynamically
 disregarding them if need be.
+The tool \emph{WikiChecker}\footnote{WikiChecker:
+\url{http://en.wikichecker.com/}}
+allows for near-realtime statistics
+about logged-in \emph{vs.}\ anonymous users and more in
+the English, French, Russian, and Japanese Wikipedias.
+Our application provides realtime data about all Wikipedias and Wikidata.
+The application \emph{Wikipulse} shows realtime absolute
+edit statistics for 36~Wikipedias, Wikimedia Commons, and Wikidata.
+We provide detailed realtime statistics for all Wikipedias and Wikidata.
+The \emph{Wikipedia Recent Changes Map} tool,
+by LaPorte and Hashemi~\cite{laporte2013map},
+inspired by a~similar too called \emph{WikipediaVision}%
+~\cite{kozma2013map} by László Kozma,
+takes the IP addresses of anonymous editors
+of some of the biggest Wikipedias and maps them
+in realtime to geolocations via a~lookup service.
+We make the same information available
+for all Wikipedias and Wikidata, however,
+do not geolocate the IP addresses.
+\emph{Listen to Wikipedia}~\cite{laporte2013listen}
+is another project by
+LaPorte and Hashemi that makes Wikipedia and Wikidata edits
+audible and visualizes them in realtime.
+Depending on the size, the kind of edit, or the editor status,
+different sounds get played and colored circles displayed.
+The application \emph{Wikistream}\footnote{Wikistream:
+\url{http://wikistream.wmflabs.org/}} by Ed Summers
+visualizes edits on all Wikipedias and Wikidata
+in realtime and using recently uploaded images from Wikimedia Commons
+as background images, but does not keep track of edit statistics.
 Several tools provide processed page view statistics
 based on database dumps, examples are
 \emph{Wikipedia article traffic statistics}%
