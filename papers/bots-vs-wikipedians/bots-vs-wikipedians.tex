@@ -212,7 +212,8 @@ over Wikipedia's own Internet Relay Chat~(IRC) server (\url{irc.wikimedia.org}),
 \footnote{Raw IRC feeds of recent changes:
 \url{http://meta.wikimedia.org/wiki/IRC/Channels\#Raw_feeds}}
 so that parties interested in the data
-can listen to the changes as they happen.
+can listen to the changes as they happen%
+~\cite{steiner2013mjnomore}.
 For each language version, there is
 a~specific chat room following the pattern
 \texttt{"\#" + language + ".wikipedia"}.
@@ -243,6 +244,10 @@ in \autoref{code:sse-server}.
 The required event payload is in the \texttt{data:} field,
 events can optionally be typed via a~proceeding \texttt{event:} field
 and be uniquely identified via a~proceeding \texttt{id:} field.
+The \texttt{data:} field allows no line breaks,
+however, multiline messages are possible by prepending
+a~separate \texttt{data:} string to each line.
+Consecutive events are separated by two line breaks.
 The \texttt{EventSource} interface enables Web applications
 to listen to pushed events from a~server over the HTTP protocol.
 On the client side, using this API consists of creating
@@ -293,6 +298,12 @@ source.addEventListener('enedit', function(e) {
   console.log(e.lastEventId + '=>' + data);
 }, false);
 \end{lstlisting}
+
+\begin{figure*}[hbt]
+  \includegraphics[width=\linewidth]{bots-vs-wikipedians.png}
+  \caption{Screenshot of the application available at \url{http://wikipedia-edits.herokuapp.com/} (cropped)}
+  \label{fig:screenshot}
+\end{figure*}
 
 
 \bibliographystyle{abbrv}
