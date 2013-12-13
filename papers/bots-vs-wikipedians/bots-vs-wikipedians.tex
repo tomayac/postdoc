@@ -30,7 +30,7 @@
 \renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
 
 \lstdefinelanguage{JavaScript}{
-  keywords={addEventListener, onmessage, alert, push, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywords={console, log, addEventListener, onmessage, alert, push, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
   keywordstyle=\bfseries,
   ndkeywords={class, export, boolean, throw, implements, import, this},
   ndkeywordstyle=\color{darkgray}\bfseries,
@@ -254,7 +254,7 @@ it will automatically reconnect.
 \begin{lstlisting}[caption={Server-Sent Event of type ``enedit''
   (formatted for legibility, \texttt{data:} allows no line breaks)},
   label=code:sse-server, float=b!, language=JavaScript]
-id: 585820379
+id: 1386885965813
 event: enedit
 data: {
   "article": "Golden_Globe_Award_for_Best_§\linewrap§
@@ -278,19 +278,19 @@ data: {
 \begin{lstlisting}[caption={Creation of an \texttt{EventSource}
   object and registration of two event listeners},
   label=code:sse-client, float=b!, language=JavaScript]
+// connect to an SSE stream at relative URI /sse
 var source = new EventSource('/sse');
-source.onmessage = function (event) {
-  alert(event.data);
-};
 
 // generic event listener for any Wikipedia edit
 source.addEventListener('message', function(e) {
-  alert(e.data);
+  var data = JSON.parse(e.data);
+  console.log(e.lastEventId + '=>' + data);
 }, false);
 
 // listener for English Wikipedia edits
 source.addEventListener('enedit', function(e) {
-  alert(e.data);
+  var data = JSON.parse(e.data);
+  console.log(e.lastEventId + '=>' + data);
 }, false);
 \end{lstlisting}
 
