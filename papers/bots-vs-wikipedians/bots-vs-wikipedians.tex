@@ -226,6 +226,10 @@ we do not exclude bots for our analysis,
 but rather include them as equal citizens,
 while at the same time still allowing for dynamically
 disregarding them if need be.
+Geiger and Halfaker study in~\cite{geiger2013withoutbots}
+the effect of the absence of bot activity on Wikipedia's
+quality control network caused by the downtime of a~popular bot.
+Using our framework
 The tool \emph{WikiChecker}\footnote{WikiChecker:
 \url{http://en.wikichecker.com/}}
 allows for near-realtime statistics
@@ -329,6 +333,7 @@ and be uniquely identified via a~proceeding \texttt{id:} field.
 The \texttt{data:} field allows no line breaks,
 however, multiline messages are possible by prepending
 a~separate \texttt{data:} string to each line.
+Lines that start with a~colon are comments and are therefore ignored.
 Consecutive events are separated by two line breaks.
 The \texttt{EventSource} interface enables Web applications
 to listen to pushed events from a~server over the HTTP protocol.
@@ -341,6 +346,8 @@ it will automatically reconnect.
 \begin{lstlisting}[caption={Server-Sent Event of type ``enedit''
   (formatted for legibility, \texttt{data:} allows no line breaks)},
   label=code:sse-server, float=b!, language=JavaScript]
+: // Embedded JSON data without line breaks
+
 id: 1386885965813
 event: enedit
 data: {
@@ -381,62 +388,69 @@ source.addEventListener('enedit', function(e) {
 }, false);
 \end{lstlisting}
 
-\begin{figure*}[hbt]
+\begin{figure*}[p]
   \center
-  \fbox{\includegraphics[width=\linewidth]{bots-vs-wikipedians.png}}
+  \fbox{\includegraphics[width=0.95\linewidth]{bots-vs-wikipedians.png}}
   \caption{Screenshot of the application available at \url{http://wikipedia-edits.herokuapp.com/} (cropped)}
   \label{fig:screenshot}
 \end{figure*}
 
 \section{Evaluation}
 
-\begin{figure}[hbt]
+\begin{figure}[p]
   \center
   \includegraphics[width=0.8\linewidth]{bots-total-edits.pdf}
   \caption{Number of bots \emph{vs.}\ number of total edits}
   \label{fig:bots-total-edits}
 \end{figure}
 
-\begin{figure}[hbt]
+\begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{most-active-bots.pdf}
   \caption{Bots with more than 10,000 edits}
   \label{fig:most-active-bots}
 \end{figure}
 
-\begin{figure}[hbt]
+\begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{multilingual-bots.pdf}
   \caption{Multilingual bots active in $\geq5$ languages}
   \label{fig:multilingual-bots}
 \end{figure}
 
-\begin{figure}[hbt]
+\begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{bots-per-language.pdf}
   \caption{Languages with $\geq10$ active bots}
   \label{fig:bots-per-language}
 \end{figure}
 
-\begin{figure}[hbt]
+\begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{most-bot-edited-languages.pdf}
   \caption{Percentage of bot activity $\geq50\%$ per language with $\geq1,000$ bot edits in observation period}
   \label{fig:most-bot-edited-languages}
 \end{figure}
 
-\begin{figure}[hbt]
+\begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{most-human-edited-languages.pdf}
   \caption{Percentage of human activity $\geq90\%$ per language with $\geq1,000$ human edits in observation period}
   \label{fig:most-human-edited-languages}
 \end{figure}
 
-\begin{figure}[hbt]
+\begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{most-anonymous-edited-languages.pdf}
   \caption{Percentage of anonymous activity per language with $\geq1,000$ anonymous edits in observation period}
   \label{fig:most-anonymous-edited-languages}
+\end{figure}
+
+\begin{figure}[p]
+  \center
+  \includegraphics[width=\linewidth]{most-logged-in-edited-languages.pdf}
+  \caption{Percentage of logged-in activity $\geq80\%$ per language with $\geq1,000$ logged-in edits in observation period}
+  \label{fig:most-logged-in-edited-languages}
 \end{figure}
 
 \bibliographystyle{abbrv}
