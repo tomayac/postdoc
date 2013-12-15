@@ -346,18 +346,35 @@ Using Martyn Smith's Node.js IRC library,%
 \footnote{Node.js IRC library:
 \url{https://github.com/martynsmith/node-irc}}
 we listen for Wikipedia and Wikidata edit events
-and send a~Server-Sent Event whenever we register one.
-This API is available online and open for others to use at
+and send a~Server-Sent Event whenever we detect one.
+Our API is available online and open for others to use at the URL
 \url{http://wikipedia-edits.herokuapp.com/sse}.
 On the client side in the actual application,
 we have registered generic event handlers for events
 pushed by the API and keep track of edit statistics over time.
 This application can be tested at
-\url{http://wikipedia-edits.herokuapp.com/}.
+\url{http://wikipedia-edits.herokuapp.com/}.\linebreak
 A~screenshot of the application
 can be seen in \autoref{fig:screenshot}.
 
 \section{Results}
+
+We have observed all 287~Wikipedias and Wikidata
+during the observation period from November~4
+to November~6, 2013.
+While this may not sound like a~long time,
+already during this short period
+overall 3,805,185~edit events occurred.
+Our application updates in realtime,
+which allowed us to detect when relative figures,
+\emph{i.e.}, percentages of bots \emph{vs.}\ Wikipedians
+and anonymous \emph{vs.}\ logged-in humans
+as well as the absolute number of active bots started to converge.
+This was the case after about half the observation period.
+At the end, from the overall 287~Wikipedias and Wikidata,
+exactly 260~($\sim90.3\%$) were edited,
+which, given the long-long-tail of Wikipedias
+with close to no articles, supports our choice.
 
 \begin{figure}[p]
   \center
