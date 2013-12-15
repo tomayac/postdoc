@@ -76,7 +76,6 @@ Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{UniversitÃ
 }
 
 \maketitle
-
 \begin{abstract}
 Wikipedia is a~global crowdsourced encyclopedia
 that at time of writing is available in 287 languages.
@@ -94,17 +93,17 @@ or ``Who are the bots and what do they edit?''.
 To the best of our knowledge,
 this is the first time such analyses
 were done for really \emph{all} Wikipedias%
----big and small---\emph{and} for Wikidata.
+---big and small---and for Wikidata.
 According to our results, all Wikipedias \emph{and} Wikidata together
-are edited by about 50\% bots and by about 23\% anonymous users.
-Wikidata alone accounts for about 48\% of the totally 
+are edited by about 50\%~bots and by about 23\%~anonymous users.
+Wikidata alone accounts for about 48\%~of the totally observed edits.
 If we do \emph{not} consider Wikidata, \emph{i.e.},
 if we \emph{only} look at all Wikipedias,
-about 15\% of all edits are made by bots
-and 26\% of all edits are made by anonymous users.
+about 15\%~of all edits are made by bots
+and 26\%~of all edits are made by anonymous users.
 Overall, we found a~stabilizing number of 274 active bots
 during our observation period.
-Our application is available publicly at
+Our application is available publicly online at
 \url{http://wikipedia-edits.herokuapp.com/},
 its code has been open-sourced under the Apache~2.0 license.
 \end{abstract}
@@ -140,14 +139,14 @@ What happened in practice was that Wikipedia rapidly overtook Nupedia
 as there was no peer-review burden
 and at time of writing is now a~global project
 available in 287 languages and overall more than 30 million articles.%
-~\footnote{Wikipedia statistics: \url{http://stats.wikimedia.org/}}
+\footnote{Wikipedia statistics: \url{http://stats.wikimedia.org/}}
 
 \paragraph{International Expansion}
 
 The international expansion began early on
 in the project's existence,
 with the first two non-English Wikipedias
-being on March 16, 2001 the German and the Catalan ones,
+started on March 16, 2001 being the German and the Catalan ones,
 followed briefly afterwards by (Romanized) Japanese.
 What then followed was a~wave of new languages,
 with French, Chinese, Dutch, Esperanto, Hebrew,
@@ -161,7 +160,8 @@ with the purpose of automatically editing Wikipedia.
 After occasional smaller-scale tests,
 the first large-scale bot operation
 was started in October 2002 by Derek Ramsey,%
-\footnote{History of Wikipedia bots: \url{http://en.wikipedia.org/wiki/Wikipedia\%3AHistory_of_Wikipedia_bots}}
+\footnote{History of Wikipedia bots:
+\url{http://bit.ly/History_Bots}}
 who created a~bot to add a~large number
 of articles about United States towns
 based on tabular information
@@ -219,6 +219,10 @@ and \emph{anonymously-edited} Wikipedias and Wikidata.
 
 \section{Methodology and Tools}
 
+In our application, we make use of two enabling technologies,
+namely the Wikipedia Recent Changes Internet Relay Chat~(IRC) feed
+and a~push API called Server-Sent Events.
+
 \paragraph{Wikipedia Recent Changes}
 
 Whenever a~human or bot changes an article
@@ -226,7 +230,7 @@ of any of the 287 Wikipedias,%
 \footnote{List of Wikipedias by size:
 \url{http://meta.wikimedia.org/wiki/List_of_Wikipedias}}
 a~change event gets communicated by a~chat bot
-over Wikipedia's own Internet Relay Chat~(IRC) server (\url{irc.wikimedia.org}),%
+over Wikipedia's own IRC server (\url{irc.wikimedia.org}),%
 \footnote{Raw IRC feeds of recent changes:
 \url{http://meta.wikimedia.org/wiki/IRC/Channels\#Raw_feeds}}
 so that parties interested in the data
@@ -244,10 +248,10 @@ A~sample original chat message with the components separated
 by the asterisk character \texttt{`*'}
 announcing a~change to an article
 can be seen in the following.
-\texttt{"[[Keep Calm and Carry On]] http://en.wikipedia.org/w/index.php?diff=585806152\\ \&oldid=585805943 * 74.197.171.148 * (+14) /* Paro-\\ dies */"}.
+\texttt{"[[Keep Calm and Carry On]] http://en.wikiped-\\ ia.org/w/index.php?diff=585806152\&oldid=585805943 \\* 74.197.171.148 * (+14) /* Parodies */"}.
 The message components are \emph{(i)}~article name, \emph{(ii)}~revision URL,
-\emph{(iii)}~Wikipedia editor handle, and finally
-\emph{(iv)}~change size and change description.
+\emph{(iii)}~Wiki\-pedia editor handle, and
+\emph{(iv)}~change size and description.
 
 \paragraph{Server-Sent Events}
 
@@ -275,9 +279,10 @@ as can be seen in \autoref{code:sse-client}.
 When the client loses connection,
 it will automatically reconnect.
 
+\begin{figure}[h!]
 \begin{lstlisting}[caption={Server-Sent Event of type ``enedit''
   (formatted for legibility, \texttt{data:} allows no line breaks)},
-  label=code:sse-server, float=b!, language=JavaScript]
+  label=code:sse-server, language=JavaScript]
 : // Embedded JSON data without line breaks
 
 id: 1386885965813
@@ -303,7 +308,7 @@ data: {
 
 \begin{lstlisting}[caption={Creation of an \texttt{EventSource}
   object and registration of two event listeners},
-  label=code:sse-client, float=b!, language=JavaScript]
+  label=code:sse-client, language=JavaScript]
 // connect to an SSE stream at relative URI /sse
 var source = new EventSource('/sse');
 
@@ -319,6 +324,7 @@ source.addEventListener('enedit', function(e) {
   console.log(e.lastEventId + '=>' + data);
 }, false);
 \end{lstlisting}
+\end{figure}
 
 \begin{figure*}[p]
   \center
@@ -326,6 +332,10 @@ source.addEventListener('enedit', function(e) {
   \caption{Screenshot of the application available at \url{http://wikipedia-edits.herokuapp.com/} (cropped)}
   \label{fig:screenshot}
 \end{figure*}
+
+\paragraph{Implementation Details}
+
+
 
 \section{Results}
 
