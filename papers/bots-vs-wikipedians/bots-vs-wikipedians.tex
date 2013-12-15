@@ -326,8 +326,8 @@ source.addEventListener('enedit', function(e) {
 \end{lstlisting}
 \end{figure}
 
-\begin{figure*}[p]
-  \center
+\begin{figure*}[h!]
+  \centering
   \fbox{\includegraphics[width=0.95\linewidth]{bots-vs-wikipedians.png}}
   \caption{Screenshot of the application available at \url{http://wikipedia-edits.herokuapp.com/} (cropped)}
   \label{fig:screenshot}
@@ -335,7 +335,27 @@ source.addEventListener('enedit', function(e) {
 
 \paragraph{Implementation Details}
 
-
+Our application is based on a~Server-Sent Events API
+that we have implemented in Node.js,
+a~server side JavaScript software system
+designed for writing scalable Internet applications.
+Programs are created using event-driven,
+asynchronous input/output operations
+to minimize overhead and maximize scalability.
+Using Martyn Smith's Node.js IRC library,%
+\footnote{Node.js IRC library:
+\url{https://github.com/martynsmith/node-irc}}
+we listen for Wikipedia and Wikidata edit events
+and send a~Server-Sent Event whenever we register one.
+This API is available online and open for others to use at
+\url{http://wikipedia-edits.herokuapp.com/sse}.
+On the client side in the actual application,
+we have registered generic event handlers for events
+pushed by the API and keep track of edit statistics over time.
+This application can be tested at
+\url{http://wikipedia-edits.herokuapp.com/}.
+A~screenshot of the application
+can be seen in \autoref{fig:screenshot}.
 
 \section{Results}
 
