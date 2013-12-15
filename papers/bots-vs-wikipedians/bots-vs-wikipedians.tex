@@ -61,7 +61,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Bots vs. Wikipedians, Anons vs. Logged-In Humans:\\ A~Global Study of Edit Activity on Wikipedia and Wikidata}
+\title{Bots vs. Wikipedians, Anons vs. Logged-Ins:\\ A~Global Study of Edit Activity on Wikipedia and Wikidata}
 
 \numberofauthors{1}
 
@@ -94,6 +94,12 @@ To the best of our knowledge,
 this is the first time such analyses
 were done for really \emph{all} Wikipedias%
 ---big and small---and for Wikidata.
+According to our results, all Wikipedias \emph{and} Wikidata together
+are edited by about 50\% bots and by about 23\% anonymous users.
+If we do \emph{not} consider Wikidata, \emph{i.e.},
+if we \emph{only} look at all Wikipedias,
+about 15\% of all edits are made by bots
+and 26\% of all edits are made by anonymous users.
 For evaluation purposes, our application is available publicly at
 \url{http://wikipedia-edits.herokuapp.com/},
 its code has been open-sourced under the Apache~2.0 license.
@@ -183,109 +189,31 @@ can be added with multiple values with sources,
 so that Wikipedia article can,
 dependent on their standpoint, choose their source.
 
-\section{Related Work}
+\paragraph{Contributions}
 
-The Wikimedia Foundation themselves provide
-statistics for all Wikipedias
-with ten or more articles and edits in the previous month%
-~\cite{zachte2013wikipedia},
-as well as statistics for Wikidata~\cite{zachte2013wikidata},
-a~regular Wikipedia article on Wikipedia statistics%
-~\cite{wikipedia2013stats},
-and a~special auto-updating page on global high-level
-Wikipedia statistics~\cite{wikipedia2013special}.
-~\cite{zachte2013wikidata} and~\cite{zachte2013wikipedia}
-are based on recent database dump files
-and contain a~note that \textit{``the lengthy dump process
-(many weeks) means [that] a~delay in publishing these statistics
-is always to be expected''}.
-We accessed the statistics on December 13, 2013,
-where the data was processed up until October 31, 2013.
-Based upon the fact that these database dumps
-of all Wikipedias are also publicly available,
-in 2005 Voß~\cite{voss2005measuring} gave 
-an overview on Wikipedia research
-and analyzed articles, authors, edits, and links,
-as well as content and quality.
-A~similar study on Wikipedia research dating from 2006
-has been conducted by Ayers~\cite{ayers2006researchingwikipedia}.
-Unlike the methods described in~%
-\cite{ayers2006researchingwikipedia,voss2005measuring,zachte2013wikidata,zachte2013wikipedia},
-our approach works in realtime.
-In~\cite{ciampaglia2010empiricalanalysis}, Ciampaglia and Vancheri
-perform an empirical analysis of user participation
-excluding bots in five large Wikipedias.
-Adler \emph{et~al.}\ study in~\cite{adler2008measuringauthor}
-various means to measure user contributions to Wikipedia.
-As a~part of their study, they analyze bot editors
-that, if they were included, created massive outliers
-in the introduced measures.
-In contrast to the approaches%
-~\cite{adler2008measuringauthor,ciampaglia2010empiricalanalysis},
-we do not exclude bots for our analysis,
-but rather include them as equal citizens,
-while at the same time still allowing for dynamically
-disregarding them if need be.
-Geiger and Halfaker study in~\cite{geiger2013withoutbots}
-the effect of the absence of bot activity on Wikipedia's
-quality control network caused by the downtime of a~popular bot.
-Using our framework
-The tool \emph{WikiChecker}\footnote{WikiChecker:
-\url{http://en.wikichecker.com/}}
-allows for near-realtime statistics
-about logged-in \emph{vs.}\ anonymous users and more in
-the English, French, Russian, and Japanese Wikipedias.
-Our application provides realtime data about all Wikipedias and Wikidata.
-The application \emph{Wikipulse} shows realtime absolute
-edit statistics for 36~Wikipedias, Wikimedia Commons, and Wikidata.
-We provide detailed realtime statistics for all Wikipedias and Wikidata.
-The \emph{Wikipedia Recent Changes Map} tool,
-by LaPorte and Hashemi~\cite{laporte2013map},
-inspired by a~similar too called \emph{WikipediaVision}%
-~\cite{kozma2013map} by László Kozma,
-takes the IP addresses of anonymous editors
-of some of the biggest Wikipedias and maps them
-in realtime to geolocations via a~lookup service.
-We make the same information available
-for all Wikipedias and Wikidata, however,
-do not geolocate the IP addresses.
-\emph{Listen to Wikipedia}~\cite{laporte2013listen}
-is another project by
-LaPorte and Hashemi that makes Wikipedia and Wikidata edits
-audible and visualizes them in realtime.
-Depending on the size, the kind of edit, or the editor status,
-different sounds get played and colored circles displayed.
-The application \emph{Wikistream}\footnote{Wikistream:
-\url{http://wikistream.wmflabs.org/}} by Ed Summers
-visualizes edits on all Wikipedias and Wikidata
-in realtime and using recently uploaded images from Wikimedia Commons
-as background images, but does not keep track of edit statistics.
-Several tools provide processed page view statistics
-based on database dumps, examples are
-\emph{Wikipedia article traffic statistics}%
-\footnote{Wikipedia article traffic statistics:
-\url{http://stats.grok.se/}} by ``User:Henrik'',
-\emph{Wikipedia article traffic statistics}%
-\footnote{Wikipedia article traffic statistics:
-\url{http://toolserver.org/~emw/wikistats/}} by ``User:Emw'',
-or finally \emph{Wikipedia Page Views}%
-\footnote{Wikipedia Page Views: \url{http://wikistats.ins.cwi.nl/}}
-by Hannes Mühleisen.
-We do not focus on page view statistics based on database dumps,
-but realtime article edit statistics instead.
-In~\cite{boukhelifa2010realtime}, Boukhelifa \emph{et~al.}\
-classify statistics tools in the categories global and local.
-According to this classification,
-local tools focus on individual articles or users
-and therefore require time-consuming on-the-fly computations.
-In contrast,  global tools
-show the evolution of aggregated data
-for all Wikipedias,
-but without acquiring realtime data.
-According to this classification, our approach can be
-classified as global, however, with realtime support.
+The contributions of this paper are twofold.
+On the development side, first, we have developed an application
+and released its source code as open-source
+that allows for realtime monitoring of all 287~Wikipedias and Wikidata.
+Second, we have permanently made available a~publicly useable
+Application Programming Interface~(API) that our application
+is based upon and that we invite other interested parties to use.
+On the evaluation side, during the observation period
+from November~4 to November~6, 2013,
+we have monitored exactly
+3,805,185~Wikipedia and Wikidata edits, 
+out of which exactly 1,918,378~($\sim50.4\%$) were made by bots.
+From the 3,805,185~total edits,
+alone 1,837,146~($\sim48.3\%$) can be allotted to Wikidata.
+We have compiled global statistics on the total impact of
+bot edits \emph{vs.}\ human Wikipedian edits,
+on anonymous human edits \emph{vs.}\ logged-in human edits,
+and on bot activity in general.
+In continuation, we have deep-dived into the data
+and looked at the most \emph{bot-edited}, \emph{human-edited},
+and \emph{anonymously-edited} Wikipedias and Wikidata.
 
-\section{Implementation Details}
+\section{Methodology and Tools}
 
 \paragraph{Wikipedia Recent Changes}
 
@@ -395,7 +323,7 @@ source.addEventListener('enedit', function(e) {
   \label{fig:screenshot}
 \end{figure*}
 
-\section{Evaluation}
+\section{Results}
 
 \begin{figure}[p]
   \center
@@ -452,6 +380,112 @@ source.addEventListener('enedit', function(e) {
   \caption{Percentage of logged-in activity $\geq80\%$ per language with $\geq1,000$ logged-in edits in observation period}
   \label{fig:most-logged-in-edited-languages}
 \end{figure}
+
+\section{Discussion}
+
+\section{Related Work}
+
+The Wikimedia Foundation themselves provide
+statistics for all Wikipedias
+with ten or more articles and edits in the previous month%
+~\cite{zachte2013wikipedia},
+as well as statistics for Wikidata~\cite{zachte2013wikidata},
+a~regular Wikipedia article on Wikipedia statistics%
+~\cite{wikipedia2013stats},
+and a~special auto-updating page on global high-level
+Wikipedia statistics~\cite{wikipedia2013special}.
+~\cite{zachte2013wikidata} and~\cite{zachte2013wikipedia}
+are based on recent database dump files
+and contain a~note that \textit{``the lengthy dump process
+(many weeks) means [that] a~delay in publishing these statistics
+is always to be expected''}.
+We accessed the statistics on December 13, 2013,
+where the data was processed up until October 31, 2013.
+Based upon the fact that these database dumps
+of all Wikipedias are also publicly available,
+in 2005 Voß~\cite{voss2005measuring} gave 
+an overview on Wikipedia research
+and analyzed articles, authors, edits, and links,
+as well as content and quality.
+A~similar study on Wikipedia research dating from 2006
+has been conducted by Ayers~\cite{ayers2006researchingwikipedia}.
+Unlike the methods described in~%
+\cite{ayers2006researchingwikipedia,voss2005measuring,zachte2013wikidata,zachte2013wikipedia},
+our approach works in realtime.
+In~\cite{ciampaglia2010empiricalanalysis}, Ciampaglia and Vancheri
+perform an empirical analysis of user participation
+excluding bots in five large Wikipedias.
+Adler \emph{et~al.}\ study in~\cite{adler2008measuringauthor}
+various means to measure user contributions to Wikipedia.
+As a~part of their study, they analyze bot editors
+that, if they were included, created massive outliers
+in the introduced measures.
+In contrast to the approaches%
+~\cite{adler2008measuringauthor,ciampaglia2010empiricalanalysis},
+we do not exclude bots for our analysis,
+but rather include them as equal citizens,
+while at the same time still allowing for dynamically
+disregarding them if need be.
+Geiger and Halfaker study in~\cite{geiger2013withoutbots}
+the effect of the absence of bot activity on Wikipedia's
+quality control network caused by the downtime of a~popular bot.
+Using our framework
+The tool \emph{WikiChecker}\footnote{WikiChecker:
+\url{http://en.wikichecker.com/}}
+allows for near-realtime statistics
+about logged-in \emph{vs.}\ anonymous users and more in
+the English, French, Russian, and Japanese Wikipedias.
+Our application provides realtime data about all Wikipedias and Wikidata.
+The application \emph{Wikipulse} shows realtime absolute
+edit statistics for 36~Wikipedias, Wikimedia Commons, and Wikidata.
+We provide detailed realtime statistics for all Wikipedias and Wikidata.
+The \emph{Wikipedia Recent Changes Map} tool,
+by LaPorte and Hashemi~\cite{laporte2013map},
+inspired by a~similar too called \emph{WikipediaVision}%
+~\cite{kozma2013map} by László Kozma,
+takes the IP addresses of anonymous editors
+of some of the biggest Wikipedias and maps them
+in realtime to geolocations via a~lookup service.
+We make the same information available
+for all Wikipedias and Wikidata, however,
+do not geolocate the IP addresses.
+\emph{Listen to Wikipedia}~\cite{laporte2013listen}
+is another project by
+LaPorte and Hashemi that makes Wikipedia and Wikidata edits
+audible and visualizes them in realtime.
+Depending on the size, the kind of edit, or the editor status,
+different sounds get played and colored circles displayed.
+The application \emph{Wikistream}\footnote{Wikistream:
+\url{http://wikistream.wmflabs.org/}} by Ed Summers
+visualizes edits on all Wikipedias and Wikidata
+in realtime and using recently uploaded images from Wikimedia Commons
+as background images, but does not keep track of edit statistics.
+Several tools provide processed page view statistics
+based on database dumps, examples are
+\emph{Wikipedia article traffic statistics}%
+\footnote{Wikipedia article traffic statistics:
+\url{http://stats.grok.se/}} by ``User:Henrik'',
+\emph{Wikipedia article traffic statistics}%
+\footnote{Wikipedia article traffic statistics:
+\url{http://toolserver.org/~emw/wikistats/}} by ``User:Emw'',
+or finally \emph{Wikipedia Page Views}%
+\footnote{Wikipedia Page Views: \url{http://wikistats.ins.cwi.nl/}}
+by Hannes Mühleisen.
+We do not focus on page view statistics based on database dumps,
+but realtime article edit statistics instead.
+In~\cite{boukhelifa2010realtime}, Boukhelifa \emph{et~al.}\
+classify statistics tools in the categories global and local.
+According to this classification,
+local tools focus on individual articles or users
+and therefore require time-consuming on-the-fly computations.
+In contrast,  global tools
+show the evolution of aggregated data
+for all Wikipedias,
+but without acquiring realtime data.
+According to this classification, our approach can be
+classified as global, however, with realtime support.
+
+\section{Conclusions and Future Work}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
