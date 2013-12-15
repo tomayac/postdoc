@@ -226,6 +226,7 @@ namely the Wikipedia Recent Changes Internet Relay Chat~(IRC) feed
 and a~push API called Server-Sent Events.
 
 \paragraph{Wikipedia Recent Changes}
+\label{sec:wikipedia-recent-changes}
 
 Whenever a~human or bot changes an article
 of any of the 287 Wikipedias,%
@@ -379,6 +380,9 @@ with close to no articles, supports our choice.
 Our application and underlying API being publicly available,
 interested parties can run longer analyses at will.
 In the following, we will zoom in on some interesting data points.
+As a~side-remark---and in consistence with
+\autoref{sec:wikipedia-recent-changes}---%
+we treat Wikidata like a~language when we describe our results. 
 
 \paragraph{Linearity of Number of Bots and Edits}
 
@@ -401,7 +405,7 @@ is active on Wikidata and the Russian and Ukrainian Wikipedias.
 
 \paragraph{The Few Linguistic Geniuses}
 
-\autoref{fig:bots-per-language} shows that only ten bots
+\autoref{fig:multilingual-bots} shows that only ten bots
 act in five languages or more, the clear leaders
 being \begin{CJK}{UTF8}{min}タチコマ\end{CJK} robot%
 \footnote{\begin{CJK}{UTF8}{min}タチコマ\end{CJK} robot:
@@ -412,6 +416,41 @@ with 96~languages.
 Both bots are consistently flagged as global bots.%
 \footnote{Bots with global flag: \url{http://en.wikipedia.org/w/index.php?title=Special:GlobalUsers/Global_bot}}
 About 86\% of all bots are only active in one language.
+
+\paragraph{The Linguae Francae of Wikipedia and Wikidata}
+
+Given the previous results that only very few bots
+act in more than one language, we asked ourselves
+what were the languages that attracted the most bots.
+\autoref{fig:bots-per-language} shows that the clear winners
+are the English Wikipedia and Wikidata,
+and starting from the French Wikipedia a~slow decline
+in the number of active bots.
+Overall only 5\% of all languages attracted more than ten bots.
+
+\paragraph{The Relatively Most Bot-Edited Languages}
+
+Requiring a~minimum threshold of 1,000 edits,
+we looked at what were the relatively
+(\emph{i.e.}, not absolutely) most bot-edited languages.
+\autoref{fig:most-bot-edited-languages} shows the results,
+with the fact that the Sindhi Wikipedia,
+during the observation period, was 100\% bot-edited,
+followed by the Sorani Wikipedia with 92\%
+and Wikidata with 88\% bot activity.
+
+\paragraph{The Relatively Most Human-Edited Languages}
+
+Requiring a~minimum threshold of 1,000 edits,
+we looked at what were the relatively
+(\emph{i.e.}, not absolutely) most human-edited languages.
+According to our results, during the observation period,
+the Galician, the Slovenian, and the Javanese Wikipedias
+were to 100\% human-edited, followed by
+a~very smoothly descending stairway curve
+with 31~languages being above 90\% human-edited
+and 53~languages above 50\%.
+
 
 \begin{figure}[p]
   \center
