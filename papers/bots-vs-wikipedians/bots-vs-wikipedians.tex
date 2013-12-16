@@ -542,19 +542,22 @@ there are some interesting discussion points.
 We will deep-dive into some of them and provide interpretations
 in the following.
 
-\paragraph{Multilingualism with Bots}
+\paragraph{The Long-Tail of Bots}
 
 \autoref{fig:most-active-bots}, \autoref{fig:multilingual-bots},
 and \autoref{fig:bots-per-language} all show a~tendency toward
 hockey stick curves.
-This implies that few active outliers visually dominate
+This implies that few outliers dominate
 the long-tail rest.
-Our results are in accordance with Geiger \emph{et~al.}'s%
-~\cite{geiger2013withoutbots}, who examined Wikipedia 
-quality control in the absence of the ClueBot~NG%
-\footnote{ClueBot~NG: \url{http://en.wikipedia.org/wiki/User:ClueBot_NG}} bot, who, according to our results,
-was the 20\superscript{th}-most-active bot.
-Their results suggest that a~long-tail of other bots
+Our results are in accordance with the work of Geiger \emph{et~al.}\
+\cite{geiger2013withoutbots}, who have examined Wiki\-pedia 
+quality control in the absence of the anti-vandalism bot ClueBot~NG%
+\footnote{ClueBot~NG: \url{http://en.wikipedia.org/wiki/User:ClueBot_NG}}---%
+according to our results
+the 20\superscript{th}-most-active bot
+and, at a~global view, still part of the hook
+of the hockey stick.
+Their results suggest that a~long-tail of bots
 take over pending corrective tasks, however, at a~slower rate,
 which acknowledges the importance of the long-tail.
 
@@ -562,20 +565,19 @@ which acknowledges the importance of the long-tail.
 \label{sec:bots-vs-wikipedians}
 
 Bots on Wikipedia and Wikidata are used to make
-repetitive automated or semi-automated edits
+repetitive automated edits
 that would be extremely tedious to do manually.
 It is interesting to compare the scales of the x- and y-axes of
 \autoref{fig:most-bot-edited-languages} and
 \autoref{fig:most-human-edited-languages}.
-In the prior case (most bot-edited languages),
+In the prior case (most bot-edited),
 the y-scale goes from 40\% to 100\%
 and the x-scale lists 17~languages.
-In the latter case (most human-edited languages),
+In the latter case (most human-edited),
 the y-scale goes from 90\% to 100\%
 and the x-scale lists 33~languages.
-What this implies is that the amount of languages that are
-edited dominantly by humans is a~lot higher than the amount
-of languages that are edited dominantly by bots.
+What this implies is that the amount of languages dominantly edited by humans is a~lot higher than the amount
+of languages dominantly edited by bots.
 This suggests that while bots can reach quite
 impressive qualities at contributing to Wikipedia~\cite{guldbrandsson2013bots},
 overall humans still excel.
@@ -587,7 +589,7 @@ has been declining in recent years%
 ~\cite{halfaker2013wikipedia}.
 Looking at \autoref{fig:most-anonymous-edited-languages} and
 \autoref{fig:most-logged-in-edited-languages},
-we can observe a~similar trend as in \autoref{sec:bots-vs-wikipedians}.
+we can observe a~similar trend as in the paragraph above.
 The y-axis for the anonymously-edited languages
 ranges from 2\% to 50\% with 31~languages listed on the x-axis,
 compared to the y-axis for the most logged-in-edited languages
@@ -599,7 +601,7 @@ open for future work, the hypothesis being that anonymous activity
 is more likely to either be vandalism and spam%
 ~\cite{alfonseca2013spam} or smaller corrective edits,
 whereas logged-in activity is more likely
-due to content-producing editing.
+going to produce quality content.
 
 \section{Related Work}
 
@@ -612,7 +614,7 @@ a~regular Wikipedia article on Wikipedia statistics%
 ~\cite{wikipedia2013stats},
 and a~special auto-updating page on global high-level
 Wikipedia statistics~\cite{wikipedia2013special}.
-~\cite{zachte2013wikidata} and~\cite{zachte2013wikipedia}
+Statistics from~\cite{zachte2013wikidata} and~\cite{zachte2013wikipedia}
 are based on recent database dump files
 and contain a~note that \textit{``the lengthy dump process
 (many weeks) means [that] a~delay in publishing these statistics
@@ -645,15 +647,14 @@ but rather include them as equal citizens,
 while at the same time still allowing for dynamically
 disregarding them if need be.
 Geiger and Halfaker study in~\cite{geiger2013withoutbots}
-the effect of the absence of bot activity on Wikipedia's
-quality control network caused by the downtime of a~popular bot.
-Using our framework
+bot statistics and the effect
+of the absence of a~popular anti-vandalism bot
+on Wikipedia's quality control network.
 The tool \emph{WikiChecker}\footnote{WikiChecker:
 \url{http://en.wikichecker.com/}}
 allows for near-realtime statistics
 about logged-in \emph{vs.}\ anonymous users and more in
 the English, French, Russian, and Japanese Wikipedias.
-Our application provides realtime data about all Wikipedias and Wikidata.
 The application \emph{Wikipulse} shows realtime absolute
 edit statistics for 36~Wikipedias, Wikimedia Commons, and Wikidata.
 We provide detailed realtime statistics for all Wikipedias and Wikidata.
@@ -676,7 +677,7 @@ different sounds get played and colored circles displayed.
 The application \emph{Wikistream}\footnote{Wikistream:
 \url{http://wikistream.wmflabs.org/}} by Ed Summers
 visualizes edits on all Wikipedias and Wikidata
-in realtime and using recently uploaded images from Wikimedia Commons
+in realtime and uses recently uploaded images from Wikimedia Commons
 as background images, but does not keep track of edit statistics.
 Several tools provide processed page view statistics
 based on database dumps, examples are
