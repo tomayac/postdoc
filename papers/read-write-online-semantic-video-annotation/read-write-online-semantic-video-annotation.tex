@@ -46,7 +46,11 @@
 \definecolor{grey}{RGB}{130,130,130}
 \newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
 
-\newcommand{\todo}[1]{\fcolorbox{blue}{white}{\parbox{7cm}{\color{blue}{#1}}}}
+% todo macro
+\usepackage{color}
+\newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
+
+\def\JSONLD{\mbox{JSON-LD}}
 
 \begin{document}
 %
@@ -56,7 +60,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Read/Write Semantic and Representational Online Video Annotation by Leveraging WebVTT and JSON-LD}
+\title{Read/Write Semantic and Presentation-Oriented Online Video Annotation by Leveraging WebVTT and \JSONLD}
 
 \numberofauthors{6}
 
@@ -113,37 +117,33 @@ Rik Van de Walle\\
 
 \maketitle
 \begin{abstract}
-We present and evaluate
-a~video annotation model and related technology stack
-wholly based on HTML5 Web standards
-and optimally leveraging native functionality
-already present in modern Web browsers,
-which allows for fully Read/Write-enabled
-semantic and representational video annotations.
+We present and evaluate a~video annotation model
+and related technology stack that is entirely based
+on HTML5 Web standards and leverages native functionality
+present in Web browsers.
+This allows for fully Read/Write-enabled video annotations.
 At time of video consumption, such video annotations
-can already be existent as is the case
-with annotations created by the video producer
-(\emph{i.e.},~annotations of type \emph{Read}),
-equally well as be created on-the-fly by the video consumer
-(\emph{i.e.},~annotations of type \emph{Write}).
+can already exist (\emph{i.e.}, \emph{Read} annotations),
+as well as be created on-the-fly by the video consumer
+(\emph{i.e.}, \emph{Write} annotations).
 Our video annotation model allows for both,
-semantic and representational annotations.
+semantic and presentation-oriented annotations.
 Semantic annotations are related to meaning in videos,
-whereas representational annotations are related to
-ways in which videos get represented to the viewer.
-By leveraging JSON-LD and WebVTT as enabling technologies,
-we are able to publish our annotations as Linked Data,
-both for classical Semantic Web clients
-as well as for common search engines.
-We evaluate our technology stack and annotation model
-based on a~state-of-the-art hypervideo model.
+whereas pre\-sen\-tation-oriented annotations are related to
+ways in which videos get displayed to the viewer.
+By leveraging the technologies \JSONLD~and WebVTT,
+we are able to publish our annotations as Linked Data
+both for classic Semantic Web clients
+as well as common search engines.
+We evaluate our annotation model
+with a~state-of-the-art hypervideo model.
 \end{abstract}
 
-\category{ToDo}{\todo{category}}{}
+\category{H.5.1}{Multimedia Inform. Syst.}{Eval./methodology}
 
-\terms{\todo{terms}}
+\terms{Experimentation, Design, Standardization}
 
-\keywords{\todo{keywords}}
+\keywords{Video annotation, WebVTT, \JSONLD, media fragments}
 
 \section{Introduction}
 
@@ -155,32 +155,34 @@ on all device classes,
 starting from cellphones to tablets to full-size desktop PCs.
 Videos can be intermixed with other multimedia content,
 which allows for rich, interactive experiences%
-\footnote{\url{http://www.chromeexperiments.com/}}
+\footnote{Showcase of interactive Web video experiments:
+\url{http://www.chromeexperiments.com/tag/video/}}
 based on spatiotemporal annotations
 not believed possible on the Web some years ago.
 Yet the creation of such annotations
 has mainly remained a~thing of Web content producers,
-not content consumers or standard Web users.
-While on common video platforms people
+leaving out content consumers or common Web users.
+While on established video platforms people
 can leave comments \emph{about videos},
 more rich annotations \emph{of videos} are not possible,
-nor exists a~commonly accepted, open format to share annotations.
+nor exists a~commonly accepted open format
+to share annotations on the Web.
 
 In this paper, we propose an annotation model
-and related technology stack that allows both,
-video consumers and video producers to create 
+and related technology stack that allows both
+video consumers and producers to create 
 rich, interactive video experiences
 in a~collaborative Read/Write manner.
-We support representational and semantic annotations,
-so that annotators can change
-the look and feel of videos,
-but also make semantic statements
+We support presentation-oriented and semantic annotations,
+so that annotators can influence
+the presentation style of videos on the one hand,
+but on the other also make semantic statements
 about the meaning of the video itself, fragments of it,
 or objects within it.
-The created annotations are interchangeable
-and not bound to a~specific video hosting platform,
-as they are fully based on the Web standards
-JSON-LD~\cite{sporny2013jsonld}
+Such annotations are interchangeable
+and not bound to specific video hosting platforms,
+as they are based on the Web standards
+\JSONLD~\cite{sporny2013jsonld}
 and WebVTT~\cite{pfeiffer2013webvtt}.
 
 The remainder of this paper is organized as follows.
@@ -407,7 +409,7 @@ Not displayed by the user agent.\\
   \label{table:texttrackkinds}
 \end{table*}
 
-\subsection{JSON-LD}
+\subsection{\JSONLD}
 
 The \emph{JavaScript Object Notation}
 (JSON\footnote{\url{http://json.org/}})
@@ -419,13 +421,13 @@ so that it can be interlinked and become more useful,
 which builds upon standard Web technologies such as HTTP, RDF and URIs.
 Based on top of JSON, the
 \emph{JavaScript Object Notation for Linked Data}
-(JSON-LD,~\cite{sporny2013jsonld}) is a~method for transporting
-Linked Data with a~smooth upgrade path from JSON to JSON-LD.
+(\JSONLD,~\cite{sporny2013jsonld}) is a~method for transporting
+Linked Data with a~smooth upgrade path from JSON to \JSONLD.
 It is primarily intended to be a~way to use
 Linked Data in Web-based programming environments,
 to build interoperable Web services,
 and to store Linked Data in JSON-based storage engines.
-We use JSON-LD as payload of \texttt{TextTrackCue} elements.
+We use \JSONLD as payload of \texttt{TextTrackCue} elements.
 
 \subsection{Media Fragments URI}
 
@@ -471,16 +473,16 @@ Combined with Media Fragments URI,
 this allows for making statements about media items
 and fragments thereof.
 
-\section{Implementation}
+\section{Annotation Model}
 
 \todo{Fragments as atoms}
 
-\subsection{Supported Annotation Properties}
+\subsection{Supported Annotation Types}
 
-Currently, our system allows for semantic and representational
+Currently, our system allows for semantic and presentation-oriented
 annotations of the following types.
 
-\paragraph{Representational Annotations}
+\paragraph{Presentation-Oriented Annotations}
 
 \begin{description}[leftmargin=*]
   \item[Spatial Fragments:] Via the \texttt{spatialFragment}
@@ -549,7 +551,7 @@ annotations of the following types.
     to the corresponding temporal fragment of the
     \texttt{video} element of the current
     \texttt{TextTrack} element. In combination with the
-    representational annotation type \texttt{spatialFragment},
+    presentation-oriented annotation type \texttt{spatialFragment},
     semantic annotations of objects
     in video fragments are possible.
 \end{description}
@@ -603,6 +605,12 @@ that we will summarize in the following.
 \end{description}  
 
 \section{Future Work and Conclusions}
+
+Extend CSS by temporal component
+
+Meta-annotations
+
+Conflicting annotatiuons
 
 \section*{Acknowledgments}
 
