@@ -191,19 +191,10 @@ The remainder of this paper is organized as follows.
 \section{Related Work}
 
 The online video hosting platform YouTube%
-\footnote{\url{http://www.youtube.com/}}
+\footnote{YouTube: \url{http://www.youtube.com/}}
 lets video publishers add video annotations
-in a~closed format%
-~\cite{youtube2008annotations,youtube2010annotations}
-that is proprietary to the platform.
-In 2009, YouTube introduced a~feature called 
-Collaborative Annotations%
-~\cite{fink2009collaborativeannotations}
-that allowed video consumers to collaboratively
-create video annotations.
-The feature was discontinued in 2010
-\textit{``to make room for even more new features''}%
-~\cite{youtube2010annotations}.
+in a~closed proprietary format%
+~\cite{youtube2008annotations,youtube2010annotations}.
 At time of writing, YouTube supports the following
 annotation types: \emph{speech bubbles} for creating
 pop-up speech bubbles with text,
@@ -215,19 +206,25 @@ and \emph{labels} for creating a~label to call out
 and name a~specific part of a~video.
 Notes, speech bubbles, and spotlights can contain \emph{links}
 to other videos, the same video, channel pages, playlists,
-or search results.
-Similarly, they can also be linked to YouTube-specific actions
+or search results, as well as to actions
 such as subscribe, compose message, and upload video response.
+From 2009 to 2010, YouTube had a~feature called 
+Collaborative Annotations%
+~\cite{fink2009collaborativeannotations}
+that allowed video consumers to collaboratively
+create video annotations.
+It was discontinued \textit{``to make room for even more new features''}%
+~\cite{youtube2010annotations}.
  
 In~\cite{vandeursen2012mediafragmentannotations},
 Van Deursen \emph{et~al.}\ present a~system
 that combines Media Fragments URI~\cite{troncy2012mediafragments} and the Ontology for Media Resources~\cite{lee2012mediaontology}
-within a~media-enabled HTML5~\cite{berjon2013html5}
+in an HTML5~\cite{berjon2013html5}
 Web application to convert rich media fragment annotations
 into a~WebVTT~\cite{pfeiffer2013webvtt} file
 that can be used by HTML5-enabled players
 to show the annotations in a~synchronized way.
-Concretely, their systems allows for linking, displaying
+Their systems allows for linking, displaying,
 browsing, and bookmarking of media fragments,
 providing structured annotations for media fragments,
 and experiencing synchronized media and annotations.
@@ -251,9 +248,8 @@ in form of the HTML+TIME submission~\cite{schmitz1998htmltime}
 and, based thereon, the XHTML+SMIL Profile note%
 ~\cite{newman2002xhtmlsmil}
 to integrate SMIL semantics with (X)HTML and CSS.
-Despite its initially active role in the W3C working group
-that developed the SMIL standard,
-Microsoft later decided to not further support SMIL
+Despite its initially active role in the W3C SMIL working group,
+Microsoft later decided to cease SMIL support
 due to a~perceived overlap with several existing standards.
 
 The Component-based Hypervideo Model
@@ -261,9 +257,9 @@ The Component-based Hypervideo Model
 proposes a~formal model for hypervideo documents
 and offers a~practical framework that allows for
 the design of Web-oriented hypervideos.
-CHM annotations are defined as any data associated to
+CHM annotations are defined as any kind of data associated to
 a~logical spatiotemporal video fragment.
-A~first version of the proposed framework
+A~version of the proposed framework
 has been released in form of the WebCHM prototype
 that integrates with existing Web technologies
 via a~declarative syntax.
@@ -271,7 +267,7 @@ Support for temporal semantics is ensured through
 an implementation of SMIL Timesheets~\cite{vuorimaa2012timesheets}
 in a~JavaScript library.
 
-Popcorn.js\footnote{\url{http://popcornjs.org/}}
+Popcorn.js\footnote{Popcorn.js: \url{http://popcornjs.org/}}
 is an HTML5 media framework written in JavaScript
 aimed at filmmakers, Web developers,
 and users interested in creating
@@ -281,7 +277,7 @@ and adds interactivity and context to online video
 by letting users link social media, news feeds,
 data visualizations, and other content directly to moving images.
 The Mozilla PopcornMaker%
-\footnote{\url{https://popcorn.webmaker.org/}}
+\footnote{PopcornMaker: \url{https://popcorn.webmaker.org/}}
 is an interactive Web authoring environment
 that allows for videos to be annotated on a~video timeline.
 
