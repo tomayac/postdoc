@@ -121,7 +121,7 @@ its code has been open-sourced under the Apache~2.0 license.
 
 \section{Introduction}
 
-\paragraph{How Wikipedia Came Into Life}
+\paragraph{How Wikipedia Came to Life}
 
 The fundamental shift from book-based encyclopedias
 to CD-ROM-based encyclopedias
@@ -284,7 +284,8 @@ On the client side, using this API consists of creating
 an \texttt{EventSource} object and registering event listeners,
 as can be seen in \autoref{code:sse-client}.
 When the client loses connection,
-it will automatically reconnect requiring no manual action.
+it automatically reconnects,
+\emph{i.e.}\ without manual interaction.
 
 \begin{figure}[h!]
 \begin{lstlisting}[caption={Server-Sent Event of type ``enedit''
@@ -350,7 +351,7 @@ designed for writing scalable Internet applications.
 %asynchronous input/output operations
 %to minimize overhead and maximize scalability.
 Using Martyn Smith's Node.js IRC library,%
-\footnote{Node.js IRC library:
+\footnote{Node IRC:
 \url{https://github.com/martynsmith/node-irc}}
 we listen for Wikipedia and Wikidata edit events
 and send Server-Sent Events whenever we detect one.
@@ -372,22 +373,24 @@ during the observation period from November~4
 to November~6, 2013.
 While this may not sound like a~long time,
 already during this short period
-overall 3,805,185~edit events occurred.
+overall exactly 3,805,185~edit events occurred.
 Our application updates in realtime,
-which allowed us to detect when relative figures,
+which allows us to detect when relative figures,
 \emph{i.e.}, percentages of bots \emph{vs.}\ Wikipedians
-and anonymous \emph{vs.}\ logged-in humans started to converge.
+and anonymous \emph{vs.}\ logged-in humans start to converge.
 This was the case after about half of the observation period.
-At the end, from the overall 287~Wikipedias and Wikidata,
+At the end of the observation,
+from all 287~Wikipedias and Wikidata,
 exactly 260~($\sim90.3\%$) were edited,
 which, given the long-long-tail of Wikipedias
-with close to no articles, supports our choice.
+with very few articles, justifies
+our observation period duration.
 Our application and underlying API being publicly available,
 interested parties can run longer analyses at will.
 In the following, we will zoom in on some interesting data points.
-As a~side-remark---and in consistence with
+As a~side-remark---in consistence with
 \autoref{sec:wikipedia-recent-changes}---%
-we treat Wikidata like a~language when we describe our results. 
+we treat Wikidata like a~language when describing our results. 
 
 \paragraph{Linearity of Number of Bots and Edits}
 
@@ -398,12 +401,12 @@ relative figures from there on converged.
 
 \paragraph{The Hockey Stick of Most Active Bots}
 
-\autoref{fig:most-active-bots} shows a~perfect hockey stick
+\autoref{fig:most-active-bots} shows a~classic hockey stick
 curve of the most active bots.
 Dexbot\footnote{Dexbot: \url{http://en.wikipedia.org/wiki/User:Dexbot}}
-and ValterVBot\footnote{ValterVBot: \url{http://it.wikipedia.org/wiki/Utente:ValterVBot}} lead the field,
+and ValterVBot\footnote{ValterVBot: \url{http://bit.ly/ValterVBot}} lead the field,
 what follows next is a~long-tail of slowly declining bot activity
-that starting from KrBot is roughly linear.
+that, starting from KrBot, is roughly linear.
 Dexbot and ValterVBot are both heavily active on Wikidata,
 KrBot\footnote{KrBot: \url{https://ru.wikipedia.org/wiki/\%D0\%A3\%D1\%87\%D0\%B0\%D1\%81\%D1\%82\%D0\%BD\%D0\%B8\%D0\%BA:KrBot}}
 is active on Wikidata and the Russian and Ukrainian Wikipedias.
@@ -411,7 +414,7 @@ is active on Wikidata and the Russian and Ukrainian Wikipedias.
 \paragraph{The Few Linguistic Geniuses}
 
 \autoref{fig:multilingual-bots} shows that only ten bots
-act in five languages or more, the clear leaders
+are active in five languages or more, the clear leaders
 being \begin{CJK}{UTF8}{min}タチコマ\end{CJK} robot%
 \footnote{\begin{CJK}{UTF8}{min}タチコマ\end{CJK} robot:
 \url{http://en.wikipedia.org/wiki/User:\%E3\%82\%BF\%E3\%83\%81\%E3\%82\%B3\%E3\%83\%9E_robot}} with 102~languages and
@@ -420,7 +423,7 @@ EmausBot\footnote{EmausBot:
 with 96~languages.
 Both bots are consistently flagged as global bots.%
 \footnote{Bots with global flag: \url{http://en.wikipedia.org/w/index.php?title=Special:GlobalUsers/Global_bot}}
-About 86\% of all bots are only active in one language.
+A~large majority of 86\% of all bots are only active in one language.
 
 \paragraph{The Linguae Francae of Wikipedia and Wikidata}
 
@@ -429,13 +432,13 @@ act in more than one language, we asked ourselves
 what were the languages that attracted the most bots.
 \autoref{fig:bots-per-language} shows that the clear winners
 are the English Wikipedia and Wikidata,
-and starting from the French Wikipedia a~slow decline
-in the number of active bots.
+and, starting from the French Wikipedia, a~slow almost linear decline
+in the number of active bots can be seen.
 Overall only 5\% of all languages attracted more than ten bots.
 
 \paragraph{The Relatively Most Bot-Edited Languages}
 
-Requiring a~minimum threshold of 1,000 edits,
+Requiring a~minimum threshold of 1,000 bot edits,
 we looked at what were the relatively
 (\emph{i.e.}, not absolutely) most bot-edited languages.
 \autoref{fig:most-bot-edited-languages} shows the results,
@@ -446,15 +449,15 @@ and Wikidata with 88\% bot activity.
 
 \paragraph{The Relatively Most Human-Edited Languages}
 
-Requiring a~minimum threshold of 1,000 edits,
+Requiring a~minimum threshold of 1,000 human edits,
 we looked at what were the relatively
-(\emph{i.e.}, not absolutely) most human-edited languages.
+most human-edited languages.
 According to our results that can be seen in \autoref{fig:most-human-edited-languages},
 during the observation period,
 the Galician, the Slovenian, and the Javanese Wikipedias
 were to 100\% human-edited, followed by
 a~very smoothly descending stairway curve
-with 31~languages being above 90\% human-edited.
+with 31~languages being to 90\% or more human-edited.
 
 \paragraph{The Relatively Most Anonymously-Edited Languages}
 
@@ -464,7 +467,8 @@ number of 1,000 anonymous edits in order to be counted.
 Our results depicted in \autoref{fig:most-anonymous-edited-languages}
 show an almost linearly declining curve with the Thai,
 the Korean, and the Simple English Wikipedias being at the top
-with 41\% and two times 38\% anonymous editing activity. 
+with 41\% and twice 38\% anonymous editing activity
+in the observation period. 
 
 \paragraph{The Relatively Most Logged-In-Edited Languages}
 
