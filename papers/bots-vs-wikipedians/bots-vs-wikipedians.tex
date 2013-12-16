@@ -139,7 +139,7 @@ Wikipedia's initial role was to serve
 for collaborating on draft articles for Nupedia.
 What happened in practice was that Wikipedia rapidly overtook Nupedia
 as there was no peer-review burden
-and at time of writing is now a~global project
+and at time of writing is now a~globally successful project
 available in 287 languages and overall more than 30 million articles.%
 \footnote{Wikipedia statistics: \url{http://stats.wikimedia.org/}}
 
@@ -198,7 +198,7 @@ dependent on their standpoint, choose their source.
 \paragraph{Contributions}
 
 The contributions of this paper are twofold.
-On the development side, first, we have developed an application
+On the engineering side, first, we have developed an application
 and released its source code as open-source
 that allows for realtime monitoring of all 287~Wikipedias and Wikidata.
 Second, we have permanently made available a~publicly useable
@@ -259,7 +259,7 @@ The message components are \emph{(i)}~article name, \emph{(ii)}~revision URL,
 \paragraph{Server-Sent Events}
 
 Server-Sent Events~\cite{hickson2012sse}
-defines an API for opening an HTTP connection
+defines an API for using an HTTP connection
 to receive push notifications from a~server
 in the form of DOM events.
 Therefore, on the server side, a~script generates messages
@@ -280,7 +280,7 @@ On the client side, using this API consists of creating
 an \texttt{EventSource} object and registering event listeners,
 as can be seen in \autoref{code:sse-client}.
 When the client loses connection,
-it will automatically reconnect.
+it will automatically reconnect requiring no manual action.
 
 \begin{figure}[h!]
 \begin{lstlisting}[caption={Server-Sent Event of type ``enedit''
@@ -342,9 +342,9 @@ Our application is based on a~Server-Sent Events API
 that we have implemented in Node.js,
 a~server side JavaScript software system
 designed for writing scalable Internet applications.
-Programs are created using event-driven,
-asynchronous input/output operations
-to minimize overhead and maximize scalability.
+%Programs are created using event-driven,
+%asynchronous input/output operations
+%to minimize overhead and maximize scalability.
 Using Martyn Smith's Node.js IRC library,%
 \footnote{Node.js IRC library:
 \url{https://github.com/martynsmith/node-irc}}
@@ -356,7 +356,7 @@ On the client side in the actual application,
 we have registered generic event handlers for events
 pushed by the API and keep track of edit statistics over time.
 This application can be tested at
-\url{http://wikipedia-edits.herokuapp.com/}.\linebreak
+\url{http://wikipedia-edits.herokuapp.com/}.
 A~screenshot of the application
 can be seen in \autoref{fig:screenshot}.
 
@@ -522,7 +522,7 @@ with the other languages declining approximately linearly.
 \begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{most-logged-in-edited-languages.pdf}
-  \caption{Percentage of logged-in activity $\geq80\%$ per language with $\geq1,000$ logged-in edits in observation period}
+  \caption{Percentage of logged-in activity $\geq80\%$ per language with $\geq1,000$ logged-in edits}
   \label{fig:most-logged-in-edited-languages}
 \end{figure}
 
@@ -530,7 +530,8 @@ with the other languages declining approximately linearly.
 
 Interpreting and analyzing our obtained results,
 there are some interesting discussion points.
-We will deep-dive into some of them in the following.
+We will deep-dive into some of them and provide interpretations
+in the following.
 
 \paragraph{Multilingualism with Bots}
 
@@ -679,6 +680,8 @@ based on database dumps, examples are
 or finally \emph{Wikipedia Page Views}%
 \footnote{Wikipedia Page Views: \url{http://wikistats.ins.cwi.nl/}}
 by Hannes Mühleisen.
+Mestyán \emph{et~al.}~\cite{mestyan2013boxoffice} measure and analyze the activity level of editors and viewers in order
+to predict the box office success of movies.
 We do not focus on page view statistics based on database dumps,
 but realtime article edit statistics instead.
 In~\cite{boukhelifa2010realtime}, Boukhelifa \emph{et~al.}\
@@ -691,7 +694,7 @@ show the evolution of aggregated data
 for all Wikipedias,
 but without acquiring realtime data.
 According to this classification, our approach can be
-classified as global, however, with full realtime data support.
+classified as global, however, with realtime support.
 
 \section{Conclusions and Future Work}
 
@@ -737,9 +740,19 @@ Like with Twitter's Streaming APIs%
 \url{https://dev.twitter.com/docs/streaming-apis}}
 that people have found creative uses for%
 ~\cite{petrovic2010streamingfirststory},
-our API can facilitate interesting use cases%
-~\cite{mestyan2013boxoffice,yasseri2012conflicts}
-that people may come up with.
+our API can facilitate interesting use cases
+for data from Wikipedia and Wikidata like the detection of
+edit wars~\cite{yasseri2012conflicts}
+reflecting real-world conflicts.
+
+Concluding, we have contributed a~useful
+Wikipedia and Wikidata monitoring tool
+as well as an open API
+and have performed an initial global study 
+with interesting and not evident insights that
+hopefully will be the first in a~series
+of many more future studies and applications by us
+and others.
  
 \bibliographystyle{abbrv}
 \bibliography{references}
