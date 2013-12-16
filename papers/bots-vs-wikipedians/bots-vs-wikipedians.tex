@@ -84,18 +84,19 @@ that at time of writing is available in 287 languages.
 Wikidata is a~likewise global crowdsourced knowledge base
 that provides shared facts to be used by Wikipedias.
 In the context of this research, we have developed
-an application capable of monitoring
+an application and an underlying
+Application Programming Interface~(API) capable of monitoring
 realtime edit activity of all language versions
 of Wikipedia and Wikidata.
-This application allows us and others to easily analyze and monitor edits
+This application allows us to easily analyze edits
 in order to answer questions such as
 ``Bots \emph{vs.}\ Wikipedians, who edits more?'',
-``Anonymous \emph{vs.}\ logged-in humans, who edits what?'',
+``Which one is the most anonymously edited Wikipedia?'',
 or ``Who are the bots and what do they edit?''.
 To the best of our knowledge,
-this is the first time such analyses
-were done for really \emph{all} Wikipedias%
----big and small---and for Wikidata.
+this is the first time such an analysis
+was done for Wikidata \emph{and}
+for really \emph{all} Wikipedias---large and small.
 According to our results, all Wikipedias \emph{and} Wikidata together
 are edited by about 50\%~bots and by about 23\%~anonymous users.
 Wikidata alone accounts for about 48\%~of the totally observed edits.
@@ -105,7 +106,7 @@ about 15\%~of all edits are made by bots
 and 26\%~of all edits are made by anonymous users.
 Overall, we found a~stabilizing number of 274 active bots
 during our observation period.
-Our application is available publicly online at
+Our application is available publicly online at the URL
 \url{http://wikipedia-edits.herokuapp.com/},
 its code has been open-sourced under the Apache~2.0 license.
 \end{abstract}
@@ -114,7 +115,7 @@ its code has been open-sourced under the Apache~2.0 license.
 
 \terms{Human Factors, Languages, Measurement, Experimentation}
 
-\keywords{Wikipedia, Wikidata, realtime monitoring, study}
+\keywords{Wikipedia, Wikidata, realtime monitoring, study, Web app}
 
 \section{Introduction}
 
