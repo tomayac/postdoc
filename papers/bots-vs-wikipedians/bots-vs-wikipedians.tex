@@ -329,12 +329,12 @@ source.addEventListener('enedit', function(e) {
 \end{lstlisting}
 \end{figure}
 
-\begin{figure*}[h!]
+\begin{figure}[h!]
   \centering
-  \fbox{\includegraphics[width=0.95\linewidth]{bots-vs-wikipedians.png}}
+  \fbox{\includegraphics[width=\linewidth]{bots-vs-wikipedians.png}}
   \caption{Screenshot of the application available at \url{http://wikipedia-edits.herokuapp.com/} (cropped)}
   \label{fig:screenshot}
-\end{figure*}
+\end{figure}
 
 \paragraph{Implementation Details}
 
@@ -473,7 +473,7 @@ with the other languages declining linearly.
 
 \begin{figure}[p]
   \center
-  \includegraphics[width=0.8\linewidth]{bots-total-edits.pdf}
+  \includegraphics[width=0.84\linewidth]{bots-total-edits.pdf}
   \caption{Number of bots \emph{vs.}\ number of total edits}
   \label{fig:bots-total-edits}
 \end{figure}
@@ -494,29 +494,29 @@ with the other languages declining linearly.
 
 \begin{figure}[p]
   \center
-  \includegraphics[width=\linewidth]{bots-per-language.pdf}
+  \includegraphics[width=0.9\linewidth]{bots-per-language.pdf}
   \caption{Languages with $\geq10$ active bots}
   \label{fig:bots-per-language}
 \end{figure}
 
 \begin{figure}[p]
   \center
-  \includegraphics[width=\linewidth]{most-bot-edited-languages.pdf}
-  \caption{Percentage of bot activity $\geq50\%$ per language with $\geq1,000$ bot edits in observation period}
+  \includegraphics[width=0.9\linewidth]{most-bot-edited-languages.pdf}
+  \caption{Percentage of bot activity $\geq50\%$ per language with $\geq1,000$ bot edits}
   \label{fig:most-bot-edited-languages}
 \end{figure}
 
 \begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{most-human-edited-languages.pdf}
-  \caption{Percentage of human activity $\geq90\%$ per language with $\geq1,000$ human edits in observation period}
+  \caption{Percentage of human activity $\geq90\%$ per language with $\geq1,000$ human edits}
   \label{fig:most-human-edited-languages}
 \end{figure}
 
 \begin{figure}[p]
   \center
   \includegraphics[width=\linewidth]{most-anonymous-edited-languages.pdf}
-  \caption{Percentage of anonymous activity per language with $\geq1,000$ anonymous edits in observation period}
+  \caption{Percentage of anonymous activity per language with $\geq1,000$ anonymous edits}
   \label{fig:most-anonymous-edited-languages}
 \end{figure}
 
@@ -550,6 +550,7 @@ take over pending corrective tasks, however, at a~slower rate,
 which acknowledges the importance of the long-tail.
 
 \paragraph{Bots vs. Wikipedians}
+\label{sec:bots-vs-wikipedians}
 
 Bots on Wikipedia and Wikidata are used to make
 repetitive automated or semi-automated edits
@@ -572,7 +573,24 @@ overall humans still excel.
 
 \paragraph{Anons vs. Logged-Ins}
 
-
+It is a~well-known fact that the number of Wikipedia editors
+has been declining in recent years%
+~\cite{halfaker2013wikipedia}.
+Looking at \autoref{fig:most-anonymous-edited-languages} and
+\autoref{fig:most-logged-in-edited-languages},
+we can observe a~similar trend as in \autoref{sec:bots-vs-wikipedians}.
+The y-axis for the anonymously-edited languages
+ranges from 2\% to 50\% with 31~languages listed on the x-axis,
+compared to the y-axis for the most logged-in-edited languages
+ranging from 80\% to 100\% with the x-axis listing 34~languages,
+which implies that the amount of logged-in activity
+greatly outperforms the amount of anonymous activity.
+We leave comparing logged-in edits to anonymous edits 
+open for future work, the hypothesis being that anonymous activity
+is more likely to either be vandalism and spam%
+~\cite{alfonseca2013spam} or smaller corrective edits,
+whereas logged-in activity is more likely
+due to content-producing editing.
 
 \section{Related Work}
 
