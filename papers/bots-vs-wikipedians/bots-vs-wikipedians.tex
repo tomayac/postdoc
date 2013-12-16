@@ -691,9 +691,48 @@ show the evolution of aggregated data
 for all Wikipedias,
 but without acquiring realtime data.
 According to this classification, our approach can be
-classified as global, however, with realtime data support.
+classified as global, however, with full realtime data support.
 
 \section{Conclusions and Future Work}
+
+In this paper, we have introduced an application
+and underlying API for the realtime monitoring
+of all 287~Wikipedias and Wikidata.
+Using this application that additionally was open-sourced,
+we have collected more than 3.8~million edit events
+that we have analyzed in order to get a~better understanding
+of Wikipedia and Wikidata editors.
+This allowed us to get a~feeling of the relations of
+logged-in \emph{vs.}\ anonymous edits
+and edits made by bots \emph{vs.}\ edits made by humans
+both globally and local.
+We have looked at bots and their languages
+and created several analyses based thereon.
+
+Future wok has several possible directions.
+On the engineering side, we can improve the application
+such that it creates the diagrams shown in this paper directly.
+Further, we can imagine a~global bot health check system
+that, based on the regular bot behavior patters,
+tries to detect outliers caused by
+potentially rogue bots or failing bots,
+so that we can alert adminstrators early on
+\textit{``when the levee breaks''}~\cite{geiger2013withoutbots}.
+On the research side, an interesting step to take
+would be to look into qualitative differences
+between bot edits and human edits, and for the latter,
+logged-in and anonymous edits.
+While we now have a~feeling about relative and absolute numbers,
+looking into the contents of the actual edits---%
+which our API allows, as for each edit event it sends the
+\texttt{diffUrl} and \texttt{languageClusterUrl}
+(\autoref{code:sse-server})---%
+opens many research opportunities ranging from spam
+and vandalism detection~\cite{alfonseca2013spam}
+to realtime article tracking for monitoring events
+as they happen on Wikipedia~\cite{steiner2013mjnomore}
+or even disaster response.
+
  
 \bibliographystyle{abbrv}
 \bibliography{references}
