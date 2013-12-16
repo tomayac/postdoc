@@ -4,6 +4,8 @@
 \usepackage{enumitem}
 \usepackage[hyphens]{url}
 \usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
 
 \usepackage{CJKutf8}
 
@@ -235,7 +237,7 @@ of any of the 287 Wikipedias,%
 \footnote{List of Wikipedias by size:
 \url{http://meta.wikimedia.org/wiki/List_of_Wikipedias}}
 a~change event gets communicated by a~chat bot
-over Wikipedia's own IRC server (\url{irc.wikimedia.org}),%
+over the Wikimedia IRC server (\url{irc.wikimedia.org}),%
 \footnote{Raw IRC feeds of recent changes:
 \url{http://meta.wikimedia.org/wiki/IRC/Channels\#Raw_feeds}}
 so that parties interested in the data
@@ -246,7 +248,7 @@ a~specific chat room following the pattern
 \texttt{"\#" + language + ".wikipedia"}.
 For example, changes to Catalan Wikipedia articles
 will be streamed to the room \texttt{\#ca.wikipedia}.
-An exception from the pattern is the room
+An exception from this pattern is the room
 \texttt{\#wikidata.wikipedia} for the language-independent
 knowledge base Wikidata~\cite{vrandecic2012wikidata}.
 A~sample original chat message with the components separated
@@ -320,13 +322,13 @@ var source = new EventSource('/sse');
 // generic event listener for any Wikipedia edit
 source.addEventListener('message', function(e) {
   var data = JSON.parse(e.data);
-  console.log(e.lastEventId + '=>' + data);
+  console.log(e.lastEventId + ' ' + data.article);
 }, false);
 
 // listener for English Wikipedia edits
 source.addEventListener('enedit', function(e) {
   var data = JSON.parse(e.data);
-  console.log(e.lastEventId + '=>' + data);
+  console.log(e.lastEventId + ' ' + data.article);
 }, false);
 \end{lstlisting}
 \end{figure}
@@ -351,14 +353,15 @@ Using Martyn Smith's Node.js IRC library,%
 \footnote{Node.js IRC library:
 \url{https://github.com/martynsmith/node-irc}}
 we listen for Wikipedia and Wikidata edit events
-and send a~Server-Sent Event whenever we detect one.
-Our API is available online and open for others to use at the URL
-\url{http://wikipedia-edits.herokuapp.com/sse}.
-On the client side in the actual application,
+and send Server-Sent Events whenever we detect one.
+Our API is available publicly online
+at the URL \url{http://wikipedia-edits.herokuapp.com/sse}
+and open for third parties to use.
+On the client side,t in the actual application,
 we have registered generic event handlers for events
 pushed by the API and keep track of edit statistics over time.
 This application can be tested at
-\url{http://wikipedia-edits.herokuapp.com/}.
+\url{http://wikipedia-edits.herokuapp.com/}.\linebreak
 A~screenshot of the application
 can be seen in \autoref{fig:screenshot}.
 
