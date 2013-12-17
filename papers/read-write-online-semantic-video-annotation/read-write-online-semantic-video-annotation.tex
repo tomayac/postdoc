@@ -361,85 +361,84 @@ about media items and fragments thereof.
 
 \section{Annotation Model}
 
-\todo{Fragments as atoms}
+\paragraph{General Concepts of the Annotation Model}
 
-\subsection{Supported Annotation Types}
+Our annotation model uses subject-predicate-object expressions.
+The simplest annotation is thus a~single triple.
+The possible values for the \emph{subject} can be \emph{(i)}~the video
+URI itself or---in case of multiple URLs for a~video available
+in different encodings with multiple \texttt{<source>} tags---%
+the URI with fragment identifier of the \texttt{<video>} tag
+that then requires a~unique ID,
+\emph{(ii)}~the Media Fragment URI of a~temporal and/or spatial
+media fragment of the original media item.
+We have no constraints in place for the \emph{predicate}
+and {object}, we thus make a~sort of open world assumption by
+supporting certain pre-defined values for predicate and object
+listed below in our interpretation layer in the video view,
+and simply ignoring unknown ones,
+which permits others to extend or even completely replace
+our interpretation layer.
 
-Currently, our system allows for semantic and presentation-oriented
-annotations of the following types.
-
-\paragraph{Presentation-Oriented Annotations}
+\paragraph{Supported Presentation-Oriented Annotation Types}
 
 \begin{description}[leftmargin=*]
-  \item[Spatial Fragments:] Via the \texttt{spatialFragment}
-    annotation type, rectangular spatial fragments
-    of the temporal fragment of the \texttt{video} element
-    of the current \texttt{TextTrack} element can be selected.
-    The selected spatial fragment is highlighted by a~rectangular
-    frame on top of the video.
   \item[Style:] Annotations of
-    type \texttt{style} allow for adding Cascading Style Sheet%
-    \footnote{\url{http://www.w3.org/Style/CSS/}}
-    styles to the corresponding temporal fragment of the
-    \texttt{video} element of the current
-    \texttt{TextTrack} element.
+    type \texttt{style} allow for applying styles in the syntax of
+    Cascading Style Sheets%
+    \footnote{Cascading Style Sheets:
+    \url{http://www.w3.org/Style/CSS/}} (CSS)
+    to a~media fragment.
     This allows for a~range of visual effects,
     including (but not limited to) color filters,
     zoom effects, transparency, and 2D or 3D transformations
     and animations. 
   \item[Playback Rate:] The \texttt{playbackRate}
     annotation type allows for specifying the effective
-    playback rate of the corresponding temporal fragment of the
-    \texttt{video} element of the current
-    \texttt{TextTrack} element.
-    The playback rate is expressed as multiple or fraction
-    of the intrinsic video speed.
+    playback rate of a~media fragment.
+    The playback rate is expressed as a~floating point
+    multiple or fraction of the intrinsic video speed.
   \item[Volume:] The \texttt{volume} annotation type allows for
-    specifying the volume of the corresponding
-    temporal fragment of the
-    \texttt{video} element of the current
-    \texttt{TextTrack} element on a~scale
-    ranging from 0.0 (silent) to 1.0 (loudest).
+    specifying the volume of a~media fragment on a~scale
+    from 0.0 to 1.0.
   \item[HTML:] Via the \texttt{html} annotation type,
-    freeform HTML code can be added on top of the
-    corresponding temporal fragment of the
-    \texttt{video} element of the
-    current \texttt{TextTrack} element.
+    freeform HTML code can be added on top of a~media fragment.
     This allows for the addition of graphical,
     textual, or combined overlays that can contain
     links to (temporal fragments of)
     other videos or within the current video.
 \end{description}
 
-\paragraph{Semantic Annotations}
+\paragraph{Supported Semantic Annotation Types}
 
 \begin{description}[leftmargin=*]
-  \item[Tags:] Semantic annotations of type \texttt{tags}
-    allow for adding plain-text tags or semantic tags 
-    in form of references to unique, well-defined concepts
-    with their own URLs to the corresponding
-    temporal fragment of the
-    \texttt{video} element of the current
-    \texttt{TextTrack} element.
-  \item[Actors:] The \texttt{actors} annotation type allows for
-    the actors in the corresponding temporal
-    fragment of the \texttt{video} element of the current
-    \texttt{TextTrack} element to be denoted.
-    Plain-text or semantic labels 
-    in form of references to unique, well-defined concepts
-    with their own URLs are possible.
-    
-  \item{Description}  
-    
-    
-  \item[RDF Graph:] The \texttt{rdfGraph} annotation type
-    allows for adding an arbitrary set of RDF triples
-    to the corresponding temporal fragment of the
-    \texttt{video} element of the current
-    \texttt{TextTrack} element. In combination with the
-    presentation-oriented annotation type \texttt{spatialFragment},
-    semantic annotations of objects
-    in video fragments are possible.
+  \item[Plain Text Tags:] Annotations of type
+    \texttt{tags} allow for adding plain text tags
+    to a~media fragment.
+    Internally, they are represented as Common Tag%
+    ~\cite{commontag2009spec} format \texttt{ctag:label}. 
+  \item[Semantic Tags:] Annotations of type
+    \texttt{semanticTags} allow for adding semantic tags
+    to a~media fragment. 
+    Unlike plain text tags, semantic tags are references to
+    well-defined concepts complete with their own URLs.
+    Internally they are represented as Common Tag%
+    ~\cite{commontag2009spec} format \texttt{ctag:means}.     
+  \item[Contributors:] The \texttt{contributors} annotation type
+    allows for denoting the contributors in a~media fragment.
+    Internally they are represented as
+    Ontology for Media Resources~\cite{lee2012mediaontology}
+    format \texttt{ma:contributors}.    
+  \item[Description:] The \texttt{description} annotation type
+    allows for describing a~media fragment with plain text.
+    Internally it is represented as
+    Ontology for Media Resources~\cite{lee2012mediaontology}
+    format \texttt{ma:description}.    
+  \item[Named Graph:] The \texttt{namedGraph} annotation type
+    allows for adding a~set of RDF triples
+    to a~media fragment.
+    Internally it is represented as JSON-LD%
+    ~\cite{sporny2013jsonld} named graph.
 \end{description}
   
 \section{Evaluation and Discussion}
