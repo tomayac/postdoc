@@ -185,105 +185,15 @@ as they are based on the Web standards
 \JSONLD~\cite{sporny2013jsonld}
 and WebVTT~\cite{pfeiffer2013webvtt}.
 
-The remainder of this paper is organized as follows.
-\todo{Describe paper structure}
+\section{Technologies Overview}
 
-\section{Related Work}
+For our approach to online video annotation,
+we make use of a~young---yet mature
+when looked at from an implementation viewpoint---%
+stack of enabling technologies that we will introduce
+and provide technical details on in the following.
 
-The online video hosting platform YouTube%
-\footnote{YouTube: \url{http://www.youtube.com/}}
-lets video publishers add video annotations
-in a~closed proprietary format%
-~\cite{youtube2008annotations,youtube2010annotations}.
-At time of writing, YouTube supports the following
-annotation types: \emph{speech bubbles} for creating
-pop-up speech bubbles with text,
-\emph{spotlights} for highlighting areas in a~video
-that react on mouse-over,
-\emph{notes} for creating pop-up boxes containing text,
-\emph{titles} for creating text overlays to title a~video,
-and \emph{labels} for creating a~label to call out
-and name a~specific part of a~video.
-Notes, speech bubbles, and spotlights can contain \emph{links}
-to other videos, the same video, channel pages, playlists,
-or search results, as well as to actions
-such as subscribe, compose message, and upload video response.
-From 2009 to 2010, YouTube had a~feature called 
-Collaborative Annotations%
-~\cite{fink2009collaborativeannotations}
-that allowed video consumers to collaboratively
-create video annotations.
-It was discontinued \textit{``to make room for even more new features''}%
-~\cite{youtube2010annotations}.
- 
-In~\cite{vandeursen2012mediafragmentannotations},
-Van Deursen \emph{et~al.}\ present a~system
-that combines Media Fragments URI~\cite{troncy2012mediafragments} and the Ontology for Media Resources~\cite{lee2012mediaontology}
-in an HTML5~\cite{berjon2013html5}
-Web application to convert rich media fragment annotations
-into a~WebVTT~\cite{pfeiffer2013webvtt} file
-that can be used by HTML5-enabled players
-to show the annotations in a~synchronized way.
-Their systems allows for linking, displaying,
-browsing, and bookmarking of media fragments,
-providing structured annotations for media fragments,
-and experiencing synchronized media and annotations.
-
-The Synchronized Multimedia Integration Language\linebreak
-(SMIL,~\cite{bulterman2006smil})
-defines an XML-based language that allows authors
-to write interactive multimedia presentations.
-Using SMIL, an author can describe the temporal behavior
-of a~multimedia presentation, associate hyperlinks
-with media objects, and describe the layout
-of the presentation on a~screen.
-% SMIL components can be used for integrating timing
-% into XHTML~\cite{pemberton2002xhtml}
-% and into SVG~\cite{ferraiolo2003svg}.
-SMIL features are not commonly supported 
-in modern Web browsers and special plugins or native software
-are required for their consumption,
-albeit in 2002 there was a~mostly Microsoft-led attempt
-in form of the HTML+TIME submission~\cite{schmitz1998htmltime}
-and, based thereon, the XHTML+SMIL Profile note%
-~\cite{newman2002xhtmlsmil}
-to integrate SMIL semantics with (X)HTML and CSS.
-Despite its initially active role in the W3C SMIL working group,
-Microsoft later decided to cease SMIL support
-due to a~perceived overlap with several existing standards.
-
-The Component-based Hypervideo Model
-(CHM,~\cite{sadallah2012hypervideo})
-proposes a~formal model for hypervideo documents
-and offers a~practical framework that allows for
-the design of Web-oriented hypervideos.
-CHM annotations are defined as any kind of data associated to
-a~logical spatiotemporal video fragment.
-A~version of the proposed framework
-has been released in form of the WebCHM prototype
-that integrates with existing Web technologies
-via a~declarative syntax.
-Support for temporal semantics is ensured through  
-an implementation of SMIL Timesheets~\cite{vuorimaa2012timesheets}
-in a~JavaScript library.
-
-Popcorn.js\footnote{Popcorn.js: \url{http://popcornjs.org/}}
-is an HTML5 media framework written in JavaScript
-aimed at filmmakers, Web developers,
-and users interested in creating
-time-based interactive media on the Web.
-Popcorn.js is part of Mozilla's Popcorn project
-and adds interactivity and context to online video
-by letting users link social media, news feeds,
-data visualizations, and other content directly to moving images.
-The Mozilla PopcornMaker%
-\footnote{PopcornMaker: \url{https://popcorn.webmaker.org/}}
-is an interactive Web authoring environment
-that allows for videos to be annotated on a~video timeline.
-
-\section{Enabling Technologies}
-
-\subsection{Web Video Text Tracks format (WebVTT)}
+\paragraph{Web Video Text Tracks format (WebVTT)}
 
 The Web Video Text Tracks format (WebVTT,~\cite{pfeiffer2013webvtt})
 is intended for marking up external text track resources mainly
@@ -299,46 +209,73 @@ Each cue has a~start time and an end time in
 separated by a~stylized ASCII arrow \texttt{-}\texttt{->}.
 The cue payload follows in the line after the cue timings part
 and can span multiple lines.
-Typically, the cue payload contains text,
+Typically, the cue payload contains plain text,
 but can also contain textual data serialization formats like JSON,
 which later on in the paper we will show to be essential
-for the proposed approach of semantic video annotation.
+for our proposed approach to semantic video annotation.
 Spans of text associated with a~specific voice can be annotated
 in form of WebVTT cue voice spans.
-A WebVTT voice tag, denoted by \texttt{<v VOICE>}, has a~value,
+A~WebVTT voice tag, denoted by \texttt{<v VOICE>}, has a~value,
 which is the name of the voice.
 Cues can optionally have unique IDs
 followed by a~colon in the line
 above the cue timings part.
 \autoref{listing:webvtt} shows an exemplary WebVTT file.
 
-\begin{lstlisting}[caption={Sample WebVTT file with two cues
-    with the IDs \texttt{cue-vincent} and
-    \texttt{cue-jules} respectively},
-  label=listing:webvtt, float=h!]
+\begin{lstlisting}[caption={Sample WebVTT file with two cues},
+  label=listing:webvtt, float=b!]
 WEBVTT
 
-cue-vincent:
+cue_vincent_1:
 00:07:55.185 --> 00:08:00.247
 <v Vincent>And you know what they call
 a Quarter-Pounder with Cheese in Paris?
 
-cue-jules:
+cue_jules_2:
 00:08:00.290 --> 00:08:01.917
 <v Jules>They don't call it
 a Quarter-Pounder with Cheese?
 \end{lstlisting}
 
-\subsubsection{WebVTT in Web Browsers}
-
-Compliant Web browsers~\cite{dutton2012trackelement}
+WebVTT-compliant Web browsers~\cite{dutton2012trackelement}
 support five different kinds of
 WebVTT text tracks, specified by HTML5~\cite{berjon2013html5}
 and listed in \autoref{table:texttrackkinds}.
 In this paper, we especially focus on
-text tracks of kind \texttt{metadata}
-that are exclusively meant to be used from JavaScript and
+text tracks of kind \texttt{metadata},
+meant to be used from a~script context and
 that are not displayed by the user agent.
+
+\begin{table}[b!]\footnotesize
+\begin{tabular}{ r p{5.5cm} }
+\textbf{WebVTT Kind} & \textbf{Description and Default Behavior}\\
+
+\texttt{subtitles} & Transcription or translation of the dialogue,
+suitable for when the sound is available but not understood
+(\emph{e.g.}, when the user does not understand the language). Overlaid on the video.\\
+
+\texttt{captions} & Transcription or translation of the dialogue,
+sound effects, and other relevant audio information,
+suitable for when sound is unavailable or not clearly audible
+(\emph{e.g.}, when the user is deaf). Overlaid on the video;
+labeled as appropriate for the hard-of-hearing.\\
+
+\texttt{descriptions} & Textual descriptions of the video component
+of the media resource, intended for audio synthesis
+when the visual component is obscured, unavailable, or unusable
+(\emph{e.g.}, when the user is blind).
+Synthesized as audio.\\
+
+\texttt{chapters} & Chapter titles, intended to be used for navigating
+the media resource. Displayed as an interactive (potentially nested)
+list in the user agent's interface.\\
+
+\texttt{metadata} & Tracks intended for use from a~script context.
+Not displayed by user agent.\\
+\end{tabular}
+  \caption{WebVTT text track kinds in HTML5~\cite{berjon2013html5}}
+  \label{table:texttrackkinds}
+\end{table}
 
 Both the HTML5 \texttt{<audio>} and \texttt{<video>} elements
 have a~\texttt{textTracks} property
@@ -372,40 +309,7 @@ can also be dynamically generated by JavaScript applications.
 %    but we'll see in the end what is absolutely necessary,
 %    and what could be pruned.
 
-\begin{table*}[h!]\footnotesize
-\begin{tabular}{ r p{15cm} }
-\textbf{WebVTT Kind} & \textbf{Description and Specified Default Behavior}\\
-
-\texttt{subtitles} & Transcription or translation of the dialogue,
-suitable for when the sound is available but not understood
-(\emph{e.g.}, when the user does not understand the language). Overlaid on the video.\\
-
-\texttt{captions} & Transcription or translation of the dialogue,
-sound effects, relevant musical cues,
-and other relevant audio information,
-suitable for when sound is unavailable or not clearly audible
-(\emph{e.g.}, when the user is deaf). Overlaid on the video;
-labeled as appropriate for the hard-of-hearing.\\
-
-\texttt{descriptions} & Textual descriptions of the video component
-of the media resource, intended for audio synthesis
-when the visual component is obscured, unavailable, or unusable
-(\emph{e.g.}, when the user is blind).
-Synthesized as audio.\\
-
-\texttt{chapters} & Chapter titles, intended to be used for navigating
-the media resource. Displayed as an interactive (potentially nested)
-list in the user agent's interface.\\
-
-\texttt{metadata} & Tracks intended for programmatic use from script.
-Not displayed by the user agent.\\
-\end{tabular}
-  \caption{Different WebVTT text track kinds as specified by
-    HTML5~\cite{berjon2013html5}}
-  \label{table:texttrackkinds}
-\end{table*}
-
-\subsection{\JSONLD}
+\paragraph{\JSONLD}
 
 The \emph{JavaScript Object Notation}
 (JSON\footnote{\url{http://json.org/}})
@@ -425,7 +329,7 @@ to build interoperable Web services,
 and to store Linked Data in JSON-based storage engines.
 We use \JSONLD as payload of \texttt{TextTrackCue} elements.
 
-\subsection{Media Fragments URI}
+\paragraph{Media Fragments URI}
 
 Media Fragments URI~\cite{troncy2012mediafragments}
 specifies a~syntax for constructing media fragments URIs
@@ -460,7 +364,7 @@ as a~percentage of the width of the original media item,
 $y$ and $height$ are interpreted as a~percentage
 of the original height.
 
-\subsection{Ontology for Media Resources}
+\paragraph{Ontology for Media Resources}
 
 The Ontology for Media Resources~\cite{lee2012mediaontology}
 serves to bridge different description methods of media resources
@@ -599,6 +503,99 @@ that we will summarize in the following.
     and also serves for navigating to the corresponding
     parts of the video.
 \end{description}  
+
+\section{Related Work}
+
+The online video hosting platform YouTube%
+\footnote{YouTube: \url{http://www.youtube.com/}}
+lets video publishers add video annotations
+in a~closed proprietary format%
+~\cite{youtube2008annotations,youtube2010annotations}.
+At time of writing, YouTube supports the following
+annotation types: \emph{speech bubbles} for creating
+pop-up speech bubbles with text,
+\emph{spotlights} for highlighting areas in a~video
+that react on mouse-over,
+\emph{notes} for creating pop-up boxes containing text,
+\emph{titles} for creating text overlays to title a~video,
+and \emph{labels} for creating a~label to call out
+and name a~specific part of a~video.
+Notes, speech bubbles, and spotlights can contain \emph{links}
+to other videos, the same video, channel pages, playlists,
+or search results, as well as to actions
+such as subscribe, compose message, and upload video response.
+From 2009 to 2010, YouTube had a~feature called 
+Collaborative Annotations%
+~\cite{fink2009collaborativeannotations}
+that allowed video consumers to collaboratively
+create video annotations.
+It was discontinued \textit{``to make room for even more new features''}%
+~\cite{youtube2010annotations}.
+ 
+In~\cite{vandeursen2012mediafragmentannotations},
+Van Deursen \emph{et~al.}\ present a~system
+that combines Media Fragments URI~\cite{troncy2012mediafragments} and the Ontology for Media Resources~\cite{lee2012mediaontology}
+in an HTML5~\cite{berjon2013html5}
+Web application to convert rich media fragment annotations
+into a~WebVTT~\cite{pfeiffer2013webvtt} file
+that can be used by HTML5-enabled players
+to show the annotations in a~synchronized way.
+Their systems allows for linking, displaying,
+browsing, and bookmarking of media fragments,
+providing structured annotations for media fragments,
+and experiencing synchronized media and annotations.
+
+The Synchronized Multimedia Integration Language\linebreak
+(SMIL,~\cite{bulterman2006smil})
+defines an XML-based language that allows authors
+to write interactive multimedia presentations.
+Using SMIL, an author can describe the temporal behavior
+of a~multimedia presentation, associate hyperlinks
+with media objects, and describe the layout
+of the presentation on a~screen.
+% SMIL components can be used for integrating timing
+% into XHTML~\cite{pemberton2002xhtml}
+% and into SVG~\cite{ferraiolo2003svg}.
+SMIL features are not commonly supported 
+in modern Web browsers and special plugins or native software
+are required for their consumption,
+albeit in 2002 there was a~mostly Microsoft-led attempt
+in form of the HTML+TIME submission~\cite{schmitz1998htmltime}
+and, based thereon, the XHTML+SMIL Profile note%
+~\cite{newman2002xhtmlsmil}
+to integrate SMIL semantics with (X)HTML and CSS.
+Despite its initially active role in the W3C SMIL working group,
+Microsoft later decided to cease SMIL support
+due to a~perceived overlap with several existing standards.
+
+The Component-based Hypervideo Model
+(CHM,~\cite{sadallah2012hypervideo})
+proposes a~formal model for hypervideo documents
+and offers a~practical framework that allows for
+the design of Web-oriented hypervideos.
+CHM annotations are defined as any kind of data associated to
+a~logical spatiotemporal video fragment.
+A~version of the proposed framework
+has been released in form of the WebCHM prototype
+that integrates with existing Web technologies
+via a~declarative syntax.
+Support for temporal semantics is ensured through  
+an implementation of SMIL Timesheets~\cite{vuorimaa2012timesheets}
+in a~JavaScript library.
+
+Popcorn.js\footnote{Popcorn.js: \url{http://popcornjs.org/}}
+is an HTML5 media framework written in JavaScript
+aimed at filmmakers, Web developers,
+and users interested in creating
+time-based interactive media on the Web.
+Popcorn.js is part of Mozilla's Popcorn project
+and adds interactivity and context to online video
+by letting users link social media, news feeds,
+data visualizations, and other content directly to moving images.
+The Mozilla PopcornMaker%
+\footnote{PopcornMaker: \url{https://popcorn.webmaker.org/}}
+is an interactive Web authoring environment
+that allows for videos to be annotated on a~video timeline.
 
 \section{Future Work and Conclusions}
 
