@@ -69,7 +69,7 @@
 \author{
 % 1st. author
 \alignauthor
-Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{T.~Steiner, Google Germany GmbH, ABC-Str.~19, 20354 Hamburg, Germany}}\\
+Thomas Steiner\titlenote{Second affiliation: \emph{Google Germany GmbH, Hamburg}}\\
        \affaddr{CNRS, Université de Lyon} 
        \affaddr{LIRIS, UMR5205}\\
        \affaddr{Université Lyon~1, France}\\
@@ -135,7 +135,7 @@ A~live demo of a~WebVTT editor that implements the model
 is available at \url{http://bit.ly/webvtt-editor-demo}.
 \end{abstract}
 
-\category{H.5.1}{Multimedia Information Systems}{Evaluation/methodology}
+\category{H.5.1}{Multimedia Information Systems}{Video}
 
 %\terms{Experimentation, Design, Standardization}
 
@@ -222,12 +222,29 @@ WEBVTT
 cue1
 00:00:00.000 --> 00:00:12.000
 {
-  "@context": "http://ex.org/context.jsonld",
+  "@context": "http://ex.org/local_context",
   "tags": ["wind scene", "opening credits"],
-  "contributors": ["http://ex.org/actors/sintel"],
-  "playbackRate": 3.0
-}\end{lstlisting}
+  "contributors": ["http://ex.org/actors/sintel"]
+}
+\end{lstlisting}
 
+\begin{lstlisting}[caption={Generated JSON-LD for the Web of Data, see \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
+  label=listing:jsonld, float=b!]
+{
+  "@context": "http://ex.org/global_context",
+  "@id": "http://ex.org/video",
+  "@type": "MediaResource",
+  "hasFragment": [{
+    "@id": "http://ex.org/video#t=0,12",
+    "@type": "MediaFragment",
+    "@context": "http://ex.org/local_context",
+    "tags": ["wind scene", "opening credits"],
+    "contributors": ["http://ex.org/actors/sintel"]
+  }] 
+}
+\end{lstlisting}
+
+\begin{comment}
 \begin{table}[b!]\footnotesize
 \begin{tabular}{ r p{5.5cm} } % ACM column width 8.45cm, 0.83cm gutter
 \textbf{WebVTT Kind} & \textbf{Description and Default Behavior}\\
@@ -255,6 +272,7 @@ Not displayed by user agent.\\
   \caption{WebVTT text track kinds in HTML5~\cite{berjon2013html5}}
   \label{table:texttrackkinds}
 \end{table}
+\end{comment}
 
 WebVTT-compliant Web browsers~\cite{dutton2012trackelement}
 support five different kinds of
@@ -370,13 +388,15 @@ that then requires a~unique \texttt{id} attribute,
 media fragment of the original media item.
 We have no constraints in place for the \emph{predicate},
 which determines the annotation type, and the \emph{object}.
-We thus make a~sort of open world assumption by
-supporting certain pre-defined values for predicate and object
-listed below in our interpretation layer in the video view,
-and simply ignoring unknown ones,
-which permits others to extend or even completely replace
+In our interpretation layer responsible for the video view,
+we thus make an open world assumption
+by supporting certain pre-defined values for predicate and object
+listed below, and simply ignoring unknown ones.
+This permits others to extend or even completely replace
 our interpretation layer.
-\todo{ID?}
+If a~\texttt{TextTrackCue} has a~WebVTT identifier,
+we use it to uniquely identify the associated annotations,
+allowing for meta annotations of the annotations.
 
 \paragraph{Supported Presentation-Oriented Annotation Types}
 
