@@ -403,9 +403,10 @@ This permits others to extend---or even completely replace---%
 our interpretation layer.
 If a~\texttt{TextTrackCue} has a~WebVTT identifier,
 we use it to address its annotations
-via the track's URI and corresponding fragment identifier,
+via the metadata track's URI
+and corresponding cue fragment identifier,
 allowing for meta annotations of annotations, \emph{e.g.},
-to attach provenance or license information.
+to attach provenance or license information to them.
 
 \paragraph{Supported Semantic Annotation Types}
 
@@ -518,9 +519,9 @@ that builds on a~careful study of prior art.
 \paragraph{The CHM Hypervideo Model}
 
 Sadallah \emph{et~al.}\ define
-\emph{hypervideo} as \textit{``interactive video-cen\-tric
+\emph{hypervideo} as \textit{``interactive video-centric
 hypermedia document built upon audiovisual content''}.
-The authors identify three common hypervideo characteristics,
+The authors identify three common hypervideo characteristics,\linebreak
 namely \emph{(i)}~\emph{interactivity}, which, \emph{e.g.},
 can enable richer navigational possibilities,
 \emph{(ii)}~\emph{non-linearity}, which allows for features
@@ -537,7 +538,7 @@ in the following.\\
   the corresponding video controls are not necessarily exposed.
 
 \checkmark~Our approach uses the (optionally customizable)
-default HTML5 player that includes hideable controls.
+default HTML5 player that includes controls that can be hidden.
 
 \noindent \textbf{Timeline:} A~timeline is the spatial representation
   of temporally situated metadata in a~video.
@@ -546,7 +547,7 @@ default HTML5 player that includes hideable controls.
   
 \checkmark~Our approach supports temporal metadata.
 Customizable timeline visualizations exist%
-\footnote{D3 timeline:
+\footnote{D3 timeline implementation:
 \url{https://github.com/jiahuang/d3-timeline}}
 and can be added.
 
@@ -554,16 +555,16 @@ and can be added.
   Additional textual or gra\-phical
   information can be displayed in form of overlays on the video.
   Overlays can also serve as external or video-internal hyperlinks,
-  referred to as hotspots.
+  referred to as \emph{hotspots}.
 
-\checkmark~We support overlays
-via \texttt{htmlOverlay} annotations.
+\checkmark~We realize overlays and links
+with \texttt{htmlOverlay} types.
 
 \noindent \textbf{Textual or graphical table of contents:}
   If a~video is logically separated
   into different parts, a~table of contents lists these
   in textual or graphical form, makes them navigable,
-  or visually summarizes them, referred to as video map.
+  or visually summarizes them, referred to as \emph{video map}.
   
 \checkmark~Textual tables of contents are directly supported
 via WebVTT text tracks of type \emph{chapters}.
@@ -575,7 +576,7 @@ Graphical tables of contents can be created based thereon.
   and also serves for in-video navigation.
   
 \checkmark~Subtitles and captions are natively supported
-by\linebreak WebVTT tracks of types \emph{subtitles} and \emph{captions}.
+by\linebreak WebVTT tracks of the types \emph{subtitles} and \emph{captions}.
 
 \section{Related Work}
 
@@ -602,7 +603,7 @@ Collaborative Annotations%
 ~\cite{fink2009collaborativeannotations}
 that allowed video consumers to collaboratively
 create video annotations.
-Unlike YouTube's format, our format is open and standards-based.
+Unlike the format of YouTube, our format is open and standards-based.
 %It was discontinued \textit{``to make room for even more new features''}%
 %~\cite{youtube2010annotations}.
 
@@ -638,9 +639,9 @@ in modern Web browsers and special plugins or native software
 are required for their consumption,
 albeit in 2002 there was a~mostly Microsoft-led attempt
 in form of the HTML+TIME submission%~\cite{schmitz1998htmltime}
-\footnote{HTML+TIME: \url{http://www.w3.org/TR/NOTE-HTMLplusTIME}}
+\footnote{HTML+TIME for extending SMIL into Web browsers: \url{http://www.w3.org/TR/NOTE-HTMLplusTIME}}
 and, based thereon, the XHTML+SMIL Profile%
-\footnote{XHTML+SMIL:
+\footnote{XHTML+SMIL Profile Note:
 \url{http://www.w3.org/TR/XHTMLplusSMIL/}} note
 %~\cite{newman2002xhtmlsmil}
 to integrate SMIL semantics with (X)HTML and CSS.
@@ -691,15 +692,18 @@ that allow for Read/Write-enabled video annotations,
 which can be exposed as Linked Data.
 Future work will focus on extending the editor prototype
 by supporting more annotation types and
-facilitating Linked Data publication for the Web of Data.
+facilitating collaborative Linked Data publication
+for the Web of Data.
 Rather than having presentation-oriented annotations,
-we want to investigate temporal hypervideo style sheets.
+we want to investigate temporal style sheets and rules.
 Further, we want to work on meta annotation creation techniques
 and methods for dealing with conflicting collaborative annotations.
 
-Concluding, we have successfully demonstrated the potential
-of leveraging WebVTT and \JSONLD~for integrating video
-in the Web of Data and are excited to explore further.
+Concluding, we have demonstrated the feasibility of online
+Read/Write video annotation, leveraging WebVTT
+and \JSONLD, for integrating video in the Web of Data
+with standard Web technologies
+and are excited to explore more.
 
 \section*{Acknowledgments}
 \footnotesize
