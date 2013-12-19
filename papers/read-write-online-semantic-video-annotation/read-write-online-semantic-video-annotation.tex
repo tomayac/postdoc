@@ -94,23 +94,18 @@ Benoît Encelle\\
 \alignauthor
 Yannick Prié\\
        \affaddr{Université de Nantes}\\
-       \affaddr{LINA - UMR 6241}\\
-       \affaddr{CNRS, France}\\
+       \affaddr{LINA -- UMR 6241 CNRS}\\
        \email{yannick.prie@univ-nantes.fr}
 % 5th. author
 \alignauthor
 Ruben Verborgh\\
-       \affaddr{Ghent University}\\
-       \affaddr{iMinds -- Multimedia Lab}\\
-       \affaddr{G.~Crommenlaan~8 bus~201}\\
+       \affaddr{Ghent University -- iMinds}\\
        \affaddr{9050~Ghent, Belgium}\\
        \email{ruben.verborgh@ugent.be}
 % 6th. author
 \alignauthor
 Rik Van de Walle\\
-       \affaddr{Ghent University}\\
-       \affaddr{iMinds -- Multimedia Lab}\\
-       \affaddr{G.~Crommenlaan~8 bus~201}\\       
+       \affaddr{Ghent University -- iMinds}\\
        \affaddr{9050~Ghent, Belgium}\\
        \email{rik.vandewalle@ugent.be}
 }
@@ -369,7 +364,7 @@ about media items and fragments thereof.
 \paragraph{General Concepts of the Annotation Model}
 
 Our annotation model uses subject-predicate-object expressions.
-The simplest annotation is thus a~single triple.
+An annotation is thus a~single triple.
 The possible values for the \emph{subject} can be \emph{(i)}~the video
 URI itself or---in case of multiple URLs for a~video available
 in different encodings with multiple \texttt{<source>} tags---%
@@ -384,33 +379,33 @@ listed below in our interpretation layer in the video view,
 and simply ignoring unknown ones,
 which permits others to extend or even completely replace
 our interpretation layer.
+\todo{ID?}
 
 \paragraph{Supported Presentation-Oriented Annotation Types}
 
 \begin{description}[leftmargin=*]
-  \item[Style:] Annotations of
-    type \texttt{style} allow for applying styles in the syntax of
-    Cascading Style Sheets%
+  \item[Visual Effect:] Annotations of
+    type \texttt{visualEffect} allow for applying visual effects
+    in the syntax of Cascading Style Sheets%
     \footnote{Cascading Style Sheets:
     \url{http://www.w3.org/Style/CSS/}} (CSS)
-    to a~media fragment.
-    This allows for a~range of visual effects,
-    including (but not limited to) color filters,
-    zoom effects, transparency, and 2D or 3D transformations
-    and animations. 
+    to a~media fragment, including (but not limited to)
+    color filters, zoom effects, transparency,
+    and 2D or 3D transformations and animations. 
+  \item[Audio Effect:] The \texttt{audioEffect} annotation type
+    allows for applying audio effects to a~media fragment.
+    Currently, we support modifying the volume on a~scale
+    from~0 to~1.    
   \item[Playback Rate:] The \texttt{playbackRate}
     annotation type allows for specifying the effective
     playback rate of a~media fragment.
     The playback rate is expressed as a~floating point
     multiple or fraction of the intrinsic video speed.
-  \item[Volume:] The \texttt{volume} annotation type allows for
-    specifying the volume of a~media fragment on a~scale
-    from 0.0 to 1.0.
-  \item[HTML:] Via the \texttt{html} annotation type,
-    freeform HTML code can be added on top of a~media fragment.
-    This allows for the addition of graphical,
-    textual, or combined overlays that can contain
-    links to (temporal fragments of)
+  \item[HTML Overlay:] Via the \texttt{htmlOverlay}
+    annotation type, overlays in
+    freeform HTML code can be added to a~media fragment.
+    Examples are graphical, textual, or combined overlays
+    that can contain links to (temporal fragments of)
     other videos or within the current video.
 \end{description}
 
@@ -429,21 +424,21 @@ our interpretation layer.
     well-defined concepts complete with their own URLs.
     Internally they are represented as Common Tag%
     ~\cite{commontag2009spec} format \texttt{ctag:means}.     
-  \item[Contributors:] The \texttt{contributors} annotation type
-    al-\linebreak lows for denoting the contributors in a~media fragment.
-    Internally they are represented as
-    Ontology for Media Resources~\cite{lee2012mediaontology}
-    format \texttt{ma:contributors}.    
-  \item[Description:] The \texttt{description} annotation type
-    allows for describing a~media fragment with plain text.
-    Internally it is represented as
-    Ontology for Media Resources~\cite{lee2012mediaontology}
-    format \texttt{ma:description}.    
   \item[Named Graph:] The \texttt{namedGraph} annotation type
     allows for adding a~set of RDF triples
     to a~media fragment.
     Internally it is represented as JSON-LD%
     ~\cite{sporny2013jsonld} named graph.
+  \item[Contributors:] \todo{add why} The \texttt{contributors} annotation type
+    al-\linebreak lows for denoting the contributors in a~media fragment.
+    Internally they are represented as
+    Ontology for Media Resources~\cite{lee2012mediaontology}
+    format \texttt{ma:contributors}.    
+  \item[Summary:] The \texttt{summary} annotation type
+    allows for summarizing the contents of a~media fragment with plain text.
+    Internally it is represented as
+    Ontology for Media Resources~\cite{lee2012mediaontology}
+    format \texttt{ma:description}.    
 \end{description}
   
 \section{Evaluation and Discussion}
