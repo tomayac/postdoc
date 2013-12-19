@@ -216,35 +216,6 @@ for our proposed approach to semantic video annotation.
 %which is the name of the voice.
 Cues optionally can have unique WebVTT identifiers.
 
-\begin{lstlisting}[caption={Sample WebVTT metadata file},
-  label=listing:webvtt, float=b!]
-WEBVTT
-
-cue1
-00:00:00.000 --> 00:00:12.000
-{
-  "tags": ["wind scene", "opening credits"],
-  "contributors": ["http://ex.org/sintel"]
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Generated \JSONLD~for the Web of Data, see
-    \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
-  label=listing:jsonld, float=b!]
-{
-  "@context": "http://ex.org/global_context",
-  "@id": "http://ex.org/video",
-  "@type": "MediaResource",
-  "hasFragment": [{
-    "@id": "http://ex.org/video#t=0,12",
-    "@type": "MediaFragment",
-    "@context": "http://ex.org/local_context",
-    "tags": ["wind scene", "opening credits"],
-    "contributors": ["http://ex.org/sintel"]
-  }]
-}
-\end{lstlisting}
-
 \begin{comment}
 \begin{table}[b!]\footnotesize
 \begin{tabular}{ r p{5.5cm} } % ACM column width 8.45cm, 0.83cm gutter
@@ -277,7 +248,7 @@ Not displayed by user agent.\\
 \end{table}
 \end{comment}
 
-WebVTT-compliant Web browsers~\cite{dutton2012trackelement}
+WebVTT-compliant Web browsers %~\cite{dutton2012trackelement}
 support five different kinds of
 WebVTT tracks, \emph{subtitles}, \emph{captions},
 \emph{descriptions}, \emph{chapters}, and \emph{metadata},
@@ -377,6 +348,35 @@ It also defines mappings to common metadata formats.
 Combined with Media Fragments URI,
 this allows for making ontologically anchored statements
 about media items and fragments thereof.
+
+\begin{lstlisting}[caption={Sample WebVTT metadata file},
+  label=listing:webvtt, float=t!]
+WEBVTT
+
+cue1
+00:00:00.000 --> 00:00:12.000
+{
+  "tags": ["wind scene", "opening credits"],
+  "contributors": ["http://ex.org/sintel"]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Generated \JSONLD~for the Web of Data, see
+    \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
+  label=listing:jsonld, float=t!]
+{
+  "@context": "http://ex.org/global_context",
+  "@id": "http://ex.org/video",
+  "@type": "MediaResource",
+  "hasFragment": [{
+    "@id": "http://ex.org/video#t=0,12",
+    "@type": "MediaFragment",
+    "@context": "http://ex.org/local_context",
+    "tags": ["wind scene", "opening credits"],
+    "contributors": ["http://ex.org/sintel"]
+  }]
+}
+\end{lstlisting}
 
 \section{Annotation Model}
 
@@ -557,7 +557,8 @@ The online video hosting platform YouTube%
 \footnote{YouTube: \url{http://www.youtube.com/}}
 lets video publishers add video annotations
 in a~closed proprietary format%
-~\cite{youtube2008annotations,youtube2010annotations}.
+%~\cite{youtube2008annotations,youtube2010annotations}.
+~\cite{youtube2010annotations}.
 At time of writing, YouTube supports the following
 annotation types: \emph{speech bubbles} for creating
 pop-up speech bubbles with text,
@@ -576,8 +577,9 @@ Collaborative Annotations%
 ~\cite{fink2009collaborativeannotations}
 that allowed video consumers to collaboratively
 create video annotations.
-It was discontinued \textit{``to make room for even more new features''}%
-~\cite{youtube2010annotations}.
+Unlike YouTube's format, our format is open and standards-based.
+%It was discontinued \textit{``to make room for even more new features''}%
+%~\cite{youtube2010annotations}.
 
 In~\cite{vandeursen2012mediafragmentannotations},
 Van Deursen \emph{et~al.}\ present a~system
@@ -588,9 +590,12 @@ Web application to convert rich media fragment annotations
 into a~WebVTT~\cite{pfeiffer2013webvtt} file
 that can be used by HTML5-enabled players
 to show the annotations in a~synchronized way.
-Their systems allows for linking, displaying, and
-browsing of media fragments and
-for providing structured annotations for media fragments.
+%Their systems allows for linking, displaying, and
+%browsing of media fragments and
+%for providing structured annotations for media fragments.
+Building on the work of Van Deursen \emph{et~al.},
+we additionally allow for writing annotations by
+letting annotators create WebVTT cues with an editor.
 
 The Synchronized Multimedia Integration Language\linebreak
 (SMIL,~\cite{bulterman2006smil})
@@ -614,6 +619,7 @@ to integrate SMIL semantics with (X)HTML and CSS.
 Despite its initially active role in the W3C SMIL working group,
 Microsoft later decided to cease SMIL support
 due to a~perceived overlap with several existing standards.
+Our approach is based on native Web browser technologies.
 
 The Component-based Hypervideo Model
 (CHM,~\cite{sadallah2012hypervideo})
@@ -627,22 +633,26 @@ has been released in form of the WebCHM prototype
 that integrates with existing Web technologies
 via a~declarative syntax.
 Support for temporal semantics is ensured through
-an implementation of SMIL Timesheets~\cite{vuorimaa2012timesheets}
-in a~JavaScript library.
+an implementation of SMIL Timesheets.%~\cite{vuorimaa2012timesheets}
+\footnote{SMIL Timesheets:
+\url{http://www.w3.org/TR/timesheets/}}
+At comparable functionality, our approach is less complex
+and entirely Web-based.
 
 Popcorn.js\footnote{Popcorn.js: \url{http://popcornjs.org/}}
 is an HTML5 media framework written in JavaScript
-aimed at filmmakers, Web developers,
-and users interested in creating
-time-based interactive media on the Web.
-Popcorn.js is part of Mozilla's Popcorn project
-and adds interactivity and context to online video
+%aimed at filmmakers, Web developers,
+%and users interested in creating
+for the creation of time-based media mixes on the Web
+by adding interactivity and context to online video
 by letting users link social media, news feeds,
 data visualizations, and other content directly to moving images.
 The Mozilla PopcornMaker%
 \footnote{PopcornMaker: \url{https://popcorn.webmaker.org/}}
 is an interactive Web authoring environment
 that allows for videos to be annotated on a~video timeline.
+While Popcorn media annotations are JavaScript-based,
+our approach is based on indexable WebVTT files.
 
 \section{Future Work and Conclusions}
 
