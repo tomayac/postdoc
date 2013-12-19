@@ -224,7 +224,7 @@ cue1
 00:00:00.000 --> 00:00:12.000
 {
   "tags": ["wind scene", "opening credits"],
-  "contributors": ["http://ex.org/actors/sintel"]
+  "contributors": ["http://ex.org/sintel"]
 }
 \end{lstlisting}
 
@@ -240,7 +240,7 @@ cue1
     "@type": "MediaFragment",
     "@context": "http://ex.org/local_context",
     "tags": ["wind scene", "opening credits"],
-    "contributors": ["http://ex.org/actors/sintel"]
+    "contributors": ["http://ex.org/sintel"]
   }]
 }
 \end{lstlisting}
@@ -410,7 +410,7 @@ Our model makes common annotation tasks as
 straight-forward as in \autoref{listing:webvtt}.
 The generated triples based thereon are shown in
 \autoref{listing:jsonld} and \url{http://bit.ly/webvtt-jsonld}.
-Advanced tasks are supported by adding \JSONLD~contexts.
+Advanced tasks are supported by adding \JSONLD~contexts.\\
 
 \noindent \textbf{Plain Text Tags:} Annotations of type
   \texttt{tags} allow for add\-ing plain text tags
@@ -447,7 +447,7 @@ Advanced tasks are supported by adding \JSONLD~contexts.
 \paragraph{Supported Presentation-Oriented Annotation Types}
 
 Presentation-oriented annotations do not generate RDF data,
-but impact the way the video gets presented.
+but impact the way the video gets presented.\\
 
 \noindent \textbf{Visual Effect:} Annotations of
   type \texttt{visualEffect} allow for applying visual effects
@@ -490,10 +490,16 @@ Users can add \emph{Write} annotations
 by creating new \texttt{TextTrackCue}s
 at the desired start and end times
 and by filling out their \JSONLD~payloads.
-The editor facilitates this task through a~form
+The editor facilitates this task through a~graphical user interface, abstracting the underlying details.
 Newly generated annotations get directly interpreted
 and can be persistently stored locally
 or in the future remotely for collaborative editing.
+We have developed a~WebVTT to \JSONLD
+converter, capable of converting WebVTT metadata tracks
+following our annotation model
+to \JSONLD~for the Web of Data.
+This allows for straight-forward local annotation creation
+with Semantic Web compliance upon global publication.
 
 \section{Evaluation and Discussion}
 
@@ -517,7 +523,7 @@ and on top of hypervideos.
 The authors have examined hypervideo systems
 of recent years and found
 recurring visualization and interaction patterns
-summarized in the following.
+summarized in the following.\\
 
 \noindent \textbf{Video player and controls:} Hypervideo systems by definition
   provide one or multiple video players, however,
@@ -640,6 +646,8 @@ that allows for videos to be annotated on a~video timeline.
 
 \section{Future Work and Conclusions}
 
+We have created an annotation model and related technology stack
+that allow for Read/Write-enabled video annotation 
 Extend CSS by temporal component
 
 Meta-annotations
