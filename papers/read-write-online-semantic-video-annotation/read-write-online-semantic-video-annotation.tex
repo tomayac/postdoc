@@ -27,7 +27,8 @@
 \renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
 
 \lstdefinelanguage{JavaScript}{
-  keywords={push, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywords={push, typeof, new, true, false, catch, function, return, null,
+    catch, switch, var, if, in, while, do, else, case, break},
   keywordstyle=\bfseries,
   ndkeywords={class, export, boolean, throw, implements, import, this},
   ndkeywordstyle=\color{darkgray}\bfseries,
@@ -70,21 +71,21 @@
 % 1st. author
 \alignauthor
 Thomas Steiner\titlenote{Second affiliation: \emph{Google Germany GmbH, Hamburg}}\\
-       \affaddr{CNRS, Université de Lyon} 
+       \affaddr{CNRS, Université de Lyon}
        \affaddr{LIRIS, UMR5205}\\
        \affaddr{Université Lyon~1, France}\\
        \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont tsteiner@liris.cnrs.fr}
 % 2nd. author
 \alignauthor
 Pierre-Antoine Champin\\
-       \affaddr{CNRS, Université de Lyon} 
+       \affaddr{CNRS, Université de Lyon}
        \affaddr{LIRIS, UMR5205}\\
        \affaddr{Université Lyon~1, France}\\
        \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont champin@liris.cnrs.fr}
 % 3rd. author
 \alignauthor
 Benoît Encelle\\
-       \affaddr{CNRS, Université de Lyon} 
+       \affaddr{CNRS, Université de Lyon}
        \affaddr{LIRIS, UMR5205}\\
        \affaddr{Université Lyon~1, France}\\
        \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont encelle@liris.cnrs.fr}
@@ -166,7 +167,7 @@ to share annotations on the Web.
 
 In this paper, we propose an annotation model
 and related technology stack that allows both
-video consumers and producers to create 
+video consumers and producers to create
 rich, interactive video experiences
 in a~collaborative Read/Write manner.
 We support presentation-oriented and semantic annotations,
@@ -227,7 +228,8 @@ cue1
 }
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Generated \JSONLD~for the Web of Data, see \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
+\begin{lstlisting}[caption={Generated \JSONLD~for the Web of Data, see
+    \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
   label=listing:jsonld, float=b!]
 {
   "@context": "http://ex.org/global_context",
@@ -239,7 +241,7 @@ cue1
     "@context": "http://ex.org/local_context",
     "tags": ["wind scene", "opening credits"],
     "contributors": ["http://ex.org/actors/sintel"]
-  }] 
+  }]
 }
 \end{lstlisting}
 
@@ -249,11 +251,13 @@ cue1
 \textbf{WebVTT Kind} & \textbf{Description and Default Behavior}\\
 
 \texttt{subtitles} & Transcription or translation of speech,
-suitable for when sound is available but not understood. Overlaid on the video.\\
+suitable for when sound is available but not understood.
+Overlaid on the video.\\
 
 \texttt{captions} & Transcription or translation of the dialogue,
 sound effects, and other relevant audio information,
-suitable for when sound is unavailable or not clearly audible. Overlaid on the video;
+suitable for when sound is unavailable or not clearly audible.
+Overlaid on the video;
 labeled as appropriate for the hard-of-hearing.\\
 
 \texttt{descriptions} & Textual descriptions of the video component
@@ -329,7 +333,8 @@ It is primarily intended to be a~way to use
 Linked Data in Web-based programming environments,
 to build interoperable Web services,
 and to store Linked Data in JSON-based storage engines.
-We use \JSONLD\ as semantically rich content in the payload of \texttt{TextTrackCue}s, shown in
+We use \JSONLD\ as semantically rich content
+in the payload of \texttt{TextTrackCue}s, shown in
 \autoref{listing:webvtt}.
 The linked context defines the semantics.
 
@@ -407,67 +412,70 @@ The generated triples based thereon are shown in
 \autoref{listing:jsonld} and \url{http://bit.ly/webvtt-jsonld}.
 Advanced tasks are supported by adding \JSONLD~contexts.
 
-\begin{description}[leftmargin=*]
-  \item[Plain Text Tags:] Annotations of type
-    \texttt{tags} allow for add\-ing plain text tags
-    to a~media fragment.
-    Internally, they are represented as Common Tag%
-    ~\cite{commontag2009spec} format \texttt{ctag:label}. 
-  \item[Semantic Tags:] Annotations of type
-    \texttt{semanticTags} allow for adding semantic tags
-    to a~media fragment. 
-    Unlike plain text tags, semantic tags are references to
-    well-defined concepts complete with their own URLs.
-    Internally they are represented as Common Tag%
-    ~\cite{commontag2009spec} format \texttt{ctag:means}.     
-  \item[Contributors:] The \texttt{contributors} annotation type
-    al-\linebreak lows for denoting the contributors in a~media fragment.
-    Internally they are represented as
-    Ontology for Media Resources~\cite{lee2012mediaontology}
-    format \texttt{ma:contributors}.    
-  \item[Summary:] The \texttt{summary} annotation type
-    allows for summarizing the contents of a~media fragment with plain text.
-    Internally it is represented as
-    Ontology for Media Resources~\cite{lee2012mediaontology}
-    format \texttt{ma:description}.    
-  \item[Named Graph:] The \texttt{namedGraph} annotation type
-    allows for adding a~set of RDF triples
-    to a~media fragment.
-    Internally it is represented as \JSONLD%
-    ~\cite{sporny2013jsonld} named graph.    
-\end{description}
+\noindent \textbf{Plain Text Tags:} Annotations of type
+  \texttt{tags} allow for add\-ing plain text tags
+  to a~media fragment.
+  Internally, they are represented as Common Tag%
+  ~\cite{commontag2009spec} format \texttt{ctag:label}.
+
+\noindent \textbf{Semantic Tags:} Annotations of type
+  \texttt{semanticTags} allow for adding semantic tags
+  to a~media fragment.
+  Unlike plain text tags, semantic tags are references to
+  well-defined concepts complete with their own URLs.
+  Internally they are represented as Common Tag%
+  ~\cite{commontag2009spec} format \texttt{ctag:means}.
+
+\noindent \textbf{Contributors:} The \texttt{contributors} annotation type
+  al-\linebreak lows for denoting the contributors in a~media fragment.
+  Internally they are represented as
+  Ontology for Media Resources~\cite{lee2012mediaontology}
+  format \texttt{ma:contributors}.
+
+\noindent \textbf{Summary:} The \texttt{summary} annotation type
+  allows for summarizing the contents of a~media fragment with plain text.
+  Internally it is represented as
+  Ontology for Media Resources~\cite{lee2012mediaontology}
+  format \texttt{ma:description}.
+
+\noindent \textbf{Named Graph:} The \texttt{namedGraph} annotation type
+  allows for adding a~set of RDF triples
+  to a~media fragment.
+  Internally it is represented as \JSONLD%
+  ~\cite{sporny2013jsonld} named graph.
 
 \paragraph{Supported Presentation-Oriented Annotation Types}
 
 Presentation-oriented annotations do not generate RDF data,
 but impact the way the video gets presented.
 
-\begin{description}[leftmargin=*]
-  \item[Visual Effect:] Annotations of
-    type \texttt{visualEffect} allow for applying visual effects
-    in the syntax of Cascading Style Sheets%
-    \footnote{Cascading Style Sheets:
-    \url{http://www.w3.org/Style/CSS/}} (CSS)
-    to a~media fragment, including (but not limited to)
-    color filters, zoom effects, transparency,
-    and 2D or 3D transformations and animations. 
-  \item[Audial Effect:] The \texttt{audialEffect} annotation type
-    allows for applying audial effects to a~media fragment.
-    Currently, we support modifying the volume on a~scale
-    from~0 to~1.    
-  \item[Playback Rate:] The \texttt{playbackRate}
-    annotation type allows for specifying the effective
-    playback rate of a~media fragment.
-    The playback rate is expressed as a~floating point
-    multiple or fraction of the intrinsic video speed.
-  \item[HTML Overlay:] Via the \texttt{htmlOverlay}
-    annotation type, overlays in
-    freeform HTML code can be added to a~media fragment.
-    Examples are graphical, textual, or combined overlays
-    that can contain links to (temporal fragments of)
-    other videos or within the current video.
-\end{description}
-  
+\noindent \textbf{Visual Effect:} Annotations of
+  type \texttt{visualEffect} allow for applying visual effects
+  in the syntax of Cascading Style Sheets%
+  \footnote{Cascading Style Sheets:
+  \url{http://www.w3.org/Style/CSS/}} (CSS)
+  to a~media fragment, including (but not limited to)
+  color filters, zoom effects, transparency,
+  and 2D or 3D transformations and animations.
+
+\noindent \textbf{Audial Effect:} The \texttt{audialEffect} annotation type
+  allows for applying audial effects to a~media fragment.
+  Currently, we support modifying the volume on a~scale
+  from~0 to~1.
+
+\noindent \textbf{Playback Rate:} The \texttt{playbackRate}
+  annotation type allows for specifying the effective
+  playback rate of a~media fragment.
+  The playback rate is expressed as a~floating point
+  multiple or fraction of the intrinsic video speed.
+
+\noindent \textbf{HTML Overlay:} Via the \texttt{htmlOverlay}
+  annotation type, overlays in
+  freeform HTML code can be added to a~media fragment.
+  Examples are graphical, textual, or combined overlays
+  that can contain links to (temporal fragments of)
+  other videos or within the current video.
+
 \section{Implementation Details}
 
 We have implemented this annotation model
@@ -477,8 +485,16 @@ The demonstrator interprets the existing metadata track for a~video
 and reacts on annotations when the \texttt{currentTime}
 of the media resource matches the
 \texttt{startTime} or \texttt{endTime} of a~cue.
+We call existing annotations \emph{Read} annotations.
+Users can add \emph{Write} annotations
+by creating new \texttt{TextTrackCue}s
+at the desired start and end times
+and by filling out their \JSONLD~payloads.
+The editor facilitates this task through a~form
+Newly generated annotations get directly interpreted
+and can be persistently stored locally
+or in the future remotely for collaborative editing.
 
-  
 \section{Evaluation and Discussion}
 
 We evaluate or annotation model and related technology stack
@@ -493,38 +509,41 @@ Sadallah \emph{et~al.}\ define
 hypermedia document built upon audiovisual content''}.
 The authors identify three common hypervideo characteristics,
 namely \emph{(i)}~\emph{interactivity}, which, \emph{e.g.},
-can enable richer navigational possibilities, 
+can enable richer navigational possibilities,
 \emph{(ii)}~\emph{non-linearity}, which allows for features
 like video montages, and finally \emph{(iii)}~\emph{enrichments}
 that include all sorts of supplementary material besides
 and on top of hypervideos.
 The authors have examined hypervideo systems
-of recent years and found 
+of recent years and found
 recurring visualization and interaction patterns
 summarized in the following.
 
-\begin{description}[leftmargin=*]
-  \item[Video player and controls:] Hypervideo systems by definition
-    provide one or multiple video players, however,
-    the corresponding video controls are not necessarily exposed.
-  \item[Timeline:] A~timeline is the spatial representation
-    of temporally situated metadata in a~video.
-    The most common timeline pattern shows the
-    time along the x-axis and corresponding metadata along the y-axis.
-  \item[Textual or graphical overlay:] Additional textual or gra\-phical
-    information can be displayed in form of overlays on the video.
-    Overlays can also serve as external or video-internal hyperlinks,
-    referred to as hotspots.
-  \item[Textual or graphical table of contents:]
-    If a~video is logically separated
-    into different parts, a~table of contents lists these
-    in textual or graphical form, makes them navigable,
-    or visually summarizes them, referred to as video map.
-  \item[Transcript:] The textual document
-    of the transcribed audiovisual content of a~video 
-    allows for following along the video by reading
-    and also serves for in-video navigation.
-\end{description}  
+\noindent \textbf{Video player and controls:} Hypervideo systems by definition
+  provide one or multiple video players, however,
+  the corresponding video controls are not necessarily exposed.
+
+\noindent \textbf{Timeline:} A~timeline is the spatial representation
+  of temporally situated metadata in a~video.
+  The most common timeline pattern shows the
+  time along the x-axis and corresponding metadata along the y-axis.
+
+\noindent \textbf{Textual or graphical overlay:}
+  Additional textual or gra\-phical
+  information can be displayed in form of overlays on the video.
+  Overlays can also serve as external or video-internal hyperlinks,
+  referred to as hotspots.
+
+\noindent \textbf{Textual or graphical table of contents:}
+  If a~video is logically separated
+  into different parts, a~table of contents lists these
+  in textual or graphical form, makes them navigable,
+  or visually summarizes them, referred to as video map.
+
+\noindent \textbf{Transcript:} The textual document
+  of the transcribed audiovisual content of a~video
+  allows for following along the video by reading
+  and also serves for in-video navigation.
 
 \section{Related Work}
 
@@ -546,17 +565,18 @@ Notes, speech bubbles, and spotlights can contain \emph{links}
 to other videos, the same video, channel pages, playlists,
 or search results, as well as to actions
 such as subscribe, compose message, and upload video response.
-From 2009 to 2010, YouTube had a~feature called 
+From 2009 to 2010, YouTube had a~feature called
 Collaborative Annotations%
 ~\cite{fink2009collaborativeannotations}
 that allowed video consumers to collaboratively
 create video annotations.
 It was discontinued \textit{``to make room for even more new features''}%
 ~\cite{youtube2010annotations}.
- 
+
 In~\cite{vandeursen2012mediafragmentannotations},
 Van Deursen \emph{et~al.}\ present a~system
-that combines Media Fragments URI~\cite{troncy2012mediafragments} and the Ontology for Media Resources~\cite{lee2012mediaontology}
+that combines Media Fragments URI~\cite{troncy2012mediafragments}
+and the Ontology for Media Resources~\cite{lee2012mediaontology}
 in an HTML5~\cite{berjon2013html5}
 Web application to convert rich media fragment annotations
 into a~WebVTT~\cite{pfeiffer2013webvtt} file
@@ -577,7 +597,7 @@ of the presentation on a~screen.
 % SMIL components can be used for integrating timing
 % into XHTML~\cite{pemberton2002xhtml}
 % and into SVG~\cite{ferraiolo2003svg}.
-SMIL features are not commonly supported 
+SMIL features are not commonly supported
 in modern Web browsers and special plugins or native software
 are required for their consumption,
 albeit in 2002 there was a~mostly Microsoft-led attempt
@@ -600,7 +620,7 @@ A~version of the proposed framework
 has been released in form of the WebCHM prototype
 that integrates with existing Web technologies
 via a~declarative syntax.
-Support for temporal semantics is ensured through  
+Support for temporal semantics is ensured through
 an implementation of SMIL Timesheets~\cite{vuorimaa2012timesheets}
 in a~JavaScript library.
 
