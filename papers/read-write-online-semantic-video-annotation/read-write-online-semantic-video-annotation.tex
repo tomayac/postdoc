@@ -529,10 +529,19 @@ summarized in the following.\\
   provide one or multiple video players, however,
   the corresponding video controls are not necessarily exposed.
 
+\checkmark~Our approach uses the (optionally customizable)
+default HTML5 player that includes hideable controls.
+
 \noindent \textbf{Timeline:} A~timeline is the spatial representation
   of temporally situated metadata in a~video.
   The most common timeline pattern shows the
   time along the x-axis and corresponding metadata along the y-axis.
+  
+\checkmark~Our approach supports temporal metadata.
+Customizable timeline visualizations exist%
+\footnote{D3 timeline:
+\url{https://github.com/jiahuang/d3-timeline}}
+and can be added.
 
 \noindent \textbf{Textual or graphical overlay:}
   Additional textual or gra\-phical
@@ -540,16 +549,26 @@ summarized in the following.\\
   Overlays can also serve as external or video-internal hyperlinks,
   referred to as hotspots.
 
+\checkmark~We support overlays
+via \texttt{htmlOverlay} annotations.
+
 \noindent \textbf{Textual or graphical table of contents:}
   If a~video is logically separated
   into different parts, a~table of contents lists these
   in textual or graphical form, makes them navigable,
   or visually summarizes them, referred to as video map.
+  
+\checkmark~Textual tables of contents are directly supported
+via WebVTT text tracks of type \emph{chapters}.
+Graphical tables of contents can be created based thereon.  
 
 \noindent \textbf{Transcript:} The textual document
   of the transcribed audiovisual content of a~video
   allows for following along the video by reading
   and also serves for in-video navigation.
+  
+\checkmark~Subtitles and captions are natively supported
+by\linebreak WebVTT tracks of types \emph{subtitles} and \emph{captions}.
 
 \section{Related Work}
 
@@ -612,14 +631,17 @@ SMIL features are not commonly supported
 in modern Web browsers and special plugins or native software
 are required for their consumption,
 albeit in 2002 there was a~mostly Microsoft-led attempt
-in form of the HTML+TIME submission~\cite{schmitz1998htmltime}
-and, based thereon, the XHTML+SMIL Profile note%
-~\cite{newman2002xhtmlsmil}
+in form of the HTML+TIME submission%~\cite{schmitz1998htmltime}
+\footnote{HTML+TIME: \url{http://www.w3.org/TR/NOTE-HTMLplusTIME}}
+and, based thereon, the XHTML+SMIL Profile%
+\footnote{XHTML+SMIL Profile:
+\url{http://www.w3.org/TR/XHTMLplusSMIL/}} note
+%~\cite{newman2002xhtmlsmil}
 to integrate SMIL semantics with (X)HTML and CSS.
-Despite its initially active role in the W3C SMIL working group,
-Microsoft later decided to cease SMIL support
-due to a~perceived overlap with several existing standards.
-Our approach is based on native Web browser technologies.
+%Despite its initially active role in the W3C SMIL working group,
+%Microsoft later decided to cease SMIL support
+%due to a~perceived overlap with several existing standards.
+Our approach is based on native browser technologies.
 
 The Component-based Hypervideo Model
 (CHM,~\cite{sadallah2012hypervideo})
@@ -640,14 +662,14 @@ At comparable functionality, our approach is less complex
 and entirely Web-based.
 
 Popcorn.js\footnote{Popcorn.js: \url{http://popcornjs.org/}}
-is an HTML5 media framework written in JavaScript
+is an HTML5 JavaScript media framework
 %aimed at filmmakers, Web developers,
 %and users interested in creating
-for the creation of time-based media mixes on the Web
+for the creation of media mixes
 by adding interactivity and context to online video
-by letting users link social media, news feeds,
-data visualizations, and other content directly to moving images.
-The Mozilla PopcornMaker%
+by letting users link social media, feeds,
+visualizations, and other content directly to moving images.
+PopcornMaker%
 \footnote{PopcornMaker: \url{https://popcorn.webmaker.org/}}
 is an interactive Web authoring environment
 that allows for videos to be annotated on a~video timeline.
