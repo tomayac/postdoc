@@ -209,11 +209,11 @@ Typically, the cue payload contains plain text,
 but can also contain textual data serialization formats like JSON,
 which later on in the paper we will show is essential
 for our proposed approach to semantic video annotation.
-Spans of text associated with a~specific voice can be annotated
-in form of WebVTT cue voice spans.
-A~WebVTT voice tag, denoted by \texttt{<v VOICE>}, has a~value,
-which is the name of the voice.
-Cues optionally can have unique IDs.
+%Spans of text associated with a~specific voice can be annotated
+%in form of WebVTT cue voice spans.
+%A~WebVTT voice tag, denoted by \texttt{<v VOICE>}, has a~value,
+%which is the name of the voice.
+Cues optionally can have unique WebVTT identifiers.
 
 \begin{lstlisting}[caption={Sample WebVTT metadata file},
   label=listing:webvtt, float=b!]
@@ -222,13 +222,12 @@ WEBVTT
 cue1
 00:00:00.000 --> 00:00:12.000
 {
-  "@context": "http://ex.org/local_context",
   "tags": ["wind scene", "opening credits"],
   "contributors": ["http://ex.org/actors/sintel"]
 }
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Generated JSON-LD for the Web of Data, see \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
+\begin{lstlisting}[caption={Generated \JSONLD~for the Web of Data, see \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
   label=listing:jsonld, float=b!]
 {
   "@context": "http://ex.org/global_context",
@@ -276,8 +275,9 @@ Not displayed by user agent.\\
 
 WebVTT-compliant Web browsers~\cite{dutton2012trackelement}
 support five different kinds of
-WebVTT text tracks, specified by HTML5~\cite{berjon2013html5}
-and listed in \autoref{table:texttrackkinds}.
+WebVTT tracks, \emph{subtitles}, \emph{captions},
+\emph{descriptions}, \emph{chapters}, and \emph{metadata},
+all specified in HTML5~\cite{berjon2013html5}.
 In this paper, we especially focus on
 text tracks of kind \texttt{metadata},
 meant to be used from a~script context and
@@ -300,7 +300,7 @@ it can be parsed via the
 
 When a~media resource like a~video or audio is playing,
 JavaScript events of the \texttt{TextTrack} and \texttt{TextTrackCue}
-elements fire automatically when the \texttt{currentPosition}
+elements fire automatically when the \texttt{currentTime}
 of the media resource matches the
 \texttt{startTime} or \texttt{endTime} of a~cue.
 \texttt{TextTrack} elements fire \texttt{oncuechange} events,
@@ -396,37 +396,16 @@ This permits others to extend or even completely replace
 our interpretation layer.
 If a~\texttt{TextTrackCue} has a~WebVTT identifier,
 we use it to uniquely identify the associated annotations,
-allowing for meta annotations of the annotations.
-
-\paragraph{Supported Presentation-Oriented Annotation Types}
-
-\begin{description}[leftmargin=*]
-  \item[Visual Effect:] Annotations of
-    type \texttt{visualEffect} allow for applying visual effects
-    in the syntax of Cascading Style Sheets%
-    \footnote{Cascading Style Sheets:
-    \url{http://www.w3.org/Style/CSS/}} (CSS)
-    to a~media fragment, including (but not limited to)
-    color filters, zoom effects, transparency,
-    and 2D or 3D transformations and animations. 
-  \item[Audio Effect:] The \texttt{audioEffect} annotation type
-    allows for applying audio effects to a~media fragment.
-    Currently, we support modifying the volume on a~scale
-    from~0 to~1.    
-  \item[Playback Rate:] The \texttt{playbackRate}
-    annotation type allows for specifying the effective
-    playback rate of a~media fragment.
-    The playback rate is expressed as a~floating point
-    multiple or fraction of the intrinsic video speed.
-  \item[HTML Overlay:] Via the \texttt{htmlOverlay}
-    annotation type, overlays in
-    freeform HTML code can be added to a~media fragment.
-    Examples are graphical, textual, or combined overlays
-    that can contain links to (temporal fragments of)
-    other videos or within the current video.
-\end{description}
+allowing for meta annotations of annotations, \emph{e.g.},
+for provenance data.
 
 \paragraph{Supported Semantic Annotation Types}
+
+Our model makes common annotation tasks as
+straight-forward as in \autoref{listing:webvtt}.
+The generated triples based thereon are shown in
+\autoref{listing:jsonld} and \url{http://bit.ly/webvtt-jsonld}.
+Advanced tasks are supported by adding \JSONLD~contexts.
 
 \begin{description}[leftmargin=*]
   \item[Plain Text Tags:] Annotations of type
@@ -441,12 +420,7 @@ allowing for meta annotations of the annotations.
     well-defined concepts complete with their own URLs.
     Internally they are represented as Common Tag%
     ~\cite{commontag2009spec} format \texttt{ctag:means}.     
-  \item[Named Graph:] The \texttt{namedGraph} annotation type
-    allows for adding a~set of RDF triples
-    to a~media fragment.
-    Internally it is represented as JSON-LD%
-    ~\cite{sporny2013jsonld} named graph.
-  \item[Contributors:] \todo{add why} The \texttt{contributors} annotation type
+  \item[Contributors:] The \texttt{contributors} annotation type
     al-\linebreak lows for denoting the contributors in a~media fragment.
     Internally they are represented as
     Ontology for Media Resources~\cite{lee2012mediaontology}
@@ -456,7 +430,54 @@ allowing for meta annotations of the annotations.
     Internally it is represented as
     Ontology for Media Resources~\cite{lee2012mediaontology}
     format \texttt{ma:description}.    
+  \item[Named Graph:] The \texttt{namedGraph} annotation type
+    allows for adding a~set of RDF triples
+    to a~media fragment.
+    Internally it is represented as \JSONLD%
+    ~\cite{sporny2013jsonld} named graph.    
 \end{description}
+
+\paragraph{Supported Presentation-Oriented Annotation Types}
+
+Presentation-oriented annotations do not generate RDF data,
+but impact the way the video gets presented.
+
+\begin{description}[leftmargin=*]
+  \item[Visual Effect:] Annotations of
+    type \texttt{visualEffect} allow for applying visual effects
+    in the syntax of Cascading Style Sheets%
+    \footnote{Cascading Style Sheets:
+    \url{http://www.w3.org/Style/CSS/}} (CSS)
+    to a~media fragment, including (but not limited to)
+    color filters, zoom effects, transparency,
+    and 2D or 3D transformations and animations. 
+  \item[Audial Effect:] The \texttt{audialEffect} annotation type
+    allows for applying audial effects to a~media fragment.
+    Currently, we support modifying the volume on a~scale
+    from~0 to~1.    
+  \item[Playback Rate:] The \texttt{playbackRate}
+    annotation type allows for specifying the effective
+    playback rate of a~media fragment.
+    The playback rate is expressed as a~floating point
+    multiple or fraction of the intrinsic video speed.
+  \item[HTML Overlay:] Via the \texttt{htmlOverlay}
+    annotation type, overlays in
+    freeform HTML code can be added to a~media fragment.
+    Examples are graphical, textual, or combined overlays
+    that can contain links to (temporal fragments of)
+    other videos or within the current video.
+\end{description}
+  
+\section{Implementation Details}
+
+We have implemented this annotation model
+in form of an online demonstrator prototype.%
+\footnote{WebVTT editor: \url{http://bit.ly/webvtt-editor-demo}}
+The demonstrator interprets the existing metadata track for a~video
+and reacts on annotations when the \texttt{currentTime}
+of the media resource matches the
+\texttt{startTime} or \texttt{endTime} of a~cue.
+
   
 \section{Evaluation and Discussion}
 
@@ -606,12 +627,13 @@ Meta-annotations
 Conflicting annotatiuons
 
 \section*{Acknowledgments}
-
-The research presented in this paper
-was partially supported by the ANR project
+\footnotesize
+The research presented in this paper was partially supported
+by the French National Agency for Research  project
 \emph{Spectacle En Ligne(s)}, project reference
 \mbox{ANR-12-CORP-0015}.
 
+\normalsize
 \bibliographystyle{abbrv}
 \bibliography{references}
 
