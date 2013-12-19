@@ -52,6 +52,8 @@
 
 \def\JSONLD{\mbox{JSON-LD}}
 
+\hyphenation{WebVTT}
+
 \begin{document}
 %
 % --- Author Metadata here ---
@@ -68,46 +70,43 @@
 % 1st. author
 \alignauthor
 Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{T.~Steiner, Google Germany GmbH, ABC-Str.~19, 20354 Hamburg, Germany}}\\
-       \affaddr{Université de Lyon} 
-       \affaddr{CNRS Université Lyon~1}\\
+       \affaddr{CNRS, Université de Lyon} 
        \affaddr{LIRIS, UMR5205}\\
-       \affaddr{F-69622 France}\\
-       \email{tsteiner@liris.cnrs.fr}
+       \affaddr{Université Lyon~1, France}\\
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont tsteiner@liris.cnrs.fr}
 % 2nd. author
 \alignauthor
 Pierre-Antoine Champin\\
-       \affaddr{Université de Lyon} 
-       \affaddr{CNRS Université Lyon~1}\\
+       \affaddr{CNRS, Université de Lyon} 
        \affaddr{LIRIS, UMR5205}\\
-       \affaddr{F-69622 France}\\
-       \email{champin@liris.cnrs.fr}
+       \affaddr{Université Lyon~1, France}\\
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont champin@liris.cnrs.fr}
 % 3rd. author
 \alignauthor
 Benoît Encelle\\
-       \affaddr{Université de Lyon} 
-       \affaddr{CNRS Université Lyon~1}\\
+       \affaddr{CNRS, Université de Lyon} 
        \affaddr{LIRIS, UMR5205}\\
-       \affaddr{F-69622 France}\\
-       \email{encelle@liris.cnrs.fr}
+       \affaddr{Université Lyon~1, France}\\
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont encelle@liris.cnrs.fr}
 \and  % use '\and' if you need 'another row' of author names
 % 4th. author
 \alignauthor
 Yannick Prié\\
        \affaddr{Université de Nantes}\\
        \affaddr{LINA -- UMR 6241 CNRS}\\
-       \email{yannick.prie@univ-nantes.fr}
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont yannick.prie@univ-nantes.fr}
 % 5th. author
 \alignauthor
 Ruben Verborgh\\
        \affaddr{Ghent University -- iMinds}\\
        \affaddr{9050~Ghent, Belgium}\\
-       \email{ruben.verborgh@ugent.be}
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont ruben.verborgh@ugent.be}
 % 6th. author
 \alignauthor
 Rik Van de Walle\\
        \affaddr{Ghent University -- iMinds}\\
        \affaddr{9050~Ghent, Belgium}\\
-       \email{rik.vandewalle@ugent.be}
+      \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont rik.vandewalle@ugent.be}
 }
 
 \maketitle
@@ -136,7 +135,7 @@ A~live demo of a~WebVTT editor that implements the model
 is available at \url{http://bit.ly/webvtt-editor-demo}.
 \end{abstract}
 
-\category{H.5.1}{Multimedia Inform. Syst.}{Eval./methodology}
+\category{H.5.1}{Multimedia Information Systems}{Evaluation/methodology}
 
 %\terms{Experimentation, Design, Standardization}
 
@@ -214,25 +213,20 @@ Spans of text associated with a~specific voice can be annotated
 in form of WebVTT cue voice spans.
 A~WebVTT voice tag, denoted by \texttt{<v VOICE>}, has a~value,
 which is the name of the voice.
-Cues can optionally have unique IDs
-followed by a~colon in the line
-above the cue timings part.
-\autoref{listing:webvtt} shows an exemplary WebVTT file.
+Cues optionally can have unique IDs.
 
-\begin{lstlisting}[caption={Sample WebVTT file with two cues},
+\begin{lstlisting}[caption={Sample WebVTT metadata file},
   label=listing:webvtt, float=b!]
 WEBVTT
 
-cue_vincent_1:
-00:07:55.185 --> 00:08:00.247
-<v Vincent>And you know what they call
-a Quarter-Pounder with Cheese in Paris?
-
-cue_jules_2:
-00:08:00.290 --> 00:08:01.917
-<v Jules>They don't call it
-a Quarter-Pounder with Cheese?
-\end{lstlisting}
+cue1
+00:00:00.000 --> 00:00:12.000
+{
+  "@context": "http://ex.org/context.jsonld",
+  "tags": ["wind scene", "opening credits"],
+  "contributors": ["http://ex.org/actors/sintel"],
+  "playbackRate": 3.0
+}\end{lstlisting}
 
 \begin{table}[b!]\footnotesize
 \begin{tabular}{ r p{5.5cm} } % ACM column width 8.45cm, 0.83cm gutter
@@ -317,7 +311,9 @@ It is primarily intended to be a~way to use
 Linked Data in Web-based programming environments,
 to build interoperable Web services,
 and to store Linked Data in JSON-based storage engines.
-We use \JSONLD\ as semantically rich content in the payload of \texttt{TextTrackCue}s.
+We use \JSONLD\ as semantically rich content in the payload of \texttt{TextTrackCue}s, shown in
+\autoref{listing:webvtt}.
+The linked context defines the semantics.
 
 \paragraph{Media Fragments URI}
 
@@ -369,11 +365,12 @@ The possible values for the \emph{subject} can be \emph{(i)}~the video
 URI itself or---in case of multiple URLs for a~video available
 in different encodings with multiple \texttt{<source>} tags---%
 the URI with fragment identifier of the \texttt{<video>} tag
-that then requires a~unique ID,
+that then requires a~unique \texttt{id} attribute,
 \emph{(ii)}~the Media Fragment URI of a~temporal and/or spatial
 media fragment of the original media item.
-We have no constraints in place for the \emph{predicate}
-and {object}, we thus make a~sort of open world assumption by
+We have no constraints in place for the \emph{predicate},
+which determines the annotation type, and the \emph{object}.
+We thus make a~sort of open world assumption by
 supporting certain pre-defined values for predicate and object
 listed below in our interpretation layer in the video view,
 and simply ignoring unknown ones,
