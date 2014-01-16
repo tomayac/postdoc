@@ -1,0 +1,132 @@
+\documentclass{sig-alternate}
+
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+
+% listings and Verbatim environment
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{verbatim}
+\newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
+\newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
+\newcommand{\smalllistingsize}{\fontsize{7.5pt}{9.5pt}}
+\newcommand{\listingsize}{\defaultlistingsize}
+\RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
+\lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
+        aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+        framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+
+% use Courier from this point onward
+\let\oldttdefault\ttdefault
+\renewcommand{\ttdefault}{pcr}
+\let\oldurl\url
+\renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={push, typeof, new, true, false, catch, function, return, null,
+    catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{darkgray},
+  stringstyle=\color{red},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+% linewrap symbol
+\usepackage{color}
+\definecolor{grey}{RGB}{130,130,130}
+\newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
+
+% todo macro
+\usepackage{color}
+\newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
+
+\hyphenation{WebVTT}
+
+\begin{document}
+%
+% --- Author Metadata here ---
+\conferenceinfo{International World Wide Web Conference}{2014 Seoul, Korea}
+\CopyrightYear{2014} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
+\title{Weaving the Web(VTT) of Data}
+
+\numberofauthors{6}
+
+\author{
+% 1st. author
+\alignauthor
+Thomas Steiner\titlenote{Second affiliation: \emph{Google Germany GmbH, Hamburg, DE}}\\
+       \affaddr{CNRS, Université de Lyon}
+       \affaddr{LIRIS, UMR5205}\\
+       \affaddr{Université Lyon~1, France}\\
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont tsteiner@liris.cnrs.fr}
+% 2nd. author
+\alignauthor
+Pierre-Antoine Champin\\
+       \affaddr{CNRS, Université de Lyon}
+       \affaddr{LIRIS, UMR5205}\\
+       \affaddr{Université Lyon~1, France}\\
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont pachampin@liris.cnrs.fr}
+% 3rd. author
+\alignauthor
+Benoît Encelle\\
+       \affaddr{CNRS, Université de Lyon}
+       \affaddr{LIRIS, UMR5205}\\
+       \affaddr{Université Lyon~1, France}\\
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont bencelle@liris.cnrs.fr}
+\and  % use '\and' if you need 'another row' of author names
+% 4th. author
+\alignauthor
+Yannick Prié\\
+       \affaddr{Université de Nantes}\\
+       \affaddr{LINA -- UMR 6241 CNRS}\\
+       \email{\fontsize{12pt}{14.4pt}\sffamily\selectfont yannick.prie@univ-nantes.fr}
+}
+
+\maketitle
+\begin{abstract}
+
+\end{abstract}
+
+\category{H.5.1}{Multimedia Information Systems}{Video}
+
+%\terms{Experimentation, Design, Standardization}
+
+\keywords{WebVTT, Linked Data, Web of Data}
+
+\section{Introduction}
+
+\cite{pfeiffer2013webvtt}
+
+\section{Related Work}
+
+\section{Future Work and Conclusions}
+\label{sec:future-work-conclusions}
+
+\section*{Acknowledgments}
+\footnotesize
+The research presented in this paper was partially supported
+by the French National Agency for Research  project
+\emph{Spectacle En Ligne(s)}, project reference
+\mbox{ANR-12-CORP-0015}.
+
+\normalsize
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}
