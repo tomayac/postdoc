@@ -11,8 +11,10 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.Arrays;
+
 
 
 // log4j classes
@@ -197,31 +199,39 @@ public class ExampleArcVideoTrack
       configFile = args[1];
 
     // For this example, only look at a single ARC files.        
-    String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/1346823845675/1346871947461_4036.arc.gz";
+    //String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/1346823845675/1346871947461_4036.arc.gz";
         
     // Switch to this if you'd like to look at all ARC files.  May take many minutes just to read the file listing.
-    //String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/*/*.arc.gz";
+    // String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/*/*.arc.gz";
 
-    // Read in any additional config parameters.
-    if (configFile != null) {
-      LOG.info("adding config parameters from '"+ configFile + "'");
-      this.getConf().addResource(configFile);
-    }
+    String segmentListFile = "s3n://aws-publicdatasets/common-crawl/parse-output/valid_segments.txt";
 
     // Creates a new job configuration for this Hadoop job.
     JobConf job = new JobConf(this.getConf());
 
     job.setJarByClass(ExampleArcVideoTrack.class);
+    FileSystem fs = FileSystem.get(new URI(segmentListFile), job);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(new Path(segmentListFile))));
 
-    // Scan the provided input path for ARC files.
-    LOG.info("setting input path to '"+ inputPath + "'");
-    FileInputFormat.addInputPath(job, new Path(inputPath));
-    FileInputFormat.setInputPathFilter(job, SampleFilter.class);
+    String segmentId;
 
+    while ((segmentId = reader.readLine()) != null) {
+      String inputPath = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/"+segmentId+"/*.arc.gz";
+      LOG.info("setting input path to '"+ inputPath + "'");      
+      FileInputFormat.addInputPath(job, new Path(inputPath));
+      FileInputFormat.setInputPathFilter(job, SampleFilter.class);      
+    }    
+    
+    // Read in any additional config parameters.
+    if (configFile != null) {
+      LOG.info("adding config parameters from '"+ configFile + "'");
+      this.getConf().addResource(configFile);
+    }
+   
     // Delete the output path directory if it already exists.
     LOG.info("clearing the output path at '" + outputPath + "'");
 
-    FileSystem fs = FileSystem.get(new URI(outputPath), job);
+    fs = FileSystem.get(new URI(outputPath), job);
 
     if (fs.exists(new Path(outputPath)))
       fs.delete(new Path(outputPath), true);

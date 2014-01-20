@@ -7,4 +7,8 @@
     <name>mapred.max.map.failures.percent</name>
     <value>10</value>
   </property>
+  <property>
+      <name>mapreduce.jobtracker.split.metainfo.maxsize</name>
+      <value>-1</value>
+  </property>
 </configuration>
