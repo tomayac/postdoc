@@ -106,15 +106,34 @@ public class ExampleArcVideoTrack
           return;
         }
 
-        Elements tracks = doc.select("track");
-
-        if (tracks.size() > 0) {
-          for (Element e : tracks) {
-            if (e.hasAttr("src") && e.hasAttr("kind")) {
-              output.collect(new Text(e.attr("kind") + "\t" + e.attr("src").trim()), new LongWritable(1));
-            }
-          }
-        }
+        Elements videos = doc.select("video");
+        if (videos.size() > 0) {          
+        	for (Element video : videos) {
+        	  // <video src="">
+        	  String videoSrc = video.hasAttr("src") ? video.attr("src") : "";
+        	  String sourceSrc = "";
+            String trackKind = "";
+            String trackSrc = "";
+        	  
+            // <source src="">
+        	  Elements sources = video.select("source");
+            if (sources.size() > 0) {              
+              for (Element source : sources) {                
+                sourceSrc += source.hasAttr("src") ? " ### " + source.attr("src") : "";
+              }
+            }        	  
+        	  
+        	  // <track src="" kind="">
+        	  Elements tracks = video.select("track");
+        		if (tracks.size() > 0) {
+        		  for (Element track : tracks) {
+        		    trackKind = track.hasAttr("kind") ? " ### " + track.attr("kind") : "";
+        		    trackSrc = track.hasAttr("src") ? " ### " + track.attr("src") : "";
+        		  }
+        		}
+        		output.collect(new Text(videoSrc.length() > 0 ? videoSrc : sourceSrc + "\t" + trackKind + "\t" + trackSrc), new LongWritable(1));
+        	}
+        }     
       }
       catch (Throwable e) {
 
