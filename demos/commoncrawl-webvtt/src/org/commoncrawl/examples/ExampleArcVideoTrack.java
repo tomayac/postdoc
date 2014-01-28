@@ -17,6 +17,9 @@ import java.util.Arrays;
 
 
 
+
+
+
 // log4j classes
 import org.apache.log4j.Logger;
 
@@ -44,7 +47,7 @@ import org.apache.hadoop.mapred.lib.LongSumReducer;
 import org.apache.hadoop.util.Progressable;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-
+import org.commoncrawl.examples.ExampleArcMicroformat.SampleFilter;
 // Common Crawl classes
 import org.commoncrawl.hadoop.mapred.ArcInputFormat;
 import org.commoncrawl.hadoop.mapred.ArcRecord;
@@ -159,7 +162,7 @@ public class ExampleArcVideoTrack
       implements PathFilter {
 
     private static int count =         0;
-    private static int max   = 999999999;
+    private static int max   = 999999999;    
 
     public boolean accept(Path path) {
 
@@ -199,11 +202,33 @@ public class ExampleArcVideoTrack
       configFile = args[1];
 
     // For this example, only look at a single ARC files.        
-    //String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/1346823845675/1346871947461_4036.arc.gz";
+    String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/1346823845675/1346871947461_4036.arc.gz";
         
     // Switch to this if you'd like to look at all ARC files.  May take many minutes just to read the file listing.
-    // String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/*/*.arc.gz";
+    //String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/*/*.arc.gz";
 
+    // Read in any additional config parameters.
+    if (configFile != null) {
+      LOG.info("adding config parameters from '"+ configFile + "'");
+      this.getConf().addResource(configFile);
+    }
+
+    // Creates a new job configuration for this Hadoop job.
+    JobConf job = new JobConf(this.getConf());
+
+    job.setJarByClass(ExampleArcVideoTrack.class);
+
+    // Scan the provided input path for ARC files.
+    LOG.info("setting input path to '"+ inputPath + "'");
+    FileInputFormat.addInputPath(job, new Path(inputPath));
+    FileInputFormat.setInputPathFilter(job, SampleFilter.class);
+
+    // Delete the output path directory if it already exists.
+    LOG.info("clearing the output path at '" + outputPath + "'");
+
+    FileSystem fs = FileSystem.get(new URI(outputPath), job);
+    
+    /*
     String segmentListFile = "s3n://aws-publicdatasets/common-crawl/parse-output/valid_segments.txt";
 
     // Creates a new job configuration for this Hadoop job.
@@ -213,25 +238,14 @@ public class ExampleArcVideoTrack
     FileSystem fs = FileSystem.get(new URI(segmentListFile), job);
     BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(new Path(segmentListFile))));
 
-    String segmentId;
-
+    String segmentId;    
     while ((segmentId = reader.readLine()) != null) {
       String inputPath = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/"+segmentId+"/*.arc.gz";
       LOG.info("setting input path to '"+ inputPath + "'");      
       FileInputFormat.addInputPath(job, new Path(inputPath));
       FileInputFormat.setInputPathFilter(job, SampleFilter.class);      
     }    
-    
-    // Read in any additional config parameters.
-    if (configFile != null) {
-      LOG.info("adding config parameters from '"+ configFile + "'");
-      this.getConf().addResource(configFile);
-    }
-   
-    // Delete the output path directory if it already exists.
-    LOG.info("clearing the output path at '" + outputPath + "'");
-
-    fs = FileSystem.get(new URI(outputPath), job);
+    */    
 
     if (fs.exists(new Path(outputPath)))
       fs.delete(new Path(outputPath), true);
@@ -252,13 +266,13 @@ public class ExampleArcVideoTrack
     job.setOutputValueClass(LongWritable.class);
 
     // Set which Mapper and Reducer classes to use.
-    job.setMapperClass(ExampleArcVideoTrack.ExampleArcVideoTrackMapper.class);
+    job.setMapperClass(ExampleArcMicroformat.ExampleArcMicroformatMapper.class);
     job.setReducerClass(LongSumReducer.class);
 
     if (JobClient.runJob(job).isSuccessful())
       return 0;
     else
-      return 1;
+      return 1;    
   }
 
   /**
