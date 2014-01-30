@@ -28,6 +28,7 @@
 \let\oldurl\url
 \renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
 
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \lstdefinelanguage{JavaScript}{
   keywords={push, typeof, new, true, false, catch, function, return, null,
     catch, switch, var, if, in, while, do, else, case, break},
@@ -39,7 +40,7 @@
   comment=[l]{//},
   morecomment=[s]{/*}{*/},
   commentstyle=\color{darkgray},
-  stringstyle=\color{red},
+  stringstyle=\color{gray},
   morestring=[b]',
   morestring=[b]"
 }
@@ -509,7 +510,7 @@ into \JSONLD~for the Web of Data.
 This allows for straight-forward local annotation creation
 with Semantic Web compliance upon global publication.
 
-\section{Evaluation and Discussion}
+\section{Evaluation}
 
 We evaluate or annotation model and related technology stack
 based on a~state-of-the-art hypervideo model by
@@ -682,6 +683,43 @@ is an interactive Web authoring environment
 that allows for videos to be annotated on a~video timeline.
 While Popcorn media annotations are JavaScript-based,
 our approach is based on indexable WebVTT files.
+
+\section{Discussion}
+
+\paragraph{Main Difference to Popcorn.js and PopcornMaker}
+
+The Popcorn.js and PopcornMaker technology stack
+represent the state-of-the-art in online video annotation,
+backed by the Mozilla Foundation
+and organized in active open-source projects.%
+\footnote{Popcorn.js on GitHub: \url{https://github.com/mozilla/popcorn-js}}%
+\textsuperscript{,}%
+\footnote{PopcornMaker on GitHub: \url{https://github.com/mozilla/popcorn.webmaker.org}}
+
+\begin{lstlisting}[caption={Minimal official Popcorn.js example, adapted from \url{http://jsfiddle.net/rwaldron/xhXE6/}},
+  label=listing:popcorn, float=t!, language=JavaScript]
+<!-- HTML for video and footnote container -->
+<video id="video" src="http://ex.org/video.mp4">
+</video>
+<div id="footnote-container"></div>
+
+<!-- JavaScript to add the logic -->
+<script>
+  // Create a Popcorn instance
+  var pop = Popcorn("#video");
+
+  // Add a footnote from seconds 2 to 6
+  pop.footnote({
+      start: 2,
+      end: 6,
+      text: "Lorem ipsum",
+      target: "footnote-container"
+    });
+
+  // Play the video right away
+  pop.play();
+</script>
+\end{lstlisting}
 
 \section{Future Work and Conclusions}
 \label{sec:future-work-conclusions}
