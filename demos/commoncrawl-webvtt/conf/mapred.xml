@@ -8,7 +8,15 @@
     <value>10</value>
   </property>
   <property>
-      <name>mapreduce.jobtracker.split.metainfo.maxsize</name>
-      <value>-1</value>
+    <name>mapred.max.reduce.failures.percent</name>
+    <value>10</value>
+  </property>
+  <property>
+    <name>mapred.max.tracker.failures</name>
+    <value>10</value>
+  </property>
+  <property>
+    <name>mapreduce.jobtracker.split.metainfo.maxsize</name>
+    <value>-1</value>
   </property>
 </configuration>

@@ -17,9 +17,6 @@ import java.util.Arrays;
 
 
 
-
-
-
 // log4j classes
 import org.apache.log4j.Logger;
 
@@ -47,7 +44,6 @@ import org.apache.hadoop.mapred.lib.LongSumReducer;
 import org.apache.hadoop.util.Progressable;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-import org.commoncrawl.examples.ExampleArcMicroformat.SampleFilter;
 // Common Crawl classes
 import org.commoncrawl.hadoop.mapred.ArcInputFormat;
 import org.commoncrawl.hadoop.mapred.ArcRecord;
@@ -57,6 +53,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import com.google.common.net.InternetDomainName;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * Analyzing the Common Crawl corpus for the existence of &lt;track&gt; elements 
@@ -90,6 +90,10 @@ public class ExampleArcVideoTrack
 
       try {
 
+        // key & value are "Text" right now ...
+        String url   = key.toString();
+        String json  = value.toString();        
+        
         if (!value.getContentType().contains("html")) {
           reporter.incrCounter(this._counterGroup, "Skipped - Not HTML", 1);
           return;
@@ -112,37 +116,73 @@ public class ExampleArcVideoTrack
         }
 
         Elements videos = doc.select("video");
-        if (videos.size() > 0) {          
-        	for (Element video : videos) {
-        	  // <video src="">
-        	  String videoSrc = video.hasAttr("src") ? video.attr("src") : "";
-        	  String sourceSrc = "";
-            String trackKind = "";
-            String trackSrc = "";
-        	  
-            // <source src="">
-        	  Elements sources = video.select("source");
-            if (sources.size() > 0) {              
-              for (Element source : sources) {                
-                sourceSrc += source.hasAttr("src") ? " ### " + source.attr("src") : "";
+        if (videos.size() > 0) {  
+          
+          // Get the base domain name
+          URI uri = new URI(url);
+          String host = uri.getHost();
+
+          if (host == null) {
+            reporter.incrCounter(this._counterGroup, "Invalid URI", 1);
+            return;
+          }
+
+          InternetDomainName domainObj = InternetDomainName.from(host);
+          String domain = domainObj.topPrivateDomain().name();
+          if (domain == null) {
+            reporter.incrCounter(this._counterGroup, "Invalid Domain", 1);
+            return;
+          }
+          // See if the page has a successful HTTP code
+          JsonParser jsonParser = new JsonParser();
+          JsonObject jsonObj    = jsonParser.parse(json).getAsJsonObject();
+          if (jsonObj.has("http_result") == false) {
+            reporter.incrCounter(this._counterGroup, "HTTP Code Missing", 1);
+            return;
+          }
+          if (jsonObj.get("http_result").getAsInt() == 200) {
+            reporter.incrCounter(this._counterGroup, "HTTP Success", 1);
+            // only output counts for pages that were successfully retrieved
+            for (Element video : videos) {
+              // <video src="">
+              String videoSrc = video.hasAttr("src") ? video.attr("src") : "";
+              String sourceSrc = "";
+              String trackKind = "";
+              String trackSrc = "";
+              
+              // <source src="">
+              Elements sources = video.select("source");
+              if (sources.size() > 0) {              
+                for (Element source : sources) {                
+                  sourceSrc += source.hasAttr("src") ? " ### " + source.attr("src") : "";
+                }
+              }           
+              
+              // <track src="" kind="">
+              Elements tracks = video.select("track");
+              if (tracks.size() > 0) {
+                for (Element track : tracks) {
+                  trackKind = track.hasAttr("kind") ? " ### " + track.attr("kind") : "";
+                  trackSrc = track.hasAttr("src") ? " ### " + track.attr("src") : "";
+                }
               }
-            }        	  
-        	  
-        	  // <track src="" kind="">
-        	  Elements tracks = video.select("track");
-        		if (tracks.size() > 0) {
-        		  for (Element track : tracks) {
-        		    trackKind = track.hasAttr("kind") ? " ### " + track.attr("kind") : "";
-        		    trackSrc = track.hasAttr("src") ? " ### " + track.attr("src") : "";
-        		  }
-        		}
-        		output.collect(new Text(videoSrc.length() > 0 ? videoSrc : sourceSrc + "\t" + trackKind + "\t" + trackSrc), new LongWritable(1));
-        	}
+              output.collect(new Text(
+                  domain + "\t" +
+                  url + "\t" +
+                  videoSrc + "\t" +
+                  sourceSrc + "\t" +
+                  trackKind + "\t" +
+                  trackSrc), new LongWritable(1));
+            }            
+          }
+          else {
+            reporter.incrCounter(this._counterGroup, "HTTP Not Success", 1);
+          } 
         }     
       }
       catch (Throwable e) {
 
-        // occassionally Jsoup parser runs out of memory ...
+        // Occasionally Jsoup parser runs out of memory ...
         if (e.getClass().equals(OutOfMemoryError.class))
           System.gc();
 
@@ -179,7 +219,7 @@ public class ExampleArcVideoTrack
   }
 
   /**
-   * Implmentation of Tool.run() method, which builds and runs the Hadoop job.
+   * Implementation of Tool.run() method, which builds and runs the Hadoop job.
    *
    * @param  args command line parameters, less common Hadoop job parameters stripped
    *              out and interpreted by the Tool class.  
@@ -200,52 +240,32 @@ public class ExampleArcVideoTrack
 
     if (args.length >= 2)
       configFile = args[1];
-
-    // For this example, only look at a single ARC files.        
-    String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/1346823845675/1346871947461_4036.arc.gz";
-        
-    // Switch to this if you'd like to look at all ARC files.  May take many minutes just to read the file listing.
-    //String inputPath   = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/*/*.arc.gz";
-
     // Read in any additional config parameters.
     if (configFile != null) {
       LOG.info("adding config parameters from '"+ configFile + "'");
       this.getConf().addResource(configFile);
     }
-
+    
     // Creates a new job configuration for this Hadoop job.
     JobConf job = new JobConf(this.getConf());
-
     job.setJarByClass(ExampleArcVideoTrack.class);
 
-    // Scan the provided input path for ARC files.
-    LOG.info("setting input path to '"+ inputPath + "'");
-    FileInputFormat.addInputPath(job, new Path(inputPath));
-    FileInputFormat.setInputPathFilter(job, SampleFilter.class);
-
+    String segmentListFile = "s3n://aws-publicdatasets/common-crawl/parse-output/valid_segments.txt";
+    FileSystem fs = FileSystem.get(new URI(segmentListFile), job);
+    BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(new Path(segmentListFile))));
+    String segmentId;
+    while ((segmentId = reader.readLine()) != null) {
+      String inputPath = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/"+segmentId+"/*.arc.gz";
+      // Scan the provided input path for ARC files.
+      LOG.info("setting input path to '"+ inputPath + "'");      
+      FileInputFormat.addInputPath(job, new Path(inputPath));
+      FileInputFormat.setInputPathFilter(job, SampleFilter.class);
+    }    
+     
     // Delete the output path directory if it already exists.
     LOG.info("clearing the output path at '" + outputPath + "'");
 
-    FileSystem fs = FileSystem.get(new URI(outputPath), job);
-    
-    /*
-    String segmentListFile = "s3n://aws-publicdatasets/common-crawl/parse-output/valid_segments.txt";
-
-    // Creates a new job configuration for this Hadoop job.
-    JobConf job = new JobConf(this.getConf());
-
-    job.setJarByClass(ExampleArcVideoTrack.class);
-    FileSystem fs = FileSystem.get(new URI(segmentListFile), job);
-    BufferedReader reader = new BufferedReader(new InputStreamReader(fs.open(new Path(segmentListFile))));
-
-    String segmentId;    
-    while ((segmentId = reader.readLine()) != null) {
-      String inputPath = "s3n://aws-publicdatasets/common-crawl/parse-output/segment/"+segmentId+"/*.arc.gz";
-      LOG.info("setting input path to '"+ inputPath + "'");      
-      FileInputFormat.addInputPath(job, new Path(inputPath));
-      FileInputFormat.setInputPathFilter(job, SampleFilter.class);      
-    }    
-    */    
+    fs = FileSystem.get(new URI(outputPath), job);
 
     if (fs.exists(new Path(outputPath)))
       fs.delete(new Path(outputPath), true);
@@ -266,13 +286,13 @@ public class ExampleArcVideoTrack
     job.setOutputValueClass(LongWritable.class);
 
     // Set which Mapper and Reducer classes to use.
-    job.setMapperClass(ExampleArcMicroformat.ExampleArcMicroformatMapper.class);
+    job.setMapperClass(ExampleArcVideoTrack.ExampleArcVideoTrackMapper.class);
     job.setReducerClass(LongSumReducer.class);
 
     if (JobClient.runJob(job).isSuccessful())
       return 0;
     else
-      return 1;    
+      return 1;   
   }
 
   /**
