@@ -66,7 +66,7 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Read/Write Semantic and Presentation-Oriented Online Video Annotation by Leveraging WebVTT and \JSONLD}
+\title{Read/Write Linked Data Publishing for Web Video\\ by Leveraging WebVTT and \JSONLD}
 
 \numberofauthors{6}
 
@@ -684,6 +684,12 @@ that allows for videos to be annotated on a~video timeline.
 While Popcorn media annotations are JavaScript-based,
 our approach is based on indexable WebVTT files.
 
+The tool VideoANT~\cite{hosack2010videoant} by Hosack
+was designed to create text-based annotations
+integrated within the time line of videos hosted online.
+Annotations consist of title and description and
+are positioned based on exclusively start time.
+
 \section{Discussion}
 
 \paragraph{Main Difference to Popcorn.js and PopcornMaker}
@@ -695,30 +701,84 @@ and organized in active open-source projects.%
 \footnote{Popcorn.js on GitHub: \url{https://github.com/mozilla/popcorn-js}}%
 \textsuperscript{,}%
 \footnote{PopcornMaker on GitHub: \url{https://github.com/mozilla/popcorn.webmaker.org}}
+We are by no means positioning our approach as superior,
+yet we claim that Popcorn annotations have shortcomings
+when it comes to indexability and semantic expressivity. 
+We back this claim with an example
+that can be seen in \autoref{listing:popcorn}.
+In this example, a~freeform footnote 
+and a~reference to a~Wikipedia article are added.
+There is, however, no way to correctly express the semantic concept
+that the video scene ranging from seconds 2 to 6 depicts
+the person and actor George Clooney.
 
-\begin{lstlisting}[caption={Minimal official Popcorn.js example, adapted from \url{http://jsfiddle.net/rwaldron/xhXE6/}},
+\paragraph{Main Difference to VideoAnt}
+
+
+\begin{lstlisting}[caption={Popcorn.js example, based on \url{http://jsfiddle.net/rwaldron/xhXE6/} and \url{http://jsfiddle.net/popcornjs/5q7QS/}},
   label=listing:popcorn, float=t!, language=JavaScript]
 <!-- HTML for video and footnote container -->
 <video id="video" src="http://ex.org/video.mp4">
 </video>
 <div id="footnote-container"></div>
+<div id="wikipedia-container"></div>
 
 <!-- JavaScript to add the logic -->
 <script>
   // Create a Popcorn instance
   var pop = Popcorn("#video");
-
   // Add a footnote from seconds 2 to 6
   pop.footnote({
       start: 2,
       end: 6,
-      text: "Lorem ipsum",
+      text: "In this scene: George Clooney",
       target: "footnote-container"
     });
-
-  // Play the video right away
-  pop.play();
+  // Add a Wikipedia link from seconds 2 to 6
+  pop.wikipedia({
+      start: 2,
+      end: 6,
+      src: "http://en.wikipedia.org/wiki/George§\linewrap§
+          _Clooney",
+      title: "George Clooney",
+      target: "wikipedia-container"
+    });    
 </script>
+\end{lstlisting}
+
+\begin{lstlisting}[caption={WebVTT annotations analog to \autoref{listing:popcorn}},
+  label=listing:webvtt, float=t!]
+WEBVTT
+
+cue1
+00:00:02.000 --> 00:00:06.000
+{
+  "@context": "http://ex.org/local_context",
+  "depicts": ["http://dbpedia.org/resource/§\linewrap§
+      George_Clooney"],
+  "htmlOverlay": "<span>In this scene:</span>§\linewrap§
+      <em>George Clooney</em>"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={videoANT annotations analog to \autoref{listing:popcorn}},
+  label=listing:videoant, float=t!]
+{
+  "ant": {
+    "title": "CEHD Block Party",
+    "url": "http://www.youtube.com/watch?v=VEEsewsZl3c",
+    "author": "no@spam.com (no@spam.com)",
+    "annotations": [{
+      "annotation": {
+        "subject": "sdsd",
+        "content": "\u003Cp\u003Esdaas\u003C/p\u003E",
+        "author": "no@spam.com (no@spam.com)",
+        "seconds": 5,
+        "comments": []
+      }
+    }]
+  }
+}
 \end{lstlisting}
 
 \section{Future Work and Conclusions}
