@@ -11,7 +11,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.fs.PathFilter;
 import org.apache.hadoop.io.SequenceFile.CompressionType;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.compress.GzipCodec;
@@ -83,7 +82,7 @@ public class TagTool extends Configured implements Tool {
 			try {
 				ArchiveRecord record = value.getRecord();
 				ArchiveRecordHeader header = record.getHeader();
-				
+
 				// WARC contains lots of stuff. We only want HTTP responses
 				if (!header.getMimetype().equals(
 						"application/http; msgtype=response")) {
@@ -119,7 +118,7 @@ public class TagTool extends Configured implements Tool {
 					return;
 				}
 				reporter.incrCounter(this._counterGroup, "HTTP Success", 1);
-				
+
 				// only consider HTML responses
 				String contentType = headerKeyValue(headers, "Content-Type",
 						"text/html");
@@ -134,14 +133,15 @@ public class TagTool extends Configured implements Tool {
 				try {
 					String[] ctPces = contentType.split(";");
 					if (ctPces.length == 2) {
-						String csName = ctPces[1].toLowerCase().replace("charset=", "").replace("\"","")
+						String csName = ctPces[1].toLowerCase()
+								.replace("charset=", "").replace("\"", "")
 								.trim();
 						cs = Charset.forName(csName);
 					}
 				} catch (Exception e) {
 					// http://homepages.cwi.nl/~hannes/whatever.gif
 				}
-				
+
 				// read warc payload with correct encoding
 				InputStreamReader inputReader = new InputStreamReader(
 						WARCRecordUtils.getPayload(record), cs);
@@ -150,7 +150,8 @@ public class TagTool extends Configured implements Tool {
 
 				// run regex
 				while (videoMatch.find()) {
-					reporter.incrCounter(this._counterGroup, "<video> tag found", 1);
+					reporter.incrCounter(this._counterGroup,
+							"<video> tag found", 1);
 					String videoTag = videoMatch.group(0);
 					output.collect(new Text(uri.toString()), new Text(videoTag));
 				}
@@ -162,13 +163,6 @@ public class TagTool extends Configured implements Tool {
 				reporter.incrCounter(this._counterGroup,
 						"Skipped - Exception Thrown", 1);
 			}
-		}
-	}
-
-	public static class WarcFilter implements PathFilter {
-		public boolean accept(Path path) {
-			LOG.info(path);
-			return path.getName().endsWith(".warc.gz");
 		}
 	}
 
