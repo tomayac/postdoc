@@ -31,7 +31,7 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \lstdefinelanguage{JavaScript}{
   keywords={push, typeof, new, true, false, catch, function, return, null,
-    catch, switch, var, if, in, while, do, else, case, break},
+    catch, switch, var, if, in, while, do, else, case, break, div, script, video},
   keywordstyle=\bfseries,
   ndkeywords={class, export, boolean, throw, implements, import, this},
   ndkeywordstyle=\color{darkgray}\bfseries,
@@ -39,6 +39,7 @@
   sensitive=false,
   comment=[l]{//},
   morecomment=[s]{/*}{*/},
+  morecomment=[s]{<!--}{-->},  
   commentstyle=\color{darkgray},
   stringstyle=\color{gray},
   morestring=[b]',
@@ -131,11 +132,12 @@ whereas pre\-sen\-tation-oriented annotations are related to
 ways in which videos get displayed to the viewer.
 By leveraging the technologies \JSONLD~and WebVTT,
 we are able to publish our annotations as Linked Data
-both for classic Semantic Web clients
+both for Semantic Web clients
 as well as common search engines.
 We evaluate our annotation model
-with a~state-of-the-art hypervideo model.
-A~live demo of a~WebVTT editor that implements the model
+with a~state-of-the-art hypervideo model
+and compare to the common frameworks Popcorn.js and VideoANT.
+A~prototype of a~WebVTT editor implementing this model
 is available at \url{http://bit.ly/webvtt-editor-demo}.
 \end{abstract}
 
@@ -488,8 +490,7 @@ but only impact the way videos get presented.\\
 \section{Implementation Details}
 
 We have implemented this annotation model
-in form of an online demonstrator prototype.%
-\footnote{WebVTT editor: \url{http://bit.ly/webvtt-editor-demo}}
+in form of an online demonstrator prototype.
 The demonstrator interprets the existing metadata track for a~video
 and reacts on annotations when the \texttt{currentTime}
 of the media resource matches the
@@ -584,9 +585,9 @@ by\linebreak WebVTT tracks of the types \emph{subtitles} and \emph{captions}.
 The online video hosting platform YouTube%
 \footnote{YouTube: \url{http://www.youtube.com/}}
 lets video publishers add video annotations
-in a~closed proprietary format%
+in a~closed proprietary format.%
 %~\cite{youtube2008annotations,youtube2010annotations}.
-~\cite{youtube2010annotations}.
+%~\cite{youtube2010annotations}.
 YouTube supports the following
 annotation types: \emph{speech bubbles},
 \emph{spotlights} for highlighting areas in a~video
@@ -684,17 +685,28 @@ that allows for videos to be annotated on a~video timeline.
 While Popcorn media annotations are JavaScript-based,
 our approach is based on indexable WebVTT files.
 
-The tool VideoANT~\cite{hosack2010videoant} by Hosack
+The Flash tool VideoANT~\cite{hosack2010videoant} by Hosack
 was designed to create text-based annotations
-integrated within the time line of videos hosted online.
-Annotations consist of title and description and
-are positioned based on exclusively start time.
+integrated within the timeline of videos hosted online.
+Annotations consist of subject and content and
+are positioned based solely on start time.
+Annotations can be exported as RSS, JSON, XML, and text.
 
 \section{Discussion}
 
+With our annotation approach, we leverage WebVTT
+metadata tracks as a~means for tying semantically rich JSON-LD annotations
+to temporal and/or spatial video fragments.
+As each \texttt{<track>} element by pure definition is bound to
+exactly one \texttt{<video>} element and as modern search engines
+parse JSON-LD annotations,
+a~unique relation of annotations to video content is made.
+We show below that this is not the case for the two
+popular online video annotation tools.
+
 \paragraph{Main Difference to Popcorn.js and PopcornMaker}
 
-The Popcorn.js and PopcornMaker technology stack
+The Popcorn.js and PopcornMaker technology stacks
 represent the state-of-the-art in online video annotation,
 backed by the Mozilla Foundation
 and organized in active open-source projects.%
@@ -706,35 +718,54 @@ yet we claim that Popcorn annotations have shortcomings
 when it comes to indexability and semantic expressivity. 
 We back this claim with an example
 that can be seen in \autoref{listing:popcorn}.
-In this example, a~freeform footnote 
-and a~reference to a~Wikipedia article are added.
-There is, however, no way to correctly express the semantic concept
-that the video scene ranging from seconds 2 to 6 depicts
-the person and actor George Clooney.
+In this example, two annotations, a~freeform footnote 
+and an ambiguity-free reference to a~Wikipedia article, are added.
+There is, however, no way to actually express the semantic concept
+that the video fragment ranging from seconds 2 to 6 (or a~spatial fragment thereof) 
+\texttt{foaf:depicts}%
+\footnote{FOAF: \url{http://xmlns.com/foaf/spec/}} the person and actor
+\texttt{dbp:George\_Clooney}.
+In addition to that, the annotations are pure JavaScript source code
+with---at least for search engines---no semantic connection
+to the video in question.
 
-\paragraph{Main Difference to VideoAnt}
+\paragraph{Main Difference to VideoANT}
 
+VideoANT is a~Flash-based tool that requires a~browser plugin to run.
+Search engines have rather limited support
+for accessing data encoded in Flash.
+\autoref{listing:videoant} shows the purely textual annotations
+of subject and content analog to \autoref{listing:popcorn}
+exported to the accessible JSON format.
+Albeit VideoANT supports the export of annotations
+in RSS, JSON, XML, and plain text,
+this operation requires manually pressing a~button in the tool.
+For search engines, there is no semantic connection
+to the video in question.
 
-\begin{lstlisting}[caption={Popcorn.js example, based on \url{http://jsfiddle.net/rwaldron/xhXE6/} and \url{http://jsfiddle.net/popcornjs/5q7QS/}},
+\paragraph{Our Approach}
+
+Finally, \autoref{listing:webvttclooney} shows JSON-LD annotations
+analog to \autoref{listing:popcorn} embedded in a~metadata track cue.
+The Web browser intrinsically knows to which exact timespan
+of which video this very cue is tied and search engines can interpret
+the JSON-LD and, based on the \texttt{@context},
+infer that \texttt{depicts} actually means \texttt{foaf:depicts}.
+
+\begin{lstlisting}[caption={Popcorn.js example},
   label=listing:popcorn, float=t!, language=JavaScript]
-<!-- HTML for video and footnote container -->
 <video id="video" src="http://ex.org/video.mp4">
 </video>
 <div id="footnote-container"></div>
 <div id="wikipedia-container"></div>
-
-<!-- JavaScript to add the logic -->
 <script>
-  // Create a Popcorn instance
   var pop = Popcorn("#video");
-  // Add a footnote from seconds 2 to 6
   pop.footnote({
       start: 2,
       end: 6,
       text: "In this scene: George Clooney",
       target: "footnote-container"
     });
-  // Add a Wikipedia link from seconds 2 to 6
   pop.wikipedia({
       start: 2,
       end: 6,
@@ -746,8 +777,35 @@ the person and actor George Clooney.
 </script>
 \end{lstlisting}
 
+\begin{lstlisting}[caption={VideoANT annotations analog to \autoref{listing:popcorn}},
+  label=listing:videoant, language=JavaScript, float=t!]
+{
+  "ant": {
+    "title": "Example Video",
+    "url": "http://ex.org/video.mp4",
+    "author": "Jon Doe (jon@doe.com)",
+    "annotations": [{
+      "annotation": {
+        "subject": "In this scene",
+        "content": "George Clooney",
+        "author": "Jon Doe (jon@doe.com)",
+        "seconds": 2
+      }
+    }, {
+      "annotation": {
+        "subject": "DBpedia link",
+        "content": "http://dbpedia.org/resource/§\linewrap§
+            George_Clooney",
+        "author": "Jon Doe (jon@doe.com)",
+        "seconds": 2
+      }
+    }]
+  }
+}
+\end{lstlisting}
+
 \begin{lstlisting}[caption={WebVTT annotations analog to \autoref{listing:popcorn}},
-  label=listing:webvtt, float=t!]
+  label=listing:webvttclooney, float=t!]
 WEBVTT
 
 cue1
@@ -761,26 +819,6 @@ cue1
 }
 \end{lstlisting}
 
-\begin{lstlisting}[caption={videoANT annotations analog to \autoref{listing:popcorn}},
-  label=listing:videoant, float=t!]
-{
-  "ant": {
-    "title": "CEHD Block Party",
-    "url": "http://www.youtube.com/watch?v=VEEsewsZl3c",
-    "author": "no@spam.com (no@spam.com)",
-    "annotations": [{
-      "annotation": {
-        "subject": "sdsd",
-        "content": "\u003Cp\u003Esdaas\u003C/p\u003E",
-        "author": "no@spam.com (no@spam.com)",
-        "seconds": 5,
-        "comments": []
-      }
-    }]
-  }
-}
-\end{lstlisting}
-
 \section{Future Work and Conclusions}
 \label{sec:future-work-conclusions}
 
@@ -788,20 +826,14 @@ We have created and evaluated an annotation model
 and related technology stack
 that allow for Read/Write-enabled video annotations,
 which can be exposed as Linked Data.
-Future work will focus on extending the editor prototype
-by supporting more annotation types and
-facilitating collaborative Linked Data publication
-for the Web of Data.
-Rather than having presentation-oriented annotations,
-we want to investigate temporal style sheets and rules.
-Further, we want to work on meta annotation creation techniques
-and methods for dealing with conflicting collaborative annotations.
-
+Future work will focus on exploring ways to move the annotations of
+Popcorn.js to the WebVTT metadata layer
+in order to facilitate collaborative Linked Data publication
+for the Web of Data based on the established PopcornMaker tool.
 Concluding, we have demonstrated the feasibility of online
 Read/Write video annotation, leveraging WebVTT
 and \JSONLD, for integrating video in the Web of Data
-with standard Web technologies
-and are excited to explore more.
+with standard Web technologies and will explore more.
 
 \section*{Acknowledgments}
 \footnotesize
