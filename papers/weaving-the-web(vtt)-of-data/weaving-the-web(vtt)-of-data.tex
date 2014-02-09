@@ -165,7 +165,7 @@ the content of all named graph is merged into the default graph.
 \subsection{Advanced interpretation}
 
 WebVTT is not limited to textual caption tracks.
-The HTML5 \textt{track} tag supports indeed different kinds of track,
+The HTML5 \texttt{track} tag supports indeed different kinds of track,
 one of them being \textit{metadata},
 a track designed for machine rather than human consumption.
 Although there is few evidence of use of this kind of tracks (see next section),
@@ -185,18 +185,20 @@ and embedded structures can be used to describe other resources related to that 
 (\textit{e.g.} depicted persons).
 In that case, all the triples generated from parsing the payload as JSON-LD
 \emph{replace} the \vtt{annotatedBy} triple in the cue's named graph.
-Figure~\{fig:json-payload} gives an example of such a JSON payload.
+Figure~\ref{fig:json-payload} gives an example of such a JSON payload.
 
 \begin{figure}
 \begin{verbatim}
 00:00:00.000 --> 00:00:12.000
 {
-  "label": "Vince and X in the car",
-  "depicts": [
-    { "@id": "",
-      "name": "" },
-    { "@id": "",
-      "name": "" }
+ "label": "Vince and Jules in the car",
+ "depicts": [
+  { "@id":
+     "http://www.wikidata.org/entity/Q80938",
+    "name": "John Travolta" },
+  { "@id":
+     "http://www.wikidata.org/entity/Q172678",
+    "name": "Samuel L. Jackson" }
   ]
 }
 \end{verbatim}
