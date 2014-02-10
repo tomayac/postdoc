@@ -72,10 +72,10 @@
 \author{
 % 1st. author
 \alignauthor
-Jon Doe\\%Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{Université de Lyon, CNRS Université Lyon~1, LIRIS, UMR5205, F-69622}}\\
+Jon Doe\titlenote{Anonymized double blind submission in accordance with the ICMR2014 guidelines}\\%Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{Université de Lyon, CNRS Université Lyon~1, LIRIS, UMR5205, F-69622}}\\
   \affaddr{Random University}\\%\affaddr{Google Germany GmbH}\\\affaddr{Google Germany GmbH}\\
   \affaddr{Random Street 0, 12345 Random City}\\       %\affaddr{ABC-Str.~19, 20354 Hamburg, Germany}\\
-       \email{jon.doe@nospam.com}%\email{tomac@google.com}
+       \email{jon.doe@example.org}%\email{tomac@google.com}
 }
 
 \maketitle
@@ -114,17 +114,130 @@ Wikipedia and Wikidata with the world of social networks,
 in order to convey the spirit of the
 \emph{2014 Winter Olympics},
 to tell the story of victory and defeat,
-following the Olympic motto \emph{Citius, Altius, Fortius}.
+and following the Olympic motto \emph{Citius, Altius, Fortius}.
 
 \end{abstract}
 
 \category{H.5.1}{Information Interfaces and Presentation}{Multimedia Information Systems}
 
-\terms{Human Factors, Languages, Measurement, Experimentation}
+%\terms{Human Factors, Languages, Measurement, Experimentation}
 
 \keywords{Storytelling, social networks, multimedia, Wikipedia}
 
 \section{Introduction}
+
+\subsection{Brief History of Wikipedia and Wikidata}
+
+\paragraph{The Online Encyclopedia Wikipedia}
+
+The free online encyclopedia Wikipedia%
+\footnote{Wikipedia: \url{http://www.wikipedia.org/}}~\cite{sanger05historywikipedia} was formally launched
+on January 15, 2001 by Jimmy Wales
+and Larry Sanger,
+albeit the fundamental wiki technology
+and the underlying concepts are older.
+Wikipedia's direct predecessor was Nupedia~%
+\cite{sanger05historywikipedia},
+a~similarly free online encyclopedia,
+however, that was exclusively edited by experts
+following a~strict peer-review process.
+Wikipedia's initial role was to serve
+as a~collaborative platform for draft articles for Nupedia.
+What happened in practice was that Wikipedia
+rapidly overtook Nupedia as there was no peer-review burden
+and it is now a~globally successful Web encyclopedia
+available in 287 languages with overall
+more than 30 million articles.%
+\footnote{Wikipedia statistics: \url{http://stats.wikimedia.org/}}
+
+\paragraph{The Knowledge Base Wikidata}
+
+Wikidata\footnote{Wikidata: \url{http://www.wikidata.org/}}~\cite{vrandecic2012wikidata}
+is a~free knowledge base that can be read
+and edited by both humans and bots.
+As Wikipedia is a~truly global effort,
+sharing non-language-dependent facts
+like population figures centrally
+in a~knowledge base makes a~lot of sense
+to facilitate international article expansion.
+The knowledge base centralizes access to
+and management of structured data,
+such as references between Wikipedias
+and statistical information that can be used in articles.
+Controversial facts such as borders in conflict regions
+can be added with multiple values and sources,
+so that Wikipedia articles can,
+dependent on their standpoint, choose preferred values.
+
+\subsection{Social Network Sites and Multimedia}
+
+In~\cite{boyd2007socialnetworksites},
+boyd and Ellison define the term
+\emph{social network site} as follows.
+\textit{``We define social network sites as web-based services
+that allow individuals to
+\emph{(1)}~construct a~public or
+semi-public profile within a~bounded system,
+\emph{(2)}~articulate a~list of other users
+with whom they share a~connection, and
+\emph{(3)}~view and traverse their list of connections
+and those made by others within the system.
+The nature and nomenclature of these connections
+may vary from site to site.''}
+Social network sites commonly allow their users
+to publish, share, and react or comment on social multimedia files
+like videos or photos.
+Mobile devices like smartphones or tablets
+are omnipresent at all sorts of events,
+enabling broad multimedia coverage.
+
+\subsection{Hypotheses and Research Questions}
+
+In this paper, we connect the world of
+Wikipedia and Wikidata with the world of social networks
+in order to convey the spirit of the
+\emph{2014 Winter Olympics}.
+We automatically generate media galleries of different types
+for breaking news events around the Olympics
+and evaluate the media galleries' relevance
+and their visual aesthetics.
+While this paper presents a~case study
+of the \emph{2014 Winter Olympics},
+the overall objective is to make the system domain-inde\-pendent.
+We are steered by the following hypotheses.
+
+\begin{itemize}
+  \itemsep0em
+  \item[(H1)] Social multimedia is suitable for illustrating
+    breaking news events around the \emph{2014 Winter Olympics}.
+  \item[(H2)] Given different types of media galleries
+    for the same breaking news event
+    around the \emph{2014 Winter Olympics},
+    there is always one predictable preferred type.
+  \item[(H2)] The key learnings from the domain of the
+    \emph{2014 Winter Olympics} can be generalized
+    to other domains.    
+\end{itemize}
+
+\noindent These hypotheses lead us to the research questions below.
+
+\begin{itemize}
+  \itemsep0em
+  \item[(Q1)] What breaking news event features
+    determine the relevancy of the corresponding media gallery?
+  \item[(Q2)] What factors determine the choice
+    of the preferred media gallery type for a~breaking news event?
+\end{itemize}
+
+The remainder of this paper is structured as follows.
+\todo{Describe paper structure}
+
+\cite{steiner2013mjnomore}
+\cite{steiner2013tocrop}
+\cite{steiner2013meteoroid}
+\cite{steiner2013clustering}
+\cite{steiner2013bots}
+\cite{steiner2012aesthetic}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
