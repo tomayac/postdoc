@@ -1,0 +1,132 @@
+\documentclass{sig-alternate}
+
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+
+\usepackage{CJKutf8}
+
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+
+% listings and Verbatim environment
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{verbatim}
+\newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
+\newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
+\newcommand{\smalllistingsize}{\fontsize{7.5pt}{9.5pt}}
+\newcommand{\listingsize}{\defaultlistingsize}
+\RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
+\lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
+        aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+        framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+
+% use Courier from this point onward
+\let\oldttdefault\ttdefault
+\renewcommand{\ttdefault}{pcr}
+\let\oldurl\url
+\renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={console, log, addEventListener, onmessage, alert, push, typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{Maroon},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{ForestGreen},
+  stringstyle=\color{Blue},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+% linewrap symbol
+\usepackage{color}
+\definecolor{grey}{RGB}{130,130,130}
+\newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
+
+% todo macro
+\usepackage{color}
+\newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
+
+\begin{document}
+%
+% --- Author Metadata here ---
+\conferenceinfo{International Conference on Multimedia Retrieval}{2014 Glasgow, UK}
+\CopyrightYear{2014} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+% --- End of Author Metadata ---
+
+\title{Telling Breaking News Stories from Wikipedia with Social Multimedia: A~Case Study of the 2014 Winter Olympics}
+
+\numberofauthors{1}
+
+\author{
+% 1st. author
+\alignauthor
+Jon Doe\\%Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{Université de Lyon, CNRS Université Lyon~1, LIRIS, UMR5205, F-69622}}\\
+  \affaddr{Random University}\\%\affaddr{Google Germany GmbH}\\\affaddr{Google Germany GmbH}\\
+  \affaddr{Random Street 0, 12345 Random City}\\       %\affaddr{ABC-Str.~19, 20354 Hamburg, Germany}\\
+       \email{jon.doe@nospam.com}%\email{tomac@google.com}
+}
+
+\maketitle
+\begin{abstract}
+With the ability to watch Wikipedia
+and Wikidata edits in realtime,
+the online encyclopedia and the knowledge base
+have become increasingly used targets of research
+for the detection of breaking news events.
+In this paper, we present a~case study of the
+\emph{2014 Winter Olympics}, where we tell the story of
+breaking news events in the context of the Olympics
+with the help of social multimedia
+stemming from multiple social networks.
+Therefore, we have extended the application
+\emph{Wikipedia Live Monitor}---%
+a~tool for the detection of breaking news events---%
+with the capability of automatically creating
+media galleries that illustrate events.
+Athletes winning an Olympic competition,
+a~new country leading the medal table,
+or simply the Olympics themselves are all events
+newsworthy enough for people to concurrently
+edit Wikipedia and Wikidata---%
+around the world in many languages.
+The Olympics being an event of common interest,
+an even bigger majority of people share the event
+in a~multitude of languages on global social networks.
+This sharing of moments in the form of comments and multimedia
+happens either in people's role as spectators or participants
+directly at one of the Olympic sites,
+or as indirect second screen users
+in front of their TV~sets at home.
+With this work, we connect the world of
+Wikipedia and Wikidata with the world of social networks,
+in order to convey the spirit of the
+\emph{2014 Winter Olympics},
+to tell the story of victory and defeat,
+following the Olympic motto \emph{Citius, Altius, Fortius}.
+
+\end{abstract}
+
+\category{H.5.1}{Information Interfaces and Presentation}{Multimedia Information Systems}
+
+\terms{Human Factors, Languages, Measurement, Experimentation}
+
+\keywords{Storytelling, social networks, multimedia, Wikipedia}
+
+\section{Introduction}
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+\balancecolumns
+\end{document}
