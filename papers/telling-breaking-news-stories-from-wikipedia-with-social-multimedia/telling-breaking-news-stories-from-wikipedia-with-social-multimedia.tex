@@ -135,12 +135,10 @@ and following the Olympic motto \emph{Citius, Altius, Fortius}.
 
 \subsection{Brief History of Wikipedia and Wikidata}
 
-\paragraph{The Online Encyclopedia Wikipedia}
-
-The free online encyclopedia Wikipedia%
+The free online encyclopedia \emph{Wikipedia}%
 \footnote{Wikipedia: \url{http://www.wikipedia.org/}}~\cite{sanger05historywikipedia} was formally launched
-on January 15, 2001 by Jimmy Wales
-and Larry Sanger,
+on January 15, 2001 by J.~Wales
+and L.~Sanger,
 albeit the fundamental wiki technology
 and the underlying concepts are older.
 Wikipedia's direct predecessor was Nupedia~%
@@ -151,16 +149,14 @@ following a~strict peer-review process.
 Wikipedia's initial role was to serve
 as a~collaborative platform for draft articles for Nupedia.
 What happened in practice was that Wikipedia
-rapidly overtook Nupedia as there was no peer-review burden
+rapidly overtook Nupedia as there were no peer-reviews,
 and it is now a~globally successful
 highly active~\cite{steiner2013bots} Web encyclopedia
-available in at time of writing 287 languages with overall
+available in 287 languages with overall
 more than 30 million articles.%
 \footnote{Wikipedia statistics: \url{http://stats.wikimedia.org/}}
 
-\paragraph{The Knowledge Base Wikidata}
-
-Wikidata\footnote{Wikidata: \url{http://www.wikidata.org/}}~\cite{vrandecic2012wikidata}
+\emph{Wikidata}\footnote{Wikidata: \url{http://www.wikidata.org/}}~\cite{vrandecic2012wikidata}
 is a~free knowledge base that can be read
 and edited by both humans and bots.
 As Wikipedia is a~truly global effort,
@@ -205,7 +201,7 @@ In this paper, we connect the world of
 Wikipedia and Wikidata with the world of social networks
 in order to convey the spirit of the
 \emph{2014 Winter Olympics}.
-We automatically generate media galleries of different types
+We automatically generate different kinds of media galleries
 for breaking news events around the Olympics
 and evaluate the media galleries' relevance
 and their visual aesthetics.
@@ -218,10 +214,10 @@ We are steered by the following hypotheses.
   \itemsep0em
   \item[(H1)] Social multimedia is suitable for illustrating
     breaking news events around the \emph{2014 Winter Olympics}.
-  \item[(H2)] Given different types of media galleries
+  \item[(H2)] Given different kinds of media galleries
     for the same breaking news event
     around the \emph{2014 Winter Olympics},
-    there is always one predictable preferred type.
+    there is always one predictable preferred kind.
   \item[(H2)] The key learnings from the domain of the
     \emph{2014 Winter Olympics} can be generalized
     to other domains.    
@@ -234,7 +230,7 @@ We are steered by the following hypotheses.
   \item[(Q1)] What breaking news event features
     determine the relevancy of the corresponding media gallery?
   \item[(Q2)] What factors determine the choice
-    of the preferred media gallery type for a~breaking news event?
+    of the preferred media gallery kind for a~breaking news event?
 \end{itemize}
 
 The remainder of this paper is structured as follows.
@@ -287,7 +283,7 @@ of Wikipedia and Wikidata article clusters covering
 the same topic in multiple languages.
 
 The application thus provides us with titles of articles
-that we can use to search for social multimedia content
+that we can use as search terms for social multimedia content
 on social network sites.
 In the example from above, this could be
 \fontencoding{T2A}\selectfont%
@@ -306,7 +302,8 @@ which was introduced in%
 It provides a~social multimedia search framework
 that allows for searching for and extraction of
 multimedia data from the social network sites
-Google\texttt{+},\footnote{Google\texttt{+}: \url{https://plus.google.com/}}
+Google\texttt{+},%
+\footnote{Google\texttt{+}: \url{https://plus.google.com/}}
 Facebook,\footnote{Facebook: \url{https://www.facebook.com/}}
 Twitter,\footnote{Twitter: \url{https://twitter.com/}}
 Instagram,\footnote{Instagram: \url{http://instagram.com/}}
@@ -314,7 +311,8 @@ YouTube,\footnote{YouTube: \url{http://www.youtube.com/}}
 Flickr,\footnote{Flickr: \url{http://www.flickr.com/}}
 MobyPicture,\footnote{MobyPicture: \url{http://www.mobypicture.com/}}
 TwitPic,\footnote{TwitPic: \url{http://twitpic.com/}}
-and Wikimedia Commons.\footnote{Wikimedia Commons: \url{http://commons.wikimedia.org/wiki/Main_Page}}
+and Wikimedia Commons.%
+\footnote{Wikimedia Commons: \url{http://commons.wikimedia.org/wiki/Main_Page}}
 In a~first step, it deduplicates exact- and near-duplicate
 social multimedia data based on an algorithm described in%
 ~\cite{steiner2013clustering}.
@@ -323,11 +321,69 @@ It then ranks social multimedia data by social signals%
 on top of the social network sites mentioned above
 and, in a~final step, allows for the creation of media galleries
 following aesthetic principles~\cite{steiner2012aesthetic}
-of the two types \emph{Strict Order, Equal Size}
+of the two kinds \emph{Strict Order, Equal Size}
 and \emph{Loose Order, Varying Size},
 which were defined in~\cite{steiner2013tocrop}.
 
+We have ported the crucial parts
+of the source code of \emph{Social Media Illustrator}
+from the client-side to the server-side,
+enabling us now to create media galleries at scale and on demand,
+based on search terms from a~patched version of \emph{Wikipedia Live Monitor}.
 
+\section{Media Gallery Aesthetics}
+\fontencoding{T1}\selectfont
+
+A~\emph{media gallery} in the context of our task of
+telling breaking news stories from Wikipedia with social multimedia
+is hereby defined as a~\emph{best-of} compilation of photos, videos,
+and microposts%
+\footnote{A~\emph{micropost} is defined as a~textual status message
+on social network sites, optionally accompanied by multimedia data}
+retrieved from social networks that are related to a~given event.
+For the generation of media galleries, we apply aesthetic principles
+as defined by Steiner \emph{et~al.}\
+in~\cite{steiner2013tocrop,steiner2012aesthetic},
+particularly, we aim for the following
+three visual aesthetic principles:
+\emph{(i)}~a~media gallery is called \emph{balanced}
+if its shape is rectangular,
+\emph{(ii)}~\emph{hole-free}
+if there are no gaps from missing multimedia data,
+and \emph{(iii)}~\emph{order-respecting}
+if multimedia data appear in insertion order.
+Two kinds of media galleries were found~\cite{steiner2013tocrop}
+to fulfill these principles.
+
+\paragraph{Strict Order, Equal Size}
+
+A~media gallery kind called \emph{Strict Order, Equal Size}
+that strictly respects the insertion order
+uses an algorithm that works by resizing all multimedia data
+in one row to the same height and adjusting the widths
+in a~way that the aspect ratios are maintained.
+A~row is filled until a~maximum row height is reached,
+then a~new row (with potentially different height) starts, \emph{etc.}
+This media gallery kind is strictly \emph{order-respecting},
+\emph{hole-free}, and can be \emph{balanced}
+by adjusting the number of media items in $+1$ steps.
+
+\paragraph{Loose Order, Varying Size}
+
+A~media gallery kind called \emph{Loose Order, Varying Size}
+uses an algorithm that works by cropping all multimedia data
+to have square aspect ratios.
+This allows for organizing the items in a~way such that one big square
+always contains two horizontal blocks,
+each with two pairs of small squares.
+The media gallery is then formed by iteratively filling
+big or small squares until a~square is full,
+and then adding the square to the smallest column.
+This media gallery kind allows any media item to become big,
+while still being loosely \emph{order-respecting} and \emph{hole-free}.
+Bringing the media gallery in a~\emph{balanced} state can be harder,
+as, depending on the shape, both small \emph{and} big
+media items may be required.
 
 \bibliographystyle{abbrv}
 \bibliography{references}
