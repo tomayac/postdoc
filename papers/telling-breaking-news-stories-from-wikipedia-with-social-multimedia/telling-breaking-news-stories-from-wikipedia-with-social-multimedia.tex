@@ -1,13 +1,17 @@
 \documentclass{sig-alternate}
 
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[T1,T2A]{fontenc}
+\usepackage{lmodern}
+\usepackage[activate=compatibility]{microtype}
+
+\usepackage{mathtools}
 \usepackage{enumitem}
 \usepackage[hyphens]{url}
 \usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
 \def\sectionautorefname{Section}
 \def\subsectionautorefname{Subsection}
-
-\usepackage{CJKutf8}
 
 \newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
 
@@ -57,6 +61,8 @@
 \usepackage{color}
 \newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
 
+\def\plus{\texttt{+}}
+
 \begin{document}
 %
 % --- Author Metadata here ---
@@ -80,6 +86,7 @@ Jon Doe\titlenote{Anonymized double blind submission in accordance with the ICMR
 
 \maketitle
 \begin{abstract}
+\fontencoding{T1}\selectfont
 With the ability to watch Wikipedia
 and Wikidata edits in realtime,
 the online encyclopedia and the knowledge base
@@ -115,7 +122,6 @@ in order to convey the spirit of the
 \emph{2014 Winter Olympics},
 to tell the story of victory and defeat,
 and following the Olympic motto \emph{Citius, Altius, Fortius}.
-
 \end{abstract}
 
 \category{H.5.1}{Information Interfaces and Presentation}{Multimedia Information Systems}
@@ -125,6 +131,7 @@ and following the Olympic motto \emph{Citius, Altius, Fortius}.
 \keywords{Storytelling, social networks, multimedia, Wikipedia}
 
 \section{Introduction}
+\fontencoding{T1}\selectfont
 
 \subsection{Brief History of Wikipedia and Wikidata}
 
@@ -145,8 +152,9 @@ Wikipedia's initial role was to serve
 as a~collaborative platform for draft articles for Nupedia.
 What happened in practice was that Wikipedia
 rapidly overtook Nupedia as there was no peer-review burden
-and it is now a~globally successful Web encyclopedia
-available in 287 languages with overall
+and it is now a~globally successful
+highly active~\cite{steiner2013bots} Web encyclopedia
+available in at time of writing 287 languages with overall
 more than 30 million articles.%
 \footnote{Wikipedia statistics: \url{http://stats.wikimedia.org/}}
 
@@ -232,12 +240,94 @@ We are steered by the following hypotheses.
 The remainder of this paper is structured as follows.
 \todo{Describe paper structure}
 
-\cite{steiner2013mjnomore}
-\cite{steiner2013tocrop}
-\cite{steiner2013meteoroid}
-\cite{steiner2013clustering}
-\cite{steiner2013bots}
-\cite{steiner2012aesthetic}
+\section{Enabling Tools Background}
+\fontencoding{T1}\selectfont
+
+With this research, we build on and extend previous research
+by Steiner \emph{et~al.}, notably
+the open-source applications \emph{Wikipedia Live Monitor}%
+\footnote{\emph{Wikipedia Live Monitor}:
+\url{http://wikipedia-irc.herokuapp.com/}}
+and \emph{Social Media Illustrator}.%
+\footnote{\emph{Social Media Illustrator}:
+\url{http://social-media-illustrator.herokuapp.com/}}
+
+\subsection{Wikipedia Live Monitor}
+
+The open-source application \emph{Wikipedia Live Monitor}
+was introduced by Steiner \emph{et~al.}\
+in~\cite{steiner2013mjnomore}.
+It monitors Wikipedia and Wikidata for concurrent edits
+that it treats as signals for breaking news events.
+Whenever a~human or bot changes an article
+of any of the 287 Wikipedias,%
+\footnote{List of Wikipedias by size:
+\url{http://meta.wikimedia.org/wiki/List_of_Wikipedias}}
+a~change event gets communicated by a~chat bot
+over the Wikimedia IRC server (\url{irc.wikimedia.org}),%
+\footnote{Raw IRC feeds of recent changes:
+\url{http://meta.wikimedia.org/wiki/IRC/Channels\#Raw_feeds}}
+so that parties interested in the data
+can listen to the changes as they happen.
+For each language version, there is
+a~specific chat room following the pattern
+\texttt{"\#" + language + ".wikipedia"}.
+Wikipedia articles in different languages are highly interlinked.
+For example, the English article
+``en:2014\_Winter\_Olympics''
+on the XXII Olympic Winter Games in Sochi
+is interlinked with the Russian article
+\fontencoding{T2A}\selectfont%
+``ru:Зимние\_Олимпийские\_игры\_2014''%
+\fontencoding{T1}\selectfont.
+As \emph{Wikipedia Live Monitor} monitors all language versions
+of Wikipedia and Wikidata in parallel,
+it can exploit this fact to detect \emph{concurrent edit spikes}
+of Wikipedia and Wikidata article clusters covering
+the same topic in multiple languages.
+
+The application thus provides us with titles of articles
+that we can use to search for social multimedia content
+on social network sites.
+In the example from above, this could be
+\fontencoding{T2A}\selectfont%
+``Зимние Олимпийские игры 2014''%
+\fontencoding{T1}\selectfont (Russian),
+``2014 Winter Olympics'' (English),
+``Olympische Winterspiele 2014'' (German),
+or ``2014ko Neguko Olinpiar Jokoak'' (Basque), \emph{etc.}
+
+\subsection{Social Media Illustrator}
+
+\emph{Social Media Illustrator} is a~likewise
+open-source application by Steiner \emph{et~al.},
+which was introduced in%
+~\cite{steiner2013meteoroid,steiner2013tocrop}.
+It provides a~social multimedia search framework
+that allows for searching for and extraction of
+multimedia data from the social network sites
+Google\texttt{+},\footnote{Google\texttt{+}: \url{https://plus.google.com/}}
+Facebook,\footnote{Facebook: \url{https://www.facebook.com/}}
+Twitter,\footnote{Twitter: \url{https://twitter.com/}}
+Instagram,\footnote{Instagram: \url{http://instagram.com/}}
+YouTube,\footnote{YouTube: \url{http://www.youtube.com/}}
+Flickr,\footnote{Flickr: \url{http://www.flickr.com/}}
+MobyPicture,\footnote{MobyPicture: \url{http://www.mobypicture.com/}}
+TwitPic,\footnote{TwitPic: \url{http://twitpic.com/}}
+and Wikimedia Commons.\footnote{Wikimedia Commons: \url{http://commons.wikimedia.org/wiki/Main_Page}}
+In a~first step, it deduplicates exact- and near-duplicate
+social multimedia data based on an algorithm described in%
+~\cite{steiner2013clustering}.
+It then ranks social multimedia data by social signals%
+~\cite{steiner2013meteoroid} based on an abstraction layer
+on top of the social network sites mentioned above
+and, in a~final step, allows for the creation of media galleries
+following aesthetic principles~\cite{steiner2012aesthetic}
+of the two types \emph{Strict Order, Equal Size}
+and \emph{Loose Order, Varying Size},
+which were defined in~\cite{steiner2013tocrop}.
+
+
 
 \bibliographystyle{abbrv}
 \bibliography{references}
