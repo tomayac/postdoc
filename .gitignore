@@ -32,3 +32,8 @@
 *.vrb
 *.xdy
 *.tdo
+demos/warczenschwein/.classpath
+demos/warczenschwein/data/
+demos/warczenschwein/lib/
+demos/warczenschwein/results.txt
+demos/warczenschwein/target/
