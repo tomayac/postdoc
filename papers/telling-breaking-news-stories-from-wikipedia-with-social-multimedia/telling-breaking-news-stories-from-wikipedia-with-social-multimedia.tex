@@ -507,8 +507,10 @@ that therefore cannot be permanently shared.
 \subsection{Quantitative Evaluation}
 
 We have evaluated the application based on breaking news events
-around the \emph{2014 Winter Olympics} that happened between
-February~8, 20:36~(CET) and February~10, 20:38~(CET),
+around the \emph{Winter Olympics}%
+\footnote{In order to avoid confusion of the numbers,
+in this section, we strip the \emph{2014} from the event title}
+that happened between February~8, 20:36~(CET) and February~10, 20:38~(CET),
 \emph{i.e.}, during an examination period of 48~hours.
 During this period, 94~unique breaking news events
 were detected by \emph{Wikipedia Live Monitor}.
@@ -525,17 +527,46 @@ so even if the event is about the same person,
 it is still tracked as two unique breaking news events.
 Out of these 94~breaking news events,
 69~events (${\approx}73\%$) were
-related to the \emph{2014 Winter Olympics}.
+related to the \emph{Winter Olympics}.
 In the 48~hours of our experiment,
 we have generated overall 804~media galleries,
 \emph{i.e.}, 402~media galleries of kind \emph{Strict Order, Equal Size}
 and accordingly 402~kind \emph{Loose Order, Varying Size}.
 These 402~media gallery pairs covered 67~breaking news events---%
-\emph{2014 Winter Olympics}-related or not.
+\emph{Winter Olympics}-related or not.
 If we only count the media gallery pairs that were relevant
-for the \emph{2014 Winter Olympics},
-we get 253~media gallery pairs (${\approx63}\%$)
-covering 46~\emph{2014 Winter Olympics} breaking news events.
+for the \emph{Winter Olympics},
+we get 253~media gallery pairs (${\approx}63\%$)
+covering 48~of the \emph{Winter Olympics} breaking news events
+resulting in a~\textbf{recall of $\mathbf{{\approx}70\%}$}
+(48~out of 69~of the \emph{Winter Olympics} breaking news events).
+We calculate the precision in the next subsection.
+
+\subsection{Qualitative Evaluation}
+
+In the qualitative evaluation, we exclusively consider the 
+253~media gallery pairs that illustrate the
+48~\emph{Winter Olympics} breaking news events.
+We have asked five independent human raters to agree on
+wether a~given media gallery pair is mostly relevant or irrelevant,
+or completely relevant or irrelevant for the 
+\emph{Winter Olympics} breaking news event in question.
+By looking at the absolute number of 253~media galleries,
+78~media galleries were rated mostly irrelevant
+or completely irrelevant
+whereas 175~media galleries were rated mostly relevant
+or completely relevant.
+This results in an \textbf{absolute precision of $\mathbf{{\approx}69\%}$}.
+By looking at the number of 48~\emph{Winter Olympics}-related events,
+18~media gallery pairs were rated mostly irrelevant
+or completely irrelevant
+whereas 30~media gallery pairs were rated mostly relevant
+or completely relevant, resulting in
+a~\textbf{relative precision of $\mathbf{{\approx}63\%}$}.
+
+\subsection{Aesthetic Evaluation}
+
+
 
 \begin{figure}
   \centering
