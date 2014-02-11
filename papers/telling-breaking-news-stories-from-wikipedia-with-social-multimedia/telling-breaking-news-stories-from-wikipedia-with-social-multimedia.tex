@@ -218,13 +218,13 @@ We are steered by the following hypotheses.
 
 \begin{itemize}
   \itemsep0em
-  \item[(H1)] Social multimedia is suitable for illustrating
+  \item[($\mathbb{H}1$)] Social multimedia is suitable for illustrating
     breaking news events around the \emph{2014 Winter Olympics}.
-  \item[(H2)] Given different kinds of media galleries
+  \item[($\mathbb{H}2$)] Given different kinds of media galleries
     for the same breaking news event
     around the \emph{2014 Winter Olympics},
     there is always one predictable preferred kind.
-  \item[(H2)] The key learnings from the domain of the
+  \item[($\mathbb{H}3$)] The key learnings from the domain of the
     \emph{2014 Winter Olympics} can be generalized
     to other domains.    
 \end{itemize}
@@ -233,9 +233,9 @@ We are steered by the following hypotheses.
 
 \begin{itemize}
   \itemsep0em
-  \item[(Q1)] What breaking news event features
+  \item[($\mathbb{Q}1$)] What breaking news event features
     determine the relevancy of the corresponding media gallery?
-  \item[(Q2)] What factors determine the choice
+  \item[($\mathbb{Q}2$)] What factors determine the choice
     of the preferred media gallery kind for a~breaking news event?
 \end{itemize}
 
@@ -537,7 +537,7 @@ we have generated overall 804~media galleries,
 \emph{i.e.}, 402~media galleries of kind \emph{Strict Order, Equal Size}
 and accordingly 402~kind \emph{Loose Order, Varying Size}.
 These 402~media gallery pairs covered 67~breaking news events---%
-\emph{Winter Olympics}-related or not.
+related to the \emph{Winter Olympics} or not.
 If we only count the media gallery pairs that were relevant
 for the \emph{Winter Olympics},
 we get 253~media gallery pairs (${\approx}63\%$)
@@ -561,7 +561,7 @@ or completely irrelevant
 whereas 175~media galleries were rated mostly relevant
 or completely relevant.
 This results in an \textbf{absolute precision of $\mathbf{{\approx}69\%}$}.
-By looking at the number of 48~\emph{Winter Olympics}-related events,
+By looking at the number of 48~events related to the \emph{Winter Olympics},
 18~media gallery pairs were rated mostly irrelevant
 or completely irrelevant
 whereas 30~media gallery pairs were rated mostly relevant
@@ -620,9 +620,72 @@ by flipping through the versions.
 
 \subsection{Discussion}
 
-\todo{Discuss!}
+\paragraph{Reasons for Irrelevant Social Multimedia}
 
-\begin{figure}[t!]
+When we analyzed the kinds of \emph{2014 Winter Olympics} events
+whose corresponding media galleries our raters
+had graded as mostly irrelevant or completely irrelevant,
+we noticed a~common pattern.
+Breaking news events about either the
+\emph{2014 Winter Olympics} themselves%
+\footnote{For example, \emph{2014 Winter Olympics}:
+\url{https://twitter.com/WikiLiveMon/status/432856683036278784}}
+or about any of the Olympic disciplines%
+\footnote{For example, \emph{Luge at the 2014 Winter Olympics -- Men's singles}:
+\url{https://twitter.com/WikiLiveMon/status/432577721626296320}}
+were illustrated by apparently random Instagram photos
+that had nothing to do with the events in question. 
+These events typically either have the current year in their name
+and/or have a~very long name.
+In such cases, the Instagram search API defaults to matching
+on only parts of the search term rather than the whole phrase,
+which explains why random photos tagged with the current year,
+\emph{e.g.}, ``\#2014 \#nofilter'' with many social interactions
+got featured overly prominently.
+In the future, we will work around this issue by limiting the search term
+length for Instagram queries.
+
+\paragraph{Reprise of Hypotheses and Research Questions}
+
+We have shown that ($\mathbb{H}1$) holds true,
+social multimedia can successfully illustrate breaking news events
+around the \emph{2014 Winter Olympics}.
+In contrast, we had to weaken ($\mathbb{H}2$),
+as our raters on a~case-by-case basis preferred
+the one or the other kind of media gallery.
+They always preferred the balanced version of either kind,
+however, when media galleries were unbalanced,
+other factors like irregular margins or
+concrete multimedia contents in general determined their preference
+and also cropping was not seen as a~big issue.
+There seems to be a~slight advantage
+for more square-like media galleries of either kind,
+but more profound A/B or multivariate testing is required.
+Regarding ($\mathbb{H}3$), we have already successfully
+applied the key learnings concerning aesthetics
+and search term handling from the \emph{2014 Winter Olympics} domain
+to other domains and are now able to create relevant and aesthetic
+media galleries for any kind of breaking news event
+detected by \emph{Wikipedia Live Monitor}. 
+Looking at our two research questions, for ($\mathbb{Q}1$),
+there is definitely a~tight relation
+between the category of the breaking news event
+and the relevancy of the generated media galleries.
+We have seen in our experiments that events concerning persons
+throughout reveal highly relevant media galleries.
+This also holds true for events outside of the \emph{2014 Winter Olympics}.
+For ($\mathbb{Q}2$), in upcoming versions of our application,
+we will put additional emphasis on multimedia contents,
+as we have learned that factors like irregular margins play
+a~key role as they destroy the regular grid structure,
+which the human eye is very unforgiving of.
+Our eyes need guidance through focal points.
+Visually diverse media galleries with multimedia data
+of different sizes and contrasting colors can help the eye,
+albeit our raters also liked harmonious media galleries
+with similar colors and sizes that invite the eye to browse longer.
+
+\begin{figure}[p!]
   \centering
   % row 1
   \begin{subfigure}[t]{0.25\textwidth}
@@ -685,7 +748,7 @@ by flipping through the versions.
   \label{fig:jamie-anderson}
 \end{figure}
 
-\begin{figure}[t!]
+\begin{figure}[p!]
   \centering
   % row 1
   \begin{subfigure}[t]{0.25\textwidth}
@@ -739,7 +802,7 @@ by flipping through the versions.
   \label{fig:olga-vilukhina}
 \end{figure}
 
-\begin{figure}[t!]
+\begin{figure}[p!]
   \centering
   % row 1
   \begin{subfigure}[t]{0.25\textwidth}
