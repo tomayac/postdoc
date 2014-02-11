@@ -13,6 +13,10 @@
 \def\sectionautorefname{Section}
 \def\subsectionautorefname{Subsection}
 
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
 \newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
 
 % listings and Verbatim environment
@@ -131,6 +135,7 @@ and following the Olympic motto \emph{Citius, Altius, Fortius}.
 \keywords{Storytelling, social networks, multimedia, Wikipedia}
 
 \section{Introduction}
+\label{sec:introduction}
 \fontencoding{T1}\selectfont
 
 \subsection{Brief History of Wikipedia and Wikidata}
@@ -235,9 +240,23 @@ We are steered by the following hypotheses.
 \end{itemize}
 
 The remainder of this paper is structured as follows.
-\todo{Describe paper structure}
+\autoref{sec:enabling-tools-background} provides background
+on the tools \emph{Wikipedia Live Monitor} and
+\emph{Social Media Illustrator} that we have extended
+in the context of this work.
+\autoref{sec:media-gallery-aesthetics} introduces the topic of
+and the motivation for media gallery aesthetics.
+\autoref{sec:application-architecture} describes the architecture
+of the present application.
+\autoref{sec:evaluation-and-discussion} contains an evaluation
+and a~discussion of the obtained results.
+\autoref{sec:related-work} gives an overview of related work
+and finally \autoref{sec:future-work-and-conclusions}
+closes the paper with an outlook on future work
+and conclusions.
 
 \section{Enabling Tools Background}
+\label{sec:enabling-tools-background}
 \fontencoding{T1}\selectfont
 
 With this research, we build on and extend previous research
@@ -333,6 +352,7 @@ enabling us now to create media galleries at scale and on demand,
 based on search terms from a~patched version of \emph{Wikipedia Live Monitor}.
 
 \section{Media Gallery Aesthetics}
+\label{sec:media-gallery-aesthetics}
 \fontencoding{T1}\selectfont
 
 A~\emph{media gallery} in the context of our task of
@@ -401,6 +421,7 @@ $1:1$ (square), $3:2$ (digital SLRs), or $3:4$ (iPhone)
 to be properly fitted in media galleries.
 
 \section{Application Architecture}
+\label{sec:application-architecture}
 \fontencoding{T1}\selectfont
 
 The underlying application \emph{Wikipedia Live Monitor}
@@ -470,10 +491,131 @@ that therefore cannot be permanently shared.
 \end{lstlisting}
 
 \section{Evaluation and Discussion}
+\label{sec:evaluation-and-discussion}
+\fontencoding{T1}\selectfont
+
+\begin{figure}
+  \centering
+  % row 1
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_looseOrder_1391941734592.png}
+    \caption{Feb 09, 11:28:54}
+    \label{fig:1391941734592}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_strictOrder_1391941733935.png}
+    \caption{Feb 09, 11:28:53}
+    \label{fig:1391941733935}
+  \end{subfigure}
+  % row 2
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_looseOrder_1391941759000.png}
+    \caption{Feb 09, 11:29:19}
+    \label{fig:1391941759000}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_strictOrder_1391941758324.png}
+    \caption{Feb 09, 11:29:18}
+    \label{fig:1391941758324}
+  \end{subfigure}
+  %row 3
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_looseOrder_1391941782689.png}
+    \caption{Feb 09, 11:29:42}
+    \label{fig:1391941782689}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_strictOrder_1391941782536.png}
+    \caption{Feb 09, 11:29:42}
+    \label{fig:1391941782536}
+  \end{subfigure}
+  % row 4
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_looseOrder_1391941820404.png}
+    \caption{Feb 09, 11:30:20}
+    \label{fig:1391941820404}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_strictOrder_1391941820162.png}
+    \caption{Feb 09, 11:30:20}
+    \label{fig:1391941820162}
+  \end{subfigure}
+  % row 5
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_looseOrder_1391941838760.png}
+    \caption{Feb 09, 11:30:38}
+    \label{fig:1391941838760}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=3.75cm]{figures/jamie_anderson/mediagallery_strictOrder_1391941838444.png}
+    \caption{Feb 09, 11:30:38}
+    \label{fig:1391941838444}
+  \end{subfigure}  
+  \caption{Media galleries for Jamie Anderson,
+    Women's Slopestyle event Olympic gold medal winner (times in CET)
+    \url{https://twitter.com/WikiLiveMon/status/432460983676989440}}
+  \label{fig:jamie-anderson}
+\end{figure}
+
+\begin{figure}
+  \centering
+  % row 1
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=2.75cm]{figures/olga_vilukhina/mediagallery_looseOrder_1391960736219.png}
+    \caption{Feb 09, 16:45:36}
+    \label{fig:1391960736219}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=2.75cm]{figures/olga_vilukhina/mediagallery_strictOrder_1391960736190.png}
+    \caption{Feb 09, 16:45:36}
+    \label{fig:1391960736190}
+  \end{subfigure}
+  %row 2
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=2.75cm]{figures/olga_vilukhina/mediagallery_looseOrder_1391960742371.png}
+    \caption{Feb 09, 16:45:42}
+    \label{fig:1391960742371}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=2.75cm]{figures/olga_vilukhina/mediagallery_strictOrder_1391960741705.png}
+    \caption{Feb 09, 16:45:41}
+    \label{fig:1391960741705}
+  \end{subfigure}
+  % row 3
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=2.75cm]{figures/olga_vilukhina/mediagallery_looseOrder_1391960782060.png}
+    \caption{Feb 09, 16:46:22}
+    \label{fig:1391960782060}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=2.75cm]{figures/olga_vilukhina/mediagallery_strictOrder_1391960781898.png}
+    \caption{Feb 09, 16:46:21}
+    \label{fig:1391960781898}
+  \end{subfigure}
+  % row 4
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=2.75cm]{figures/olga_vilukhina/mediagallery_looseOrder_1391962084554.png}
+    \caption{Feb 09, 17:08:04}
+    \label{fig:1391962084554}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=2.75cm]{figures/olga_vilukhina/mediagallery_strictOrder_1391962084361.png}
+    \caption{Feb 09, 17:08:04}
+    \label{fig:1391962084361}
+  \end{subfigure}  
+  \caption{Media galleries for Olga Vilukhina,
+    Women's Biathlon Sprint event silver medal winner (times in CET)
+    \url{https://twitter.com/WikiLiveMon/status/432540589700046848}}
+  \label{fig:olga-vilukhina}
+\end{figure}
 
 \section{Related Work}
+\label{sec:related-work}
+\fontencoding{T1}\selectfont
 
 \section{Future Work and Conclusions}
+\label{sec:future-work-and-conclusions}
+\fontencoding{T1}\selectfont
 
 \bibliographystyle{abbrv}
 \bibliography{references}
