@@ -141,8 +141,8 @@ on January 15, 2001 by J.~Wales
 and L.~Sanger,
 albeit the fundamental wiki technology
 and the underlying concepts are older.
-Wikipedia's direct predecessor was Nupedia~%
-\cite{sanger05historywikipedia},
+Wikipedia's direct predecessor was Nupedia%
+~\cite{sanger05historywikipedia},
 a~similarly free online encyclopedia,
 however, that was exclusively edited by experts
 following a~strict peer-review process.
@@ -156,7 +156,8 @@ available in 287 languages with overall
 more than 30 million articles.%
 \footnote{Wikipedia statistics: \url{http://stats.wikimedia.org/}}
 
-\emph{Wikidata}\footnote{Wikidata: \url{http://www.wikidata.org/}}~\cite{vrandecic2012wikidata}
+\emph{Wikidata}\footnote{Wikidata: \url{http://www.wikidata.org/}}%
+~\cite{vrandecic2012wikidata}
 is a~free knowledge base that can be read
 and edited by both humans and bots.
 As Wikipedia is a~truly global effort,
@@ -278,9 +279,9 @@ is interlinked with the Russian article
 \fontencoding{T1}\selectfont.
 As \emph{Wikipedia Live Monitor} monitors all language versions
 of Wikipedia and Wikidata in parallel,
-it can exploit this fact to detect \emph{concurrent edit spikes}
+it exploits this fact to detect \emph{concurrent edit spikes}
 of Wikipedia and Wikidata article clusters covering
-the same topic in multiple languages.
+the same semantic concept in multiple languages.
 
 The application thus provides us with titles of articles
 that we can use as search terms for social multimedia content
@@ -323,7 +324,7 @@ and, in a~final step, allows for the creation of media galleries
 following aesthetic principles~\cite{steiner2012aesthetic}
 of the two kinds \emph{Strict Order, Equal Size}
 and \emph{Loose Order, Varying Size},
-which were defined in~\cite{steiner2013tocrop}.
+defined in~\cite{steiner2013tocrop}.
 
 We have ported the crucial parts
 of the source code of \emph{Social Media Illustrator}
@@ -382,8 +383,97 @@ and then adding the square to the smallest column.
 This media gallery kind allows any media item to become big,
 while still being loosely \emph{order-respecting} and \emph{hole-free}.
 Bringing the media gallery in a~\emph{balanced} state can be harder,
-as, depending on the shape, both small \emph{and} big
+as depending on the shape both small and big
 media items may be required.
+
+\paragraph{Motivation for Different Media Gallery Kinds}
+
+The main motivation for the \emph{Loose Order, Varying Size} kind
+is that certain media items can be featured more prominently
+by making them big, while still loosely respecting the insertion order.
+Examples of to-be-featured media items can be videos,
+media items with faces, media items available in High-Density quality,
+or media items with interesting details~\cite{suh2003thumbnail}.
+In contrast to \emph{Loose Order, Varying Size},
+\emph{Strict Order, Equal Size} does not require cropping,
+which allows for multimedia data outside of common aspect rations like
+$1:1$ (square), $3:2$ (digital SLRs), or $3:4$ (iPhone)
+to be properly fitted in media galleries.
+
+\section{Application Architecture}
+\fontencoding{T1}\selectfont
+
+The underlying application \emph{Wikipedia Live Monitor}
+puts Wiki\-pedia and Wikidata article clusters
+that cover the same semantic concept
+in a~monitoring loop.
+Article clusters stay in the monitoring loop until
+their time-to-live has been reached,
+\emph{i.e.}, until there are no further edits.
+Some article clusters upon fulfilling the breaking news conditions
+as defined in~\cite{steiner2013mjnomore}
+will be reported as breaking news events.
+We have patched the \emph{Wikipedia Live Monitor} source code
+to have an additional social multimedia search hook in that case.
+This social multimedia search hook receives as an input
+the international titles of all articles
+in the currently breaking article cluster as well as their URLs.
+It uses them as search terms for a~patched instance
+of the application \emph{Social Media Illustrator}
+that runs on the same server
+as the instance of \emph{Wikipedia Live Monitor}.
+It is configured to always return two media galleries
+for one request, one of kind \emph{Strict Order, Equal Size}
+and the other of kind \emph{Loose Order, Varying Size}.
+Both generated media galleries are saved to disk
+for archiving purposes following a~naming scheme
+that includes the media gallery kind,
+the originating search terms, and the UNIX timestamp.
+
+On the server-side, we use a~library called node-canvas%
+~\cite{holowaychuk2013nodecanvas} that implements the
+HTML5 canvas API~\cite{cabanier2013canvas} on the server.
+This library allowed us to port the original client-side code 
+used in \emph{Social Media Illustrator}
+with manageable effort to the server.
+The canvas API is mainly used in the deduplication algorithm%
+~\cite{steiner2013clustering}
+and for creating static dumps of media galleries.
+Media galleries initially consist of individual images and videos
+with hyperlinks to the originating microposts
+as can be seen in \autoref{code:mediagalleryhtml}.
+For the archived version, a~static dump
+in Portable Network Graphics~(PNG) format
+with graphical representation of the URLs
+of the originating microposts is created.
+This has the advantage that such graphical dumps
+can be shared as photos over social network sites,
+in contrast to  HTML code with potentially signed and expiring URLs
+that therefore cannot be permanently shared.
+
+\begin{lstlisting}[caption={Simplified \emph{Strict Order, Equal Size}
+  HTML code}, label=code:mediagalleryhtml, language=HTML]
+<div id="mediaGallery" style="width: 602px;">
+  <div class="mediaItem photoBorder" tabindex="1"
+      style="width: 307.5px; height: 199.875px;">
+    <a href="http://www.flickr.com/[...]">
+      <video src="http://www.flickr.com/[...]"
+          poster="http://staticflickr.com/[...]"
+          class="gallery"
+          style="width: 307px; height: 199px;">
+      </video>
+    </a>
+    <img class="favicon" src="flickr.png">
+  </div>
+  [...]
+</div>
+\end{lstlisting}
+
+\section{Evaluation and Discussion}
+
+\section{Related Work}
+
+\section{Future Work and Conclusions}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
