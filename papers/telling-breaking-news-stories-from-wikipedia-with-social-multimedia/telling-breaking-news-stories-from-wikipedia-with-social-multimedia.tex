@@ -468,10 +468,6 @@ in Portable Network Graphics format
 with graphical representation of the URLs
 of the originating microposts is created,
 an example is shown in \autoref{fig:dario-cologna}.
-This has the advantage that such dumps
-can be shared as photos over social network sites,
-in contrast to  HTML code with typically expiring URLs
-that therefore cannot be permanently shared.
 
 \begin{lstlisting}[caption={Simplified \emph{Strict Order, Equal Size}
   HTML code}, label=code:mediagalleryhtml, language=HTML]
@@ -490,6 +486,11 @@ that therefore cannot be permanently shared.
   [...]
 </div>
 \end{lstlisting}
+
+This has the advantage that dumps
+can be shared as photos over social network sites,
+in contrast to  HTML code with typically expiring URLs
+that therefore cannot be permanently shared.
 
 \begin{figure}
   \centering
@@ -593,6 +594,26 @@ Overall, raters found \emph{Loose Order, Varying Size} media galleries
 to be easier to consume, especially when the individual items were diverse.
 
 \subsection{Temporal Evaluation}
+
+In the temporal evaluation, we have examined the effect of 
+evolution of media galleries over time.
+\autoref{fig:jamie-anderson} and \autoref{fig:olga-vilukhina}
+show timestamped examples of how the application
+dynamically recalculates the ranking~\cite{steiner2013meteoroid}
+based on the changing social signals.
+As social multimedia retrieve interactions on social network sites
+that we harvest whenever we generate a~new media gallery,
+the algorithm takes these changes into account.
+Sometimes additional multimedia data appear and
+previously existing data disappear
+as is the case in the step from \autoref{fig:1391960741705}
+to \autoref{fig:1391960781898}.
+Our raters were fascinated by the dynamics of the storytelling
+where sometimes within well less than a~minute
+media galleries change significantly.
+They wished for ways to easily navigate back in time
+in order to relive media gallery evolutions
+by flipping through the versions.
 
 \begin{figure}
   \centering
