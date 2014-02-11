@@ -464,12 +464,13 @@ Media galleries initially consist of individual images and videos
 with hyperlinks to the originating microposts
 as can be seen in \autoref{code:mediagalleryhtml}.
 For the archived version, a~static dump
-in Portable Network Graphics~(PNG) format
+in Portable Network Graphics format
 with graphical representation of the URLs
-of the originating microposts is created.
-This has the advantage that such graphical dumps
+of the originating microposts is created,
+an example is shown in \autoref{fig:dario-cologna}.
+This has the advantage that such dumps
 can be shared as photos over social network sites,
-in contrast to  HTML code with potentially signed and expiring URLs
+in contrast to  HTML code with typically expiring URLs
 that therefore cannot be permanently shared.
 
 \begin{lstlisting}[caption={Simplified \emph{Strict Order, Equal Size}
@@ -490,15 +491,51 @@ that therefore cannot be permanently shared.
 </div>
 \end{lstlisting}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=1.0\columnwidth]{figures/dario_cologna/mediagallery_looseOrder_1391945454845.png}
+  \caption{Static dump of a~media gallery of kind \emph{Loose Order, Varying Size}
+  for Dario Cologna, Men's Skiathlon event gold medal winner}
+  \label{fig:dario-cologna}    
+\end{figure}
+
+
 \section{Evaluation and Discussion}
 \label{sec:evaluation-and-discussion}
 \fontencoding{T1}\selectfont
 
+\subsection{Quantitative Evaluation}
+
 We have evaluated the application based on breaking news events
 around the \emph{2014 Winter Olympics} that happened between
-February 8, 20:36~(CET) and February 10, 20:38~(CET),
-\emph{i.e.}, during an examination period of exactly 48h.
-The events in question 
+February~8, 20:36~(CET) and February~10, 20:38~(CET),
+\emph{i.e.}, during an examination period of 48~hours.
+During this period, 94~unique breaking news events
+were detected by \emph{Wikipedia Live Monitor}.
+Uniqueness in this context is defined as events being
+reported without interruption.
+For example, \emph{Christof Innerhofer} appeared twice on February~9,
+once in the morning%
+\footnote{Christof Innerhofer (morning):
+\url{https://twitter.com/WikiLiveMon/status/432438422431887360}}
+and once again in the afternoon,%
+\footnote{Christof Innerhofer (afternoon):
+\url{https://twitter.com/WikiLiveMon/status/432506953890537472}}
+so even if the event is about the same person,
+it is still tracked as two unique breaking news events.
+Out of these 94~breaking news events,
+69~events (${\approx}73\%$) were
+related to the \emph{2014 Winter Olympics}.
+In the 48~hours of our experiment,
+we have generated overall 804~media galleries,
+\emph{i.e.}, 402~media galleries of kind \emph{Strict Order, Equal Size}
+and accordingly 402~kind \emph{Loose Order, Varying Size}.
+These 402~media gallery pairs covered 67~breaking news events---%
+\emph{2014 Winter Olympics}-related or not.
+If we only count the media gallery pairs that were relevant
+for the \emph{2014 Winter Olympics},
+we get 253~media gallery pairs (${\approx63}\%$)
+covering 46~\emph{2014 Winter Olympics} breaking news events.
 
 \begin{figure}
   \centering
