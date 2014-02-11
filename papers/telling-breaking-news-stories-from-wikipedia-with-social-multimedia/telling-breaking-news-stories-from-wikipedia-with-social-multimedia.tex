@@ -100,7 +100,7 @@ In this paper, we present a~case study of the
 \emph{2014 Winter Olympics}, where we tell the story of
 breaking news events in the context of the Olympics
 with the help of social multimedia
-stemming from multiple social networks.
+stemming from multiple social network sites.
 Therefore, we have extended the application
 \emph{Wikipedia Live Monitor}---%
 a~tool for the detection of breaking news events---%
@@ -114,25 +114,25 @@ edit Wikipedia and Wikidata---%
 around the world in many languages.
 The Olympics being an event of common interest,
 an even bigger majority of people share the event
-in a~multitude of languages on global social networks.
+in a~multitude of languages on global social network sites.
 This sharing of moments in the form of comments and multimedia
 happens either in people's role as spectators or participants
 directly at one of the Olympic sites,
 or as indirect second screen users
 in front of their TV~sets at home.
 With this work, we connect the world of
-Wikipedia and Wikidata with the world of social networks,
+Wikipedia and Wikidata with the world of social network sites,
 in order to convey the spirit of the
 \emph{2014 Winter Olympics},
 to tell the story of victory and defeat,
-and following the Olympic motto \emph{Citius, Altius, Fortius}.
+and always following the Olympic motto \emph{Citius, Altius, Fortius}.
 \end{abstract}
 
 \category{H.5.1}{Information Interfaces and Presentation}{Multimedia Information Systems}
 
 %\terms{Human Factors, Languages, Measurement, Experimentation}
 
-\keywords{Storytelling, social networks, multimedia, Wikipedia}
+\keywords{Storytelling, social network sites, multimedia, Wikipedia}
 
 \section{Introduction}
 \label{sec:introduction}
@@ -239,6 +239,12 @@ We are steered by the following hypotheses.
     of the preferred media gallery kind for a~breaking news event?
 \end{itemize}
 
+The source code of the application developed
+in the context of this research as well as all generated
+multimedia social data
+are available under the terms of the Apache~2.0 license
+and can be obtained at the URL \url{https://github.com/ANONYMIZED/wikipedia-live-monitor}.
+
 The remainder of this paper is structured as follows.
 \autoref{sec:enabling-tools-background} provides background
 on the tools \emph{Wikipedia Live Monitor} and
@@ -291,8 +297,7 @@ a~specific chat room following the pattern
 Wikipedia articles in different languages are highly interlinked.
 For example, the English article
 ``en:2014\_Winter\_Olympics''
-on the XXII Olympic Winter Games in Sochi
-is interlinked with the Russian article
+on the Olympics is interlinked with the Russian article
 \fontencoding{T2A}\selectfont%
 ``ru:Зимние\_Олимпийские\_игры\_2014''%
 \fontencoding{T1}\selectfont.
@@ -453,6 +458,8 @@ Both generated media galleries are saved to disk
 for archiving purposes following a~naming scheme
 that includes the media gallery kind,
 the originating search terms, and the UNIX timestamp.
+A~screenshot of the running application can be seen in
+\autoref{fig:wikipedia-live-monitor}.
 
 On the server-side, we use a~library called node-canvas%
 ~\cite{holowaychuk2013nodecanvas} that implements the
@@ -462,15 +469,6 @@ used in \emph{Social Media Illustrator}
 with manageable effort to the server.
 The canvas API is mainly used in the deduplication algorithm%
 ~\cite{steiner2013clustering}
-and for creating static dumps of media galleries.
-Media galleries initially consist of individual images and videos
-with hyperlinks to the originating microposts
-as can be seen in \autoref{code:mediagalleryhtml}.
-For the archived version, a~static dump
-in Portable Network Graphics format
-with graphical representation of the URLs
-of the originating microposts is created,
-an example is shown in \autoref{fig:dario-cologna}.
 
 \begin{lstlisting}[caption={Simplified \emph{Strict Order, Equal Size}
   HTML code}, label=code:mediagalleryhtml, language=HTML]
@@ -490,16 +488,37 @@ an example is shown in \autoref{fig:dario-cologna}.
 </div>
 \end{lstlisting}
 
+\noindent and for creating static dumps of media galleries.
+Media galleries initially consist of individual images and videos
+with hyperlinks to the originating microposts
+as can be seen in \autoref{code:mediagalleryhtml}.
+For the archived version, a~static dump
+in Portable Network Graphics format
+with graphical representation of the URLs
+of the originating microposts is created,
+an example is shown in \autoref{fig:dario-cologna}.
+
 This has the advantage that dumps
 can be shared as photos over social network sites,
 in contrast to  HTML code with typically expiring URLs
 that therefore cannot be permanently shared.
 
-\begin{figure}
+\begin{figure}[t!]
   \centering
-  \includegraphics[width=1.0\columnwidth]{figures/dario_cologna/mediagallery_looseOrder_1391945454845.png}
+  \includegraphics[width=0.75\columnwidth]{figures/wikipedia-live-monitor.png}
+  \caption{Screenshot of an extended version of \emph{Wikipedia Live Monitor
+  }
+  running \emph{Social Media Illustrator} on the server-side
+  with a~generated media gallery in HTML format
+  for Darya Domracheva, Women's Boathlon Pursuit event Olympic gold medal winner}
+  \label{fig:wikipedia-live-monitor}    
+\end{figure}
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width=0.75\columnwidth]{figures/dario_cologna/mediagallery_looseOrder_1391945454845.png}
   \caption{Static dump of a~media gallery of kind \emph{Loose Order, Varying Size}
-  for Dario Cologna, Men's Skiathlon event gold medal winner}
+  for Dario Cologna, Men's Skiathlon event Olympic gold medal winner}
   \label{fig:dario-cologna}    
 \end{figure}
 
@@ -619,6 +638,7 @@ in order to relive media gallery evolutions
 by flipping through the versions.
 
 \subsection{Discussion}
+\label{sec:discussion}
 
 \paragraph{Reasons for Irrelevant Social Multimedia}
 
@@ -642,6 +662,8 @@ on only parts of the search term rather than the whole phrase,
 which explains why random photos tagged with the current year,
 \emph{e.g.}, ``\#2014 \#nofilter'' with many social interactions
 got featured overly prominently.
+A~particularly bad example of a~completely irrelevant media gallery
+can be seen in \autoref{fig:medal-table}.
 In the future, we will work around this issue by limiting the search term
 length for Instagram queries.
 
@@ -679,11 +701,144 @@ we will put additional emphasis on multimedia contents,
 as we have learned that factors like irregular margins play
 a~key role as they destroy the regular grid structure,
 which the human eye is very unforgiving of.
-Our eyes need guidance through focal points.
-Visually diverse media galleries with multimedia data
+Our eyes need focal points,
+visually diverse media galleries with multimedia data
 of different sizes and contrasting colors can help the eye,
-albeit our raters also liked harmonious media galleries
-with similar colors and sizes that invite the eye to browse longer.
+albeit our raters also liked color-harmonious media galleries
+with similar sizes that invite the eye to browse longer.
+
+\section{Related Work}
+\label{sec:related-work}
+\fontencoding{T1}\selectfont
+
+We focus on related work that follows a~\emph{holistic approach}
+for storytelling with social media
+rather than looking at individual bits and pieces
+like event detection, media deduplication and clustering, \emph{etc.}
+Related work can be grouped in several fields.
+
+\paragraph{Storytelling with Social Media Around the Olympics}
+
+The Twitter data journalism team have created a~visualization
+of the most-shared Olympics photos on Twitter%
+~\cite{schweitzer2014twitter} that can be
+filtered by day and country.
+It is unclear to what extent the system is based
+on automated hashtag analysis and manual content curation.
+More visualizations like an interactive map
+and an athlete follower graph
+are listed in a~post on the Twitter blog~\cite{rogers2014twitter}.
+
+\paragraph{Event Archiving and Summarization}
+
+Event archiving services such as Eventifier%
+\footnote{Eventifier: \url{http://eventifier.co/}} 
+do a~great job at storing all the social media content around
+entire events, however, do not currently rank the information.
+Closest to our approach is Seen%
+\footnote{Seen: \url{http://seen.co/}}
+an engine that aggregates, organizes, and ranks media
+and collects information on topics trending in social media.
+Seen does not support tracking of media gallery evolution.
+Finally there is MediaFinder~\cite{troncy2013mediafinder},%
+\footnote{MediaFinder: \url{http://mediafinder.eurecom.fr/}}
+that uses a~fork of the media item collector
+used in \emph{Social Media Illustrator}
+MediaFinder specializes on clustering media items
+based on named entities.
+
+\paragraph{Manual Social Multimedia Curation}
+
+Examples of manual social media curation tools are FlypSite,%
+\footnote{FlypSite: \url{http://www.flyp.tv/}}
+a~tool that facilitates the creation of embeddable
+second screen applications or TV social media widgets,
+Storify~\cite{fincham2011storify,atasoy2011storify},%
+\footnote{Storify: \url{http://storify.com/}}
+a~service that lets users create
+timelines using social media, and Storyful,%
+\footnote{Storyful: \url{http://storyful.com/}}
+a~news agency focused on verifying and distributing
+user-generated content from social networks related to news events.
+
+\paragraph{Identification and Aesthetic Presentation}
+
+Automated and semi-automated approaches for content identification exist,
+for example, \cite{liu2011events} and \cite{liu2011socialmedia}
+by Liu \emph{et~al.}\ who combine semantic inference
+and visual analysis to automatically find media items
+that illustrate events.
+Further, there are \cite{becker2010eventidentification}
+and \cite{becker2012plannedevents} by Becker \emph{et~al.}\
+who focus on identifying media items related to events
+by learning similarity metrics and identifying search terms.
+However, these event-related social multimedia data
+identification approaches do not deal with the tasks of
+ranking~\cite{liu2009learningtorank}, deduplicating~\cite{yang2009nearduplicate},
+and representing the event-related content aesthetically%
+~\cite{sandhaus2011photobook,obrador2012photoaesthetics}.
+Obrador \emph{et~al.}\ present a~photo collection summarization system
+that includes storytelling principles and face and image aesthetic ranking,
+however, that is not interactive.
+
+\section{Future Work and Conclusions}
+\label{sec:future-work-and-conclusions}
+\fontencoding{T1}\selectfont
+
+In this paper we have connected the world of breaking news events
+based on detected concurrent Wikipedia and Wikidata edits
+with the world of social network sites
+at the example of the \emph{2014 Winter Olympics}.
+We have extended the existing tools \emph{Wikipedia Live Monitor}
+and \emph{Social Media Illustrator} such that now we have 
+an automated means of generating media galleries
+for breaking news events at scale.
+We have evaluated media galleries that were auto-generated 
+in the context of the Olympics quantitatively,
+qualitatively, aesthetically, and temporally.
+From the 69~\emph{Winter Olympics} breaking news events,
+we could illustrate 48~events, resulting in a~recall of successfully illustrated Olympics breaking news events of~${\approx}70\%$. 
+From these 48~events, 30~events were illustrated
+with mostly relevant or completely relevant content,
+resulting in a~relative precision of ${\approx}63\%$.
+We note that this version of the application
+does not yet contain the suggested trivial improvements around Instagram
+that were detailed in \autoref{sec:discussion}
+that will greatly improve the system's precision.
+
+Future work will mainly focus on further improving the visual aesthetics
+of the generated media galleries.
+While certain aspects like balancedness and overall shape
+are straight-forward targets to tackle,
+more subtle issues like analyzing social multimedia data contents
+for unwanted features (\emph{e.g.}, irregular margins,
+cropped textual overlays, \emph{etc.})
+or wanted features (\emph{e.g.}, faces)
+that negatively or positively impact the media gallery harmony
+will require advanced heuristics,
+especially given our near-realtime demands at the system.
+Advanced A/B or multivariate tests that optimize on click-through-rate,
+consumption time, or other variables,
+and where several media gallery kinds compete against each other,
+can help reveal new insights about what makes attractive media galleries.
+The temporal evolution of breaking news stories is
+another area of research that our application facilitates to explore.
+A~certainly very drastic example are the \emph{Boston Marathon bombings}.%
+\footnote{\emph{Boston Marathon bombings}:
+\url{http://en.wikipedia.org/wiki/Boston_Marathon_bombings}}
+The terror attacks were correctly detected by \emph{Wikipedia Live Monitor}%
+~\cite{bea2013wikilivemon}, potential use cases are in disaster recovery.
+
+Concluding, we are excited by the broad range
+of possible future use cases
+and the upcoming improvements of the application
+that we have unlocked through this present case study
+on the \emph{2014 Winter Olympics}.
+By releasing the source code and the social multimedia data 
+created in the context of this research under the permissive
+Apache~2.0 license, we invite and hope for others to pick up.
+It is the taking part that counts:
+\url{https://github.com/ANONYMIZED/wikipedia-live-monitor}.
 
 \begin{figure}[p!]
   \centering
@@ -822,84 +977,6 @@ with similar colors and sizes that invite the eye to browse longer.
     \url{https://twitter.com/WikiLiveMon/status/432909036313673728}}
   \label{fig:medal-table}
 \end{figure}
-
-\section{Related Work}
-\label{sec:related-work}
-\fontencoding{T1}\selectfont
-
-We focus on related work that follows a~\emph{holistic approach}
-for storytelling with social media
-rather than looking at individual bits and pieces
-like event detection, media deduplication and clustering, \emph{etc.}
-Related work can be grouped in several fields.
-
-\paragraph{Storytelling with Social Media Around the Olympics}
-
-The Twitter data journalism team have created a~visualization
-of the most-shared Olympics photos on Twitter%
-~\cite{schweitzer2014twitter} that can be
-filtered by day and country.
-It is unclear to what extent the system is based
-on automated hashtag analysis and manual content curation.
-More visualizations like an interactive map
-and an athlete follower graph
-are listed in a~post on the Twitter blog~\cite{rogers2014twitter}.
-
-\paragraph{Event Archiving and Summarization}
-
-Event archiving services such as Eventifier%
-\footnote{Eventifier: \url{http://eventifier.co/}} 
-do a~great job at storing all the social media content around
-entire events, however, do not currently rank the information.
-Closest to our approach is Seen%
-\footnote{Seen: \url{http://seen.co/}}
-an engine that aggregates, organizes, and ranks media
-and collects information on topics trending in social media.
-Seen does not support tracking of media gallery evolution.
-Finally there is MediaFinder~\cite{troncy2013mediafinder},%
-\footnote{MediaFinder: \url{http://mediafinder.eurecom.fr/}}
-that uses a~fork of the media item collector
-used in \emph{Social Media Illustrator}
-MediaFinder specializes on clustering media items
-based on named entities.
-
-\paragraph{Manual Social Multimedia Curation}
-
-Examples of manual social media curation tools are FlypSite,%
-\footnote{FlypSite: \url{http://www.flyp.tv/}}
-a~tool that facilitates the creation of embeddable
-second screen applications or TV social media widgets,
-Storify~\cite{fincham2011storify,atasoy2011storify},%
-\footnote{Storify: \url{http://storify.com/}}
-a~social network service that lets users create stories
-or timelines using social media, and Storyful,%
-\footnote{Storyful: \url{http://storyful.com/}}
-a~news agency focused on verifying and distributing
-user-generated content from social networks related to news events.
-
-\paragraph{Identification and Aesthetic Presentation}
-
-Automated and semi-automated approaches for content identification exist,
-for example, \cite{liu2011events} and \cite{liu2011socialmedia}
-by Liu \emph{et~al.}\ who combine semantic inference
-and visual analysis to automatically find media items
-that illustrate events.
-Further, there are \cite{becker2010eventidentification}
-and \cite{becker2012plannedevents} by Becker \emph{et~al.}\
-who focus on identifying media items related to events
-by learning similarity metrics and identifying search terms.
-However, these event-related social multimedia data
-identification approaches do not deal with the tasks of
-ranking~\cite{liu2009learningtorank}, deduplicating~\cite{yang2009nearduplicate},
-and representing the event-related content aesthetically%
-~\cite{sandhaus2011photobook,obrador2012photoaesthetics}.
-Obrador \emph{et~al.}\ present a~photo collection summarization system
-that includes storytelling principles and face and image aesthetic ranking,
-however, that is not interactive.
-
-\section{Future Work and Conclusions}
-\label{sec:future-work-and-conclusions}
-\fontencoding{T1}\selectfont
 
 \bibliographystyle{abbrv}
 \bibliography{references}
