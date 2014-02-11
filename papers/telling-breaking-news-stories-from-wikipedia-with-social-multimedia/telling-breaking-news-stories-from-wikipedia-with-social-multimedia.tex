@@ -362,6 +362,9 @@ and microposts%
 \footnote{A~\emph{micropost} is defined as a~textual status message
 on social network sites, optionally accompanied by multimedia data}
 retrieved from social networks that are related to a~given event.
+
+\subsection{Media Gallery Kinds}
+
 For the generation of media galleries, we apply aesthetic principles
 as defined by Steiner \emph{et~al.}\
 in~\cite{steiner2013tocrop,steiner2012aesthetic},
@@ -406,7 +409,7 @@ Bringing the media gallery in a~\emph{balanced} state can be harder,
 as depending on the shape both small and big
 media items may be required.
 
-\paragraph{Motivation for Different Media Gallery Kinds}
+\subsection{Why Different Media Gallery Kinds}
 
 The main motivation for the \emph{Loose Order, Varying Size} kind
 is that certain media items can be featured more prominently
@@ -417,7 +420,7 @@ or media items with interesting details~\cite{suh2003thumbnail}.
 In contrast to \emph{Loose Order, Varying Size},
 \emph{Strict Order, Equal Size} does not require cropping,
 which allows for multimedia data outside of common aspect rations like
-$1:1$ (square), $3:2$ (digital SLRs), or $3:4$ (iPhone)
+$1{:}1$ (square), $3{:}2$ (digital SLRs), or $3{:}4$ (iPhone)
 to be properly fitted in media galleries.
 
 \section{Application Architecture}
@@ -619,7 +622,7 @@ by flipping through the versions.
 
 \todo{Discuss!}
 
-\begin{figure}
+\begin{figure}[t!]
   \centering
   % row 1
   \begin{subfigure}[t]{0.25\textwidth}
@@ -682,7 +685,7 @@ by flipping through the versions.
   \label{fig:jamie-anderson}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[t!]
   \centering
   % row 1
   \begin{subfigure}[t]{0.25\textwidth}
@@ -736,15 +739,51 @@ by flipping through the versions.
   \label{fig:olga-vilukhina}
 \end{figure}
 
+\begin{figure}[t!]
+  \centering
+  % row 1
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=5.25cm]{figures/medal_table/mediagallery_looseOrder_1392048536608.png}
+    \caption{Feb 10, 17:08:56}
+    \label{fig:1392048536608}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.25\textwidth}
+    \includegraphics[height=5.25cm]{figures/medal_table/mediagallery_strictOrder_1392048536209.png}
+    \caption{Feb 10, 17:08:56}
+    \label{fig:1392048536209}
+  \end{subfigure}
+  \caption{Completely irrelevant media gallery for
+    \emph{2014 Winter Olympics medal table}
+    (times in CET, left: \emph{Loose Order, Varying Size},
+    right: \emph{Strict Order, Equal Size})    
+    \url{https://twitter.com/WikiLiveMon/status/432909036313673728}}
+  \label{fig:medal-table}
+\end{figure}
+
 \section{Related Work}
 \label{sec:related-work}
 \fontencoding{T1}\selectfont
 
+We focus on related work that follows a~\emph{holistic approach}
+for storytelling with social media
+rather than looking at individual bits and pieces
+like event detection, media deduplication and clustering, \emph{etc.}
+Related work can be grouped in several fields.
+
+\paragraph{Storytelling with Social Media Around the Olympics}
+
 The Twitter data journalism team have created a~visualization
-of the most-shared Olympics photos on Twitter~\cite{schweitzer2014twitter}
-that can be filtered by day and country.
-More visualizations like an interactive map and an athlete follower graph
-are listed in a~post~\cite{rogers2014twitter} on the official Twitter blog.
+of the most-shared Olympics photos on Twitter%
+~\cite{schweitzer2014twitter} that can be
+filtered by day and country.
+It is unclear to what extent the system is based
+on automated hashtag analysis and manual content curation.
+More visualizations like an interactive map
+and an athlete follower graph
+are listed in a~post on the Twitter blog~\cite{rogers2014twitter}.
+
+\paragraph{Event Archiving and Summarization}
+
 Event archiving services such as Eventifier%
 \footnote{Eventifier: \url{http://eventifier.co/}} 
 do a~great job at storing all the social media content around
@@ -756,9 +795,44 @@ and collects information on topics trending in social media.
 Seen does not support tracking of media gallery evolution.
 Finally there is MediaFinder~\cite{troncy2013mediafinder},%
 \footnote{MediaFinder: \url{http://mediafinder.eurecom.fr/}}
-that uses a~fork of the media item collector in \emph{Social Media Illustrator}
-and which specializes in clustering media items
+that uses a~fork of the media item collector
+used in \emph{Social Media Illustrator}
+MediaFinder specializes on clustering media items
 based on named entities.
+
+\paragraph{Manual Social Multimedia Curation}
+
+Examples of manual social media curation tools are FlypSite,%
+\footnote{FlypSite: \url{http://www.flyp.tv/}}
+a~tool that facilitates the creation of embeddable
+second screen applications or TV social media widgets,
+Storify~\cite{fincham2011storify,atasoy2011storify},%
+\footnote{Storify: \url{http://storify.com/}}
+a~social network service that lets users create stories
+or timelines using social media, and Storyful,%
+\footnote{Storyful: \url{http://storyful.com/}}
+a~news agency focused on verifying and distributing
+user-generated content from social networks related to news events.
+
+\paragraph{Identification and Aesthetic Presentation}
+
+Automated and semi-automated approaches for content identification exist,
+for example, \cite{liu2011events} and \cite{liu2011socialmedia}
+by Liu \emph{et~al.}\ who combine semantic inference
+and visual analysis to automatically find media items
+that illustrate events.
+Further, there are \cite{becker2010eventidentification}
+and \cite{becker2012plannedevents} by Becker \emph{et~al.}\
+who focus on identifying media items related to events
+by learning similarity metrics and identifying search terms.
+However, these event-related social multimedia data
+identification approaches do not deal with the tasks of
+ranking~\cite{liu2009learningtorank}, deduplicating~\cite{yang2009nearduplicate},
+and representing the event-related content aesthetically%
+~\cite{sandhaus2011photobook,obrador2012photoaesthetics}.
+Obrador \emph{et~al.}\ present a~photo collection summarization system
+that includes storytelling principles and face and image aesthetic ranking,
+however, that is not interactive.
 
 \section{Future Work and Conclusions}
 \label{sec:future-work-and-conclusions}
