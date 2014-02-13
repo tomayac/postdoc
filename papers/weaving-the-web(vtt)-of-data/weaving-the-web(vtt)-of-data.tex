@@ -560,16 +560,38 @@ from plain WebVTT to linked-data WebVTT,
 just like JSON-LD makes it easy to turn plain JSON into linked data
 by simply adding a \texttt{@context} key.
 
-\section{WebVTT in the wild}
+\section{Common Crawl}
 
-\section{HTML5 prototype (TODO better title)}
-
-\section{Related Work}
-
-\todo{cite LDOW paper on the use of micro-data, as this is a similar approach}
-
-\section{Future Work and Conclusions}
-\label{sec:future-work-conclusions}
+The Common Crawl Foundation\footnote{Common Crawl: \url{http://commoncrawl.org/}}
+is a~non-profit organization founded in 2008 by Gil Elbaz.
+Its objective is to democratize access to Web information
+by producing and maintaining an open repository of Web crawl data
+that is universally accessible and analyzable~\cite{simonite2013commoncrawl}.
+All Common Crawl data is stored on Amazon Simple Storage Service (Amazon~S3)%
+\footnote{Amazon S3: \url{http://aws.amazon.com/s3/}} and
+accessible to anyone via Amazon Elastic Compute Cloud (Amazon~EC2),%
+\footnote{Amazon EC2: \url{http://aws.amazon.com/ec2/}}
+allowing the data to be bulk downloaded,
+as well as directly accessed for map-reduce processing in EC2.
+The at time of writing latest dataset was collected at the end of 2013,
+contains approximately 2.3~billion webpages and is 148TB in size~\cite{green2014winter}.
+Crawl raw data is stored in the Web ARChive format
+(WARC,~\cite{iso285002008warc}), an evolution of the previously used
+Archive File Format (ARC,~\cite{burner1996arc}),
+which was developed at the Internet Archive.%
+\footnote{Internet Archive: \url{https://archive.org/}}
+Each crawl run is hierarchically organized in segments directories
+that contain the WARC files with the HTTP requests and responses for each fetch,
+and individual Web Archive Metadata (WAT,~\cite{goel2011wat}) files,
+which describe the metadata of each request and response.
+While the Common Crawl corpus gets bigger with each crawl run,
+it obviously does not represent the ``whole Web'',
+which is an illusive concept anyway,
+given that a~simple calendar webpage can produce an infinite number of pages.
+Common Crawl decides on the to-be-included pages based on an implementation%
+\footnote{Common Crawl PageRank implementation:
+\url{https://github.com/commoncrawl/commoncrawl-crawler/tree/master/src/org/commoncrawl/service/pagerank}}
+of the PageRank~\cite{page1999pagerank} algorithm.
 
 \section*{Acknowledgments}
 \footnotesize
