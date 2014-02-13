@@ -15,7 +15,11 @@ var srclangs = {};
 var labels = {};
 var defaults = {};
 
+var types = {};
+
 var numTracksPerVideo = {};
+var numSourcesPerVideo = {};
+var videoSrcs = {};
 
 var fileName = './tracks.txt';
 new lazy(fs.createReadStream(fileName)).lines.forEach(
@@ -51,12 +55,34 @@ new lazy(fs.createReadStream(fileName)).lines.forEach(
       defaults[myDefault] = 1;
     }
 
+    var type = $('source[type]').attr('type');
+    if (types[type]) {
+      types[type] += 1;
+    } else {
+      types[type] = 1;
+    }
+
     var numTracks = $('track').length;
     if (numTracksPerVideo[numTracks]) {
       numTracksPerVideo[numTracks] += 1;
     } else {
       numTracksPerVideo[numTracks] = 1;
     }
+
+    var numSources = $('source').length;
+    if (numSourcesPerVideo[numSources]) {
+      numSourcesPerVideo[numSources] += 1;
+    } else {
+      numSourcesPerVideo[numSources] = 1;
+    }
+
+    var videoSrc = $('video[src]').length;
+    if (videoSrcs[videoSrc]) {
+      videoSrcs[videoSrc] += 1;
+    } else {
+      videoSrcs[videoSrc] = 1;
+    }
+
   }
 ).on('pipe', function() {
   console.log('kinds');
@@ -67,6 +93,12 @@ new lazy(fs.createReadStream(fileName)).lines.forEach(
   console.log(labels);
   console.log('defaults');
   console.log(defaults);
-    console.log('numTracksPerVideo');
+  console.log('numTracksPerVideo');
   console.log(numTracksPerVideo);
+  console.log('numSourcesPerVideo');
+  console.log(numSourcesPerVideo);
+  console.log('types');
+  console.log(types);
+  console.log('videoSrcs');
+  console.log(videoSrcs);
 });
