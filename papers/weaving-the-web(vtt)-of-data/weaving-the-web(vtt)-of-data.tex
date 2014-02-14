@@ -702,7 +702,9 @@ This is realized through the \texttt{<source>} tag.
 \texttt{<video>} tag, with the result that up to
 four sources are given for essentially the ``same'' video.
 \autoref{table:type} shows the distribution
-of values for the \texttt{<source type>} attribute.
+of values for the \texttt{<source type>} attribute,
+the clear leaders being the MP4 format
+followed by WebM.
 The biggest issue with this approach is that
 rather than having one unique identifier per video,
 all of a~sudden there can be multiple.
@@ -712,7 +714,16 @@ may not be marked \texttt{<owl:sameAs>},
 because statements about the encoding format
 of the one video do not apply to the other,
 the symmetry condition would thus be violated.
-
+In practice, a~solution similar to
+specifying canonical URLs in Web search%
+~\cite{kupke2009canonical} seems feasible,
+another approach is to require a~unique identifier
+on the \texttt{<video id>} tag,
+which allows for addressing the video
+with fragment identifiers.
+More advanced approaches to the problem
+stemming from the bibliographic universe
+like FRBR~\cite{tillett2004frbr} seem overkill, though.
 
 
 \begin{table}[p]
