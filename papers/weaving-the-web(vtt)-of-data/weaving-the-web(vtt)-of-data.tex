@@ -605,20 +605,28 @@ of the PageRank~\cite{page1999pagerank} algorithm.
 \subsection{On the Quest for WebVTT}
 
 We have analyzed the entire 148TB of webpages
-using an Elastic Compute Cloud job that we have made available as open-source.%
+using an Elastic Compute Cloud job
+whose code we have made available as open-source.%
 \footnote{EC2 job:
 \url{https://github.com/tomayac/postdoc/blob/master/demos/warczenschwein/src/main/java/com/tomayac/warczenschwein/TagTool.java}}
 Rather than parse each document as HTML,
-we have matched each document for the regular expression
-\texttt{<video[\^{}>]*>(.*?)</video>}, which proved very efficient.
-We successfully tested exactly 2,247,615,323 webpages
-that returned a successful HTTP response
-and had to skip exactly non-HTML 46,524,336 documents.
-On these webpages, we detected exactly 2,963,766 \texttt{<video>} tags,
-resulting in a~1.37GB size raw text file that we have made available publicly.%
+we have tested each document for the regular expression
+\texttt{<video[\^{}>]*>(.*?)</video>},
+which proved very efficient.
+We tested exactly 2,247,615,323 webpages
+that returned a successful HTTP response,
+and had to skip exactly 46,524,336  non-HTML documents.
+On these webpages, we detected exactly
+2,963,766 \texttt{<video>} tags,
+resulting in a~1.37GB size raw text file
+that we have made available publicly.%
 \footnote{2,963,766 \texttt{<video>} tags: \todo{Put this on DropBox}}
-\todo{Moneyburn: $468 EC2 + $87 EMR}
-
+The whole job took about five hours on
+80~c1.xlarge machines and costed overall \$555,
+consisting of \$468 for Amazon~EC2
+plus an additional \$87 for Amazon Elastic MapReduce
+ (Amazon EMR)\footnote{Amazon EMR:
+\url{http://aws.amazon.com/elasticmapreduce/}}
 
 \subsection{Text Track Statistics}
 
