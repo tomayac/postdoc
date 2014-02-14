@@ -14,7 +14,7 @@ var kinds = {};
 var srclangs = {};
 var labels = {};
 var defaults = {};
-
+var vtts = {};
 var types = {};
 
 var numTracksPerVideo = {};
@@ -62,6 +62,15 @@ new lazy(fs.createReadStream(fileName)).lines.forEach(
       types[type] = 1;
     }
 
+    var vtt = /\.srt$/gi.test($('track[src]').attr('src')) ?
+        'srt' :
+        (/\.(web)?vtt$/gi.test($('track[src]').attr('src')) ? 'vtt' : 'other');
+    if (vtts[vtt]) {
+      vtts[vtt] += 1;
+    } else {
+      vtts[vtt] = 1;
+    }
+
     var numTracks = $('track').length;
     if (numTracksPerVideo[numTracks]) {
       numTracksPerVideo[numTracks] += 1;
@@ -93,6 +102,8 @@ new lazy(fs.createReadStream(fileName)).lines.forEach(
   console.log(labels);
   console.log('defaults');
   console.log(defaults);
+  console.log('vtts');
+  console.log(vtts);
   console.log('numTracksPerVideo');
   console.log(numTracksPerVideo);
   console.log('numSourcesPerVideo');
