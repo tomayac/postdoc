@@ -617,9 +617,93 @@ and had to skip exactly non-HTML 46,524,336 documents.
 On these webpages, we detected exactly 2,963,766 \texttt{<video>} tags,
 resulting in a~1.37GB size raw text file that we have made available publicly.%
 \footnote{2,963,766 \texttt{<video>} tags: \todo{Put this on DropBox}}
+\todo{Moneyburn: $468 EC2 + $87 EMR}
+
+
+\subsection{Text Track Statistics}
+
 From all 2,963,766 \texttt{<video>} tags,
 only 1,456 had a~\texttt{<track>} child node.
-Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of 
+By closer examining these 1,456 \texttt{<track>} nodes,
+we saw that the overwhelming majority are unsurprisingly
+used for subtitles or captions.
+Close to no chapter usage was detected
+and no metadata usage at all.
+The full details can be seen in \autoref{table:kind}.
+The caption and subtitle languages were
+almost exclusively English and French,
+as can be seen in \autoref{table:srclang},
+the track labels listed in \autoref{table:label}
+indeed confirm this observation.
+In case of multiple tracks for one video,
+one track can be marked as the default track.
+This happens through a~boolean attribute,%
+\footnote{HTML boolean attributes:
+\url{http://www.whatwg.org/specs/web-apps/current-work/\#boolean-attributes}}
+whose value either needs to be the empty string
+or the attribute's name,
+which is ``default'' in the concrete case.
+\autoref{table:default}
+shows that this was used correctly in almost all cases.
+When we tried to determine the MIME type of the actual
+text tracks, we relied on the file extension
+of the values given in \texttt{<track src>}.
+As a~significant amount of text tracks
+seems to be dynamically generated on-the-fly---%
+and thus had no file extension---%
+we used an approximation to check if some part
+of the URL matched the regular expression \texttt{/\textbackslash bvtt\textbackslash b/gi}.
+Based on this approximation,
+a~little over half of all text tracks
+are in WebVTT format
+with the extension \texttt{.vtt}
+or rarely \texttt{.webvtt}.
+The predecessor SubRip file format%
+\footnote{SubRip file format:
+\url{http://www.matroska.org/technical/specs/subtitles/srt.html}}
+can still be encountered in about
+a~quarter of all text tracks.
+The full details are available in \autoref{table:src}.
+Almost all videos with at least one text track
+had only exactly one text track and not more,
+as can be seen in \autoref{table:track}.
+
+\subsection{Video Statistics}
+
+As in \todo{reference section once written}
+we will report on ways to make semantic statements
+about videos on the Web,
+we have compiled some video statistics.
+Unlike with images on the Web, where
+semantic statements in
+Resource Description Framework (RDF)
+can be made based on the image's
+URL~\cite{linsley2009rdfa},
+with Web video, the situation is another.
+Due to different Web browsers supporting
+different video codecs,
+it is a~common practice to provide videos
+in different encodings.
+The user's Web browser than dynamically selects
+a~version it can play.
+This is realized through the \texttt{<source>} tag.
+\autoref{table:source} shows our observed numbers of
+\texttt{<source>} tag child nodes per
+\texttt{<video>} tag, with the result that up to
+four sources are given for essentially the ``same'' video.
+\autoref{table:type} shows the distribution
+of values for the \texttt{<source type>} attribute.
+The biggest issue with this approach is that
+rather than having one unique identifier per video,
+all of a~sudden there can be multiple.
+We note that stating that a~video in encoding~A
+and the ``same'' video in encoding~B
+may not be marked \texttt{<owl:sameAs>},
+because statements about the encoding format
+of the one video do not apply to the other,
+the symmetry condition would thus be violated.
+
+
 
 \begin{table}[p]
   \centering
@@ -631,9 +715,9 @@ Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of
     chapters & 2\\
     undefined & 10\\  
   \end{tabular}
-  \label{table:kind}
   \caption{Distribution of values for
     \texttt{<track kind>}}
+  \label{table:kind}
 \end{table}
 
 \begin{table}[p]
@@ -650,9 +734,9 @@ Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of
     Korean & 1\\
     undefined & 78\\    
   \end{tabular}
-  \label{table:srclang}
   \caption{Distribution of values for
     \texttt{<track srclang>}}
+  \label{table:srclang}    
 \end{table}
 
 \begin{table}[p]
@@ -675,11 +759,11 @@ Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of
     `Gr\unknown\unknown e' & 1\\
     undefined & 229\\
   \end{tabular}
-  \label{table:label}
   \caption{Distribution of values for
     \texttt{<track label>} \tiny (double/triple-quotes,
     backslashes, spacing, and unknown encoding
     \emph{sic})}
+  \label{table:label}    
 \end{table}
   
 \begin{table}[p]
@@ -692,9 +776,9 @@ Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of
     true & 1\\
     undefined & 279
   \end{tabular}
-  \label{table:default}
   \caption{Distribution of values for
     \texttt{<track default>}}
+  \label{table:default}    
 \end{table}
 
 \begin{table}[p]
@@ -702,13 +786,14 @@ Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of
   \begin{tabular}{ r | r }                       
     File extensions of \texttt{<track src>} & Count \\
     \hline
-    .srt & 390\\
-    .vtt & 66\\
-    no extension & 1000\\
+    probably \texttt{.vtt} & 696\\
+    \texttt{.srt} & 390\\
+    \texttt{.vtt} (or \texttt{.webvtt}) & 66\\
+    no extension & 304\\
   \end{tabular}
-  \label{table:src}
   \caption{Distribution of file extensions for
     values for \texttt{<track src>}}
+  \label{table:src}    
 \end{table}
 
 \begin{table}[p]
@@ -720,11 +805,11 @@ Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of
     0 & 9\\
     9 & 1\\
   \end{tabular}
-  \label{table:track}
   \caption{Number of \texttt{<track>} tags per
     \texttt{<video>} tag \tiny (zero \texttt{<track>}
     tags means  the \texttt{<video>} tag had
     an  unparseable \texttt{<track>})}
+  \label{table:track}    
 \end{table}
 
 \begin{table}[p]
@@ -738,12 +823,12 @@ Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of
     0 & 49\\
     4 & 4\\
   \end{tabular}
-  \label{table:source}
   \caption{Number of \texttt{<source>} tags per
     \texttt{<video>} tag \tiny (zero \texttt{<source>}
     tags means the video URL was provided via
     \texttt{<video src>}; 1,405 videos did not have
     a~\texttt{src} attribute, 51 videos had one)}
+  \label{table:source}    
 \end{table}
 
 \begin{table}[p]
@@ -762,17 +847,13 @@ Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of
     \textbackslash\textbackslash\textbackslash`video/mp4\textbackslash\textbackslash\textbackslash' & 1\\
     undefined & 58\\  
   \end{tabular}
-  \label{table:type}
   \caption{Distribution of values for
     \texttt{<source type>}  \tiny
     (double/triple-quotes,
     backslashes, spacing, and unknown encoding
-    \emph{sic}) }
+    \emph{sic})}
+  \label{table:type}    
 \end{table}
-
-Moneyburn:
-$468 EC2 + $87 EMR
-
 
 \section*{Acknowledgments}
 \footnotesize

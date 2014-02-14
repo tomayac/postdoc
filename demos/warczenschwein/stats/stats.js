@@ -64,7 +64,8 @@ new lazy(fs.createReadStream(fileName)).lines.forEach(
 
     var vtt = /\.srt$/gi.test($('track[src]').attr('src')) ?
         'srt' :
-        (/\.(web)?vtt$/gi.test($('track[src]').attr('src')) ? 'vtt' : 'other');
+        (/\.(web)?vtt$/gi.test($('track[src]').attr('src')) ? 'vtt' :
+        (/\bvtt\b/gi.test($('track[src]').attr('src')) ? 'probably vtt' : 'other'));
     if (vtts[vtt]) {
       vtts[vtt] += 1;
     } else {
