@@ -53,6 +53,15 @@
 \usepackage{color}
 \newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
 
+% black diamond with white question mark
+\usepackage{graphicx,color}
+\makeatletter
+\newsavebox\Diam@nd \newlength\x@D\newlength\y@D
+\newcommand\unknown{%
+  \sbox\Diam@nd{\raisebox{-1ex}{\scalebox{1}[1.2]{\rotatebox{45}{\rule{0.8em}{0.8em}}}}}%
+  \makebox[\wd\Diam@nd]{\makebox[0pt]{\usebox\Diam@nd}\makebox[0pt]{\textcolor{white}{?}}}}
+\makeatother
+
 \hyphenation{WebVTT}
 
 \newcommand{\vtt}[1]{\texttt{vtt:#1}}
@@ -519,13 +528,13 @@ Figure~\ref{fig:json-payload} gives an example of such a JSON payload.
 }
 \end{verbatim}
 \label{fig:json-payload}
-\caption{A WevVTT cue with a JSON payload}
+\caption{A WebVTT cue with a JSON payload}
 \end{figure}
 
 Note that JSON-LD requires a \emph{context} to interpret JSON data as linked data,
 especially to disambiguate keywords to full URIs.
 This context can of course be provided in each cue,
-but we provide a convenient way to declare it once for the entier WebVTT file (see below).
+but we provide a convenient way to declare it once for the entire WebVTT file (see below).
 
 \subsection{Linked-data related metadata}
 
@@ -611,61 +620,155 @@ resulting in a~1.37GB size raw text file that we have made available publicly.%
 From all 2,963,766 \texttt{<video>} tags,
 only 1,456 had a~\texttt{<track>} child node.
 Looking at these 1,456 \texttt{<track>} nodes, we found a distribution of 
-\begin{itemize}
-  \item[kind=``captions'']: 915
-  \item[kind=``subtitles'']: 525,
-  \item[kind=``undefined'']: 10,
-  \item[kind=``chapters'']: 2
-\end{itemize}  
 
-\begin{itemize}
-  \item[srclang=``en'']: 1242,
-  \item[srclang=``fr'']: 117,
-  \item[srclang=``undefined'']: 78,
-  \item[srclang=``en-US'']: 3,
-  \item[srclang=``de'']: 8,
-  \item[srclang=``th'']: 2,
-  \item[srclang=``Español']: 1,
-  \item[srclang=``Korean]: 1,
-\end{itemize}  
-\begin{comment}
-labels
-{ English: 1064,
-  'English Subtitles': 2,
-  undefined: 229,
-  'Fran�ais': 117,
-  Captions: 10,
-  'English ': 1,
-  Deutsch: 2,
-  'English subtitles': 1,
-  'English Captions': 20,
-  Thai: 2,
-  '\\\'English\\\'': 1,
-  'English closed captioning': 3,
-  'Gr��e': 1,
-  '"English"': 3 }
-defaults
-{ default: 650, undefined: 279, '': 526, true: 1 }
-vtts
-{ other: 1000, vtt: 66, srt: 390 }
-numTracksPerVideo
-{ '0': 9, '1': 1446, '9': 1 }
-numSourcesPerVideo
-{ '0': 49, '1': 826, '2': 173, '3': 404, '4': 4 }
-types
-{ 'video/mp4': 1279,
-  undefined: 58,
-  'video/webm': 94,
-  'video/flv': 2,
-  'video/ogg': 5,
-  'video/x-ms-wmv': 10,
-  '\\\'video/mp4\\\'': 1,
-  'video/mp4; codecs="avc1.42E01E, mp4a.40.2"': 3,
-  'video/youtube': 1,
-  '"video/mp4"': 3 }
-videoSrcs
-{ '0': 1405, '1': 51 }
-\end{comment}
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }                       
+    \texttt{<track kind>} & Count \\
+    \hline  
+    captions & 915\\
+    subtitles & 525\\
+    chapters & 2\\
+    undefined & 10\\  
+  \end{tabular}
+  \label{table:kind}
+  \caption{Distribution of values for
+    \texttt{<track kind>}}
+\end{table}
+
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }                       
+    \texttt{<track srclang>} & Count \\
+    \hline  
+    en & 1242\\
+    fr & 117\\
+    de & 8\\    
+    en-US & 3\\
+    th & 2\\
+    Español & 1\\
+    Korean & 1\\
+    undefined & 78\\    
+  \end{tabular}
+  \label{table:srclang}
+  \caption{Distribution of values for
+    \texttt{<track srclang>}}
+\end{table}
+
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }                       
+    \texttt{<track label>} & Count \\
+    \hline  
+    English & 1064\\
+    `Français' & 117\\    
+    `English Captions' & 20\\    
+    Captions & 10\\
+    ```English''' & 3\\    
+    `English closed captioning' & 3\\    
+    Deutsch & 2\\    
+    `English Subtitles' & 2\\
+    Thai & 2\\    
+    `English ' & 1\\
+    `English subtitles' & 1\\
+    `\textbackslash\textbackslash\textbackslash`English\textbackslash\textbackslash\textbackslash'' & 1\\
+    `Gr\unknown\unknown e' & 1\\
+    undefined & 229\\
+  \end{tabular}
+  \label{table:label}
+  \caption{Distribution of values for
+    \texttt{<track label>} \tiny (double/triple-quotes,
+    backslashes, spacing, and unknown encoding
+    \emph{sic})}
+\end{table}
+  
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }                       
+    \texttt{<track default>} & Count \\
+    \hline
+    default & 650\\
+    `' & 526\\
+    true & 1\\
+    undefined & 279
+  \end{tabular}
+  \label{table:default}
+  \caption{Distribution of values for
+    \texttt{<track default>}}
+\end{table}
+
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }                       
+    File extensions of \texttt{<track src>} & Count \\
+    \hline
+    .srt & 390\\
+    .vtt & 66\\
+    no extension & 1000\\
+  \end{tabular}
+  \label{table:src}
+  \caption{Distribution of file extensions for
+    values for \texttt{<track src>}}
+\end{table}
+
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }                       
+    \texttt{<track>} tags & Count \\
+    \hline
+    1 & 1446\\
+    0 & 9\\
+    9 & 1\\
+  \end{tabular}
+  \label{table:track}
+  \caption{Number of \texttt{<track>} tags per
+    \texttt{<video>} tag \tiny (zero \texttt{<track>}
+    tags means  the \texttt{<video>} tag had
+    an  unparseable \texttt{<track>})}
+\end{table}
+
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }
+    \texttt{<source>} tags & Count \\
+    \hline
+    1 & 826\\    
+    3 & 404\\    
+    2 & 173\\    
+    0 & 49\\
+    4 & 4\\
+  \end{tabular}
+  \label{table:source}
+  \caption{Number of \texttt{<source>} tags per
+    \texttt{<video>} tag \tiny (zero \texttt{<source>}
+    tags means the video URL was provided via
+    \texttt{<video src>}; 1,405 videos did not have
+    a~\texttt{src} attribute, 51 videos had one)}
+\end{table}
+
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }
+    \texttt{<source type>} & Count \\
+    \hline
+    video/mp4 & 1279\\
+    video/webm & 94\\
+    video/x-ms-wmv & 10\\    
+    video/ogg & 5\\    
+    ``video/mp4'' & 3\\    
+    video/mp4; codecs=``avc1.42E01E, mp4a.40.2'' & 3\\
+    video/flv & 2\\
+    video/youtube & 1\\    
+    \textbackslash\textbackslash\textbackslash`video/mp4\textbackslash\textbackslash\textbackslash' & 1\\
+    undefined & 58\\  
+  \end{tabular}
+  \label{table:type}
+  \caption{Distribution of values for
+    \texttt{<source type>}  \tiny
+    (double/triple-quotes,
+    backslashes, spacing, and unknown encoding
+    \emph{sic}) }
+\end{table}
 
 Moneyburn:
 $468 EC2 + $87 EMR
