@@ -132,36 +132,43 @@ with broad support in all common Web browsers.
 Where with structured mark-up on webpages
 we have made the vision of the \emph{Web of Data}
 a~reality, in this paper, we propose a~new vision
-that we name the \emph{Web(VTT) of Data}
+that we name the \emph{Web(VTT) of Data},
 alongside with concrete steps to realize this vision.
 It is based on the evolving standards \emph{WebVTT}
 for adding timed text tracks to videos
-and \emph{\JSONLD}, JSON for Linking Data.
+and \emph{\JSONLD}, a~JSON-based format to serialize Linked Data.
+Just like the \emph{Web of Data}
+that is based on the relationships among structured data,
+the \emph{Web(VTT) of Data} is based on
+relationships for videos among WebVTT files,
+which we use as Web-native spatiotemporal Linked Data containers.
 In a~first step, we provide necessary background information
 on the technologies we use.
 In a~second step, we perform a~large-scale analysis
-of the 148TB-heavy Common Crawl corpus
+of the 148 terabyte size Common Crawl corpus
 in order to get a~better understanding
 of the \emph{status quo} of Web video deployment
 and address the challenge of integrating
-the existing videos in the envisioned
+the detected videos in the Common Crawl corpus into the envisioned
 \emph{Web(VTT) of Data}.
-In a~third step, we open-source an online video annotation
-consumption and creation tool
-that allows for weaving the
-\emph{Web(VTT) of Data} and making it tighter,
-video by video.
+In a~third and final step, we open-source an online video annotation
+creation and consumption tool, targeted at videos
+not contained in the Common Crawl corpus in the deep Web
+and for integrating future video creations,
+allowing for weaving the \emph{Web(VTT) of Data}
+tighter and tighter, video by video.
 \end{abstract}
 
 \category{H.5.1}{Multimedia Information Systems}{Video}
 
 %\terms{Experimentation, Design, Standardization}
 
-\keywords{WebVTT, Linked Data, Web of Data}
+\vspace{-0.5em}
+\keywords{\JSONLD, Linked\thinspace Data, media fragments, Semantic\thinspace Web, video annotation, Web\thinspace of\thinspace Data, WebVTT, Web(VTT)\thinspace of\thinspace Data}
 
 \section{Introduction}
 
-\cite{pfeiffer2013webvtt}
+
 
 \section{Technologies Overview}
 
@@ -387,6 +394,8 @@ and corresponding cue fragment identifier,
 allowing for meta annotations of annotations, \emph{e.g.},
 to attach provenance or license information to them.
 
+\todo{Proposed Annotation Model and Annotation Layer}
+
 \paragraph{Supported Semantic Annotation Types}
 
 Our model makes common annotation tasks as
@@ -604,7 +613,7 @@ accessible to anyone via Amazon Elastic Compute Cloud (Amazon~EC2),%
 \footnote{Amazon EC2: \url{http://aws.amazon.com/ec2/}}
 allowing the data to be bulk downloaded,
 as well as directly accessed for map-reduce processing in EC2.
-The at time of writing latest dataset was collected at the end of 2013,
+The, at time of writing, latest dataset was collected at the end of 2013,
 contains approximately 2.3~billion webpages and is 148TB in size~\cite{green2014winter}.
 Crawl raw data is stored in the Web ARChive format
 (WARC,~\cite{iso285002008warc}), an evolution of the previously used
@@ -661,7 +670,7 @@ only 1,456 had a~\texttt{<track>} child node.
 By closer examining these 1,456 \texttt{<track>} nodes,
 we saw that the overwhelming majority are unsurprisingly
 used for subtitles or captions.
-Close to no chapter usage was detected
+Almost no chapter usage was detected
 and no metadata usage at all.
 The full details can be seen in \autoref{table:kind}.
 The caption and subtitle languages were
