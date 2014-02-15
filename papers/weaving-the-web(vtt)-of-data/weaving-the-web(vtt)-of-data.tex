@@ -764,15 +764,25 @@ a~version it can play.
 This is realized through the \texttt{<source>} tag.
 \autoref{table:source} shows our observed numbers of
 \texttt{<source>} tag child nodes per
-\texttt{<video>} tag, with the result that up to
+\texttt{<video>} tag with \texttt{<track>} tag,
+with the result that up to
 four sources are given for essentially the ``same'' video.
+\autoref{table:sourceFull} confirms this observation
+for the entire collection of all \texttt{<video>} tags
+with or without \texttt{<track>} tag.
 \autoref{table:type} shows the distribution
-of values for the \texttt{<source type>} attribute,
+of values for the \texttt{<source type>} attribute
+of \texttt{<video>} tags with \texttt{<track>} tag,
 the clear leaders being the MP4 format
-followed by WebM.
-The biggest issue with this approach is that
+followed by WebM,
+a~trend that again is also reflected
+in \autoref{table:typeFull}
+within the entire collection
+of all \texttt{<video>} tags
+with or without \texttt{<track>} tag.
+The biggest issue with this practice is that
 rather than having one unique identifier per video,
-all of a~sudden there can be multiple.
+there can be multiple identifiers.
 We note that stating that a~video in encoding~A
 and the ``same'' video in encoding~B
 may not be marked \texttt{<owl:sameAs>},
@@ -789,7 +799,6 @@ with fragment identifiers.
 More advanced approaches to the problem
 stemming from the bibliographic universe
 like FRBR~\cite{tillett2004frbr} seem overkill, though.
-
 
 \begin{table}[p]
   \centering
@@ -811,7 +820,7 @@ like FRBR~\cite{tillett2004frbr} seem overkill, though.
   \begin{tabular}{ r | r }                       
     \texttt{<track srclang>} & Count \\
     \hline  
-    en & 1242\\
+    en & 1,242\\
     fr & 117\\
     de & 8\\    
     en-US & 3\\
@@ -830,25 +839,20 @@ like FRBR~\cite{tillett2004frbr} seem overkill, though.
   \begin{tabular}{ r | r }                       
     \texttt{<track label>} & Count \\
     \hline  
-    English & 1064\\
-    `Français' & 117\\    
-    `English Captions' & 20\\    
+    English & 1,069\\
+    Français & 117\\    
+    English Captions & 20\\    
     Captions & 10\\
-    ```English''' & 3\\    
-    `English closed captioning' & 3\\    
+    English closed captioning & 3\\    
     Deutsch & 2\\    
-    `English Subtitles' & 2\\
+    English Subtitles & 2\\
     Thai & 2\\    
-    `English ' & 1\\
-    `English subtitles' & 1\\
-    `\textbackslash\textbackslash\textbackslash`English\textbackslash\textbackslash\textbackslash'' & 1\\
-    `Gr\unknown\unknown e' & 1\\
+    English subtitles & 1\\
+    Gr\unknown\unknown e & 1\\
     undefined & 229\\
   \end{tabular}
   \caption{Distribution of values for
-    \texttt{<track label>} \tiny (double/triple-quotes,
-    backslashes, spacing, and unknown encoding
-    \emph{sic})}
+    \texttt{<track label>} \tiny (unknown encoding \emph{sic})}
   \label{table:label}    
 \end{table}
   
@@ -874,7 +878,7 @@ like FRBR~\cite{tillett2004frbr} seem overkill, though.
     \hline
     probably \texttt{.vtt} & 696\\
     \texttt{.srt} & 390\\
-    \texttt{.vtt} (or \texttt{.webvtt}) & 66\\
+    \texttt{.vtt} or \texttt{.webvtt} & 66\\
     no extension & 304\\
   \end{tabular}
   \caption{Distribution of file extensions for
@@ -887,7 +891,7 @@ like FRBR~\cite{tillett2004frbr} seem overkill, though.
   \begin{tabular}{ r | r }                       
     \texttt{<track>} tags & Count \\
     \hline
-    1 & 1446\\
+    1 & 1,446\\
     0 & 9\\
     9 & 1\\
   \end{tabular}
@@ -910,7 +914,7 @@ like FRBR~\cite{tillett2004frbr} seem overkill, though.
     4 & 4\\
   \end{tabular}
   \caption{Number of \texttt{<source>} tags per
-    \texttt{<video>} tag \tiny (zero \texttt{<source>}
+    \texttt{<video>} with \texttt{<track>} \tiny (zero \texttt{<source>}
     tags means the video URL was provided via
     \texttt{<video src>}; 1,405 videos did not have
     a~\texttt{src} attribute, 51 videos had one)}
@@ -920,25 +924,69 @@ like FRBR~\cite{tillett2004frbr} seem overkill, though.
 \begin{table}[p]
   \centering
   \begin{tabular}{ r | r }
+    \texttt{<source>} tags & Count \\
+    \hline
+    0 & 7,828,032\\
+    1 & 1,139,240\\
+    3 & 138,540\\
+    4 & 83,121\\    
+    2 & 77,853\\
+    6 & 804\\    
+    5 & 179\\
+    7 & 137\\
+    8 & 64\\
+    10 & 22\\    
+    9 & 9\\
+    13 & 8\\
+    11 & 6\\
+  \end{tabular}
+  \caption{Number of \texttt{<source>} tags per
+    \texttt{<video>} with or without \texttt{<track>}
+    \tiny (zero \texttt{<source>}
+    tags means the video URL was provided via
+    \texttt{<video src>})}
+  \label{table:sourceFull}    
+\end{table}
+
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }
     \texttt{<source type>} & Count \\
     \hline
-    video/mp4 & 1279\\
+    video/mp4 & 1,285\\
     video/webm & 94\\
     video/x-ms-wmv & 10\\    
     video/ogg & 5\\    
-    ``video/mp4'' & 3\\    
     video/mp4; codecs=``avc1.42E01E, mp4a.40.2'' & 3\\
     video/flv & 2\\
     video/youtube & 1\\    
-    \textbackslash\textbackslash\textbackslash`video/mp4\textbackslash\textbackslash\textbackslash' & 1\\
     undefined & 58\\  
   \end{tabular}
-  \caption{Distribution of values for
-    \texttt{<source type>}  \tiny
-    (double/triple-quotes,
-    backslashes, spacing, and unknown encoding
-    \emph{sic})}
+  \caption{Distribution of values for \texttt{<source type>}
+    of \texttt{<video>} tags with \texttt{<track>}}
   \label{table:type}    
+\end{table}
+
+\begin{table}[p]
+  \centering
+  \begin{tabular}{ r | r }
+    \texttt{<source type>} & Count \\
+    \hline
+    video/mp4 & 1,204,744\\
+    video/webm & 163,715\\
+    video/mp4; codecs="avc1.42E01E, mp4a.40.2" & 10,700\\
+    text/json & 2,841\\
+    video/flv & 2,281\\
+    video/x-ms-wmv & 2,105\\
+    video/flash & 2,023\\
+    video/ogg & 1,529\\
+    video/youtube & 1,528\\
+    application/x-mpegURL & 1,257\\    
+  \end{tabular}
+  \caption{Distribution of values for \texttt{<source type>}
+    of \texttt{<video>} tags with or without  \texttt{<track>}
+    \tiny (with more than 1,000 occurrences)}
+  \label{table:typeFull}    
 \end{table}
 
 \section{Related Work}
