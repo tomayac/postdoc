@@ -210,15 +210,42 @@ However, it can well be said that
 HTML5 video has finally become a~first class Web citizen
 that all modern browsers fully support.
 
-\section{Technologies Overview}
+\subsection{Contributions and Paper Structure}
 
-In this section, we lay the foundations of the technologies
+The paper makes three independent contributions.
+
+\begin{enumerate}[label=\textit{\roman*)},leftmargin=*]
+  \item \textbf{Large-scale study of the state of Web video:}
+    we have examined the 148 terabyte size Common Crawl corpus
+    and determined statistics on the usage of the \texttt{<video>},
+    \texttt{<track>}, and \texttt{<source>} tags
+    and their implications for Linked Data and the \emph{Web(VTT) of Data}.
+  \item \textbf{LinkedVTT conversion tool for WebVTT files:}
+  we have made available an on-the-fly online conversion tool
+  capable of ``triplifying'' existing WebVTT files
+  and any of the videos on YouTube%
+  \footnote{YouTube: \url{http://www.youtube.com/}} with closed captions.
+  \item \textbf{Online video annotation editor:} we have created an
+  online video annotation editor prototype that serves for the creation
+  and consumption of semantic spatiotemporal video annotations
+  turning videos into Linked Data.
+\end{enumerate}
+
+The remainder of the paper is structured as follows.
+\autoref{sec:technologies-overview} provides an overview
+of the enabling technologies that we require for our approach.
+\todo{describe paper structure}
+
+\section{Technologies Overview}
+\label{sec:technologies-overview}
+
+In this section, we lay the foundations of the set of technologies
 that enable our vision of the \emph{Web(VTT) of Data}.
 The \texttt{<track>} tag allows authors to specify explicit
 external timed text tracks for videos.
-The \texttt{<source>} tag allows authors to specify
-multiple alternative media resources for a~\texttt{video>} tag.
-Both tags do not represent anything on their own
+With the \texttt{<source>} tag, authors can specify
+multiple alternative media resources for a~video.
+Both do not represent anything on their own
 and are only meaningful as direct child nodes of a~\texttt{<video>} tag.
 
 \paragraph{Web Video Text Tracks format (WebVTT)}
@@ -246,8 +273,17 @@ for our proposed approach to semantic video annotation.
 %A~WebVTT voice tag, denoted by \texttt{<v VOICE>}, has a~value,
 %which is the name of the voice.
 Cues optionally can have unique WebVTT identifiers.
+WebVTT-compliant Web browsers~\cite{dutton2012trackelement}
+support five different kinds of
+WebVTT tracks: \emph{subtitles}, \emph{captions},
+\emph{descriptions}, \emph{chapters}, and \emph{metadata},
+detailed in \autoref{table:texttrackkinds}
+and specified in HTML5~\cite{berjon2013html5}.
+In this paper, we especially focus on
+text tracks of kind \texttt{metadata}
+meant to be used from a~scripting context and
+not displayed by the user agent.
 
-\begin{comment}
 \begin{table}[b!]\footnotesize
 \begin{tabular}{ r p{5.5cm} } % ACM column width 8.45cm, 0.83cm gutter
 \textbf{WebVTT Kind} & \textbf{Description and Default Behavior}\\
@@ -277,37 +313,25 @@ Not displayed by user agent.\\
   \caption{WebVTT text track kinds in HTML5~\cite{berjon2013html5}}
   \label{table:texttrackkinds}
 \end{table}
-\end{comment}
 
-WebVTT-compliant Web browsers %~\cite{dutton2012trackelement}
-support five different kinds of
-WebVTT tracks: \emph{subtitles}, \emph{captions},
-\emph{descriptions}, \emph{chapters}, and \emph{metadata},
-all specified in HTML5~\cite{berjon2013html5}.
-In this paper, we especially focus on
-text tracks of kind \texttt{metadata}
-that are meant to be used from a~scripting context and
-that are not displayed by the user agent.
-
-Both the HTML5 \texttt{<audio>} and \texttt{<video>} elements
-have a~\texttt{textTracks} property
+For scripting purposes, the video element
+has a~property called \texttt{textTracks}
 that returns a~\texttt{TextTrackList} of
 \texttt{TextTrack} members, each of which correspond
-to individual <track> elements.
+to track elements.
 A~\texttt{TextTrack} has a~\texttt{cues} property
 that returns a~\texttt{TextTrackCueList} of individual
 \texttt{TextTrackCue} items.
 Cue data is accessible via properties like
-\texttt{startTime}, \texttt{endTime} and,
+\texttt{startTime} and \texttt{endTime} and,
 most importantly, \texttt{text} to obtain a~cue's payload.
 When the payload is in JSON format,
 it can be parsed via the
-\texttt{JSON.parse()} function.
-
-When a~media resource like a~video or audio is playing,
+\texttt{JSON.parse()} function in JavaScript.
+When a~video is playing,
 JavaScript events of the \texttt{TextTrack} and \texttt{TextTrackCue}
 elements fire automatically when the \texttt{currentTime}
-of the media resource matches
+of the video matches
 a~cue's \texttt{startTime} or \texttt{endTime}.
 \texttt{TextTrack} elements fire \texttt{oncuechange} events,
 whereas \texttt{TextTrackCue} elements fire
@@ -333,16 +357,14 @@ Based on top of JSON, the
 (\JSONLD,~\cite{sporny2013jsonld}) is a~method for transporting
 Linked Data with a~smooth upgrade path from JSON to \JSONLD.
 \JSONLD~properties like \texttt{title} can be mapped to taxonomic
-concepts (like \texttt{dc:title}) via so-called data contexts.
-We use \JSONLD\ for semantically rich content
-in the payload of \texttt{TextTrackCue}s, shown in
-\autoref{listing:webvtt}.
-The referenced local context defines the semantics.
+concepts (like \texttt{dc:title} from Dublin Core%
+\footnote{Dublin Core: \url{http://dublincore.org/documents/dces/}})
+via so-called data contexts.
 
 \paragraph{Media Fragments URI}
 
 Media Fragments URI~\cite{troncy2012mediafragments}
-specifies a~syntax for constructing media fragments URIs
+specifies a~syntax for constructing URIs of media fragments
 and explains how to handle them over the HTTP protocol.
 The syntax is based on the specification of
 name-value pairs that can be used in URI query strings
@@ -415,6 +437,10 @@ cue1
 
 Our annotation model uses subject-predicate-object expressions.
 An annotation is thus a~single triple.
+We use \JSONLD\ for semantically rich content
+in the payload of \texttt{TextTrackCue}s, shown in
+\autoref{listing:webvtt}.
+The referenced local context defines the semantics.
 The possible values for the \emph{subject} can be \emph{(i)}~the video
 URI itself or---in case of multiple URIs for a~video available
 in different encodings with multiple \texttt{<source>} tags---%
