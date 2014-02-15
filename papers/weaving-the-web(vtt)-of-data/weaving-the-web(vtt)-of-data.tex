@@ -168,6 +168,8 @@ tighter and tighter, video by video.
 
 \section{Introduction}
 
+\subsection{From \texttt{\large\textbf{<OBJECT>}} to \texttt{\large\textbf{<video>}}}
+
 In the ``ancient'' times of HTML 4.01~\cite{raggett1999html401},
 the \texttt{<OBJECT>} tag\footnote{HTML 4.01 \texttt{<OBJECT>} tag
 (uppercased in the spirit of the epoch):
@@ -183,32 +185,41 @@ While most user agents have \textit{``built-in mechanisms
 for rendering common data types such as text, GIF images,
 colors, fonts, and a~handful of graphic elements''},
 to render data types they did not support natively---namely videos---%
-user agents generally ran external applications and depended on plugins.
-While this paragraph is provocatively written in past tense
+user agents generally ran external applications and depended on plugins
+like Adobe Flash.\footnote{Adobe Flash:
+\url{http://get.adobe.com/flashplayer/}}.
+
+While the above paragraph is provocatively written in past tense
 and while the \texttt{<object>} tag is still part of both the current
 World Wide Web Consortium (W3C) HTML5 specification~\cite{berjon2013html5}
 and the Web Hypertext Application Technology Working Group
 (WHATWG) ``Living Standard'',%
 \footnote{HTML5 \texttt{<object>} tag in the ``Living Standard'' (now lowercased):
 \url{http://www.whatwg.org/specs/web-apps/current-work/\#the-object-element}} 
-more and more Web video is now powered by the native \texttt{<video>} tag
-that no longer depends on plugins like Adobe Flash.\footnote{Adobe Flash:
-\url{http://get.adobe.com/flashplayer/}}
-What currently still hinders a~broader adoption of \texttt{<video>}
+more and more Web video is now powered by the native and well-standardized
+\texttt{<video>} tag that no longer depends on plugins.
+What currently still hinders the full adoption of \texttt{<video>},
+besides some licensing challenges around video codecs,
 is its lack of Digital Rights Management (DRM) support
 and the fierce debate around it, albeit the Director of the W3C
 has confirmed\footnote{New Charter for the HTML Working Group:
 \url{http://lists.w3.org/Archives/Public/public-html-admin/2013Sep/0129.html}}
 that work in form of the Encrypted Media Extensions~\cite{dorwin2013eme}
 on ``playback of protected content '' was in the scope of the HTML Working Group.
+However, it can well be said that
+HTML5 video has finally become a~first class Web citizen
+that all modern browsers fully support.
 
 \section{Technologies Overview}
 
-For our approach to online video annotation,
-we make use of a~young---yet mature
-when looked at from an implementation viewpoint---%
-stack of enabling technologies that we will introduce
-and provide technical details on in the following.
+In this section, we lay the foundations of the technologies
+that enable our vision of the \emph{Web(VTT) of Data}.
+The \texttt{<track>} tag allows authors to specify explicit
+external timed text tracks for videos.
+The \texttt{<source>} tag allows authors to specify
+multiple alternative media resources for a~\texttt{video>} tag.
+Both tags do not represent anything on their own
+and are only meaningful as direct child nodes of a~\texttt{<video>} tag.
 
 \paragraph{Web Video Text Tracks format (WebVTT)}
 
@@ -687,7 +698,7 @@ On these webpages, we detected exactly
 2,963,766 \texttt{<video>} tags,
 resulting in a~1.37GB size raw text file
 that we have made available publicly.%
-\footnote{2,963,766 \texttt{<video>} tags: \todo{Put this on DropBox}}
+\footnote{2,963,766 \texttt{<video>} tags: \url{https://drive.google.com/file/d/0B9LlSNwL2H8YdWVIQmJDaE81UEk/edit?usp=sharing}}
 The whole job took about five hours on
 80~c1.xlarge machines and costed overall \$555,
 consisting of \$468 for Amazon~EC2
