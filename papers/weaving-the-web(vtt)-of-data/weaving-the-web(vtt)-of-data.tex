@@ -481,6 +481,7 @@ plus an additional \$87 for Amazon Elastic MapReduce
 \url{http://aws.amazon.com/elasticmapreduce/}}
 
 \subsection{Text Track Statistics}
+\label{sec:text-track-statistics}
 
 From all 2,963,766 \texttt{<video>} tags,
 only 1,456 (${\approx0.049\%}$) had a~\texttt{<track>} child node.
@@ -567,9 +568,13 @@ in \autoref{table:typeFull}
 within the entire collection
 of all \texttt{<video>} tags
 \emph{with or without} \texttt{<track>} tag.
+
+\subsection{Implications on Linked Data for Videos}
+\label{sec:implications-on-linked-data-for-videos}
+
 The biggest issue with this practice
 of putting multiple sources is that
-rather than having one unique identifier per video,
+rather than having one unique identifier (URL) per video,
 there can be multiple identifiers.
 We note that a~video in encoding~A
 and the ``same'' video in encoding~B
@@ -587,7 +592,7 @@ with fragment identifiers.
 More advanced approaches to the problem
 stemming from the bibliographic universe
 like FRBR~\cite{tillett2004frbr} are possible,
-but seem overly complex.
+but for the concrete use case seem quite complex.
 
 \begin{table}[p]
   \centering
@@ -781,134 +786,145 @@ but seem overly complex.
 \section{LinkedVTT Conversion Tool for WebVTT Files}
 \label{sec:linkedvtt-conversion-tool-for-webvtt-files}
 
-The WebVTT specification defines a syntax for conveying video text tracks,
-and a semantics for this syntax in terms of how web browser should process such tracks.
-It achieves that by specifying an underlying data model for those tracks.
+The WebVTT specification~\cite{pfeiffer2013webvtt} defines a~syntax
+for conveying timed video text tracks,
+and a~semantics for this syntax in terms of how
+Web browsers should process such tracks.
+It achieves this by specifying an underlying data model for those tracks.
 The aim of this section is to show
-how this data model can easily be mapped to RDF-based linked data,
-thus allowing many other uses of this data.
-For this purpose, we propose an RDF-Schema ontology\footnote{
-  \url{http://champin.net/2014/linkedvtt/onto\#}
-} conveying the WebVTT data model.
-In the rest of the paper, terms of this ontology will be preceded by the \vtt{} prefix.
-An online implementation of this interpretation process is also available\footnote{
-  \url{http://champin.net/2014/linkedvtt/}
-}.
+how this data model can easily be mapped to RDF-based Linked Data,
+and thus allowing for many other usage scenarios for this data.
+For this purpose, we propose an RDF-Schema ontology%
+\footnote{RDF-Schema ontology:
+\url{http://champin.net/2014/linkedvtt/onto\#}}
+conveying the WebVTT data model.
+In the rest of the paper, terms from this ontology
+will be preceded by the \vtt{} prefix.
+An online implementation of this interpretation process
+that we have titled LinkedVTT is likewise available online.%
+\footnote{LinkedVTT: \url{http://champin.net/2014/linkedvtt/}}
 
-\subsection{Basic interpretation}
+\subsection{Basic Interpretation}
 
-A WebVTT file defines a set of cues,
-which are described by a pair of timestamps and a payload.
-In other word, each cue is an annotation of the video,
-associating a fragment, delimited by the two timestamps, to the payload.
-As we have a standard way of identifying that fragment with a URI~\cite{troncy2012mediafragments}
-it is straightfoward to represent this annotation as an RDF triple.
-We therefore propose a property \vtt{annotatedBy} to serve as predicate for those triples.
-
+A WebVTT file defines a~set of cues,
+which are described by a~pair of timestamps and a~payload.
+In other words, each cue is an annotation of the video,
+associating a~temporal video fragment to the payload,
+delimited by the two timestamps.
+As there is a~standard way of identifying \emph{temporal}
+and \emph{spatial} video fragments
+with a~URI~\cite{troncy2012mediafragments}
+it is straightforward to represent this annotation as an RDF triple.
+We therefore propose a~property \vtt{annotatedBy}
+to serve as predicate for those triples.
 To keep the context of each annotation,
 we use the notion of RDF dataset~\cite{cyganiak2014rdf11concepts}.
-Each \vtt{annotatedBy} triple is enclosed in a named graph,
-whose name is either a URI, based on the cue identifier it has one,
-or a blank node if the cue has no identifier.
+Each \vtt{annotatedBy} triple is enclosed in a~named graph,
+whose name is either a~URI, based on the cue identifier if it has one,
+or a~blank node if the cue has no identifier.
 The default graph of the dataset describes its overall structure,
 linking the dataset URI to all the URIs and blank nodes identifying its cues
 with the \vtt{hasCue} property.
-Each cue is also linked, in the default graph, to the media fragment URI it describes,
+In the default graph, each cue is also linked to
+the Media Fragment URI it describes,
 with the \vtt{describesFragment} property. 
-
-\todo{illustrate with a figure, representing the WebVTT example that will probably be there in the intro?}
-
 As the notion of dataset is a recent addition to the RDF core concepts
 (previously, it was specific to the SPARQL query language),
 we envision that some consumers will not be able to deal with it.
-Hence we propose an alternate interpretation of WebVTT into RDF.
+Hence we propose an alternate interpretation of WebVTT as RDF.
 In this so-called \emph{flat} interpretation,
-the content of all named graph is merged into the default graph.
+the contents of all named graphs is merged into the default graph.
+\todo{illustrate with a figure, representing the WebVTT example that will probably be there in the intro?}
 
-\subsection{Advanced interpretation}
+\subsection{Advanced Interpretation}
 
-WebVTT is not limited to textual caption tracks.
-The HTML5 \texttt{track} tag supports indeed different kinds of track,
+WebVTT is not limited to textual timed text tracks.
+As \autoref{table:texttrackkinds} details, the HTML5
+\texttt{<track>} tag supports different kinds of tracks,
 one of them being \textit{metadata},
-a track designed for machine rather than human consumption.
-Although there is few evidence of use of this kind of tracks (see next section),
-which is understandable as the technology is still under development,
-we propose that JSON data is a good candidate for cues of such tracks.
-Indeed, JSON has a textual syntax which is easy to author
-and easy to process in a web browser.
-Furthermore, JSON-LD~\cite{sporny2013jsonld} provides
-a standard way to interpret JSON data as linked data,
+a~track designed for machine rather than human consumption.
+Although it was shown in \autoref{sec:text-track-statistics}
+that there is no measurable evidence of use for this kind of track yet---%
+which is understandable given that the technology
+is still under development---%
+we propose that JSON data is a~good candidate for cues of such tracks.
+JSON has a~textual syntax that is easy to author
+and easy to process in a~Web browser and elsewhere.
+Furthermore, \JSONLD~\cite{sporny2013jsonld} provides
+a~standard way to interpret JSON data as Linked Data,
 which fits nicely with our approach.
-
-More precisely, whenever the payload of a cue parses to a JSON object,
-we consider that this object is meant to represent the annotated media fragment itself,
-and we interpret it as JSON-LD.
-Hence, all the property of the JSON object are applied directly to the fragment,
-and embedded structures can be used to describe other resources related to that fragment
-(\textit{e.g.} depicted persons).
-In that case, all the triples generated from parsing the payload as JSON-LD
+More precisely, whenever the payload of a~cue
+successfully parses as a~JSON object,
+we consider that this object is meant to
+represent the annotated media fragment itself,
+and interpret it as \JSONLD.
+In consequence, all properties of the JSON object
+are applied directly to the fragment,
+and embedded structures can be used to describe
+other resources related to that fragment,
+\emph{e.g.}, depicted persons, locations, topics, related videos
+or video fragments, or spatiotemporal video tags.
+In this case, all the triples generated from parsing the payload as \JSONLD
 \emph{replace} the \vtt{annotatedBy} triple in the cue's named graph.
-Figure~\ref{fig:json-payload} gives an example of such a JSON payload.
+\autoref{listing:jsonld-payload} gives an example of such \JSONLD payload.
+We note that \JSONLD requires a~\emph{context}
+to interpret JSON data as Linked Data,
+especially to disambiguate keywords to full URIs.
+This context can be provided in each cue,
+but in the following we also provide a preferred way to declare it once
+for the entire WebVTT file.
 
-\begin{figure}
-\begin{verbatim}
+\begin{lstlisting}[caption={A~WebVTT cue with a~\JSONLD~payload},
+  label=listing:jsonld-payload, float=t!]
 00:00:00.000 --> 00:00:12.000
 {
- "label": "Vince and Jules in the car",
- "depicts": [
-  { "@id":
-     "http://www.wikidata.org/entity/Q80938",
-    "name": "John Travolta" },
-  { "@id":
-     "http://www.wikidata.org/entity/Q172678",
-    "name": "Samuel L. Jackson" }
+  "label": "Vince and Jules in the car",
+  "depicts": [
+    {
+      "@id": "http://wikidata.org/entity/Q80938",
+      "name": "John Travolta"
+    },
+    {
+      "@id": "http://wikidata.org/entity/Q172678",
+      "name": "Samuel L. Jackson"
+    }
   ]
 }
-\end{verbatim}
-\label{fig:json-payload}
-\caption{A WebVTT cue with a JSON payload}
-\end{figure}
+\end{lstlisting}
 
-Note that JSON-LD requires a \emph{context} to interpret JSON data as linked data,
-especially to disambiguate keywords to full URIs.
-This context can of course be provided in each cue,
-but we provide a convenient way to declare it once for the entire WebVTT file (see below).
+\subsection{Linked Data Related Metadata}
 
-\subsection{Linked-data related metadata}
-
-WebVTT files can contain, in addition to the cues, some metadata described as key-value pairs.
-While the WebVTT specification defines a number of metadata keys,
+In addition to the cues, WebVTT files can contain
+metadata headers described as key-value pairs.
+While the WebVTT specification defines a~number of metadata headers,
 it leaves it open for extensions.
-We propose three extended metadata keys:
+We propose three extended metadata headers:
 
 \begin{description}
-
-\item[@base]
-Sets the base URI used for resolving relative URIs.
-This applies to any relative URIs that would be found in the JSON-LD descriptions,
-but also to generate URIs for cues based on their identifiers.
-It defaults to the URI of the WebVTT file.
-
-\item[@context]
-This key can be used multiple times; each value is the URI of a JSON-LD context
-that should be used to interpret the JSON payloads in the WebVTT file.
-
-\item[@video]
-Sets the URI for the video for generating media fragment URIs.
-If not present, the video URI must be provided externally,
-\textit{e.g.} the \texttt{src} attribute of the \texttt{video} tag
-containing the WebVTT track.
-
+  \item[@base]
+  Sets the base URI used for resolving relative URIs.
+  This applies to any relative URIs that would be found in the \JSONLD descriptions,
+  but also to generate URIs for cues based on their identifiers.
+  It defaults to the URI of the WebVTT file.
+  \item[@context]
+  This key can be used multiple times; each value is the URI
+  of a~\JSONLD context that should be used to
+  interpret the JSON payloads in the WebVTT file.
+  \item[@video]
+  Sets the URI for the video for generating media fragment URIs.
+  If not present, the video URI must be provided externally,
+  \emph{e.g.}, the \texttt{<video src>} attribute of the video
+  containing the WebVTT track.
+  This metadata header is a~direct response to an issue that we
+  have outlined in \autoref{sec:implications-on-linked-data-for-videos}.
 \end{description}
 
-Of course, WebVTT in the wild does not contain those metadata keys,
-but we believe that they allow an easy transition
-from plain WebVTT to linked-data WebVTT,
-just like JSON-LD makes it easy to turn plain JSON into linked data
-by simply adding a \texttt{@context} key.
-
-
-
+Of course, WebVTT in the wild currently does not contain
+these metadata headers,
+but we argue that they allow for an easy transition
+from plain WebVTT to Linked Data WebVTT,
+just like \JSONLD~makes it easy to turn plain JSON into Linked Data
+by adding a \texttt{@context} property.
 
 \section{Online Video Annotation Format and Editor}
 \label{sec:online-video-annotation-format-and-editor}
