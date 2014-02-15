@@ -62,7 +62,7 @@
   \makebox[\wd\Diam@nd]{\makebox[0pt]{\usebox\Diam@nd}\makebox[0pt]{\textcolor{white}{?}}}}
 \makeatother
 
-\hyphenation{WebVTT}
+\hyphenation{WebVTT PageRank}
 
 \newcommand{\vtt}[1]{\texttt{vtt:#1}}
 \def\JSONLD{\mbox{JSON-LD}}
@@ -403,6 +403,17 @@ about media items and fragments thereof.
 
 \section{Large-Scale Common Crawl\\ Study of the State of Web Video}
 
+Part of the objectives behind the \emph{Web(VTT) of Data}
+is to create a~truly interconnected global network of and between videos
+containing Linked Data pointers to related content of all sorts,
+where diverse views are not filtered by the network bubble, 
+but where serendipitously new views can be discovered
+by taking untrodden Linked Data paths.
+In order to get there,
+we have conducted a~large-scale study
+based on the Common Crawl corpus to get a~better understanding
+of the \emph{status quo} of Web video and timed text track deployment.
+
 \subsection{Common Crawl}
 
 The Common Crawl Foundation\footnote{Common Crawl: \url{http://commoncrawl.org/}}
@@ -414,10 +425,11 @@ All Common Crawl data is stored on Amazon Simple Storage Service (Amazon~S3)%
 \footnote{Amazon S3: \url{http://aws.amazon.com/s3/}} and
 accessible to anyone via Amazon Elastic Compute Cloud (Amazon~EC2),%
 \footnote{Amazon EC2: \url{http://aws.amazon.com/ec2/}}
-allowing the data to be bulk downloaded,
-as well as directly accessed for map-reduce processing in EC2.
+allowing the data to be downloaded in bulk,
+as well as directly be accessed for map-reduce processing in EC2.
 The, at time of writing, latest dataset was collected at the end of 2013,
-contains approximately 2.3~billion webpages and is 148TB in size~\cite{green2014winter}.
+contains approximately 2.3~billion webpages
+and is 148 terabyte in size~\cite{green2014winter}.
 Crawl raw data is stored in the Web ARChive format
 (WARC,~\cite{iso285002008warc}), an evolution of the previously used
 Archive File Format (ARC,~\cite{burner1996arc}),
@@ -430,38 +442,39 @@ which describe the metadata of each request and response.
 While the Common Crawl corpus gets bigger with each crawl run,
 it obviously does not represent the ``whole Web'',
 which is an illusive concept anyway,
-given that a~simple calendar webpage can produce an infinite number of pages.
+given that a~simple calendar Web application can produce an infinite number of pages.
 Common Crawl decides on the to-be-included pages based on an implementation%
-\footnote{Common Crawl PageRank implementation:
+\footnote{Common Crawl PageRank code:
 \url{https://github.com/commoncrawl/commoncrawl-crawler/tree/master/src/org/commoncrawl/service/pagerank}}
 of the PageRank~\cite{page1999pagerank} algorithm,
-albeit--despite the foundation's focus on transparency---%
-the concrete inclusion strategy is unknown.
+albeit the inclusion strategy is unknown---%
+despite the foundation's focus on transparency.
 
 \subsection{On the Quest for WebVTT}
 
-We have analyzed the entire 148TB of webpages
+We have analyzed the entire 148 terabytes of crawl data
 using an Elastic Compute Cloud job
 whose code was made available as open-source.%
 \footnote{EC2 job:
 \url{https://github.com/tomayac/postdoc/blob/master/demos/warczenschwein/src/main/java/com/tomayac/warczenschwein/TagTool.java}}
 Rather than parse each document as HTML,
-we have tested each document for the regular expression
+we have tested them for the regular expression
 \texttt{<video[\^{}>]*>(.*?)</video>},
 an approach that also in previous experiments
 proved very efficient%
 ~\cite{bizer2013deployment,muhleisen2012web}.
 We tested exactly 2,247,615,323 webpages
-that returned a successful HTTP response,
+that had returned a successful HTTP response to the Common Crawl bot,
 and had to skip exactly 46,524,336  non-HTML documents.
 On these webpages, we detected exactly
 2,963,766 \texttt{<video>} tags,
-resulting in a~1.37GB size raw text file
+resulting in a~1.37 gigabyte raw text file
 that we have made available publicly.%
 \footnote{2,963,766 \texttt{<video>} tags: \url{https://drive.google.com/file/d/0B9LlSNwL2H8YdWVIQmJDaE81UEk/edit?usp=sharing}}
+This means that on average only ${\approx}0.132\%$ of all webpages contain video.
 The whole job took about five hours on
 80~c1.xlarge machines and costed overall \$555,
-consisting of \$468 for Amazon~EC2
+consisting of \$468 for Amazon~EC2,
 plus an additional \$87 for Amazon Elastic MapReduce
  (Amazon EMR)\footnote{Amazon EMR:
 \url{http://aws.amazon.com/elasticmapreduce/}}
@@ -469,17 +482,18 @@ plus an additional \$87 for Amazon Elastic MapReduce
 \subsection{Text Track Statistics}
 
 From all 2,963,766 \texttt{<video>} tags,
-only 1,456 had a~\texttt{<track>} child node.
-By closer examining these 1,456 \texttt{<track>} nodes,
+only 1,456 (${\approx0.049\%}$) had a~\texttt{<track>} child node.
+Upon closer examination of the kinds of these 1,456 \texttt{<track>} nodes
+(see \autoref{table:texttrackkinds} for an explanation of the various kinds),
 we saw that the overwhelming majority are unsurprisingly
 used for subtitles or captions.
 Almost no chapter usage was detected
 and no metadata usage at all.
 The full details can be seen in \autoref{table:kind}.
-The caption and subtitle languages were
-almost exclusively English and French,
-as can be seen in \autoref{table:srclang},
-the track labels listed in \autoref{table:label}
+Looking at the languages used in the captions and subtitles, 
+these were almost exclusively English and French,
+as can be seen in \autoref{table:srclang}.
+The track labels listed in \autoref{table:label}
 indeed confirm this observation.
 In case of multiple tracks for one video,
 one track can be marked as the default track.
@@ -493,10 +507,10 @@ which is ``default'' in the concrete case.
 shows that this was used correctly in almost all cases.
 When we tried to determine the MIME type of the actual
 text tracks, we relied on the file extension
-of the values given in \texttt{<track src>}.
+of the values given in the \texttt{<track src>} attributes.
 As a~significant amount of text tracks
 seems to be dynamically generated on-the-fly---%
-and thus had no file extension---%
+and thus had no file extension but a~video identifier in the URL instead---%
 we used an approximation to check if some part
 of the URL matched the regular expression \texttt{/\textbackslash bvtt\textbackslash b/gi}.
 Based on this approximation,
@@ -510,9 +524,10 @@ The predecessor SubRip file format%
 can still be encountered in about
 a~quarter of all text tracks.
 The full details are available in \autoref{table:src}.
-Almost all videos with at least one text track
-had only exactly one text track and not more,
-as can be seen in \autoref{table:track}.
+Almost all videos had only exactly one text track
+rather than multiple, as detailed in \autoref{table:track},
+meaning that the broad majority of all videos are subtitled or captioned
+in only one language, concretely English or French (\autoref{table:srclang}).
 
 \subsection{Video Statistics}
 
