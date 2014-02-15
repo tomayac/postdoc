@@ -168,7 +168,39 @@ tighter and tighter, video by video.
 
 \section{Introduction}
 
-
+In the ``ancient'' times of HTML 4.01~\cite{raggett1999html401},
+the \texttt{<OBJECT>} tag\footnote{HTML 4.01 \texttt{<OBJECT>} tag
+(uppercased in the spirit of the epoch):
+\url{http://www.w3.org/TR/REC-html40/struct/objects.html\#edef-OBJECT}}
+was intended for allowing authors to make use of multimedia features
+like including images, applets (programs that were automatically downloaded
+and ran on the user's machine), video clips, and other HTML documents in their pages.
+The tag was seen as a~future-proof all-purpose solution to generic object inclusion.
+In an \texttt{<OBJECT>} tag, HTML authors can specify everything required
+by an object for its presentation by a user agent:
+source code, initial values, and run-time data.
+While most user agents have \textit{``built-in mechanisms
+for rendering common data types such as text, GIF images,
+colors, fonts, and a~handful of graphic elements''},
+to render data types they did not support natively---namely videos---%
+user agents generally ran external applications and depended on plugins.
+While this paragraph is provocatively written in past tense
+and while the \texttt{<object>} tag is still part of both the current
+World Wide Web Consortium (W3C) HTML5 specification~\cite{berjon2013html5}
+and the Web Hypertext Application Technology Working Group
+(WHATWG) ``Living Standard'',%
+\footnote{HTML5 \texttt{<object>} tag in the ``Living Standard'' (now lowercased):
+\url{http://www.whatwg.org/specs/web-apps/current-work/\#the-object-element}} 
+more and more Web video is now powered by the native \texttt{<video>} tag
+that no longer depends on plugins like Adobe Flash.\footnote{Adobe Flash:
+\url{http://get.adobe.com/flashplayer/}}
+What currently still hinders a~broader adoption of \texttt{<video>}
+is its lack of Digital Rights Management (DRM) support
+and the fierce debate around it, albeit the Director of the W3C
+has confirmed\footnote{New Charter for the HTML Working Group:
+\url{http://lists.w3.org/Archives/Public/public-html-admin/2013Sep/0129.html}}
+that work in form of the Encrypted Media Extensions~\cite{dorwin2013eme}
+on ``playback of protected content '' was in the scope of the HTML Working Group.
 
 \section{Technologies Overview}
 
@@ -908,6 +940,10 @@ like FRBR~\cite{tillett2004frbr} seem overkill, though.
     \emph{sic})}
   \label{table:type}    
 \end{table}
+
+\section{Related Work}
+
+~\cite{yi2012synote}
 
 \section*{Acknowledgments}
 \footnotesize
