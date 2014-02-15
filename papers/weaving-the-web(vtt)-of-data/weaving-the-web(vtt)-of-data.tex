@@ -215,11 +215,11 @@ that all modern browsers fully support.
 The paper makes three independent contributions.
 
 \begin{enumerate}[label=\textit{\roman*)},leftmargin=*]
-  \item \textbf{Large-scale study of the state of Web video:}
+  \item \textbf{Large-Scale Common Crawl study of the state of Web video:}
     we have examined the 148 terabyte size Common Crawl corpus
     and determined statistics on the usage of the \texttt{<video>},
     \texttt{<track>}, and \texttt{<source>} tags
-    and their implications for Linked Data and the \emph{Web(VTT) of Data}.
+    and their implications for Linked Data.
   \item \textbf{LinkedVTT conversion tool for WebVTT files:}
   we have made available an on-the-fly online conversion tool
   capable of ``triplifying'' existing WebVTT files
@@ -401,275 +401,9 @@ Combined with Media Fragments URI,
 this allows for making ontologically anchored statements
 about media items and fragments thereof.
 
-\begin{lstlisting}[caption={Sample WebVTT metadata file},
-  label=listing:webvtt, float=t!]
-WEBVTT
+\section{Large-Scale Common Crawl\\ Study of the State of Web Video}
 
-cue1
-00:00:00.000 --> 00:00:12.000
-{
-  "@context": "http://ex.org/local_context",
-  "tags": ["wind scene", "opening credits"],
-  "contributors": ["http://ex.org/sintel"]
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={Generated \JSONLD~for the Web of Data, see
-    \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
-  label=listing:jsonld, float=t!]
-{
-  "@context": "http://ex.org/global_context",
-  "@id": "http://ex.org/video",
-  "@type": "MediaResource",
-  "hasFragment": [{
-    "@id": "http://ex.org/video#t=0,12",
-    "@type": "MediaFragment",
-    "@context": "http://ex.org/local_context",
-    "tags": ["wind scene", "opening credits"],
-    "contributors": ["http://ex.org/sintel"]
-  }]
-}
-\end{lstlisting}
-
-\section{Annotation Model}
-
-\paragraph{General Concepts of the Annotation Model}
-
-Our annotation model uses subject-predicate-object expressions.
-An annotation is thus a~single triple.
-We use \JSONLD\ for semantically rich content
-in the payload of \texttt{TextTrackCue}s, shown in
-\autoref{listing:webvtt}.
-The referenced local context defines the semantics.
-The possible values for the \emph{subject} can be \emph{(i)}~the video
-URI itself or---in case of multiple URIs for a~video available
-in different encodings with multiple \texttt{<source>} tags---%
-the URI with fragment identifier of the \texttt{<video>} tag
-that then requires a~unique \texttt{id} attribute,
-\emph{(ii)}~the Media Fragment URI of a~temporal and/or spatial
-media fragment of the original media item.
-We have no constraints in place for the \emph{predicate},
-which determines the annotation type, and the \emph{object}.
-In our interpretation layer responsible for the video view,
-we thus make an open world assumption
-by supporting a~set of pre-defined values for predicate and object
-listed below, and ignoring unknown ones.
-This permits others to extend---or even completely replace---%
-our interpretation layer.
-If a~\texttt{TextTrackCue} has a~WebVTT identifier,
-we use it to address its annotations
-via the metadata track's URI
-and corresponding cue fragment identifier,
-allowing for meta annotations of annotations, \emph{e.g.},
-to attach provenance or license information to them.
-
-\todo{Proposed Annotation Model and Annotation Layer}
-
-\paragraph{Supported Semantic Annotation Types}
-
-Our model makes common annotation tasks as
-straight-forward as in \autoref{listing:webvtt}.
-The thereby generated triples are shown in
-\autoref{listing:jsonld} and \url{http://bit.ly/webvtt-jsonld}.
-Advanced tasks are supported by extending \JSONLD~contexts.\\
-
-\noindent \textbf{Plain Text Tags:} Annotations of type
-  \texttt{tags} allow for add\-ing plain text tags
-  to a~media fragment.
-  Internally, they are represented as Common Tag%
-  ~\cite{commontag2009spec} format \texttt{ctag:label}.
-
-\noindent \textbf{Semantic Tags:} Annotations of type
-  \texttt{semanticTags} allow for adding semantic tags
-  to a~media fragment.
-  Unlike plain text tags, semantic tags are references to
-  well-defined concepts complete with their own URIs.
-  Internally, they are represented as Common Tag%
-  ~\cite{commontag2009spec} format \texttt{ctag:means}.
-
-\noindent \textbf{Contributors:} The \texttt{contributors} annotation type
-  al-\linebreak lows for denoting the contributors in a~media fragment, like its actors.
-  Internally, they are represented as
-  Ontology for Media Resources~\cite{lee2012mediaontology}
-  format \texttt{ma:contributors}.
-
-\noindent \textbf{Summary:} The \texttt{summary} annotation type
-  allows for summarizing a~media fragment
-  (note, not the whole video like kind \emph{description} tracks)
-  with plain text.
-  Internally, they are represented as  
-  \texttt{ma:description}~\cite{lee2012mediaontology}.
-
-\noindent \textbf{Named Graph:} The \texttt{namedGraph} annotation type
-  allows for adding a~set of RDF triples
-  to a~media fragment.
-  Internally, they are represented as \JSONLD%
-  ~\cite{sporny2013jsonld} named graph.
-
-\paragraph{Supported Presentation-Oriented Annotation Types}
-
-Presentation-oriented annotations---%
-similar to temporal\linebreak style sheets
-(also see \autoref{sec:future-work-conclusions})---%
-do not generate RDF data,
-but only impact the way videos get presented.\\
-
-\noindent \textbf{Visual Effect:} Annotations of
-  type \texttt{visualEffect} allow for applying visual effects
-  in the syntax of Cascading Style Sheets%
-  \footnote{Cascading Style Sheets:
-  \url{http://www.w3.org/Style/CSS/}} (CSS)
-  to a~media fragment, \emph{e.g.},
-  filters, zoom effects, transparency,
-  and 2D/3D transformations and animations.
-
-\noindent \textbf{Audial Effect:} The \texttt{audialEffect} annotation type
-  allows for applying audial effects to a~media fragment.
-  Currently, we support modifying the volume on a~scale
-  from~0 to~1.
-
-\noindent \textbf{Playback Rate:} The \texttt{playbackRate}
-  annotation type allows for specifying the effective
-  playback rate of a~media fragment.
-  The playback rate is expressed as a~floating point
-  multiple or fraction of the intrinsic video speed.
-
-\noindent \textbf{HTML Overlay:} Via the \texttt{htmlOverlay}
-  annotation type, overlays in
-  freeform HTML code can be added to a~media fragment.
-  Examples are graphical, textual, or combined overlays
-  that can contain links to (temporal fragments of)
-  other videos or within the current video.
-
-\section{WebVTT as linked data}
-
-The WebVTT specification defines a syntax for conveying video text tracks,
-and a semantics for this syntax in terms of how web browser should process such tracks.
-It achieves that by specifying an underlying data model for those tracks.
-The aim of this section is to show
-how this data model can easily be mapped to RDF-based linked data,
-thus allowing many other uses of this data.
-For this purpose, we propose an RDF-Schema ontology\footnote{
-  \url{http://champin.net/2014/linkedvtt/onto\#}
-} conveying the WebVTT data model.
-In the rest of the paper, terms of this ontology will be preceded by the \vtt{} prefix.
-An online implementation of this interpretation process is also available\footnote{
-  \url{http://champin.net/2014/linkedvtt/}
-}.
-
-\subsection{Basic interpretation}
-
-A WebVTT file defines a set of cues,
-which are described by a pair of timestamps and a payload.
-In other word, each cue is an annotation of the video,
-associating a fragment, delimited by the two timestamps, to the payload.
-As we have a standard way of identifying that fragment with a URI~\cite{troncy2012mediafragments}
-it is straightfoward to represent this annotation as an RDF triple.
-We therefore propose a property \vtt{annotatedBy} to serve as predicate for those triples.
-
-To keep the context of each annotation,
-we use the notion of RDF dataset~\cite{cyganiak2014rdf11concepts}.
-Each \vtt{annotatedBy} triple is enclosed in a named graph,
-whose name is either a URI, based on the cue identifier it has one,
-or a blank node if the cue has no identifier.
-The default graph of the dataset describes its overall structure,
-linking the dataset URI to all the URIs and blank nodes identifying its cues
-with the \vtt{hasCue} property.
-Each cue is also linked, in the default graph, to the media fragment URI it describes,
-with the \vtt{describesFragment} property. 
-
-\todo{illustrate with a figure, representing the WebVTT example that will probably be there in the intro?}
-
-As the notion of dataset is a recent addition to the RDF core concepts
-(previously, it was specific to the SPARQL query language),
-we envision that some consumers will not be able to deal with it.
-Hence we propose an alternate interpretation of WebVTT into RDF.
-In this so-called \emph{flat} interpretation,
-the content of all named graph is merged into the default graph.
-
-\subsection{Advanced interpretation}
-
-WebVTT is not limited to textual caption tracks.
-The HTML5 \texttt{track} tag supports indeed different kinds of track,
-one of them being \textit{metadata},
-a track designed for machine rather than human consumption.
-Although there is few evidence of use of this kind of tracks (see next section),
-which is understandable as the technology is still under development,
-we propose that JSON data is a good candidate for cues of such tracks.
-Indeed, JSON has a textual syntax which is easy to author
-and easy to process in a web browser.
-Furthermore, JSON-LD~\cite{sporny2013jsonld} provides
-a standard way to interpret JSON data as linked data,
-which fits nicely with our approach.
-
-More precisely, whenever the payload of a cue parses to a JSON object,
-we consider that this object is meant to represent the annotated media fragment itself,
-and we interpret it as JSON-LD.
-Hence, all the property of the JSON object are applied directly to the fragment,
-and embedded structures can be used to describe other resources related to that fragment
-(\textit{e.g.} depicted persons).
-In that case, all the triples generated from parsing the payload as JSON-LD
-\emph{replace} the \vtt{annotatedBy} triple in the cue's named graph.
-Figure~\ref{fig:json-payload} gives an example of such a JSON payload.
-
-\begin{figure}
-\begin{verbatim}
-00:00:00.000 --> 00:00:12.000
-{
- "label": "Vince and Jules in the car",
- "depicts": [
-  { "@id":
-     "http://www.wikidata.org/entity/Q80938",
-    "name": "John Travolta" },
-  { "@id":
-     "http://www.wikidata.org/entity/Q172678",
-    "name": "Samuel L. Jackson" }
-  ]
-}
-\end{verbatim}
-\label{fig:json-payload}
-\caption{A WebVTT cue with a JSON payload}
-\end{figure}
-
-Note that JSON-LD requires a \emph{context} to interpret JSON data as linked data,
-especially to disambiguate keywords to full URIs.
-This context can of course be provided in each cue,
-but we provide a convenient way to declare it once for the entire WebVTT file (see below).
-
-\subsection{Linked-data related metadata}
-
-WebVTT files can contain, in addition to the cues, some metadata described as key-value pairs.
-While the WebVTT specification defines a number of metadata keys,
-it leaves it open for extensions.
-We propose three extended metadata keys:
-
-\begin{description}
-
-\item[@base]
-Sets the base URI used for resolving relative URIs.
-This applies to any relative URIs that would be found in the JSON-LD descriptions,
-but also to generate URIs for cues based on their identifiers.
-It defaults to the URI of the WebVTT file.
-
-\item[@context]
-This key can be used multiple times; each value is the URI of a JSON-LD context
-that should be used to interpret the JSON payloads in the WebVTT file.
-
-\item[@video]
-Sets the URI for the video for generating media fragment URIs.
-If not present, the video URI must be provided externally,
-\textit{e.g.} the \texttt{src} attribute of the \texttt{video} tag
-containing the WebVTT track.
-
-\end{description}
-
-Of course, WebVTT in the wild does not contain those metadata keys,
-but we believe that they allow an easy transition
-from plain WebVTT to linked-data WebVTT,
-just like JSON-LD makes it easy to turn plain JSON into linked data
-by simply adding a \texttt{@context} key.
-
-\section{Common Crawl}
+\subsection{Common Crawl}
 
 The Common Crawl Foundation\footnote{Common Crawl: \url{http://commoncrawl.org/}}
 is a~non-profit organization founded in 2008 by Gil Elbaz.
@@ -1025,6 +759,274 @@ like FRBR~\cite{tillett2004frbr} seem overkill, though.
     \tiny (with more than 1,000 occurrences)}
   \label{table:typeFull}    
 \end{table}
+
+\begin{lstlisting}[caption={Sample WebVTT metadata file},
+  label=listing:webvtt, float=t!]
+WEBVTT
+
+cue1
+00:00:00.000 --> 00:00:12.000
+{
+  "@context": "http://ex.org/local_context",
+  "tags": ["wind scene", "opening credits"],
+  "contributors": ["http://ex.org/sintel"]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Generated \JSONLD~for the Web of Data, see
+    \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
+  label=listing:jsonld, float=t!]
+{
+  "@context": "http://ex.org/global_context",
+  "@id": "http://ex.org/video",
+  "@type": "MediaResource",
+  "hasFragment": [{
+    "@id": "http://ex.org/video#t=0,12",
+    "@type": "MediaFragment",
+    "@context": "http://ex.org/local_context",
+    "tags": ["wind scene", "opening credits"],
+    "contributors": ["http://ex.org/sintel"]
+  }]
+}
+\end{lstlisting}
+
+\section{Annotation Model}
+
+\paragraph{General Concepts of the Annotation Model}
+
+Our annotation model uses subject-predicate-object expressions.
+An annotation is thus a~single triple.
+We use \JSONLD\ for semantically rich content
+in the payload of \texttt{TextTrackCue}s, shown in
+\autoref{listing:webvtt}.
+The referenced local context defines the semantics.
+The possible values for the \emph{subject} can be \emph{(i)}~the video
+URI itself or---in case of multiple URIs for a~video available
+in different encodings with multiple \texttt{<source>} tags---%
+the URI with fragment identifier of the \texttt{<video>} tag
+that then requires a~unique \texttt{id} attribute,
+\emph{(ii)}~the Media Fragment URI of a~temporal and/or spatial
+media fragment of the original media item.
+We have no constraints in place for the \emph{predicate},
+which determines the annotation type, and the \emph{object}.
+In our interpretation layer responsible for the video view,
+we thus make an open world assumption
+by supporting a~set of pre-defined values for predicate and object
+listed below, and ignoring unknown ones.
+This permits others to extend---or even completely replace---%
+our interpretation layer.
+If a~\texttt{TextTrackCue} has a~WebVTT identifier,
+we use it to address its annotations
+via the metadata track's URI
+and corresponding cue fragment identifier,
+allowing for meta annotations of annotations, \emph{e.g.},
+to attach provenance or license information to them.
+
+\todo{Proposed Annotation Model and Annotation Layer}
+
+\paragraph{Supported Semantic Annotation Types}
+
+Our model makes common annotation tasks as
+straight-forward as in \autoref{listing:webvtt}.
+The thereby generated triples are shown in
+\autoref{listing:jsonld} and \url{http://bit.ly/webvtt-jsonld}.
+Advanced tasks are supported by extending \JSONLD~contexts.\\
+
+\noindent \textbf{Plain Text Tags:} Annotations of type
+  \texttt{tags} allow for add\-ing plain text tags
+  to a~media fragment.
+  Internally, they are represented as Common Tag%
+  ~\cite{commontag2009spec} format \texttt{ctag:label}.
+
+\noindent \textbf{Semantic Tags:} Annotations of type
+  \texttt{semanticTags} allow for adding semantic tags
+  to a~media fragment.
+  Unlike plain text tags, semantic tags are references to
+  well-defined concepts complete with their own URIs.
+  Internally, they are represented as Common Tag%
+  ~\cite{commontag2009spec} format \texttt{ctag:means}.
+
+\noindent \textbf{Contributors:} The \texttt{contributors} annotation type
+  al-\linebreak lows for denoting the contributors in a~media fragment, like its actors.
+  Internally, they are represented as
+  Ontology for Media Resources~\cite{lee2012mediaontology}
+  format \texttt{ma:contributors}.
+
+\noindent \textbf{Summary:} The \texttt{summary} annotation type
+  allows for summarizing a~media fragment
+  (note, not the whole video like kind \emph{description} tracks)
+  with plain text.
+  Internally, they are represented as  
+  \texttt{ma:description}~\cite{lee2012mediaontology}.
+
+\noindent \textbf{Named Graph:} The \texttt{namedGraph} annotation type
+  allows for adding a~set of RDF triples
+  to a~media fragment.
+  Internally, they are represented as \JSONLD%
+  ~\cite{sporny2013jsonld} named graph.
+
+\paragraph{Supported Presentation-Oriented Annotation Types}
+
+Presentation-oriented annotations---%
+similar to temporal\linebreak style sheets
+(also see \autoref{sec:future-work-conclusions})---%
+do not generate RDF data,
+but only impact the way videos get presented.\\
+
+\noindent \textbf{Visual Effect:} Annotations of
+  type \texttt{visualEffect} allow for applying visual effects
+  in the syntax of Cascading Style Sheets%
+  \footnote{Cascading Style Sheets:
+  \url{http://www.w3.org/Style/CSS/}} (CSS)
+  to a~media fragment, \emph{e.g.},
+  filters, zoom effects, transparency,
+  and 2D/3D transformations and animations.
+
+\noindent \textbf{Audial Effect:} The \texttt{audialEffect} annotation type
+  allows for applying audial effects to a~media fragment.
+  Currently, we support modifying the volume on a~scale
+  from~0 to~1.
+
+\noindent \textbf{Playback Rate:} The \texttt{playbackRate}
+  annotation type allows for specifying the effective
+  playback rate of a~media fragment.
+  The playback rate is expressed as a~floating point
+  multiple or fraction of the intrinsic video speed.
+
+\noindent \textbf{HTML Overlay:} Via the \texttt{htmlOverlay}
+  annotation type, overlays in
+  freeform HTML code can be added to a~media fragment.
+  Examples are graphical, textual, or combined overlays
+  that can contain links to (temporal fragments of)
+  other videos or within the current video.
+
+\section{WebVTT as linked data}
+
+The WebVTT specification defines a syntax for conveying video text tracks,
+and a semantics for this syntax in terms of how web browser should process such tracks.
+It achieves that by specifying an underlying data model for those tracks.
+The aim of this section is to show
+how this data model can easily be mapped to RDF-based linked data,
+thus allowing many other uses of this data.
+For this purpose, we propose an RDF-Schema ontology\footnote{
+  \url{http://champin.net/2014/linkedvtt/onto\#}
+} conveying the WebVTT data model.
+In the rest of the paper, terms of this ontology will be preceded by the \vtt{} prefix.
+An online implementation of this interpretation process is also available\footnote{
+  \url{http://champin.net/2014/linkedvtt/}
+}.
+
+\subsection{Basic interpretation}
+
+A WebVTT file defines a set of cues,
+which are described by a pair of timestamps and a payload.
+In other word, each cue is an annotation of the video,
+associating a fragment, delimited by the two timestamps, to the payload.
+As we have a standard way of identifying that fragment with a URI~\cite{troncy2012mediafragments}
+it is straightfoward to represent this annotation as an RDF triple.
+We therefore propose a property \vtt{annotatedBy} to serve as predicate for those triples.
+
+To keep the context of each annotation,
+we use the notion of RDF dataset~\cite{cyganiak2014rdf11concepts}.
+Each \vtt{annotatedBy} triple is enclosed in a named graph,
+whose name is either a URI, based on the cue identifier it has one,
+or a blank node if the cue has no identifier.
+The default graph of the dataset describes its overall structure,
+linking the dataset URI to all the URIs and blank nodes identifying its cues
+with the \vtt{hasCue} property.
+Each cue is also linked, in the default graph, to the media fragment URI it describes,
+with the \vtt{describesFragment} property. 
+
+\todo{illustrate with a figure, representing the WebVTT example that will probably be there in the intro?}
+
+As the notion of dataset is a recent addition to the RDF core concepts
+(previously, it was specific to the SPARQL query language),
+we envision that some consumers will not be able to deal with it.
+Hence we propose an alternate interpretation of WebVTT into RDF.
+In this so-called \emph{flat} interpretation,
+the content of all named graph is merged into the default graph.
+
+\subsection{Advanced interpretation}
+
+WebVTT is not limited to textual caption tracks.
+The HTML5 \texttt{track} tag supports indeed different kinds of track,
+one of them being \textit{metadata},
+a track designed for machine rather than human consumption.
+Although there is few evidence of use of this kind of tracks (see next section),
+which is understandable as the technology is still under development,
+we propose that JSON data is a good candidate for cues of such tracks.
+Indeed, JSON has a textual syntax which is easy to author
+and easy to process in a web browser.
+Furthermore, JSON-LD~\cite{sporny2013jsonld} provides
+a standard way to interpret JSON data as linked data,
+which fits nicely with our approach.
+
+More precisely, whenever the payload of a cue parses to a JSON object,
+we consider that this object is meant to represent the annotated media fragment itself,
+and we interpret it as JSON-LD.
+Hence, all the property of the JSON object are applied directly to the fragment,
+and embedded structures can be used to describe other resources related to that fragment
+(\textit{e.g.} depicted persons).
+In that case, all the triples generated from parsing the payload as JSON-LD
+\emph{replace} the \vtt{annotatedBy} triple in the cue's named graph.
+Figure~\ref{fig:json-payload} gives an example of such a JSON payload.
+
+\begin{figure}
+\begin{verbatim}
+00:00:00.000 --> 00:00:12.000
+{
+ "label": "Vince and Jules in the car",
+ "depicts": [
+  { "@id":
+     "http://www.wikidata.org/entity/Q80938",
+    "name": "John Travolta" },
+  { "@id":
+     "http://www.wikidata.org/entity/Q172678",
+    "name": "Samuel L. Jackson" }
+  ]
+}
+\end{verbatim}
+\label{fig:json-payload}
+\caption{A WebVTT cue with a JSON payload}
+\end{figure}
+
+Note that JSON-LD requires a \emph{context} to interpret JSON data as linked data,
+especially to disambiguate keywords to full URIs.
+This context can of course be provided in each cue,
+but we provide a convenient way to declare it once for the entire WebVTT file (see below).
+
+\subsection{Linked-data related metadata}
+
+WebVTT files can contain, in addition to the cues, some metadata described as key-value pairs.
+While the WebVTT specification defines a number of metadata keys,
+it leaves it open for extensions.
+We propose three extended metadata keys:
+
+\begin{description}
+
+\item[@base]
+Sets the base URI used for resolving relative URIs.
+This applies to any relative URIs that would be found in the JSON-LD descriptions,
+but also to generate URIs for cues based on their identifiers.
+It defaults to the URI of the WebVTT file.
+
+\item[@context]
+This key can be used multiple times; each value is the URI of a JSON-LD context
+that should be used to interpret the JSON payloads in the WebVTT file.
+
+\item[@video]
+Sets the URI for the video for generating media fragment URIs.
+If not present, the video URI must be provided externally,
+\textit{e.g.} the \texttt{src} attribute of the \texttt{video} tag
+containing the WebVTT track.
+
+\end{description}
+
+Of course, WebVTT in the wild does not contain those metadata keys,
+but we believe that they allow an easy transition
+from plain WebVTT to linked-data WebVTT,
+just like JSON-LD makes it easy to turn plain JSON into linked data
+by simply adding a \texttt{@context} key.
 
 \section{Related Work}
 
