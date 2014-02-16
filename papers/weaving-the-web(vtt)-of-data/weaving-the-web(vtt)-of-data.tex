@@ -440,7 +440,7 @@ The Common Crawl Foundation\footnote{Common Crawl: \url{http://commoncrawl.org/}
 is a~non-profit organization founded in 2008 by Gil Elbaz.
 Its objective is to democratize access to Web information
 by producing and maintaining an open repository of Web crawl data
-that is universally accessible and analyzable~\cite{simonite2013commoncrawl}.
+that is universally accessible and analyzable.
 All Common Crawl data is stored on Amazon Simple Storage Service (Amazon~S3)%
 \footnote{Amazon S3: \url{http://aws.amazon.com/s3/}} and
 accessible to anyone via Amazon Elastic Compute Cloud (Amazon~EC2),%
@@ -548,10 +548,11 @@ In between SubRip and WebVTT, a~format originally called WebSRT
 (Web Subtitle Resource Tracks) existed
 that shared the \texttt{.srt} file extension.
 The full distribution details are available in \autoref{table:src}.
-Almost all videos had only exactly one text track
+Looking at the number of text tracks per video,
+almost all videos had only exactly one text track
 rather than multiple, as detailed in \autoref{table:track},
 meaning that the broad majority of all videos are subtitled or captioned
-in only one language, English or French (\autoref{table:srclang}).\vfill
+in only one language.
 
 \begin{table}[b!]
   \raggedleft
@@ -650,44 +651,6 @@ in only one language, English or French (\autoref{table:srclang}).\vfill
   \label{table:track}    
 \end{table}
 
-\subsection{Video Statistics}
-
-As in \autoref{sec:online-video-annotation-format-and-editor}
-we will report on ways to make semantic statements
-about videos on the Web,
-we have additionally compiled some video statistics.
-Unlike with images on the Web, where
-semantic statements in
-Resource Description Framework (RDF)
-can be made based on the image's
-URL~\cite{linsley2009rdfa},
-with Web video, the situation is another.
-Due to different Web browsers supporting
-different video codecs,
-it is a~common practice to provide videos
-in different encodings.
-The user's Web browser then dynamically selects
-a~version it can play.
-This is realized through the \texttt{<source>} tag.
-\autoref{table:source} shows the observed numbers of
-\texttt{<source>} tag child nodes per
-\texttt{<video>} tag \emph{with} \texttt{<track>} tag,
-with the result that up to
-four sources are given for essentially the ``same'' video.
-\autoref{table:sourceFull} confirms this observation
-for the entire collection of all \texttt{<video>} tags
-\emph{with or without} \texttt{<track>} tag.
-\autoref{table:type} shows the distribution
-of values for the \texttt{<source type>} attribute
-of \texttt{<video>} tags \emph{with} \texttt{<track>} tag,
-the clear leaders being the MP4 format
-followed by WebM,
-a~trend that again is also reflected
-in \autoref{table:typeFull}
-within the entire collection
-of all \texttt{<video>} tags
-\emph{with or without} \texttt{<track>} tag.
-
 \begin{table}[t!]
   \raggedleft
   \footnotesize  
@@ -777,6 +740,44 @@ of all \texttt{<video>} tags
   \label{table:typeFull}    
 \end{table}
 
+\subsection{Video Statistics}
+
+As in \autoref{sec:online-video-annotation-format-and-editor}
+we will report on ways to make semantic statements
+about videos on the Web,
+we have additionally compiled some video statistics.
+Unlike with images on the Web, where
+semantic statements in
+Resource Description Framework (RDF)
+can be made based on the image's
+URL~\cite{linsley2009rdfa},
+with Web video, the situation is another.
+Due to different Web browsers supporting
+different video codecs,
+it is a~common practice to provide videos
+in different encodings.
+The user's Web browser then dynamically selects
+a~version it can play.
+This is realized through the \texttt{<source>} tag.
+\autoref{table:source} shows the observed numbers of
+\texttt{<source>} tag child nodes per
+\texttt{<video>} tag \emph{with} \texttt{<track>} tag,
+with the result that up to
+four sources are given for essentially the ``same'' video.
+\autoref{table:sourceFull} confirms this observation
+for the entire collection of all \texttt{<video>} tags
+\emph{with or without} \texttt{<track>} tag.
+\autoref{table:type} shows the distribution
+of values for the \texttt{<source type>} attribute
+of \texttt{<video>} tags \emph{with} \texttt{<track>} tag,
+the clear leaders being the MP4 format
+followed by WebM,
+a~trend that again is also reflected
+in \autoref{table:typeFull}
+within the entire collection
+of all \texttt{<video>} tags
+\emph{with or without} \texttt{<track>} tag.
+
 \subsection{Implications on Linked Data for Videos}
 \label{sec:implications-on-linked-data-for-videos}
 
@@ -806,7 +807,7 @@ like FRBR~\cite{tillett2004frbr} are possible,
 but for the concrete use case seem quite complex.
 
 \begin{lstlisting}[caption={Specifying a~license for an image and attempt to do the same for a~video with two sources (the license of kitten.webm stays unclear)},
-  label=listing:html-license, language=html, float=t!]
+  label=listing:html-license, language=html, float=h!]
 <div about="kitten.jpg">
   <img src="kitten.jpg" alt="Cute kitten" />
   <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
@@ -966,7 +967,7 @@ from plain WebVTT to Linked Data WebVTT,
 just like \JSONLD\ makes it easy to turn plain JSON into Linked Data
 by adding a \texttt{@context} property.
 
-\begin{description}
+\begin{description}[leftmargin=*]
   \item[@base]
   Sets the base URI used for resolving relative URIs.
   This applies to any relative URIs that would be found in the \JSONLD\ descriptions,
@@ -996,10 +997,12 @@ These approaches extract the transcribed text snippets from cues
 and either convert them into one consistent block of text
 or treat each text snippet in isolation
 before applying named entity extraction on them.
-Typical examples are~\cite{li2013enriching,li2012creating,yi2012synote}
-by Li \emph{et~al.}\ and~\cite{steiner2010semwebvid} by us.
+Representative examples based on this idea
+are~\cite{li2013enriching,li2012creating,yi2012synote}
+by Li \emph{et~al.}\ or also~\cite{steiner2010semwebvid} by us.
 In combination with Media Fragments URI, spatiotemporal annotations
-can be created on-the-fly with good precision.
+can be created with good precision and reasonable time effort
+both on-the-fly or in bulk for static storage in a~triple store.
 
 \section{Online Video Annotation\\ Format and Editor}
 \label{sec:online-video-annotation-format-and-editor}
@@ -1010,7 +1013,7 @@ that was proposed in \autoref{sec:webvtt-conversion-to-rdf-based-linked-data},
 in this section we focus on facilitating the online creation and consumption
 of \texttt{metadata} tracks for future video creations
 and videos not contained in the Common Crawl corpus.
-We start off with the introduction of our annotation model.
+We begin with the annotation model.
 
 \subsection{Annotation Model}
 
@@ -1029,7 +1032,7 @@ that then requires a~unique \texttt{id} attribute,
 media fragment of the original media item.
 We make no constraints for the \emph{object} 
 and the \emph{predicate},
-which determines the annotation type.
+which determines the annotation type as outlined in the next subsection.
 
 \subsection{WebVTT Editor}
 
@@ -1056,6 +1059,113 @@ into \JSONLD~for the Web of Data.
 This allows for straight-forward local annotation creation
 with Semantic Web compliance upon global publication.
 
+\subsubsection{Semantic Annotation Types}
+
+Our model makes common annotation tasks as
+straight-forward as in \autoref{listing:webvtt}.
+The thereby generated triples are shown in
+\autoref{listing:jsonld} and \autoref{listing:rdftriples}.
+Advanced tasks are supported by extending \JSONLD\ contexts.\\
+
+\begin{description}[leftmargin=*]
+  \item[Plain Text Tags] Annotations of type
+  \texttt{tags} allow for add\-ing plain text tags
+  to a~media fragment.
+  Internally, they are represented as Common Tag%
+  ~\cite{commontag2009spec} format \texttt{ctag:label}.
+
+  \item[Semantic Tags] Annotations of type
+  \texttt{semanticTags} allow for adding semantic tags
+  to a~media fragment.
+  Unlike plain text tags, semantic tags are references to
+  well-defined concepts complete with their own URIs.
+  Internally, they are represented as Common Tag%
+  ~\cite{commontag2009spec} format \texttt{ctag:means}.
+  Spatiotemporal semantic tags allow for
+  interesting Linked Data experiences
+  if they point well-connected concepts.
+
+  \item[Contributors] The \texttt{contributors} annotation type
+  al-\linebreak lows for denoting the contributors in a~media fragment, like its actors.
+  Internally, they are represented as
+  Ontology for Media Resources~\cite{lee2012mediaontology}
+  format \texttt{ma:hasContributor}.
+
+  \item[Summary] The \texttt{summary} annotation type
+  allows for summarizing a~media fragment
+  (note, not the whole video like kind \emph{description} tracks)
+  with plain text.
+  Internally, they are represented as  
+  \texttt{ma:description}~\cite{lee2012mediaontology}.
+\end{description}
+
+\subsubsection{Presentation-Oriented Annotation Types}
+
+Presentation-oriented annotations---%
+similar to temporal\linebreak style sheets---%
+do not generate RDF data,
+but only impact the way videos get presented.\\
+
+\begin{description}[leftmargin=*]
+  \item[Visual Effect] Annotations of
+  type \texttt{visualEffect} allow for applying visual effects
+  in the syntax of Cascading Style Sheets%
+  \footnote{Cascading Style Sheets:
+  \url{http://www.w3.org/Style/CSS/}} (CSS)
+  to a~media fragment, \emph{e.g.},
+  filters, zoom, transparency,
+  and 2D/3D transformations and animations.
+
+  \item[Audial Effect] The \texttt{audialEffect} annotation type
+  allows for applying audial effects to a~media fragment.
+  Currently, we support modifying the volume
+  from~0 to~1.
+
+  \item[Playback Rate] The \texttt{playbackRate}
+  annotation type allows for specifying the effective
+  playback rate of a~media fragment.
+  The playback rate is expressed as a~floating point
+  multiple or fraction of the intrinsic video speed.
+
+  \item[HTML Overlay] Via the \texttt{htmlOverlay}
+  annotation type, overlays in
+  freeform HTML code can be added to a~media fragment.
+  Examples are graphical, textual, or combined overlays
+  that can contain links to (temporal fragments of)
+  other videos or within the current video.
+\end{description}
+
+\begin{lstlisting}[caption={Generated \JSONLD\ file based on the WebVTT file 
+    shown in \autoref{listing:webvtt}, see
+    \autoref{listing:rdftriples} for the contained RDF triples},
+  label=listing:jsonld, float=t!]
+{
+  "@context": "http://liris.cnrs.fr/~pchampin/2014/linkedvtt/demonstrator-context.json",
+  "@id": "http://ex.org/metadata.vtt", 
+  "@type": "VideoMetadataDataset",
+  "video": "http://ex.org/video", 
+  "cues": [{
+    "@id": "#id=cue1",
+    "fragment": {
+      "@context": "http://bit.ly/1cNnqfL", 
+      "@id": "http://ex.org/video#t=0:0.0,0:12.0", 
+      "tags": ["wind scene", "opening credits"],
+      "contributors": ["http://ex.org/sintel"]
+    }
+  }]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={RDF triples based on the \JSONLD\ code from \autoref{listing:jsonld}},
+  label=listing:rdftriples, float=t!]
+<http://ex.org/metadata.vtt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ex.org/VideoMetadataDataset> .
+<http://ex.org/metadata.vtt> <http://champin.net/2014/linkedvtt/onto#hasCue> <http://ex.org/metadata.vtt#id=cue1> .
+<http://ex.org/metadata.vtt#id=cue1> <http://champin.net/2014/linkedvtt/onto#describesFragment> <http://ex.org/video#t=0:0.0,0:12.0> .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://commontag.org/ns#label> "wind scene" .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://commontag.org/ns#label> "opening credits" .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://www.w3.org/ns/ma-ont#hasContributor> <http://ex.org/sintel> .
+\end{lstlisting}
+  
 \subsection{Interpretation Layer}
 
 In our WebVTT editor,
@@ -1097,152 +1207,55 @@ of recent years and found recurring patterns,
 summarized and compared to our approach
 in the following.\\
 
-\noindent \textbf{Video player and controls:} Hypervideo systems by definition
+\begin{description}[leftmargin=*]
+  \item[Video player and controls] Hypervideo systems by definition
   provide one or multiple video players, however,
   the corresponding video controls are not necessarily exposed.
 
-\checkmark~Our approach uses the (optionally customizable)
-default HTML5 player that includes controls that can be hidden.
+  \checkmark~Our approach uses the (optionally customizable)
+  default HTML5 player that includes controls that can be hidden.
 
-\noindent \textbf{Timeline:} A~timeline is the spatial representation
+  \item[Timeline] A~timeline is the spatial representation
   of temporally situated metadata in a~video.
   The most common timeline pattern shows the
   time along the x-axis and corresponding metadata along the y-axis.
   
-\checkmark~Our approach supports temporal metadata.
-Customizable timeline visualizations exist%
-\footnote{D3 timeline implementation:
-\url{https://github.com/jiahuang/d3-timeline}}
-and can be added.
+  \checkmark~Our approach supports temporal metadata.
+  Customizable timeline visualizations exist%
+  \footnote{D3 timeline implementation:
+  \url{https://github.com/jiahuang/d3-timeline}}
+  and can be added.
 
-\noindent \textbf{Textual or graphical overlay:}
+  \item[Textual or graphical overlay]
   Additional textual or gra\-phical
   information can be displayed in form of overlays on the video.
   Overlays can also serve as external or video-internal hyperlinks,
   referred to as \emph{hotspots}.
 
-\checkmark~We realize overlays and links
-with \texttt{htmlOverlay} types.
+  \checkmark~We realize overlays and links
+  with \texttt{htmlOverlay} types.
 
-\noindent \textbf{Textual or graphical table of contents:}
+  \item[Textual or graphical table of contents]
   If a~video is logically separated
   into different parts, a~table of contents lists these
   in textual or graphical form, makes them navigable,
   or visually summarizes them, referred to as \emph{video map}.
   
-\checkmark~Textual tables of contents are directly supported
-via WebVTT text tracks of type \emph{chapters}.
-Graphical tables of contents can be created based thereon.  
+  \checkmark~Textual tables of contents are directly supported
+  via WebVTT text tracks of type \emph{chapters}.
+  Graphical tables of contents can be created based thereon.  
 
-\noindent \textbf{Transcript:} The textual document
+  \item[Transcript] The textual document
   of the transcribed audiovisual content of a~video
   allows for following along the video by reading
   and also serves for in-video navigation.
   
-\checkmark~Subtitles and captions are natively supported
-by\linebreak WebVTT tracks of the types \emph{subtitles} and \emph{captions}.
-
-\begin{lstlisting}[caption={Generated \JSONLD\ file based on the WebVTT file 
-    shown in \autoref{listing:webvtt}, see
-    \autoref{listing:rdftriples} for the contained RDF triples},
-  label=listing:jsonld, float=t!]
-{
-  "@context": "http://liris.cnrs.fr/~pchampin/2014/linkedvtt/demonstrator-context.json",
-  "@id": "http://ex.org/metadata.vtt", 
-  "@type": "VideoMetadataDataset",
-  "video": "http://ex.org/video", 
-  "cues": [{
-    "@id": "#id=cue1",
-    "fragment": {
-      "@context": "http://bit.ly/1cNnqfL", 
-      "@id": "http://ex.org/video#t=0:0.0,0:12.0", 
-      "tags": ["wind scene", "opening credits"],
-      "contributors": ["http://ex.org/sintel"]
-    }
-  }]
-}
-\end{lstlisting}
-
-\begin{lstlisting}[caption={RDF triples based on the \JSONLD\ code from \autoref{listing:jsonld}},
-  label=listing:rdftriples, float=t!]
-<http://ex.org/metadata.vtt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ex.org/VideoMetadataDataset> .
-<http://ex.org/metadata.vtt> <http://champin.net/2014/linkedvtt/onto#hasCue> <http://ex.org/metadata.vtt#id=cue1> .
-<http://ex.org/metadata.vtt#id=cue1> <http://champin.net/2014/linkedvtt/onto#describesFragment> <http://ex.org/video#t=0:0.0,0:12.0> .
-<http://ex.org/video#t=0:0.0,0:12.0> <http://commontag.org/ns#label> "wind scene" .
-<http://ex.org/video#t=0:0.0,0:12.0> <http://commontag.org/ns#label> "opening credits" .
-<http://ex.org/video#t=0:0.0,0:12.0> <http://www.w3.org/ns/ma-ont#hasContributor> <http://ex.org/sintel> .
-\end{lstlisting}
-
-\paragraph{Supported Semantic Annotation Types}
-
-Our model makes common annotation tasks as
-straight-forward as in \autoref{listing:webvtt}.
-The thereby generated triples are shown in
-\autoref{listing:jsonld} and \autoref{listing:rdftriples}.
-Advanced tasks are supported by extending \JSONLD\ contexts.\\
-
-\noindent \textbf{Plain Text Tags:} Annotations of type
-  \texttt{tags} allow for add\-ing plain text tags
-  to a~media fragment.
-  Internally, they are represented as Common Tag%
-  ~\cite{commontag2009spec} format \texttt{ctag:label}.
-
-\noindent \textbf{Semantic Tags:} Annotations of type
-  \texttt{semanticTags} allow for adding semantic tags
-  to a~media fragment.
-  Unlike plain text tags, semantic tags are references to
-  well-defined concepts complete with their own URIs.
-  Internally, they are represented as Common Tag%
-  ~\cite{commontag2009spec} format \texttt{ctag:means}.
-
-\noindent \textbf{Contributors:} The \texttt{contributors} annotation type
-  al-\linebreak lows for denoting the contributors in a~media fragment, like its actors.
-  Internally, they are represented as
-  Ontology for Media Resources~\cite{lee2012mediaontology}
-  format \texttt{ma:hasContributor}.
-
-\noindent \textbf{Summary:} The \texttt{summary} annotation type
-  allows for summarizing a~media fragment
-  (note, not the whole video like kind \emph{description} tracks)
-  with plain text.
-  Internally, they are represented as  
-  \texttt{ma:description}~\cite{lee2012mediaontology}.
-
-\paragraph{Supported Presentation-Oriented Annotation Types}
-
-Presentation-oriented annotations---%
-similar to temporal\linebreak style sheets---%
-do not generate RDF data,
-but only impact the way videos get presented.\\
-
-\noindent \textbf{Visual Effect:} Annotations of
-  type \texttt{visualEffect} allow for applying visual effects
-  in the syntax of Cascading Style Sheets%
-  \footnote{Cascading Style Sheets:
-  \url{http://www.w3.org/Style/CSS/}} (CSS)
-  to a~media fragment, \emph{e.g.},
-  filters, zoom, transparency,
-  and 2D/3D transformations and animations.
-
-\noindent \textbf{Audial Effect:} The \texttt{audialEffect} annotation type
-  allows for applying audial effects to a~media fragment.
-  Currently, we support modifying the volume
-  from~0 to~1.
-
-\noindent \textbf{Playback Rate:} The \texttt{playbackRate}
-  annotation type allows for specifying the effective
-  playback rate of a~media fragment.
-  The playback rate is expressed as a~floating point
-  multiple or fraction of the intrinsic video speed.
-
-\noindent \textbf{HTML Overlay:} Via the \texttt{htmlOverlay}
-  annotation type, overlays in
-  freeform HTML code can be added to a~media fragment.
-  Examples are graphical, textual, or combined overlays
-  that can contain links to (temporal fragments of)
-  other videos or within the current video.
+  \checkmark~Subtitles and captions are natively supported
+  by\linebreak WebVTT tracks of the types \emph{subtitles} and \emph{captions}.
+\end{description}
 
 \begin{figure*}[hbt]
+  \centering
   \fbox{\includegraphics[width=\linewidth]{weaving-the-web(vtt)-of-data}}
   \caption{WebVTT editor interpreting the~spatiotemporal annotation ``cue2''
     that identifies the highlighted spatial fragment as \texttt{ex:actors/sintel/shaman};
