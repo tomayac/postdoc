@@ -1133,8 +1133,9 @@ Graphical tables of contents can be created based thereon.
 \checkmark~Subtitles and captions are natively supported
 by\linebreak WebVTT tracks of the types \emph{subtitles} and \emph{captions}.
 
-\begin{lstlisting}[caption={Generated \JSONLD\ for the Web of Data, see
-    \autoref{listing:rdftriples} for the RDF triples},
+\begin{lstlisting}[caption={Generated \JSONLD\ file based on the WebVTT file 
+    shown in \autoref{listing:webvtt}, see
+    \autoref{listing:rdftriples} for the contained RDF triples},
   label=listing:jsonld, float=t!]
 {
   "@context": "http://ex.org/global_context",
@@ -1214,12 +1215,12 @@ but only impact the way videos get presented.\\
   \footnote{Cascading Style Sheets:
   \url{http://www.w3.org/Style/CSS/}} (CSS)
   to a~media fragment, \emph{e.g.},
-  filters, zoom effects, transparency,
+  filters, zoom, transparency,
   and 2D/3D transformations and animations.
 
 \noindent \textbf{Audial Effect:} The \texttt{audialEffect} annotation type
   allows for applying audial effects to a~media fragment.
-  Currently, we support modifying the volume on a~scale
+  Currently, we support modifying the volume
   from~0 to~1.
 
 \noindent \textbf{Playback Rate:} The \texttt{playbackRate}
@@ -1247,16 +1248,60 @@ but only impact the way videos get presented.\\
   \label{fig:webvtt-editor}
 \end{figure*}
 
+\section{Related Work}
+
+With our annotation approach, we leverage WebVTT
+metadata tracks as a~means for tying semantically rich JSON-LD annotations
+to temporal or spatiotemporal video fragments.
+As each \texttt{<track>} tag by pure definition is bound to
+exactly one \texttt{<video>} tag and as modern search engines
+parse JSON-LD annotations,
+a~unique relation of annotations to video content is made.
+The online video hosting platform YouTube
+lets video publishers add video annotations
+in a~closed proprietary format.
+From 2009 to 2010, YouTube had a~feature called
+Collaborative Annotations%
+~\cite{fink2009collaborativeannotations}
+that allowed video consumers to collaboratively
+create video annotations.
+Unlike the format of YouTube, our format is open and standards-based.
+In~\cite{vandeursen2012mediafragmentannotations},
+Van Deursen \emph{et~al.}\ present a~system
+that combines Media Fragments URI
+and the Ontology for Media Resources
+in an HTML5
+Web application to convert rich media fragment annotations
+into a~WebVTT file
+that can be used by HTML5-enabled players
+to show the annotations in a~synchronized way.
+Building on the work of Van Deursen \emph{et~al.},
+we additionally allow for writing annotations by
+letting annotators create WebVTT cues with an editor.
+The Component-based Hypervideo Model
+Popcorn.js\footnote{Popcorn.js: \url{http://popcornjs.org/}}
+is an HTML5 JavaScript media framework
+for the creation of media mixes
+by adding interactivity and context to online video
+by letting users link social media, feeds,
+visualizations, and other content directly to moving images.
+PopcornMaker%
+\footnote{PopcornMaker: \url{https://popcorn.webmaker.org/}}
+is an interactive Web authoring environment
+that allows for videos to be annotated on a~video timeline.
+While Popcorn media annotations are JavaScript-based,
+our approach is based on indexable WebVTT files.
+
 \section{Conclusions and Future Work}
 
 \section*{Acknowledgments}
-\footnotesize
+
+{\footnotesize
 The research presented in this paper was partially supported
 by the French National Agency for Research  project
 \emph{Spectacle En Ligne(s)}, project reference
-\mbox{ANR-12-CORP-0015}.
+\mbox{ANR-12-CORP-0015}.}
 
-\normalsize
 \bibliographystyle{abbrv}
 \bibliography{references}
 
