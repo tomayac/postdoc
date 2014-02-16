@@ -43,6 +43,7 @@
   morestring=[b]',
   morestring=[b]"
 }
+\lstset{breaklines=true}
 
 % linewrap symbol
 \usepackage{color}
@@ -357,7 +358,7 @@ Based on top of JSON, the
 \emph{JavaScript Object Notation for Linked Data}
 (\JSONLD,~\cite{sporny2013jsonld}) is a~method for transporting
 Linked Data with a~smooth upgrade path from JSON to \JSONLD.
-\JSONLD~properties like \texttt{title} can be mapped to taxonomic
+\JSONLD\ properties like \texttt{title} can be mapped to taxonomic
 concepts (like \texttt{dc:title} from Dublin Core%
 \footnote{Dublin Core: \url{http://dublincore.org/documents/dces/}})
 via so-called data contexts.
@@ -867,17 +868,17 @@ and embedded structures can be used to describe
 other resources related to that fragment,
 \emph{e.g.}, depicted persons, locations, topics, related videos
 or video fragments, or spatiotemporal video tags.
-In this case, all the triples generated from parsing the payload as \JSONLD
+In this case, all the triples generated from parsing the payload as \JSONLD\
 \emph{replace} the \vtt{annotatedBy} triple in the cue's named graph.
-\autoref{listing:jsonld-payload} gives an example of such \JSONLD payload.
-We note that \JSONLD requires a~\emph{context}
+\autoref{listing:jsonld-payload} gives an example of such \JSONLD\ payload.
+We note that \JSONLD\ requires a~\emph{context}
 to interpret JSON data as Linked Data,
 especially to disambiguate keywords to full URIs.
 This context can be provided in each cue,
 but in the following we also provide a preferred way to declare it once
 for the entire WebVTT file.
 
-\begin{lstlisting}[caption={A~WebVTT cue with a~\JSONLD~payload},
+\begin{lstlisting}[caption={A~WebVTT cue with a~\JSONLD\ payload},
   label=listing:jsonld-payload, float=t!]
 00:00:00.000 --> 00:00:12.000
 {
@@ -906,18 +907,18 @@ WebVTT in the wild currently does not contain
 these metadata headers,
 but we argue that they allow for an easy transition
 from plain WebVTT to Linked Data WebVTT,
-just like \JSONLD~makes it easy to turn plain JSON into Linked Data
+just like \JSONLD\ makes it easy to turn plain JSON into Linked Data
 by adding a \texttt{@context} property.
 
 \begin{description}
   \item[@base]
   Sets the base URI used for resolving relative URIs.
-  This applies to any relative URIs that would be found in the \JSONLD descriptions,
+  This applies to any relative URIs that would be found in the \JSONLD\ descriptions,
   but also to generate URIs for cues based on their identifiers.
   It defaults to the URI of the WebVTT file.
   \item[@context]
   This key can be used multiple times; each value is the URI
-  of a~\JSONLD context that should be used to
+  of a~\JSONLD\ context that should be used to
   interpret the JSON payloads in the WebVTT file.
   \item[@video]
   Sets the URI for the video for generating media fragment URIs.
@@ -947,8 +948,6 @@ can be created on-the-fly with good precision.
 \label{sec:online-video-annotation-format-and-editor}
 
 \subsection{Annotation Model}
-
-\paragraph{General Concepts of the Annotation Model}
 
 Our annotation model uses subject-predicate-object expressions.
 An annotation is thus a~single triple.
@@ -991,8 +990,8 @@ cue1
 }
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Generated \JSONLD~for the Web of Data, see
-    \url{http://bit.ly/webvtt-jsonld} for the RDF triples},
+\begin{lstlisting}[caption={Generated \JSONLD\ for the Web of Data, see
+    \autoref{listing:rdftriples} for the RDF triples},
   label=listing:jsonld, float=t!]
 {
   "@context": "http://ex.org/global_context",
@@ -1008,15 +1007,23 @@ cue1
 }
 \end{lstlisting}
 
-\todo{Proposed Annotation Model and Annotation Layer}
+\begin{lstlisting}[caption={RDF triples based on the \JSONLD\ code from \autoref{listing:jsonld}},
+  label=listing:rdftriples, float=t!]
+<http://ex.org/video#t=0,12> <http://commontag.org/ns#label> "opening credits" .
+<http://ex.org/video#t=0,12> <http://commontag.org/ns#label> "wind scene" .
+<http://ex.org/video#t=0,12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/ma-ont#MediaFragment> .
+<http://ex.org/video#t=0,12> <http://www.w3.org/ns/ma-ont#contributors> <http://ex.org/actors/sintel> .
+<http://ex.org/video> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/ma-ont#MediaResource> .
+<http://ex.org/video> <http://www.w3.org/ns/ma-ont#hasFragment> <http://ex.org/video#t=0,12> .
+\end{lstlisting}
 
 \paragraph{Supported Semantic Annotation Types}
 
 Our model makes common annotation tasks as
 straight-forward as in \autoref{listing:webvtt}.
 The thereby generated triples are shown in
-\autoref{listing:jsonld} and \url{http://bit.ly/webvtt-jsonld}.
-Advanced tasks are supported by extending \JSONLD~contexts.\\
+\autoref{listing:jsonld} and \autoref{listing:rdftriples}.
+Advanced tasks are supported by extending \JSONLD\ contexts.\\
 
 \noindent \textbf{Plain Text Tags:} Annotations of type
   \texttt{tags} allow for add\-ing plain text tags
@@ -1054,8 +1061,7 @@ Advanced tasks are supported by extending \JSONLD~contexts.\\
 \paragraph{Supported Presentation-Oriented Annotation Types}
 
 Presentation-oriented annotations---%
-similar to temporal\linebreak style sheets
-(also see \autoref{sec:future-work-conclusions})---%
+similar to temporal\linebreak style sheets---%
 do not generate RDF data,
 but only impact the way videos get presented.\\
 
@@ -1086,9 +1092,7 @@ but only impact the way videos get presented.\\
   that can contain links to (temporal fragments of)
   other videos or within the current video.
 
-\section{Related Work}
-
-~\cite{yi2012synote}
+\section{Conclusions and Future Work}
 
 \section*{Acknowledgments}
 \footnotesize
