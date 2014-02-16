@@ -7,6 +7,8 @@
 \def\sectionautorefname{Section}
 \def\subsectionautorefname{Subsection}
 
+\usepackage{pifont}
+
 % listings and Verbatim environment
 \usepackage{fancyvrb}
 \usepackage{relsize}
@@ -1091,6 +1093,19 @@ but only impact the way videos get presented.\\
   Examples are graphical, textual, or combined overlays
   that can contain links to (temporal fragments of)
   other videos or within the current video.
+
+\begin{figure*}[hbt]
+  \fbox{\includegraphics[width=\linewidth]{weaving-the-web(vtt)-of-data}}
+  \caption{WebVTT editor interpreting the~spatiotemporal annotation ``cue2''
+    that identifies the highlighted spatial fragment as \texttt{ex:actors/sintel/shaman};
+    while in parallel modifying ``cue3'' with tag, volume, playback rate,
+    and style (\ding{172} left: Graphical User Interface with \JSONLD\ debug view,
+  \ding{173} center: Chrome Developer Tools with highlighted
+  \texttt{<track src=``metadata.vtt'' kind=``metadata''>} tag,
+  \ding{174} right: raw WebVTT file \texttt{metadata.vtt} with highlighted ``cue2'' and ``cue3'')}
+  \label{fig:webvtt-editor}
+\end{figure*}
+
 
 \section{Conclusions and Future Work}
 
