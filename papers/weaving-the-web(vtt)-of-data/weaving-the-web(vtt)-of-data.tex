@@ -803,6 +803,9 @@ will be preceded by the \vtt{} prefix.
 An online implementation of this interpretation process
 that we have titled LinkedVTT is likewise available online.%
 \footnote{LinkedVTT: \url{http://champin.net/2014/linkedvtt/}}
+It takes the URI of any WebVTT file, the textual contents of a~WebVTT file,
+or a~YouTube URL of any video with closed captions as an input
+and applies the converts from WebVTT to Linked Data on-the-fly.
 
 \subsection{Basic Interpretation}
 
@@ -898,7 +901,13 @@ In addition to the cues, WebVTT files can contain
 metadata headers described as key-value pairs.
 While the WebVTT specification defines a~number of metadata headers,
 it leaves it open for extensions.
-We propose three extended metadata headers:
+We propose three extended metadata headers listed below.
+WebVTT in the wild currently does not contain
+these metadata headers,
+but we argue that they allow for an easy transition
+from plain WebVTT to Linked Data WebVTT,
+just like \JSONLD~makes it easy to turn plain JSON into Linked Data
+by adding a \texttt{@context} property.
 
 \begin{description}
   \item[@base]
@@ -919,12 +928,20 @@ We propose three extended metadata headers:
   have outlined in \autoref{sec:implications-on-linked-data-for-videos}.
 \end{description}
 
-Of course, WebVTT in the wild currently does not contain
-these metadata headers,
-but we argue that they allow for an easy transition
-from plain WebVTT to Linked Data WebVTT,
-just like \JSONLD~makes it easy to turn plain JSON into Linked Data
-by adding a \texttt{@context} property.
+\subsection{Integrating Videos into the Web(VTT) of Data}
+
+Given the currently rather manageable amount of videos
+with captions or subtitles as outlined in \autoref{sec:text-track-statistics},
+approaches for the automated semantic lifting
+based on timed text track data are feasible. 
+These approaches extract the transcribed text snippets from cues
+and either convert them into one consistent block of text
+or treat each text snippet in isolation
+before applying named entity extraction on them.
+Typical examples are~\cite{li2013enriching,li2012creating,yi2012synote}
+by Li \emph{et~al.}\ and~\cite{steiner2010semwebvid} by us.
+In combination with Media Fragments URI, spatiotemporal annotations
+can be created on-the-fly with good precision.
 
 \section{Online Video Annotation Format and Editor}
 \label{sec:online-video-annotation-format-and-editor}
