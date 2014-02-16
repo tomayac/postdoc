@@ -229,11 +229,10 @@ The paper makes three independent contributions.
     and determined statistics on the usage of the \texttt{<video>},
     \texttt{<track>}, and \texttt{<source>} tags
     and their implications for Linked Data.
-  \item \textbf{LinkedVTT conversion tool for WebVTT files:}
-  we have made available an on-the-fly online conversion tool
-  capable of ``triplifying'' existing WebVTT files
-  and any video on YouTube%
-  \footnote{YouTube: \url{http://www.youtube.com/}} with closed captions.
+  \item \textbf{WebVTT conversion to RDF-based Linked Data:}
+    we propose a~general conversion process for ``triplifying'' existing WebVTT,
+    \emph{i.e.}, for turning WebVTT into a~concrete syntax of RDF.
+    This process is implemented in form of an online conversion tool.
   \item \textbf{Online video annotation format and editor:} we have created an
   online video annotation format and an editor prototype implementing it
   that serves for the creation
@@ -247,7 +246,7 @@ of the enabling technologies that we require for our approach.
 \autoref{sec:large-scale-common-crawl-study-of-the-state-of-web-video}
 describes a~large-scale study of the state of Web video deployment
 based on the Common Crawl corpus.
-\autoref{sec:linkedvtt-conversion-tool-for-webvtt-files} deals with
+\autoref{sec:webvtt-conversion-to-rdf-based-linked-data} deals with
 the integration of existing videos into the \emph{Web(VTT) of Data}
 through a~tool called LinkedVTT.
 \autoref{sec:online-video-annotation-format-and-editor} presents
@@ -826,8 +825,8 @@ but for the concrete use case seem quite complex.
 </div>
 \end{lstlisting}
 
-\section{LinkedVTT Conversion Tool for WebVTT Files}
-\label{sec:linkedvtt-conversion-tool-for-webvtt-files}
+\section{WebVTT Conversion to\\ RDF-based Linked Data}
+\label{sec:webvtt-conversion-to-rdf-based-linked-data}
 
 The WebVTT specification~\cite{pfeiffer2013webvtt} defines a~syntax
 for conveying timed video text tracks,
@@ -947,7 +946,7 @@ WEBVTT
 cue1
 00:00:00.000 --> 00:00:12.000
 {
-  "@context": "http://ex.org/local_context",
+  "@context": "http://liris.cnrs.fr/~pchampin/2014/linkedvtt/demonstrator-context.json",
   "tags": ["wind scene", "opening credits"],
   "contributors": ["http://ex.org/sintel"]
 }
@@ -1007,7 +1006,7 @@ can be created on-the-fly with good precision.
 
 Different from the conversion process for existing text tracks
 of kind \texttt{subtitles} and \texttt{captions}
-that was proposed in \autoref{sec:linkedvtt-conversion-tool-for-webvtt-files},
+that was proposed in \autoref{sec:webvtt-conversion-to-rdf-based-linked-data},
 in this section we focus on facilitating the online creation and consumption
 of \texttt{metadata} tracks for future video creations
 and videos not contained in the Common Crawl corpus.
@@ -1148,27 +1147,30 @@ by\linebreak WebVTT tracks of the types \emph{subtitles} and \emph{captions}.
     \autoref{listing:rdftriples} for the contained RDF triples},
   label=listing:jsonld, float=t!]
 {
-  "@context": "http://ex.org/global_context",
-  "@id": "http://ex.org/video",
-  "@type": "MediaResource",
-  "hasFragment": [{
-    "@id": "http://ex.org/video#t=0,12",
-    "@type": "MediaFragment",
-    "@context": "http://ex.org/local_context",
-    "tags": ["wind scene", "opening credits"],
-    "contributors": ["http://ex.org/sintel"]
+  "@context": "http://liris.cnrs.fr/~pchampin/2014/linkedvtt/demonstrator-context.json",
+  "@id": "http://ex.org/metadata.vtt", 
+  "@type": "VideoMetadataDataset",
+  "video": "http://ex.org/video", 
+  "cues": [{
+    "@id": "#id=cue1",
+    "fragment": {
+      "@context": "http://bit.ly/1cNnqfL", 
+      "@id": "http://ex.org/video#t=0:0.0,0:12.0", 
+      "tags": ["wind scene", "opening credits"],
+      "contributors": ["http://ex.org/sintel"]
+    }
   }]
 }
 \end{lstlisting}
 
 \begin{lstlisting}[caption={RDF triples based on the \JSONLD\ code from \autoref{listing:jsonld}},
   label=listing:rdftriples, float=t!]
-<http://ex.org/video#t=0,12> <http://commontag.org/ns#label> "opening credits" .
-<http://ex.org/video#t=0,12> <http://commontag.org/ns#label> "wind scene" .
-<http://ex.org/video#t=0,12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/ma-ont#MediaFragment> .
-<http://ex.org/video#t=0,12> <http://www.w3.org/ns/ma-ont#contributors> <http://ex.org/actors/sintel> .
-<http://ex.org/video> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/ma-ont#MediaResource> .
-<http://ex.org/video> <http://www.w3.org/ns/ma-ont#hasFragment> <http://ex.org/video#t=0,12> .
+<http://ex.org/metadata.vtt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ex.org/VideoMetadataDataset> .
+<http://ex.org/metadata.vtt> <http://champin.net/2014/linkedvtt/onto#hasCue> <http://ex.org/metadata.vtt#id=cue1> .
+<http://ex.org/metadata.vtt#id=cue1> <http://champin.net/2014/linkedvtt/onto#describesFragment> <http://ex.org/video#t=0:0.0,0:12.0> .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://commontag.org/ns#label> "wind scene" .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://commontag.org/ns#label> "opening credits" .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://www.w3.org/ns/ma-ont#hasContributor> <http://ex.org/sintel> .
 \end{lstlisting}
 
 \paragraph{Supported Semantic Annotation Types}
@@ -1197,7 +1199,7 @@ Advanced tasks are supported by extending \JSONLD\ contexts.\\
   al-\linebreak lows for denoting the contributors in a~media fragment, like its actors.
   Internally, they are represented as
   Ontology for Media Resources~\cite{lee2012mediaontology}
-  format \texttt{ma:contributors}.
+  format \texttt{ma:hasContributor}.
 
 \noindent \textbf{Summary:} The \texttt{summary} annotation type
   allows for summarizing a~media fragment
@@ -1205,12 +1207,6 @@ Advanced tasks are supported by extending \JSONLD\ contexts.\\
   with plain text.
   Internally, they are represented as  
   \texttt{ma:description}~\cite{lee2012mediaontology}.
-
-\noindent \textbf{Named Graph:} The \texttt{namedGraph} annotation type
-  allows for adding a~set of RDF triples
-  to a~media fragment.
-  Internally, they are represented as \JSONLD%
-  ~\cite{sporny2013jsonld} named graph.
 
 \paragraph{Supported Presentation-Oriented Annotation Types}
 
