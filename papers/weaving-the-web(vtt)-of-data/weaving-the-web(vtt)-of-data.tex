@@ -216,9 +216,14 @@ that all modern browsers fully support.
 
 \subsection{Contributions and Paper Structure}
 
-The paper makes three independent contributions.
+The paper makes four independent contributions.
 
 \begin{enumerate}[label=\textit{\roman*)},leftmargin=*]
+  \item \textbf{The~Vision of the \emph{Web(VTT) of Data}},
+  a~global network of videos and connected content
+  that is based on relationships among videos based on WebVTT files,
+  which we use as Web-native spatiotemporal containers of Linked Data
+  with \JSONLD\ payloads.
   \item \textbf{Large-Scale Common Crawl study of the state of Web video:}
     we have examined the 148 terabyte size Common Crawl corpus
     and determined statistics on the usage of the \texttt{<video>},
@@ -280,14 +285,14 @@ for our proposed approach to semantic video annotation.
 Cues optionally can have unique WebVTT identifiers.
 WebVTT-compliant Web browsers~\cite{dutton2012trackelement}
 support five different kinds of
-WebVTT tracks: \emph{subtitles}, \emph{captions},
-\emph{descriptions}, \emph{chapters}, and \emph{metadata},
+WebVTT tracks: \texttt{subtitles}, \texttt{captions},
+\texttt{descriptions}, \texttt{chapters}, and \texttt{metadata},
 detailed in \autoref{table:texttrackkinds}
 and specified in HTML5~\cite{berjon2013html5}.
-In this paper, we especially focus on
+In this paper, we focus on
 text tracks of kind \texttt{metadata}
 meant to be used from a~scripting context and
-not displayed by the user agent.
+not displayed by user agents.
 
 \begin{table}[b!]\footnotesize
 \begin{tabular}{ r p{5.5cm} } % ACM column width 8.45cm, 0.83cm gutter
@@ -492,9 +497,9 @@ only 1,456 (${\approx0.049\%}$) had a~\texttt{<track>} child node.
 Upon closer examination of the kinds of these 1,456 \texttt{<track>} nodes
 (see \autoref{table:texttrackkinds} for an explanation of the various kinds),
 we saw that the overwhelming majority are unsurprisingly
-used for subtitles or captions.
-Almost no chapter usage was detected
-and no metadata usage at all.
+used for \texttt{subtitles} or \texttt{captions}.
+Almost no \texttt{chapter} usage was detected
+and neither \texttt{metadata} nor \texttt{description} usage at all.
 The full details can be seen in \autoref{table:kind}.
 Looking at the languages used in the captions and subtitles, 
 these were almost exclusively English and French,
@@ -533,7 +538,7 @@ The full details are available in \autoref{table:src}.
 Almost all videos had only exactly one text track
 rather than multiple, as detailed in \autoref{table:track},
 meaning that the broad majority of all videos are subtitled or captioned
-in only one language, concretely English or French (\autoref{table:srclang}).
+in only one language, English or French (\autoref{table:srclang}).
 
 \subsection{Video Statistics}
 
@@ -621,196 +626,6 @@ but for the concrete use case seem quite complex.
 </div>
 \end{lstlisting}
 
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }                       
-    \texttt{<track kind>} & Count \\
-    \hline  
-    captions & 915\\
-    subtitles & 525\\
-    chapters & 2\\
-    undefined & 10\\  
-  \end{tabular}
-  \caption{Distribution of values for
-    \texttt{<track kind>}}
-  \label{table:kind}
-\end{table}
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }                       
-    \texttt{<track srclang>} & Count \\
-    \hline  
-    en & 1,242\\
-    fr & 117\\
-    de & 8\\    
-    en-US & 3\\
-    th & 2\\
-    Español & 1\\
-    Korean & 1\\
-    undefined & 78\\    
-  \end{tabular}
-  \caption{Distribution of values for
-    \texttt{<track srclang>}}
-  \label{table:srclang}    
-\end{table}
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }                       
-    \texttt{<track label>} & Count \\
-    \hline  
-    English & 1,069\\
-    Français & 117\\    
-    English Captions & 20\\    
-    Captions & 10\\
-    English closed captioning & 3\\    
-    Deutsch & 2\\    
-    English Subtitles & 2\\
-    Thai & 2\\    
-    English subtitles & 1\\
-    Gr\unknown\unknown e & 1\\
-    undefined & 229\\
-  \end{tabular}
-  \caption{Distribution of values for
-    \texttt{<track label>} \tiny (unknown encoding \emph{sic})}
-  \label{table:label}    
-\end{table}
-  
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }                       
-    \texttt{<track default>} & Count \\
-    \hline
-    default & 650\\
-    `' & 526\\
-    true & 1\\
-    undefined & 279
-  \end{tabular}
-  \caption{Distribution of values for
-    \texttt{<track default>}}
-  \label{table:default}    
-\end{table}
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }                       
-    File extensions of \texttt{<track src>} & Count \\
-    \hline
-    probably \texttt{.vtt} & 696\\
-    \texttt{.srt} & 390\\
-    \texttt{.vtt} or \texttt{.webvtt} & 66\\
-    no extension & 304\\
-  \end{tabular}
-  \caption{Distribution of file extensions for
-    values for \texttt{<track src>}}
-  \label{table:src}    
-\end{table}
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }                       
-    \texttt{<track>} tags & Count \\
-    \hline
-    1 & 1,446\\
-    0 & 9\\
-    9 & 1\\
-  \end{tabular}
-  \caption{Number of \texttt{<track>} tags per
-    \texttt{<video>} tag \tiny (zero \texttt{<track>}
-    tags means  the \texttt{<video>} tag had
-    an  unparseable \texttt{<track>})}
-  \label{table:track}    
-\end{table}
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }
-    \texttt{<source>} tags & Count \\
-    \hline
-    1 & 826\\    
-    3 & 404\\    
-    2 & 173\\    
-    0 & 49\\
-    4 & 4\\
-  \end{tabular}
-  \caption{Number of \texttt{<source>} tags per
-    \texttt{<video>} with \texttt{<track>} \tiny (zero \texttt{<source>}
-    tags means the video URL was provided via
-    \texttt{<video src>}; 1,405 videos did not have
-    a~\texttt{src} attribute, 51 videos had one)}
-  \label{table:source}    
-\end{table}
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }
-    \texttt{<source>} tags & Count \\
-    \hline
-    0 & 7,828,032\\
-    1 & 1,139,240\\
-    3 & 138,540\\
-    4 & 83,121\\    
-    2 & 77,853\\
-    6 & 804\\    
-    5 & 179\\
-    7 & 137\\
-    8 & 64\\
-    10 & 22\\    
-    9 & 9\\
-    13 & 8\\
-    11 & 6\\
-  \end{tabular}
-  \caption{Number of \texttt{<source>} tags per
-    \texttt{<video>} with or without \texttt{<track>}
-    \tiny (zero \texttt{<source>}
-    tags means the video URL was provided via
-    \texttt{<video src>})}
-  \label{table:sourceFull}    
-\end{table}
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }
-    \texttt{<source type>} & Count \\
-    \hline
-    video/mp4 & 1,285\\
-    video/webm & 94\\
-    video/x-ms-wmv & 10\\    
-    video/ogg & 5\\    
-    video/mp4; codecs=``avc1.42E01E, mp4a.40.2'' & 3\\
-    video/flv & 2\\
-    video/youtube & 1\\    
-    undefined & 58\\  
-  \end{tabular}
-  \caption{Distribution of values for \texttt{<source type>}
-    of \texttt{<video>} tags with \texttt{<track>}}
-  \label{table:type}    
-\end{table}
-
-\begin{table}[p]
-  \centering
-  \begin{tabular}{ r | r }
-    \texttt{<source type>} & Count \\
-    \hline
-    video/mp4 & 1,204,744\\
-    video/webm & 163,715\\
-    video/mp4; codecs="avc1.42E01E, mp4a.40.2" & 10,700\\
-    text/json & 2,841\\
-    video/flv & 2,281\\
-    video/x-ms-wmv & 2,105\\
-    video/flash & 2,023\\
-    video/ogg & 1,529\\
-    video/youtube & 1,528\\
-    application/x-mpegURL & 1,257\\    
-  \end{tabular}
-  \caption{Distribution of values for \texttt{<source type>}
-    of \texttt{<video>} tags with or without  \texttt{<track>}
-    \tiny (with more than 1,000 occurrences)}
-  \label{table:typeFull}    
-\end{table}
-
 \section{LinkedVTT Conversion Tool for WebVTT Files}
 \label{sec:linkedvtt-conversion-tool-for-webvtt-files}
 
@@ -831,9 +646,9 @@ will be preceded by the \vtt{} prefix.
 An online implementation of this interpretation process
 that we have titled LinkedVTT is likewise available online.%
 \footnote{LinkedVTT: \url{http://champin.net/2014/linkedvtt/}}
-It takes the URI of any WebVTT file, the textual contents of a~WebVTT file,
-or a~YouTube URL of any video with closed captions as an input
-and applies the converts from WebVTT to Linked Data on-the-fly.
+It takes the URL of any WebVTT file, the contents of a~raw WebVTT file,
+or a~YouTube URL of any video with closed captions as an input,
+and applies the conversion from WebVTT to Linked Data on-the-fly.
 
 \subsection{Basic Interpretation}
 
@@ -901,7 +716,7 @@ We note that \JSONLD\ requires a~\emph{context}
 to interpret JSON data as Linked Data,
 especially to disambiguate keywords to full URIs.
 This context can be provided in each cue,
-but in the following we also provide a preferred way to declare it once
+but in the following we also provide an alternative way to declare it once
 for the entire WebVTT file.
 
 \begin{comment}
@@ -945,7 +760,7 @@ metadata headers described as key-value pairs.
 While the WebVTT specification defines a~number of metadata headers,
 it leaves it open for extensions.
 We propose three extended metadata headers listed below.
-WebVTT in the wild currently does not contain
+Most WebVTT currently does not contain
 these metadata headers,
 but we argue that they allow for an easy transition
 from plain WebVTT to Linked Data WebVTT,
@@ -971,7 +786,7 @@ by adding a \texttt{@context} property.
   have outlined in \autoref{sec:implications-on-linked-data-for-videos}.
 \end{description}
 
-\subsection{Integrating Existing Videos into the\\ Web(VTT) of Data}
+\subsection{Integrating Existing Videos Into the\\ Web(VTT) of Data}
 
 Given the currently rather manageable amount of videos
 with captions or subtitles as outlined in \autoref{sec:text-track-statistics},
@@ -986,14 +801,207 @@ by Li \emph{et~al.}\ and~\cite{steiner2010semwebvid} by us.
 In combination with Media Fragments URI, spatiotemporal annotations
 can be created on-the-fly with good precision.
 
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }                       
+    \texttt{<track kind>} & Count \\
+    \hline  
+    captions & 915\\
+    subtitles & 525\\
+    chapters & 2\\
+    description & 0\\
+    metadata & 0\\
+    undefined & 10\\  
+  \end{tabular}
+  \caption{Distribution of values for
+    \texttt{<track kind>}}
+  \label{table:kind}
+\end{table}
+
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }                       
+    \texttt{<track srclang>} & Count \\
+    \hline  
+    en & 1,242\\
+    fr & 117\\
+    de & 8\\    
+    en-US & 3\\
+    th & 2\\
+    Español & 1\\
+    Korean & 1\\
+    undefined & 78\\    
+  \end{tabular}
+  \caption{Distribution of values for
+    \texttt{<track srclang>}}
+  \label{table:srclang}    
+\end{table}
+
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }                       
+    \texttt{<track label>} & Count \\
+    \hline  
+    English & 1,069\\
+    Français & 117\\    
+    English Captions & 20\\    
+    Captions & 10\\
+    English closed captioning & 3\\    
+    Deutsch & 2\\    
+    English Subtitles & 2\\
+    Thai & 2\\    
+    English subtitles & 1\\
+    Gr\unknown\unknown e & 1\\
+    undefined & 229\\
+  \end{tabular}
+  \caption{Distribution of values for
+    \texttt{<track label>} \tiny (unknown encoding \emph{sic})}
+  \label{table:label}    
+\end{table}
+  
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }                       
+    \texttt{<track default>} & Count \\
+    \hline
+    default & 650\\
+    `' & 526\\
+    true & 1\\
+    undefined & 279
+  \end{tabular}
+  \caption{Distribution of values for
+    \texttt{<track default>}}
+  \label{table:default}    
+\end{table}
+
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }                       
+    File extensions of \texttt{<track src>} & Count \\
+    \hline
+    probably \texttt{.vtt} & 696\\
+    \texttt{.srt} & 390\\
+    \texttt{.vtt} or \texttt{.webvtt} & 66\\
+    no extension & 304\\
+  \end{tabular}
+  \caption{Distribution of file extensions for
+    values for \texttt{<track src>}}
+  \label{table:src}    
+\end{table}
+
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }                       
+    \texttt{<track>} tags & Count \\
+    \hline
+    1 & 1,446\\
+    0 & 9\\
+    9 & 1\\
+  \end{tabular}
+  \caption{Number of \texttt{<track>} tags per
+    \texttt{<video>} tag \tiny (zero \texttt{<track>}
+    tags means  the \texttt{<video>} tag had
+    an  unparseable \texttt{<track>})}
+  \label{table:track}    
+\end{table}
+
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }
+    \texttt{<source>} tags & Count \\
+    \hline
+    1 & 826\\    
+    3 & 404\\    
+    2 & 173\\    
+    0 & 49\\
+    4 & 4\\
+  \end{tabular}
+  \caption{Number of \texttt{<source>} tags per
+    \texttt{<video>} with \texttt{<track>} \tiny (zero \texttt{<source>}
+    tags means the video URL was provided via
+    \texttt{<video src>}; 1,405 videos did not have
+    a~\texttt{src} attribute, 51 videos had one)}
+  \label{table:source}    
+\end{table}
+
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }
+    \texttt{<source>} tags & Count \\
+    \hline
+    0 & 7,828,032\\
+    1 & 1,139,240\\
+    3 & 138,540\\
+    4 & 83,121\\    
+    2 & 77,853\\
+    6 & 804\\    
+    5 & 179\\
+    7 & 137\\
+    8 & 64\\
+    10 & 22\\    
+    9 & 9\\
+    13 & 8\\
+    11 & 6\\
+  \end{tabular}
+  \caption{Number of \texttt{<source>} tags per
+    \texttt{<video>} with or without \texttt{<track>}
+    \tiny (zero \texttt{<source>}
+    tags means the video URL was provided via
+    \texttt{<video src>})}
+  \label{table:sourceFull}    
+\end{table}
+
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }
+    \texttt{<source type>} & Count \\
+    \hline
+    video/mp4 & 1,285\\
+    video/webm & 94\\
+    video/x-ms-wmv & 10\\    
+    video/ogg & 5\\    
+    video/mp4; codecs=``avc1.42E01E, mp4a.40.2'' & 3\\
+    video/flv & 2\\
+    video/youtube & 1\\    
+    undefined & 58\\  
+  \end{tabular}
+  \caption{Distribution of values for \texttt{<source type>}
+    of \texttt{<video>} tags with \texttt{<track>}}
+  \label{table:type}    
+\end{table}
+
+\begin{table}[p!]
+  \raggedleft
+  \begin{tabular}{ r | r }
+    \texttt{<source type>} & Count \\
+    \hline
+    video/mp4 & 1,204,744\\
+    video/webm & 163,715\\
+    video/mp4; codecs="avc1.42E01E, mp4a.40.2" & 10,700\\
+    text/json & 2,841\\
+    video/flv & 2,281\\
+    video/x-ms-wmv & 2,105\\
+    video/flash & 2,023\\
+    video/ogg & 1,529\\
+    video/youtube & 1,528\\
+    application/x-mpegURL & 1,257\\    
+  \end{tabular}
+  \caption{Distribution of values for \texttt{<source type>}
+    of \texttt{<video>} tags with or without  \texttt{<track>}
+    \tiny (with more than 1,000 occurrences)}
+  \label{table:typeFull}    
+\end{table}
+
 \section{Online Video Annotation\\ Format and Editor}
 \label{sec:online-video-annotation-format-and-editor}
 
-While in the previous section we have focused on
-how to integrate existing videos with WebVTT tracks
-into the \emph{Web(VTT) of Data},
-in this section we focus on how to integrate
-future video creations and videos not contained in the Common Crawl corpus.
+Different from the conversion process for existing text tracks
+of kind \texttt{subtitles} and \texttt{captions}
+that was proposed in \autoref{sec:linkedvtt-conversion-tool-for-webvtt-files},
+in this section we focus on facilitating the online creation and consumption
+of \texttt{metadata} tracks for future video creations
+and videos not contained in the Common Crawl corpus.
+We start off with the introduction of our annotation model.
 
 \subsection{Annotation Model}
 
@@ -1008,12 +1016,43 @@ URI itself or---in case of multiple URIs for a~video available
 in different encodings with multiple \texttt{<source>} tags---%
 the URI with fragment identifier of the \texttt{<video>} tag
 that then requires a~unique \texttt{id} attribute,
-\emph{(ii)}~the Media Fragment URI of a~temporal and/or spatial
+\emph{(ii)}~the Media Fragment URI of a~temporal or spatiotemporal
 media fragment of the original media item.
-We have no constraints in place for the \emph{predicate},
-which determines the annotation type, and the \emph{object}.
-In our interpretation layer responsible for the video view,
-we thus make an open world assumption
+We make no constraints for the \emph{object} 
+and the \emph{predicate},
+which determines the annotation type.
+
+\subsection{WebVTT Editor}
+
+We have implemented this annotation model
+in form of an online demonstrator prototype.
+The demonstrator interprets the existing metadata track for a~video
+and reacts on annotations when the \texttt{currentTime}
+of the media resource matches the
+\texttt{startTime} or \texttt{endTime} of a~cue.
+We call existing annotations \emph{Read} annotations.
+Users can add \emph{Write} annotations
+by creating new \texttt{TextTrackCue}s
+at the desired start and end times
+and by providing their \JSONLD~payloads.
+The editor facilitates this task through a~graphical user interface, abstracting the underlying details.
+\autoref{fig:webvtt-editor} shows a~screenshot of the WebVTT editor.
+Newly generated annotations get directly interpreted
+and can be persistently stored locally
+or in the future remotely for collaborative editing.
+We have developed a~WebVTT to \JSONLD~%
+converter, capable of transforming WebVTT metadata tracks
+following our annotation model
+into \JSONLD~for the Web of Data.
+This allows for straight-forward local annotation creation
+with Semantic Web compliance upon global publication.
+
+\subsection{Interpretation Layer}
+
+In our WebVTT editor,
+we propose an interpretation layer
+capable of dealing with the herein defined annotation types. 
+We thus make an open world assumption
 by supporting a~set of pre-defined values for predicate and object
 listed below, and ignoring unknown ones.
 This permits others to extend---or even completely replace---%
@@ -1024,6 +1063,75 @@ via the metadata track's URI
 and corresponding cue fragment identifier,
 allowing for meta annotations of annotations, \emph{e.g.},
 to attach provenance or license information to them.
+
+\subsection{Evaluation}
+
+We evaluate or annotation model and related technology stack
+based on a~state-of-the-art hypervideo model by
+Sadallah \emph{et~al.}~\cite{sadallah2012hypervideo}
+that builds on a~careful study of prior art.
+
+\paragraph{The CHM Hypervideo Model}
+
+Sadallah \emph{et~al.}\ define
+\emph{hypervideo} as \textit{``interactive video-centric
+hypermedia document built upon audiovisual content''}.
+The authors identify three common hypervideo characteristics,\linebreak
+namely \emph{(i)}~\emph{interactivity}, which, \emph{e.g.},
+can enable richer navigational possibilities,
+\emph{(ii)}~\emph{non-linearity}, which allows for features
+like video montages, and finally \emph{(iii)}~\emph{enrichments}
+that include all sorts of supplementary material besides
+and on top of hypervideos.
+The authors have examined hypervideo systems
+of recent years and found recurring patterns,
+summarized and compared to our approach
+in the following.\\
+
+\noindent \textbf{Video player and controls:} Hypervideo systems by definition
+  provide one or multiple video players, however,
+  the corresponding video controls are not necessarily exposed.
+
+\checkmark~Our approach uses the (optionally customizable)
+default HTML5 player that includes controls that can be hidden.
+
+\noindent \textbf{Timeline:} A~timeline is the spatial representation
+  of temporally situated metadata in a~video.
+  The most common timeline pattern shows the
+  time along the x-axis and corresponding metadata along the y-axis.
+  
+\checkmark~Our approach supports temporal metadata.
+Customizable timeline visualizations exist%
+\footnote{D3 timeline implementation:
+\url{https://github.com/jiahuang/d3-timeline}}
+and can be added.
+
+\noindent \textbf{Textual or graphical overlay:}
+  Additional textual or gra\-phical
+  information can be displayed in form of overlays on the video.
+  Overlays can also serve as external or video-internal hyperlinks,
+  referred to as \emph{hotspots}.
+
+\checkmark~We realize overlays and links
+with \texttt{htmlOverlay} types.
+
+\noindent \textbf{Textual or graphical table of contents:}
+  If a~video is logically separated
+  into different parts, a~table of contents lists these
+  in textual or graphical form, makes them navigable,
+  or visually summarizes them, referred to as \emph{video map}.
+  
+\checkmark~Textual tables of contents are directly supported
+via WebVTT text tracks of type \emph{chapters}.
+Graphical tables of contents can be created based thereon.  
+
+\noindent \textbf{Transcript:} The textual document
+  of the transcribed audiovisual content of a~video
+  allows for following along the video by reading
+  and also serves for in-video navigation.
+  
+\checkmark~Subtitles and captions are natively supported
+by\linebreak WebVTT tracks of the types \emph{subtitles} and \emph{captions}.
 
 \begin{lstlisting}[caption={Generated \JSONLD\ for the Web of Data, see
     \autoref{listing:rdftriples} for the RDF triples},
