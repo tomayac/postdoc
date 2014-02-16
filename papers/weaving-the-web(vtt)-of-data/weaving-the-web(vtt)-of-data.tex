@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{enumitem}
 \usepackage[hyphens]{url}
-\usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+\usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black,draft]{hyperref}
 \def\sectionautorefname{Section}
 \def\subsectionautorefname{Subsection}
 
@@ -143,8 +143,9 @@ and \emph{\JSONLD}, a~JSON-based format to serialize Linked Data.
 Just like the \emph{Web of Data}
 that is based on the relationships among structured data,
 the \emph{Web(VTT) of Data} is based on
-relationships for videos among WebVTT files,
-which we use as Web-native spatiotemporal Linked Data containers.
+relationships among videos based on WebVTT files,
+which we use as Web-native spatiotemporal Linked Data containers
+with \JSONLD\ payloads.
 In a~first step, we provide necessary background information
 on the technologies we use.
 In a~second step, we perform a~large-scale analysis
@@ -152,14 +153,14 @@ of the 148 terabyte size Common Crawl corpus
 in order to get a~better understanding
 of the \emph{status quo} of Web video deployment
 and address the challenge of integrating
-the detected videos in the Common Crawl corpus into the envisioned
+the detected videos in the Common Crawl corpus into the
 \emph{Web(VTT) of Data}.
-In a~third and final step, we open-source an online video annotation
+In a~third step, we open-source an online video annotation
 creation and consumption tool, targeted at videos
-not contained in the Common Crawl corpus in the deep Web
+not contained in the Common Crawl corpus
 and for integrating future video creations,
 allowing for weaving the \emph{Web(VTT) of Data}
-tighter and tighter, video by video.
+tighter, video by video.
 \end{abstract}
 
 \category{H.5.1}{Multimedia Information Systems}{Video}
@@ -226,7 +227,7 @@ The paper makes three independent contributions.
   \item \textbf{LinkedVTT conversion tool for WebVTT files:}
   we have made available an on-the-fly online conversion tool
   capable of ``triplifying'' existing WebVTT files
-  and any of the videos on YouTube%
+  and any video on YouTube%
   \footnote{YouTube: \url{http://www.youtube.com/}} with closed captions.
   \item \textbf{Online video annotation format and editor:} we have created an
   online video annotation format and an editor prototype implementing it
@@ -474,7 +475,7 @@ On these webpages, we detected exactly
 2,963,766 \texttt{<video>} tags,
 resulting in a~1.37 gigabyte raw text file
 that we have made available publicly.%
-\footnote{2,963,766 \texttt{<video>} tags: \url{https://drive.google.com/file/d/0B9LlSNwL2H8YdWVIQmJDaE81UEk/edit?usp=sharing}}
+\footnote{2,963,766 \texttt{<video>} tags: \url{https://drive.google.com/file/d/0B9LlSNwL2H8YdWVIQmJDaE81UEk}}
 This means that on average only ${\approx}0.132\%$ of all webpages contain video.
 The whole job took about five hours on
 80~c1.xlarge machines and costed overall \$555,
@@ -579,6 +580,9 @@ The biggest issue with this practice
 of putting multiple sources is that
 rather than having one unique identifier (URL) per video,
 there can be multiple identifiers.
+\autoref{listing:html-license} shows a~minimal example.
+Unless one repeats all statements for each source,
+there will always remain unclear sources without structured data.
 We note that a~video in encoding~A
 and the ``same'' video in encoding~B
 may not be marked as \texttt{<owl:sameAs>},
@@ -596,6 +600,27 @@ More advanced approaches to the problem
 stemming from the bibliographic universe
 like FRBR~\cite{tillett2004frbr} are possible,
 but for the concrete use case seem quite complex.
+
+\begin{lstlisting}[caption={Specifying a~license for an image and attempt to do the same for a~video with two sources (the license of kitten.webm stays unclear)},
+  label=listing:html-license, language=html, float=t!]
+<div about="kitten.jpg">
+  <img src="kitten.jpg" alt="Cute kitten" />
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+    Creative Commons Attribution Share-Alike 3.0
+  </a>
+</div>
+
+<div about="kitten.mp4">
+  <video>
+    <source src="kitten.mp4"/>
+    <source src="kitten.webm"/>
+  </video>  
+  <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+    Creative Commons Attribution Share-Alike 3.0
+  </a>
+</div>
+\end{lstlisting}
+
 
 \begin{table}[p]
   \centering
@@ -840,7 +865,6 @@ we envision that some consumers will not be able to deal with it.
 Hence we propose an alternate interpretation of WebVTT as RDF.
 In this so-called \emph{flat} interpretation,
 the contents of all named graphs is merged into the default graph.
-\todo{illustrate with a figure, representing the WebVTT example that will probably be there in the intro?}
 
 \subsection{Advanced Interpretation}
 
@@ -872,7 +896,7 @@ other resources related to that fragment,
 or video fragments, or spatiotemporal video tags.
 In this case, all the triples generated from parsing the payload as \JSONLD\
 \emph{replace} the \vtt{annotatedBy} triple in the cue's named graph.
-\autoref{listing:jsonld-payload} gives an example of such \JSONLD\ payload.
+\autoref{listing:webvtt} gives an example of such \JSONLD\ payload.
 We note that \JSONLD\ requires a~\emph{context}
 to interpret JSON data as Linked Data,
 especially to disambiguate keywords to full URIs.
@@ -880,6 +904,7 @@ This context can be provided in each cue,
 but in the following we also provide a preferred way to declare it once
 for the entire WebVTT file.
 
+\begin{comment}
 \begin{lstlisting}[caption={A~WebVTT cue with a~\JSONLD\ payload},
   label=listing:jsonld-payload, float=t!]
 00:00:00.000 --> 00:00:12.000
@@ -895,6 +920,21 @@ for the entire WebVTT file.
       "name": "Samuel L. Jackson"
     }
   ]
+}
+\end{lstlisting}
+\end{comment}
+
+\begin{lstlisting}[caption={Sample WebVTT metadata file with \JSONLD\
+  payload in a~cue identified as ``cue1''},
+  label=listing:webvtt, float=t!]
+WEBVTT
+
+cue1
+00:00:00.000 --> 00:00:12.000
+{
+  "@context": "http://ex.org/local_context",
+  "tags": ["wind scene", "opening credits"],
+  "contributors": ["http://ex.org/sintel"]
 }
 \end{lstlisting}
 
@@ -931,7 +971,7 @@ by adding a \texttt{@context} property.
   have outlined in \autoref{sec:implications-on-linked-data-for-videos}.
 \end{description}
 
-\subsection{Integrating Videos into the Web(VTT) of Data}
+\subsection{Integrating Existing Videos into the\\ Web(VTT) of Data}
 
 Given the currently rather manageable amount of videos
 with captions or subtitles as outlined in \autoref{sec:text-track-statistics},
@@ -946,8 +986,14 @@ by Li \emph{et~al.}\ and~\cite{steiner2010semwebvid} by us.
 In combination with Media Fragments URI, spatiotemporal annotations
 can be created on-the-fly with good precision.
 
-\section{Online Video Annotation Format and Editor}
+\section{Online Video Annotation\\ Format and Editor}
 \label{sec:online-video-annotation-format-and-editor}
+
+While in the previous section we have focused on
+how to integrate existing videos with WebVTT tracks
+into the \emph{Web(VTT) of Data},
+in this section we focus on how to integrate
+future video creations and videos not contained in the Common Crawl corpus.
 
 \subsection{Annotation Model}
 
@@ -978,19 +1024,6 @@ via the metadata track's URI
 and corresponding cue fragment identifier,
 allowing for meta annotations of annotations, \emph{e.g.},
 to attach provenance or license information to them.
-
-\begin{lstlisting}[caption={Sample WebVTT metadata file},
-  label=listing:webvtt, float=t!]
-WEBVTT
-
-cue1
-00:00:00.000 --> 00:00:12.000
-{
-  "@context": "http://ex.org/local_context",
-  "tags": ["wind scene", "opening credits"],
-  "contributors": ["http://ex.org/sintel"]
-}
-\end{lstlisting}
 
 \begin{lstlisting}[caption={Generated \JSONLD\ for the Web of Data, see
     \autoref{listing:rdftriples} for the RDF triples},
@@ -1101,11 +1134,10 @@ but only impact the way videos get presented.\\
     while in parallel modifying ``cue3'' with tag, volume, playback rate,
     and style (\ding{172} left: Graphical User Interface with \JSONLD\ debug view,
   \ding{173} center: Chrome Developer Tools with highlighted
-  \texttt{<track src=``metadata.vtt'' kind=``metadata''>} tag,
+  \texttt{<track src="metadata.vtt" kind="metadata">} tag,
   \ding{174} right: raw WebVTT file \texttt{metadata.vtt} with highlighted ``cue2'' and ``cue3'')}
   \label{fig:webvtt-editor}
 \end{figure*}
-
 
 \section{Conclusions and Future Work}
 
