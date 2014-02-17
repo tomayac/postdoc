@@ -231,7 +231,7 @@ The paper makes four contributions, including transparent code and data.
     and their implications for Linked Data.
   \item \textbf{WebVTT conversion to RDF-based Linked Data:}
     we propose a~general conversion process for ``triplifying'' existing WebVTT,
-    \emph{i.e.}, for turning WebVTT into a~concrete syntax of RDF.
+    \emph{i.e.}, for turning WebVTT into a~specialized concrete syntax of RDF.
     This process is implemented in form of an online conversion tool.
   \item \textbf{Online video annotation format and editor:} we have created an
   online video annotation format and an editor prototype implementing it
@@ -299,7 +299,7 @@ WebVTT tracks: \texttt{subtitles}, \texttt{captions},
 \texttt{descriptions}, \texttt{chapters}, and \texttt{metadata},
 detailed in \autoref{table:texttrackkinds}
 and specified in HTML5~\cite{berjon2013html5}.
-In this paper, we focus on
+In this paper, we are especially interested in
 text tracks of kind \texttt{metadata}
 meant to be used from a~scripting context and
 not displayed by user agents.
@@ -496,7 +496,7 @@ The whole job took about five hours on
 consisting of \$468 for Amazon~EC2,
 plus an additional \$87 for Amazon Elastic MapReduce
  (Amazon EMR)\footnote{Amazon EMR:
-\url{http://aws.amazon.com/elasticmapreduce/}}
+\url{http://aws.amazon.com/elasticmapreduce/}}.
 
 \subsection{Text Track Statistics}
 \label{sec:text-track-statistics}
@@ -878,7 +878,8 @@ As the notion of dataset is a recent addition to the RDF core concepts
 we envision that some consumers will not be able to deal with it.
 Hence we propose an alternate interpretation of WebVTT as RDF.
 In this so-called \emph{flat} interpretation,
-the contents of all named graphs is merged into the default graph.
+the contents of all named graphs is merged into the default graph,
+at the expense of contextual information.
 
 \subsection{Advanced Interpretation}
 
@@ -911,10 +912,9 @@ or video fragments, or spatiotemporal video tags.
 In this case, all the triples generated from parsing the payload as \JSONLD\
 \emph{replace} the \vtt{annotatedBy} triple in the cue's named graph.
 \autoref{listing:webvtt} gives an example of such \JSONLD\ payload.
-We note that \JSONLD\ requires a~\emph{context}
-to interpret JSON data as Linked Data,
-especially to disambiguate keywords to full URIs.
-This context can be provided in each cue,
+We note that it includes the \JSONLD\ specific \emph{@context} key,
+to allow its interpretation as Linked Data.
+This context can be specified in each cue,
 but in the following we also provide an alternative way to declare it once
 for the entire WebVTT file.
 
@@ -946,7 +946,7 @@ WEBVTT
 cue1
 00:00:00.000 --> 00:00:12.000
 {
-  "@context": "http://liris.cnrs.fr/~pchampin/2014/linkedvtt/demonstrator-context.json",
+  "@context": "http://champin.net/2014/linkedvtt/demonstrator-context.json",
   "tags": ["wind scene", "opening credits"],
   "contributors": ["http://ex.org/sintel"]
 }
@@ -965,6 +965,9 @@ but we argue that they allow for an easy transition
 from plain WebVTT to Linked Data WebVTT,
 just like \JSONLD\ makes it easy to turn plain JSON into Linked Data
 by adding a \texttt{@context} property.
+Further more, other metadata headers will be evaluated
+against the JSON-LD context,
+and can produce additional triples with the WebVTT file as its subject.
 
 \begin{description}[leftmargin=*]
   \item[@base]
@@ -1029,7 +1032,7 @@ the URI with fragment identifier of the \texttt{<video>} tag
 that then requires a~unique \texttt{id} attribute,
 \emph{(ii)}~the Media Fragment URI of a~temporal or spatiotemporal
 media fragment of the original media item.
-We make no constraints for the \emph{object} 
+We make no constraint for the \emph{object} 
 and the \emph{predicate},
 which determines the annotation type as outlined in the next subsection.
 
@@ -1135,18 +1138,17 @@ but only impact the way videos get presented.\\
 \end{description}
 
 \begin{lstlisting}[caption={Generated \JSONLD\ file based on the WebVTT file 
-    shown in \autoref{listing:webvtt}, see
-    \autoref{listing:rdftriples} for the contained RDF triples},
+    shown in \autoref{listing:webvtt}~(flat interpretaion)},
   label=listing:jsonld, float=t!]
 {
-  "@context": "http://liris.cnrs.fr/~pchampin/2014/linkedvtt/demonstrator-context.json",
+  "@context": "http://champin.net/2014/linkedvtt/context.json",
   "@id": "http://ex.org/metadata.vtt", 
   "@type": "VideoMetadataDataset",
   "video": "http://ex.org/video", 
   "cues": [{
     "@id": "#id=cue1",
     "fragment": {
-      "@context": "http://bit.ly/1cNnqfL", 
+      "@context": "http://champin.net/2014/linkedvtt/demonstrator-context.json", 
       "@id": "http://ex.org/video#t=0:0.0,0:12.0", 
       "tags": ["wind scene", "opening credits"],
       "contributors": ["http://ex.org/sintel"]
@@ -1349,10 +1351,10 @@ has become feasible thanks to Media Fragments URI,
 a~standard that allows for applying Linked Data approaches to moving images
 on a~temporal and spatiotemporal axis.
 We have organized this paper in three major steps.
-\emph{(i)}~in order to get a better understanding of the status quo
+\emph{(i)}~in order to get a better understanding of the \emph{status quo}
 of Web video deployment, we have performed a large- scale analysis
 of the 148 terabyte size Common Crawl corpus,
-emph{(ii)}~we have addressed the challenge of integrating
+\emph{(ii)}~we have addressed the challenge of integrating
 existing videos in the Common Crawl corpus into the \emph{Web(VTT) of Data}
 by proposing a~WebVTT conversion to RDF-based Linked Data,
 and \emph{(iii)}~we have open-sourced an online video annotation creation
