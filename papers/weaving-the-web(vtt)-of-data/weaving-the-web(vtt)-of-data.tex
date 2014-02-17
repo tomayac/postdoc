@@ -14,6 +14,7 @@
 \usepackage{relsize}
 \usepackage{listings}
 \usepackage{verbatim}
+\usepackage{xcolor}
 \newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
 \newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
 \newcommand{\smalllistingsize}{\fontsize{7.5pt}{9.5pt}}
@@ -41,14 +42,13 @@
   comment=[l]{//},
   morecomment=[s]{/*}{*/},
   commentstyle=\color{darkgray},
-  stringstyle=\color{red},
+  stringstyle=\color{darkgray},
   morestring=[b]',
   morestring=[b]"
 }
 \lstset{breaklines=true}
 
 % linewrap symbol
-\usepackage{color}
 \definecolor{grey}{RGB}{130,130,130}
 \newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
 
@@ -1325,10 +1325,113 @@ our approach is based on directly indexable WebVTT files.
 \section{Conclusions and Future Work}
 \label{sec:conclusions-and-future-work}
 
+In this paper, we have introduced our vision of the\linebreak \emph{Web(VTT) of Data},
+a~global network of videos and connected content
+that is based on relationships among videos based on WebVTT files,
+which we use as Web-native spatiotemporal containers of Linked Data
+with \JSONLD\ payloads.
+With the recent graduation of the \JSONLD\ syntax
+as an official W3C Recommendation and a~major search engine company%
+\footnote{\JSONLD\ in Gmail:
+\url{https://developers.google.com/gmail/actions/reference/formats/json-ld}}
+supporting embedded \JSONLD\ documents in HTML documents,%
+\footnote{Embedding \JSONLD\ in HTML Documents:
+\url{http://www.w3.org/TR/json-ld/\#embedding-json-ld-in-html-documents}}
+\JSONLD\ definitely is here to stay.
+Likewise for WebVTT, which in the more recent past has been natively implemented
+by all major Web browser vendors,
+the future is bright.
+We combine both technologies in a~fruitful way that is focused
+both at common Web search engines
+as well as at the entire Linked Data stack of technologies.
+Using WebVTT as a~container for \JSONLD\ is both innovative and natural.
+Making commonly understood semantic statements about video fragments on the Web
+has become feasible thanks to Media Fragments URI,
+a~standard that allows for applying Linked Data approaches to moving images
+on a~temporal and spatiotemporal axis.
+We have organized this paper in three major steps.
+\emph{(i)}~in order to get a better understanding of the status quo
+of Web video deployment, we have performed a large- scale analysis
+of the 148 terabyte size Common Crawl corpus,
+emph{(ii)}~we have addressed the challenge of integrating
+existing videos in the Common Crawl corpus into the \emph{Web(VTT) of Data}
+by proposing a~WebVTT conversion to RDF-based Linked Data,
+and \emph{(iii)}~we have open-sourced an online video annotation creation
+and consumption tool, targeted at videos not contained in the Common Crawl corpus
+and for integrating future video creations.
+In this paper, we have combined Big Data and Small Data.
+On the Big Data side, we have learned from the Common Crawl corpus
+which kind of timed text tracks are out there,
+which allowed us to propose a~realistic approach to integrating it
+into the \emph{Web(VTT) of Data}.
+On the Small Data side, we have implemented an online editor for the creation
+of semantic video annotations that can be applied video by video,
+so that the \emph{Web(VTT) of Data} gets woven tighter and tighter with each new addition.
+
+Future work has several dimensions.
+Beginning from video annotation, a~first concrete research task
+is to work on our editor prototype.
+While a~lot of efforts can be put in the editor itself,
+far more added value is created by proposing an extension to the
+most well-known online video annotation stack, the Popcorn.js 
+and PopcornMaker projects.
+A~minimal Popcorn.js example annotation can be seen in \autoref{listing:popcorn}.
+Rather than storing the annotations as steps of a~JavaScript program
+that ``artificially'' need to be aligned to the corresponding parts of the video,
+an extension to Popcorn.js could use our approach of leveraging
+naturally temporally aligned WebVTT cues with \JSONLD\ payloads for the annotations.
+We have been able to play video in Web browsers plugin-free
+for a~couple of years now, the next step is adding resources to videos
+to make them more accessible and provide more options to the viewer.
+Straight-forward things to do are to profit from recent advances
+in machine-translation and speech recognition
+to evaluate the usefulness of automatically
+transcribed and translated captions combined with language-independent \texttt{metadata}
+annotations based on named entity extraction for providing Linked Data
+paths between videos no matter their original language.
+We have learned that with regard to HTML5 video with timed text track support,
+it is still early days, so at least in the short-term
+it will be inevitable to deal with legacy plugin-dependent content
+and ways to integrate it in the \emph{Web(VTT) of Data}
+through adaptors or converters \emph{etc.}
+
+Concluding, the vision of the \emph{Web(VTT) of Data} is a~realistic one
+and all building blocks are in place.
+We are optimistic that by leveraging the popularity
+of existing tools like Popcorn.js, we can push the state of Web video forward
+toward an interconnected, semantic, and wall-free experience.  
+
+\begin{lstlisting}[caption={Popcorn.js example},
+  label=listing:popcorn, float=h!, language=JavaScript]
+<video id="video" src="http://ex.org/video.mp4">
+</video>
+<div id="footnote-container"></div>
+<div id="wikipedia-container"></div>
+<script>
+  // get a reference to the video
+  var pop = Popcorn("#video");
+  // add a footnote from second 2 to second 6
+  pop.footnote({
+      start: 2,
+      end: 6,
+      text: "In this scene: George Clooney",
+      target: "footnote-container"
+    });
+  // add a reference to a Wikipedia article from second 2 to 6  
+  pop.wikipedia({
+      start: 2,
+      end: 6,
+      src: "http://en.wikipedia.org/wiki/George§\linewrap§
+          _Clooney",
+      title: "George Clooney",
+      target: "wikipedia-container"
+    });    
+</script>
+\end{lstlisting}
+
 \section*{Acknowledgments}
 
-{\footnotesize
-The research presented in this paper was partially supported
+{\footnotesize The research presented in this paper was partially supported
 by the French National Agency for Research  project
 \emph{Spectacle En Ligne(s)}, project reference
 \mbox{ANR-12-CORP-0015}.}
