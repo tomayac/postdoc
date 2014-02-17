@@ -301,8 +301,8 @@ detailed in \autoref{table:texttrackkinds}
 and specified in HTML5~\cite{berjon2013html5}.
 In this paper, we are especially interested in
 text tracks of kind \texttt{metadata}
-meant to be used from a~scripting context and
-not displayed by user agents.
+that are meant to be used from a~scripting context and
+that are not displayed by user agents.
 
 \begin{table}[b!]\footnotesize
 \begin{tabular}{ r | p{5.5cm} } % ACM column width 8.45cm, 0.83cm gutter
@@ -495,8 +495,8 @@ The whole job took about five hours on
 80~c1.xlarge machines and costed overall \$555,
 consisting of \$468 for Amazon~EC2,
 plus an additional \$87 for Amazon Elastic MapReduce
- (Amazon EMR)\footnote{Amazon EMR:
-\url{http://aws.amazon.com/elasticmapreduce/}}.
+ (Amazon EMR).\footnote{Amazon EMR:
+\url{http://aws.amazon.com/elasticmapreduce/}}
 
 \subsection{Text Track Statistics}
 \label{sec:text-track-statistics}
@@ -876,8 +876,8 @@ with the \vtt{describesFragment} property.
 As the notion of dataset is a recent addition to the RDF core concepts
 (previously, it was specific to the SPARQL query language),
 we envision that some consumers will not be able to deal with it.
-Hence we propose an alternate interpretation of WebVTT as RDF.
-In this so-called \emph{flat} interpretation,
+Hence, we propose an alternate interpretation of WebVTT as RDF.
+In this \emph{flat} interpretation,
 the contents of all named graphs is merged into the default graph,
 at the expense of contextual information.
 
@@ -915,7 +915,7 @@ In this case, all the triples generated from parsing the payload as \JSONLD\
 We note that it includes the \JSONLD\ specific \emph{@context} key,
 to allow its interpretation as Linked Data.
 This context can be specified in each cue,
-but in the following we also provide an alternative way to declare it once
+but below we also provide an alternative way to declare it once
 for the entire WebVTT file.
 
 \begin{comment}
@@ -966,7 +966,7 @@ from plain WebVTT to Linked Data WebVTT,
 just like \JSONLD\ makes it easy to turn plain JSON into Linked Data
 by adding a \texttt{@context} property.
 Further more, other metadata headers will be evaluated
-against the JSON-LD context,
+against the \JSONLD\ context,
 and can produce additional triples with the WebVTT file as its subject.
 
 \begin{description}[leftmargin=*]
