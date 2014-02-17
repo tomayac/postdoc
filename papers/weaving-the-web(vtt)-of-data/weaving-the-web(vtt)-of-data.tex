@@ -183,7 +183,7 @@ like including images, applets (programs that were automatically downloaded
 and ran on the user's machine), video clips, and other HTML documents in their pages.
 The tag was seen as a~future-proof all-purpose solution to generic object inclusion.
 In an \texttt{<OBJECT>} tag, HTML authors can specify everything required
-by an object for its presentation by a user agent:
+by an object for its presentation by a~user agent:
 source code, initial values, and run-time data.
 While most user agents have \textit{``built-in mechanisms
 for rendering common data types such as text, GIF images,
@@ -483,7 +483,7 @@ an approach that also in previous experiments
 proved very efficient%
 ~\cite{bizer2013deployment,muhleisen2012web}.
 We tested exactly 2,247,615,323 webpages
-that had returned a successful HTTP response to the Common Crawl bot,
+that had returned a~successful HTTP response to the Common Crawl bot,
 and had to skip exactly 46,524,336  non-HTML documents.
 On these webpages, we detected exactly
 2,963,766 \texttt{<video>} tags,
@@ -851,7 +851,7 @@ and applies the conversion from WebVTT to Linked Data on-the-fly.
 
 \subsection{Basic Interpretation}
 
-A WebVTT file defines a~set of cues,
+A~WebVTT file defines a~set of cues,
 which are described by a~pair of timestamps and a~payload.
 In other words, each cue is an annotation of the video,
 associating a~temporal video fragment to the payload,
@@ -871,9 +871,9 @@ The default graph of the dataset describes its overall structure,
 linking the dataset URI to all the URIs and blank nodes identifying its cues
 with the \vtt{hasCue} property.
 In the default graph, each cue is also linked to
-the Media Fragment URI it describes,
+the Media Fragments URI it describes,
 with the \vtt{describesFragment} property. 
-As the notion of dataset is a recent addition to the RDF core concepts
+As the notion of dataset is a~recent addition to the RDF core concepts
 (previously, it was specific to the SPARQL query language),
 we envision that some consumers will not be able to deal with it.
 Hence, we propose an alternate interpretation of WebVTT as RDF.
@@ -964,7 +964,7 @@ these metadata headers,
 but we argue that they allow for an easy transition
 from plain WebVTT to Linked Data WebVTT,
 just like \JSONLD\ makes it easy to turn plain JSON into Linked Data
-by adding a \texttt{@context} property.
+by adding a~\texttt{@context} property.
 Further more, other metadata headers will be evaluated
 against the \JSONLD\ context,
 and can produce additional triples with the WebVTT file as its subject.
@@ -1020,12 +1020,12 @@ We begin with the annotation model.
 
 Our annotation model is the same as the one produced
 by the interpretation process presented above.
-Annotations take the form of RDF statements (subject-predicate-object)
-where the subject is any temporal fragment of the video,
-identified by the corresponding Media Fragment URI.
+Annotations take the form of RDF statements (subject-predicate-object),
+where the subject is any temporal or spatiotemporal fragment of the video,
+identified by the corresponding Media Fragments URI. 
 They are encoded as \texttt{TextTrackCue}s
 with \JSONLD\ payloads such as the one shown in \autoref{listing:webvtt}.
-A dedicated context defines their semantics.
+A~dedicated data context defines their semantics.
 
 \subsection{WebVTT Editor}
 
@@ -1054,12 +1054,11 @@ with Semantic Web compliance upon global publication.
 
 \subsubsection{Semantic Annotation Types}
 
-Our \JSONLD\ context eases common annotation tasks as
-by defining the semantics of a few useful JSON properties
-described below.
-According to this context, \autoref{listing:webvtt} is interpreted as
-\autoref{listing:jsonld} (JSON-LD) and \autoref{listing:rdftriples} (RDF).
-Advanced tasks can of course be also supported by extending that context.\\
+Our \JSONLD\ context eases common annotation tasks
+by defining the semantics of a~few useful JSON properties described below.
+According to this context, \autoref{listing:webvtt} is interpreted as in
+\autoref{listing:jsonld} (in \JSONLD) and \autoref{listing:rdftriples} (in RDF).
+More advanced annotation tasks can be supported by extending the data context.
 
 \begin{description}[leftmargin=*]
   \item[Plain Text Tags] Annotations of type
@@ -1077,7 +1076,7 @@ Advanced tasks can of course be also supported by extending that context.\\
   ~\cite{commontag2009spec} format \texttt{ctag:means}.
   Spatiotemporal semantic tags allow for
   interesting Linked Data experiences
-  if they point well-connected concepts.
+  if the tags point to well-connected concepts.
 
   \item[Contributors] The \texttt{contributors} annotation type
   al-\linebreak lows for denoting the contributors in a~media fragment, like its actors.
@@ -1130,7 +1129,7 @@ but only impact the way videos get presented.\\
 \end{description}
 
 \begin{lstlisting}[caption={Generated \JSONLD\ file based on the WebVTT file 
-    shown in \autoref{listing:webvtt}~(flat interpretaion)},
+    shown in \autoref{listing:webvtt}~(flat interpretation)},
   label=listing:jsonld, float=t!]
 {
   "@context": "http://champin.net/2014/linkedvtt/context.json",
@@ -1343,8 +1342,8 @@ has become feasible thanks to Media Fragments URI,
 a~standard that allows for applying Linked Data approaches to moving images
 on a~temporal and spatiotemporal axis.
 We have organized this paper in three major steps.
-\emph{(i)}~in order to get a better understanding of the \emph{status quo}
-of Web video deployment, we have performed a large- scale analysis
+\emph{(i)}~in order to get a~better understanding of the \emph{status quo}
+of Web video deployment, we have performed a~large- scale analysis
 of the 148 terabyte size Common Crawl corpus,
 \emph{(ii)}~we have addressed the challenge of integrating
 existing videos in the Common Crawl corpus into the \emph{Web(VTT) of Data}
@@ -1395,7 +1394,7 @@ of existing tools like Popcorn.js, we can push the state of Web video forward
 toward an interconnected, semantic, and wall-free experience.  
 
 \begin{lstlisting}[caption={Popcorn.js example},
-  label=listing:popcorn, float=h!, language=JavaScript]
+  label=listing:popcorn, float=h!, language=html]
 <video id="video" src="http://ex.org/video.mp4">
 </video>
 <div id="footnote-container"></div>
@@ -1425,10 +1424,10 @@ toward an interconnected, semantic, and wall-free experience.
 
 \section*{Acknowledgments}
 
-{\footnotesize The research presented in this paper was partially supported
+The research presented in this paper was partially supported
 by the French National Agency for Research  project
 \emph{Spectacle En Ligne(s)}, project reference
-\mbox{ANR-12-CORP-0015}.}
+\mbox{ANR-12-CORP-0015}.\vfill
 
 \bibliographystyle{abbrv}
 \bibliography{references}
