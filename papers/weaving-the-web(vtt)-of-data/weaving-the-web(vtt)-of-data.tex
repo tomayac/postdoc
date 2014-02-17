@@ -378,7 +378,7 @@ Linked Data with a~smooth upgrade path from JSON to \JSONLD.
 \JSONLD\ properties like \texttt{title} can be mapped to taxonomic
 concepts (like \texttt{dc:title} from Dublin Core%
 \footnote{Dublin Core: \url{http://dublincore.org/documents/dces/}})
-via so-called data contexts.
+via so-called data contexts.\vfill
 
 \paragraph{Media Fragments URI}
 
@@ -392,8 +392,7 @@ to a~certain fragment.
 Media Fragments URI supports temporal and spatial media fragments.
 The \emph{temporal dimension} is denoted
 by the parameter name \texttt{t} and specified
-as a~half-open interval with begin time and end time
-that may also be omitted,
+as an interval with begin time and end time,
 with the begin time defaulting to 0 seconds
 and the end time defaulting to the media item's duration.
 The \emph{spatial dimension} selects
@@ -401,7 +400,6 @@ a~rectangular area of pixels from media items.
 Rectangles can be specified as pixel coordinates or percentages.
 Rectangle selection is denoted by the parameter name \texttt{xywh}.
 The value is either \texttt{pixel:} or \texttt{percent:}
-(defaulting to \texttt{pixel:})
 followed by four comma-separated integers.
 The integers denote $x$, $y$, $width$, and $height$ respectively,
 with $x = 0$ and $y = 0$ being the top left corner of the media item.
@@ -476,7 +474,7 @@ We have analyzed the entire 148 terabytes of crawl data
 using an Elastic Compute Cloud job
 whose code was made available as open-source.%
 \footnote{EC2 job:
-\url{https://github.com/tomayac/postdoc/blob/master/demos/warczenschwein/src/main/java/com/tomayac/warczenschwein/TagTool.java}}
+\url{https://github.com/tomayac/postdoc/blob/master/demos/warczenschwein/}}
 Rather than parse each document as HTML,
 we have tested them for the regular expression
 \texttt{<video[\^{}>]*>(.*?)</video>},
@@ -552,7 +550,7 @@ Looking at the number of text tracks per video,
 almost all videos had only exactly one text track
 rather than multiple, as detailed in \autoref{table:track},
 meaning that the broad majority of all videos are subtitled or captioned
-in only one language.
+in only one language.\vfill
 
 \begin{table}[b!]
   \raggedleft
