@@ -1009,9 +1009,8 @@ both on-the-fly or in bulk for static storage in a~triple store.
 \section{Online Video Annotation\\ Format and Editor}
 \label{sec:online-video-annotation-format-and-editor}
 
-Different from the conversion process for existing text tracks
-of kind \texttt{subtitles} and \texttt{captions}
-that was proposed in \autoref{sec:webvtt-conversion-to-rdf-based-linked-data},
+Complementary to the conversion process presented
+in \autoref{sec:webvtt-conversion-to-rdf-based-linked-data},
 in this section we focus on facilitating the online creation and consumption
 of \texttt{metadata} tracks for future video creations
 and videos not contained in the Common Crawl corpus.
@@ -1019,22 +1018,14 @@ We begin with the annotation model.
 
 \subsection{Annotation Model}
 
-Our annotation model uses subject-predicate-object expressions.
-An annotation is thus a~single triple.
-We use \JSONLD\ for semantically rich content
-in the payload of \texttt{TextTrackCue}s, shown in
-\autoref{listing:webvtt}.
-The referenced local context defines the semantics.
-The possible values for the \emph{subject} can be \emph{(i)}~the video
-URI itself or---in case of multiple URIs for a~video available
-in different encodings with multiple \texttt{<source>} tags---%
-the URI with fragment identifier of the \texttt{<video>} tag
-that then requires a~unique \texttt{id} attribute,
-\emph{(ii)}~the Media Fragment URI of a~temporal or spatiotemporal
-media fragment of the original media item.
-We make no constraint for the \emph{object} 
-and the \emph{predicate},
-which determines the annotation type as outlined in the next subsection.
+Our annotation model is the same as the one produced
+by the interpretation process presented above.
+Annotations take the form of RDF statements (subject-predicate-object)
+where the subject is any temporal fragment of the video,
+identified by the corresponding Media Fragment URI.
+They are encoded as \texttt{TextTrackCue}s
+with \JSONLD\ payloads such as the one shown in \autoref{listing:webvtt}.
+A dedicated context defines their semantics.
 
 \subsection{WebVTT Editor}
 
@@ -1063,17 +1054,18 @@ with Semantic Web compliance upon global publication.
 
 \subsubsection{Semantic Annotation Types}
 
-Our model makes common annotation tasks as
-straight-forward as in \autoref{listing:webvtt}.
-The thereby generated triples are shown in
-\autoref{listing:jsonld} and \autoref{listing:rdftriples}.
-Advanced tasks are supported by extending \JSONLD\ contexts.\\
+Our \JSONLD\ context eases common annotation tasks as
+by defining the semantics of a few useful JSON properties
+described below.
+According to this context, \autoref{listing:webvtt} is interpreted as
+\autoref{listing:jsonld} (JSON-LD) and \autoref{listing:rdftriples} (RDF).
+Advanced tasks can of course be also supported by extending that context.\\
 
 \begin{description}[leftmargin=*]
   \item[Plain Text Tags] Annotations of type
   \texttt{tags} allow for add\-ing plain text tags
   to a~media fragment.
-  Internally, they are represented as Common Tag%
+  They are interpreted as Common Tag%
   ~\cite{commontag2009spec} format \texttt{ctag:label}.
 
   \item[Semantic Tags] Annotations of type
@@ -1081,7 +1073,7 @@ Advanced tasks are supported by extending \JSONLD\ contexts.\\
   to a~media fragment.
   Unlike plain text tags, semantic tags are references to
   well-defined concepts complete with their own URIs.
-  Internally, they are represented as Common Tag%
+  They are interpreted as Common Tag%
   ~\cite{commontag2009spec} format \texttt{ctag:means}.
   Spatiotemporal semantic tags allow for
   interesting Linked Data experiences
@@ -1089,7 +1081,7 @@ Advanced tasks are supported by extending \JSONLD\ contexts.\\
 
   \item[Contributors] The \texttt{contributors} annotation type
   al-\linebreak lows for denoting the contributors in a~media fragment, like its actors.
-  Internally, they are represented as
+  They are interpreted as
   Ontology for Media Resources~\cite{lee2012mediaontology}
   format \texttt{ma:hasContributor}.
 
@@ -1097,7 +1089,7 @@ Advanced tasks are supported by extending \JSONLD\ contexts.\\
   allows for summarizing a~media fragment
   (note, not the whole video like kind \emph{description} tracks)
   with plain text.
-  Internally, they are represented as  
+  They are interpreted as  
   \texttt{ma:description}~\cite{lee2012mediaontology}.
 \end{description}
 
