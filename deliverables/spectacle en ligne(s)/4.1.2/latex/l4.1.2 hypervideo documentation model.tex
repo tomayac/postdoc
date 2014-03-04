@@ -768,6 +768,75 @@ to attach provenance or license information to them.
 
 \section{Hypervideo Description Model}
 
+In this section, we describe a~description model for hypervideos on the Web
+that is based on Web Components~\cite{cooney2013webcomponents}.
+Web Components is a~set of recent standards that
+make it possible to build widgets that can be reused reliably
+and which do not break pages if the next version of the component
+changes internal implementation details.
+Web Components is comprised of the four parts
+Templates, Shadow DOM, Custom Elements, and Packaging.
+Templates allow one to declare fragments of DOM which are parsed,
+inert at page load, and instantiated later at runtime.
+Shadow DOM allows to encapsulate a~widget's components
+such that they do not collide with potentially existing components.
+Custom elements serve to register new elements in the DOM
+that can have their proper methods and properties.
+Packaging allows one to package a~widget's components and make it importable.
+Web Components are currently supported by Web browser through the Polymer library.%
+\footnote{Polymer library: \url{http://www.polymer-project.org/}}
+
+Our proposal is to define a~custom element for hypervideos
+that internally realizes our annotation model
+as outlined earlier in the previous section,
+but that abstracts away the WebVTT details.
+A~concrete annotation using this model can be seen in 
+\autoref{listing:webcomponents}.
+The \texttt{polymer-hypervideo} container element expands the native 
+\texttt{video} element by allowing for common hypervideo elements as its child nodes.
+\texttt{polymer-fragment} is directly modeled following
+the Media Fragments URI model for spatial and temporal media fragments.
+All further child nodes are derived from the annotation model introduced before.
+Internally, this gets converted on-the-fly into WebVTT metadata tracks
+and interpreted by our interpretation layer.
+Based on the \texttt{polymer-hypervideo} container,
+existing videos can be easily converted into hypervideos.
+
+\begin{lstlisting}[caption={Web Components markup of a~hypervideo
+  (prefix ``polymer-'' used to distinguish custom elements from native elements)},
+  label=listing:webcomponents, float=t!]
+<polymer-hypervideo src="trailer.mp4">
+
+  <polymer-fragment t="12,13.5" xywh="350,120,200,200">
+    <polymer-actors>
+      <a href="http://example.org/actors/sintel/shaman">
+    </polymer-actors>
+  </polymer-fragment> 
+  
+  <polymer-fragment t="12,15">  
+    <polymer-tags>shaman scene</polymer-tags>
+    <polymer-playbackrate>0.5</polymer-playbackrate>
+    <polymer-volume>1.0</polymer-volume>
+    <polymer-style>-webkit-filter: grayscale(0%)</polymer-style>
+  </polymer-fragment>   
+  
+</polymer-hypervideo>
+\end{lstlisting}
+  
+\section{Conclusion and Outlook}
+
+In this deliverable, we have outlined an annotation model for online video
+that leverages WebVTT as a~container for rich annotations in \JSONLD format.
+This annotation model has been implemented
+in the form of an online video annotation editor
+and a~description and documentation format for hypervideos
+based on the emerging Web Components standard was proposed.
+
+In the coming months, we will evaluate which format suits best
+the project's annotation needs and which format is the easiest to work with
+both from a~content and annotation creator's standpoint as well as
+from a~content and annotation consumer standpoint.
+
 \bibliographystyle{abbrv}
 \bibliography{references}
 \end{document}
