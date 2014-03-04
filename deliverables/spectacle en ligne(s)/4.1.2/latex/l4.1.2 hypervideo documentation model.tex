@@ -9,6 +9,7 @@
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip
 \noindent\keywordname\enspace\ignorespaces#1}
 
+\usepackage{pifont} 
 \usepackage[utf8]{inputenc}
 \usepackage{enumitem}
 \usepackage[hyphens]{url}
@@ -54,6 +55,7 @@
   morestring=[b]',
   morestring=[b]"
 }
+\lstset{breaklines=true}
 
 % linewrap symbol
 \usepackage{color}
@@ -78,7 +80,7 @@
 \title{Projet ``Spectacle en ligne(s)''---Livrable L4.1.2\\``Modèles documentaires pour les hypervidéos sur le web''}
 
 % a short form should be given in case it is too long for the running head
-\titlerunning{Spectacle en ligne(s)---L4.1.2}
+\titlerunning{``Spectacle en ligne(s)''---Livrable L4.1.2}
 
 % the name(s) of the author(s) follow(s) next
 \author{
@@ -108,10 +110,10 @@
 \section{Introduction}
 
 The term \emph{hypervideo} is commonly used to refer to
-``a~displayed video stream that contains embedded user-clickable anchors''%
+\textit{``a~displayed video stream that contains embedded user-clickable anchors''}%
 ~\cite{sawhney1996hypercafe,smith2002extensible}.
-In a~2006 article in The Economist, the authors write 
-``[h]yperlinking video involves the use of ``object-tracking'' software
+In a~2006 article in \emph{The Economist}, the authors write 
+\textit{``[h]yperlinking video involves the use of ``object-tracking'' software
 to make filmed objects, such as cars, clickable as they move around.
 Viewers can then click on items of interest in a~video
 to watch a related clip; after it has played,
@@ -119,26 +121,40 @@ the original video resumes where it left off.
 To inform viewers that a~video is hyperlinked,
 editors can add highlights to moving images, use beeps as audible cues,
 or display still images from hyperlinked videos
-next to the clip that is currently playing''~\cite{economist2006hypervideo}.
+next to the clip that is currently playing''}~\cite{economist2006hypervideo}.
 In standard literature, hypervideo is considered a~logical consequence
 of the related concept of \emph{hypertext}.
 
 In this deliverable, we will look at
 documentation models for hypervideos on the Web.
-This topic is also one core area of research of the currently active
+This topic is also a~core area of research of the currently active
 European research project ``LinkedTV''~\cite{linkedtv2012hypervideo}.
-A~bachelor's thesis by Jäger specifically focuses on interface aspects
+Further, a~bachelor's thesis by Jäger specifically focuses on interface aspects
 of hypervideos on the Web~\cite{jaeger2012hypervideo}.
 
-\section{Technologies Overview}
+Our main objective is to facilitate the publication and consumption
+of Linked Data for videos from the \emph{``Spectacle en ligne(s)''} corpus.
+Therefore, in the first part of this deliverable,
+we will propose an annotation model
+based on invisible metadata timed text track cues for videos.
+This annotation model is based on a~number of enabling technologies,
+which we will outline in the following.
+In the second part, we will present an online Read/Write-enabled editor
+that implements this annotation model.
+In the third part of the deliverable,
+we will introduce a~description model for hypervideos
+based on Web Components.
+
+\section{Video Annotation Model}
+
+\subsection{Technologies Overview}
 
 For our approach to online video annotation,
 we make use of a~young---yet mature
 when looked at from an implementation viewpoint---%
-stack of enabling technologies that we will introduce
-and provide technical details on in the following.
+stack of enabling technologies that we will introduce in the following.
 
-\subsection{Web Video Text Tracks format (WebVTT)}
+\subsubsection{Web Video Text Tracks format (WebVTT)}
 
 The Web Video Text Tracks format (WebVTT,~\cite{pfeiffer2013webvtt})
 is intended for marking up external text track resources mainly
@@ -194,7 +210,7 @@ Not displayed by user agent.\\
   \label{table:texttrackkinds}
 \end{table}
 
-WebVTT-compliant Web browsers %~\cite{dutton2012trackelement}
+WebVTT-compliant Web browsers~\cite{dutton2012trackelement}
 support five different kinds of
 WebVTT tracks: \emph{subtitles}, \emph{captions},
 \emph{descriptions}, \emph{chapters}, and \emph{metadata},
@@ -232,7 +248,7 @@ Important for us, both \texttt{TextTrack} and
 \texttt{TextTrackCue} elements
 can be dynamically generated via JavaScript.
 
-\subsection{\JSONLD}
+\subsubsection{\JSONLD}
 
 The \emph{JavaScript Object Notation}%
 \footnote{JavaScript Object Notation: \url{http://json.org/}}
@@ -254,7 +270,7 @@ in the payload of \texttt{TextTrackCue}s, shown in
 \autoref{listing:webvtt}.
 The referenced local context defines the semantics.
 
-\subsection{Media Fragments URI}
+\subsubsection{Media Fragments URI}
 
 Media Fragments URI~\cite{troncy2012mediafragments}
 specifies a~syntax for constructing media fragments URIs
@@ -280,11 +296,11 @@ followed by four comma-separated integers.
 The integers denote $x$, $y$, $width$, and $height$ respectively,
 with $x = 0$ and $y = 0$ being the top left corner of the media item.
 If \texttt{percent:} is used, $x$ and $width$ are interpreted
-as a~percentage of the width of the original media item,
+as percentage of the width of the original media item,
 $y$ and $height$
 of the original height.
 
-\subsection{Ontology for Media Resources}
+\subsubsection{Ontology for Media Resources}
 
 The Ontology for Media Resources~\cite{lee2012mediaontology}
 serves to bridge different description methods of media resources
@@ -324,8 +340,6 @@ cue1
 }
 \end{lstlisting}
 
-\section{Annotation Model}
-
 \subsection{General Concepts of the Annotation Model}
 
 Our annotation model uses subject-predicate-object expressions.
@@ -352,83 +366,7 @@ and corresponding cue fragment identifier,
 allowing for meta annotations of annotations, \emph{e.g.},
 to attach provenance or license information to them.
 
-\subsection{Supported Semantic Annotation Types}
-
-Our model makes common annotation tasks as
-straight-forward as in \autoref{listing:webvtt}.
-The thereby generated triples are shown in
-\autoref{listing:jsonld} and \url{http://bit.ly/webvtt-jsonld}.
-Advanced tasks are supported by extending \JSONLD~contexts.\\
-
-\noindent \textbf{Plain Text Tags:} Annotations of type
-  \texttt{tags} allow for add\-ing plain text tags
-  to a~media fragment.
-  Internally, they are represented as Common Tag%
-  ~\cite{commontag2009spec} format \texttt{ctag:label}.
-
-\noindent \textbf{Semantic Tags:} Annotations of type
-  \texttt{semanticTags} allow for adding semantic tags
-  to a~media fragment.
-  Unlike plain text tags, semantic tags are references to
-  well-defined concepts complete with their own URIs.
-  Internally, they are represented as Common Tag%
-  ~\cite{commontag2009spec} format \texttt{ctag:means}.
-
-\noindent \textbf{Contributors:} The \texttt{contributors} annotation type
-  al-\linebreak lows for denoting the contributors in a~media fragment, like its actors.
-  Internally, they are represented as
-  Ontology for Media Resources~\cite{lee2012mediaontology}
-  format \texttt{ma:contributors}.
-
-\noindent \textbf{Summary:} The \texttt{summary} annotation type
-  allows for summarizing a~media fragment
-  (note, not the whole video like kind \emph{description} tracks)
-  with plain text.
-  Internally, they are represented as  
-  \texttt{ma:description}~\cite{lee2012mediaontology}.
-
-\noindent \textbf{Named Graph:} The \texttt{namedGraph} annotation type
-  allows for adding a~set of RDF triples
-  to a~media fragment.
-  Internally, they are represented as \JSONLD%
-  ~\cite{sporny2013jsonld} named graph.
-
-\subsection{Supported Presentation-Oriented Annotation Types}
-
-Presentation-oriented annotations---%
-similar to temporal\linebreak style sheets
-(also see \autoref{sec:future-work-conclusions})---%
-do not generate RDF data,
-but only impact the way videos get presented.\\
-
-\noindent \textbf{Visual Effect:} Annotations of
-  type \texttt{visualEffect} allow for applying visual effects
-  in the syntax of Cascading Style Sheets%
-  \footnote{Cascading Style Sheets:
-  \url{http://www.w3.org/Style/CSS/}} (CSS)
-  to a~media fragment, \emph{e.g.},
-  filters, zoom effects, transparency,
-  and 2D/3D transformations and animations.
-
-\noindent \textbf{Audial Effect:} The \texttt{audialEffect} annotation type
-  allows for applying audial effects to a~media fragment.
-  Currently, we support modifying the volume on a~scale
-  from~0 to~1.
-
-\noindent \textbf{Playback Rate:} The \texttt{playbackRate}
-  annotation type allows for specifying the effective
-  playback rate of a~media fragment.
-  The playback rate is expressed as a~floating point
-  multiple or fraction of the intrinsic video speed.
-
-\noindent \textbf{HTML Overlay:} Via the \texttt{htmlOverlay}
-  annotation type, overlays in
-  freeform HTML code can be added to a~media fragment.
-  Examples are graphical, textual, or combined overlays
-  that can contain links to (temporal fragments of)
-  other videos or within the current video.
-
-\section{Related Work}
+\subsection{Related Work}
 
 The online video hosting platform YouTube%
 \footnote{YouTube: \url{http://www.youtube.com/}}
@@ -472,7 +410,7 @@ Building on the work of Van Deursen \emph{et~al.},
 we additionally allow for writing annotations by
 letting annotators create WebVTT cues with an editor.
 
-The Synchronized Multimedia Integration Language\linebreak
+The Synchronized Multimedia Integration Language
 (SMIL,~\cite{bulterman2006smil})
 defines an XML-based language that allows authors
 to write interactive multimedia presentations.
@@ -487,7 +425,7 @@ SMIL features are not commonly supported
 in modern Web browsers and special plugins or native software
 are required for their consumption,
 albeit in 2002 there was a~mostly Microsoft-led attempt
-in form of the HTML+TIME submission%~\cite{schmitz1998htmltime}
+in form of the HTML+TIME submission~\cite{schmitz1998htmltime}
 \footnote{HTML+TIME for extending SMIL into Web browsers: \url{http://www.w3.org/TR/NOTE-HTMLplusTIME}}
 and, based thereon, the XHTML+SMIL Profile%
 \footnote{XHTML+SMIL Profile Note:
@@ -539,7 +477,7 @@ Annotations consist of subject and content and
 are positioned based solely on start time.
 Annotations can be exported as RSS, JSON, XML, and text.
 
-\section{Discussion}
+\subsection{Discussion}
 
 With our annotation approach, we leverage WebVTT
 metadata tracks as a~means for tying semantically rich JSON-LD annotations
@@ -551,7 +489,7 @@ a~unique relation of annotations to video content is made.
 We show below that this is not the case for the two
 popular online video annotation tools.
 
-\paragraph{Main Difference to Popcorn.js and PopcornMaker}
+\subsubsection{Main Difference to Popcorn.js and PopcornMaker}
 
 The Popcorn.js and PopcornMaker technology stacks
 represent the state-of-the-art in online video annotation,
@@ -576,7 +514,7 @@ In addition to that, the annotations are pure JavaScript source code
 with---at least for search engines---no semantic connection
 to the video in question.
 
-\paragraph{Main Difference to VideoANT}
+\subsubsection{Main Difference to VideoANT}
 
 VideoANT is a~Flash-based tool that requires a~browser plugin to run.
 Search engines have rather limited support
@@ -590,7 +528,7 @@ this operation requires manually pressing a~button in the tool.
 For search engines, there is no semantic connection
 to the video in question.
 
-\paragraph{Our Approach}
+\subsubsection{Our Approach}
 
 Finally, \autoref{listing:webvttclooney} shows JSON-LD annotations
 analog to \autoref{listing:popcorn} embedded in a~metadata track cue.
@@ -665,6 +603,170 @@ cue1
       <em>George Clooney</em>"
 }
 \end{lstlisting}
+
+\section{Online Video Annotation Format and Editor}
+\label{sec:online-video-annotation-format-and-editor}
+
+We have implemented this annotation model
+in form of an online demonstrator prototype.
+The demonstrator interprets the existing metadata track for a~video
+and reacts on annotations when the \texttt{currentTime}
+of the media resource matches the
+\texttt{startTime} or \texttt{endTime} of a~cue.
+We call existing annotations \emph{Read} annotations.
+Users can add \emph{Write} annotations
+by creating new \texttt{TextTrackCue}s
+at the desired start and end times
+and by providing their \JSONLD~payloads.
+The editor facilitates this task through a~graphical user interface, abstracting the underlying details.
+\autoref{fig:webvtt-editor} shows a~screenshot of the WebVTT editor.
+Newly generated annotations get directly interpreted
+and can be persistently stored locally
+or in the future remotely for collaborative editing.
+We have developed a~WebVTT to \JSONLD~%
+converter, capable of transforming WebVTT metadata tracks
+following our annotation model
+into \JSONLD~for the Web of Data.
+This allows for straight-forward local annotation creation
+with Semantic Web compliance upon global publication.
+
+\subsubsection{Semantic Annotation Types}
+
+Our \JSONLD\ context eases common annotation tasks
+by defining the semantics of a~few useful JSON properties described below.
+According to this context, \autoref{listing:webvtt} is interpreted as in
+\autoref{listing:jsonld} (in \JSONLD) and \autoref{listing:rdftriples} (in RDF).
+More advanced annotation tasks can be supported by extending the data context.
+
+\begin{description}[leftmargin=*]
+  \item[Plain Text Tags] Annotations of type
+  \texttt{tags} allow for add\-ing plain text tags
+  to a~media fragment.
+  They are interpreted as Common Tag%
+  ~\cite{commontag2009spec} format \texttt{ctag:label}.
+
+  \item[Semantic Tags] Annotations of type
+  \texttt{semanticTags} allow for adding semantic tags
+  to a~media fragment.
+  Unlike plain text tags, semantic tags are references to
+  well-defined concepts complete with their own URIs.
+  They are interpreted as Common Tag%
+  ~\cite{commontag2009spec} format \texttt{ctag:means}.
+  Spatiotemporal semantic tags allow for
+  interesting Linked Data experiences
+  if the tags point to well-connected concepts.
+
+  \item[Contributors] The \texttt{contributors} annotation type
+  allows for denoting the contributors in a~media fragment, like its actors.
+  They are interpreted as
+  Ontology for Media Resources~\cite{lee2012mediaontology}
+  format \texttt{ma:hasContributor}.
+
+  \item[Summary] The \texttt{summary} annotation type
+  allows for summarizing a~media fragment
+  (note, not the whole video like kind \emph{description} tracks)
+  with plain text.
+  They are interpreted as  
+  \texttt{ma:description}~\cite{lee2012mediaontology}.
+\end{description}
+
+\subsubsection{Presentation-Oriented Annotation Types}
+
+Presentation-oriented annotations,
+similar to temporal style sheets,
+do not generate RDF data,
+but only impact the way videos get presented.\\
+
+\begin{description}[leftmargin=*]
+  \item[Visual Effect] Annotations of
+  type \texttt{visualEffect} allow for applying visual effects
+  in the syntax of Cascading Style Sheets%
+  \footnote{Cascading Style Sheets:
+  \url{http://www.w3.org/Style/CSS/}} (CSS)
+  to a~media fragment, \emph{e.g.},
+  filters, zoom, transparency,
+  and 2D/3D transformations and animations.
+
+  \item[Audial Effect] The \texttt{audialEffect} annotation type
+  allows for applying audial effects to a~media fragment.
+  Currently, we support modifying the volume
+  from~0 to~1.
+
+  \item[Playback Rate] The \texttt{playbackRate}
+  annotation type allows for specifying the effective
+  playback rate of a~media fragment.
+  The playback rate is expressed as a~floating point
+  multiple or fraction of the intrinsic video speed.
+
+  \item[HTML Overlay] Via the \texttt{htmlOverlay}
+  annotation type, overlays in
+  freeform HTML code can be added to a~media fragment.
+  Examples are graphical, textual, or combined overlays
+  that can contain links to (temporal fragments of)
+  other videos or within the current video.
+\end{description}
+
+\begin{lstlisting}[caption={Generated \JSONLD\ file based on the WebVTT file 
+    shown in \autoref{listing:webvtt}~(flat interpretation)},
+  label=listing:jsonld, float=t!]
+{
+  "@context": "http://champin.net/2014/linkedvtt/context.json",
+  "@id": "http://ex.org/metadata.vtt", 
+  "@type": "VideoMetadataDataset",
+  "video": "http://ex.org/video", 
+  "cues": [{
+    "@id": "#id=cue1",
+    "fragment": {
+      "@context": "http://champin.net/2014/linkedvtt/demonstrator-context.json", 
+      "@id": "http://ex.org/video#t=0:0.0,0:12.0", 
+      "tags": ["wind scene", "opening credits"],
+      "contributors": ["http://ex.org/sintel"]
+    }
+  }]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={RDF triples based on the \JSONLD\ code from \autoref{listing:jsonld}},
+  label=listing:rdftriples, float=t!]
+<http://ex.org/metadata.vtt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ex.org/VideoMetadataDataset> .
+<http://ex.org/metadata.vtt> <http://champin.net/2014/linkedvtt/onto#hasCue> <http://ex.org/metadata.vtt#id=cue1> .
+<http://ex.org/metadata.vtt#id=cue1> <http://champin.net/2014/linkedvtt/onto#describesFragment> <http://ex.org/video#t=0:0.0,0:12.0> .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://commontag.org/ns#label> "wind scene" .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://commontag.org/ns#label> "opening credits" .
+<http://ex.org/video#t=0:0.0,0:12.0> <http://www.w3.org/ns/ma-ont#hasContributor> <http://ex.org/sintel> .
+\end{lstlisting}
+  
+\subsection{Interpretation Layer}
+
+In our WebVTT editor,
+we propose an interpretation layer
+capable of dealing with the herein defined annotation types. 
+We thus make an open world assumption
+by supporting a~set of pre-defined values for predicate and object
+listed below, and ignoring unknown ones.
+This permits others to extend---or even completely replace---%
+our interpretation layer.
+If a~\texttt{TextTrackCue} has a~WebVTT identifier,
+we use it to address its annotations
+via the metadata track's URI
+and corresponding cue fragment identifier,
+allowing for meta annotations of annotations, \emph{e.g.},
+to attach provenance or license information to them.
+
+\begin{figure*}[hbt]
+  \centering
+  \fbox{\includegraphics[width=\linewidth]{weaving-the-web(vtt)-of-data}}
+  \caption{WebVTT editor interpreting the~spatiotemporal annotation ``cue2''
+    that identifies the highlighted spatial fragment as \texttt{ex:actors/sintel/shaman};
+    while in parallel modifying ``cue3'' with tag, volume, playback rate,
+    and style (\ding{172} left: Graphical User Interface with \JSONLD\ debug view,
+  \ding{173} center: Chrome Developer Tools with highlighted
+  \texttt{<track src="metadata.vtt" kind="metadata">} tag,
+  \ding{174} right: raw WebVTT file \texttt{metadata.vtt} with highlighted ``cue2'' and ``cue3'')}
+  \label{fig:webvtt-editor}
+\end{figure*}
+
+\section{Hypervideo Description Model}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
