@@ -104,7 +104,7 @@
 \maketitle
 
 \begin{abstract}
-\keywords{Annotation, documentation model, hypervideo}
+\keywords{Annotation, description model, hypervideo}
 \end{abstract}
 
 \section{Introduction}
@@ -126,7 +126,7 @@ In standard literature, hypervideo is considered a~logical consequence
 of the related concept of \emph{hypertext}.
 
 In this deliverable, we will look at
-documentation models for hypervideos on the Web.
+description models for hypervideos on the Web.
 This topic is also a~core area of research of the currently active
 European research project ``LinkedTV''~\cite{linkedtv2012hypervideo}.
 Further, a~bachelor's thesis by Jäger specifically focuses on interface aspects
@@ -806,21 +806,23 @@ existing videos can be easily converted into hypervideos.
   (prefix ``polymer-'' used to distinguish custom elements from native elements)},
   label=listing:webcomponents, float=t!]
 <polymer-hypervideo src="trailer.mp4">
+  <polymer-table-of-contents />
+
+  <polymer-timeline />
 
   <polymer-fragment t="12,13.5" xywh="350,120,200,200">
     <polymer-actors>
       <a href="http://example.org/actors/sintel/shaman">
     </polymer-actors>
-  </polymer-fragment> 
-  
-  <polymer-fragment t="12,15">  
+  </polymer-fragment>
+
+  <polymer-fragment t="12,15">
     <polymer-tags>shaman scene</polymer-tags>
     <polymer-playbackrate>0.5</polymer-playbackrate>
     <polymer-volume>1.0</polymer-volume>
     <polymer-style>-webkit-filter: grayscale(0%)</polymer-style>
-  </polymer-fragment>   
-  
-</polymer-hypervideo>
+  </polymer-fragment>
+</polymer-hypervideo src="trailer.mp4">
 \end{lstlisting}
   
 \section{Conclusion and Outlook}
