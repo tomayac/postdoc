@@ -138,14 +138,18 @@ Therefore, in the first part of this deliverable,
 we will propose an annotation model
 based on invisible metadata timed text track cues for videos.
 This annotation model is based on a~number of enabling technologies,
-which we will outline in the following.
-In the second part, we will present an online Read/Write-enabled editor
+which we will outline in the \autoref{sec:video-annotation-model}.
+In the second part in \autoref{sec:online-video-annotation-format-and-editor},
+we will present an online Read/Write-enabled editor
 that implements this annotation model.
-In the third part of the deliverable,
+In the third part of the deliverable in \autoref{sec:hypervideo-description-model},
 we will introduce a~description model for hypervideos
 based on Web Components.
+Finally, we will close with conclusions and an outlook
+in \autoref{sec:conclusion-and-outlook}.
 
 \section{Video Annotation Model}
+\label{sec:video-annotation-model}
 
 \subsection{Technologies Overview}
 
@@ -767,6 +771,7 @@ to attach provenance or license information to them.
 \end{figure*}
 
 \section{Hypervideo Description Model}
+\label{sec:hypervideo-description-model}
 
 In this section, we describe a~description model for hypervideos on the Web
 that is based on Web Components~\cite{cooney2013webcomponents}.
@@ -788,7 +793,7 @@ Web Components are currently supported by Web browser through the Polymer librar
 
 Our proposal is to define a~custom element for hypervideos
 that internally realizes our annotation model
-as outlined earlier in the previous section,
+as outlined earlier in \autoref{sec:video-annotation-model},
 but that abstracts away the WebVTT details.
 A~concrete annotation using this model can be seen in 
 \autoref{listing:webcomponents}.
@@ -842,6 +847,7 @@ existing videos can be easily converted into hypervideos.
 \end{figure*}  
   
 \section{Conclusion and Outlook}
+\label{sec:conclusion-and-outlook}
 
 In this deliverable, we have outlined an annotation model for online video
 that leverages WebVTT as a~container for rich annotations in \JSONLD format.
@@ -854,6 +860,14 @@ In the coming months, we will evaluate which format suits best
 the project's annotation needs and which format is the easiest to work with
 both from a~content and annotation creator's standpoint as well as
 from a~content and annotation consumer standpoint.
+While the direct editing of WebVTT files may be preferable for certain
+low-level scenarios like the programmatic creation of hypervideos,
+editing HTML directly is more common to most Web authors.
+Especially for manually re-sharing and intermixing hypervideos from the project
+with third-party content, Web Components seems advantageous.
+We will focus on evaluating both annotation models with the previously
+proposed CHM model~\cite{sadallah2012hypervideo} by Sadallah \emph{et~al.}\
+in order to understand their potential and limitations. 
 
 \bibliographystyle{abbrv}
 \bibliography{references}
