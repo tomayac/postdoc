@@ -792,8 +792,15 @@ as outlined earlier in the previous section,
 but that abstracts away the WebVTT details.
 A~concrete annotation using this model can be seen in 
 \autoref{listing:webcomponents}.
+A~diagrammatic overview of the internals can be seen in \autoref{fig:diagram}.
 The \texttt{polymer-hypervideo} container element expands the native 
 \texttt{video} element by allowing for common hypervideo elements as its child nodes.
+\texttt{polymer-table-of-content} and \texttt{polymer-timeline}
+insert a~customizable table of contents with or without preview images
+and a~horizontal timeline component that allows for quickly navigating the video.
+If inserted as empty elements, both automatically contain all all other annotations,
+however, by selectively putting some annotations as child nodes inside the two elements,
+user customization is possible.
 \texttt{polymer-fragment} is directly modeled following
 the Media Fragments URI model for spatial and temporal media fragments.
 All further child nodes are derived from the annotation model introduced before.
@@ -822,8 +829,17 @@ existing videos can be easily converted into hypervideos.
     <polymer-volume>1.0</polymer-volume>
     <polymer-style>-webkit-filter: grayscale(0%)</polymer-style>
   </polymer-fragment>
-</polymer-hypervideo src="trailer.mp4">
+</polymer-hypervideo>
 \end{lstlisting}
+  
+\begin{figure*}[hbt]
+  \centering
+  \includegraphics[trim=0 73em 0 42em,width=\linewidth]{diagram}
+  \caption{Internal conversion of the high-level \texttt{<polymer-hypervideo>}
+    element to low-level HTML \texttt{<video>}, \texttt{<track>}, and \texttt{<script>}
+    elements}
+  \label{fig:diagram}
+\end{figure*}  
   
 \section{Conclusion and Outlook}
 
