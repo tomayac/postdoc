@@ -1,4 +1,4 @@
-\documentclass{sig-alternate}
+\documentclass{sig-alternate-somus}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -70,8 +70,8 @@
 \begin{document}
 %
 % --- Author Metadata here ---
-\conferenceinfo{International Conference on Multimedia Retrieval}{2014 Glasgow, UK}
-\CopyrightYear{2014} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
+%\conferenceinfo{International Conference on Multimedia Retrieval}{2014 Glasgow, UK}
+%\CopyrightYear{2014} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
@@ -82,10 +82,10 @@
 \author{
 % 1st. author
 \alignauthor
-Jon Doe\titlenote{Anonymized double blind submission in accordance with the ICMR2014 guidelines}\\%Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{Université de Lyon, CNRS Université Lyon~1, LIRIS, UMR5205, F-69622}}\\
-  \affaddr{Random University}\\%\affaddr{Google Germany GmbH}\\\affaddr{Google Germany GmbH}\\
-  \affaddr{Random Street 0, 12345 Random City}\\       %\affaddr{ABC-Str.~19, 20354 Hamburg, Germany}\\
-       \email{jon.doe@example.org}%\email{tomac@google.com}
+Thomas Steiner\titlenote{Thomas Steiner's second affiliation is \emph{Université de Lyon, CNRS Université Lyon~1, LIRIS, UMR5205, F-69622}}\\
+  \affaddr{Google Germany GmbH}\\
+  \affaddr{ABC-Str.~19, 20354 Hamburg, Germany}\\
+  \email{tomac@google.com}
 }
 
 \maketitle
@@ -114,18 +114,17 @@ edit Wikipedia and Wikidata---%
 around the world in many languages.
 The Olympics being an event of common interest,
 an even bigger majority of people share the event
-in a~multitude of languages on global social network sites.
-This sharing of moments in the form of comments and multimedia
-happens either in people's role as spectators or participants
-directly at one of the Olympic sites,
-or as indirect second screen users
-in front of their TV~sets at home.
+in a~multitude of languages on global social network sites,
+which makes the event an ideal subject of study.
 With this work, we connect the world of
 Wikipedia and Wikidata with the world of social network sites,
 in order to convey the spirit of the
 \emph{2014 Winter Olympics},
 to tell the story of victory and defeat,
 and always following the Olympic motto \emph{Citius, Altius, Fortius}.
+The proposed system---generalized for all sort of breaking news stories---%
+has been put in production in form of the~Twitter bot @mediagalleries,
+available and archived at \url{https://twitter.com/mediagalleries}.
 \end{abstract}
 
 \category{H.5.1}{Information Interfaces and Presentation}{Multimedia Information Systems}
@@ -243,7 +242,7 @@ The source code of the application developed
 in the context of this research as well as all generated
 multimedia social data
 are available under the terms of the Apache~2.0 license
-and can be obtained at the URL \url{https://github.com/ANONYMIZED/wikipedia-live-monitor}.
+and can be obtained at the URL \url{https://github.com/tomayac/wikipedia-live-monitor}.
 
 The remainder of this paper is structured as follows.
 \autoref{sec:enabling-tools-background} provides background
@@ -468,7 +467,7 @@ This library allowed us to port the original client-side code
 used in \emph{Social Media Illustrator}
 with manageable effort to the server. The canvas\linebreak
 
-\vspace{-2em}
+\vspace{-3em}
 \begin{lstlisting}[caption={Simplified \emph{Strict Order, Equal Size}
   HTML code}, label=code:mediagalleryhtml, language=HTML]
 <div id="mediaGallery" style="width: 602px;">
@@ -503,6 +502,8 @@ This has the advantage that dumps
 can be shared as photos over social network sites,
 in contrast to  HTML code with typically expiring URLs
 that therefore cannot be permanently shared.
+We share such dumps via the Twitter bot @mediagalleries,
+available and archived at \url{https://twitter.com/mediagalleries}.
 
 \begin{figure}[t!]
   \centering
@@ -654,10 +655,9 @@ Breaking news events about either the
 or about any of the Olympic disciplines%
 \footnote{For example, \emph{Luge at the 2014 Winter Olympics -- Men's singles}:
 \url{https://twitter.com/WikiLiveMon/status/432577721626296320}}
-were illustrated by apparently random Instagram photos
-that had nothing to do with the events in question. 
-These events typically either have the current year in their name
-and/or have a~very long name.
+were illustrated by apparently random Instagram photos. 
+These events consistently have long names with the current year
+combined with non-ASCII characters.
 In such cases, the Instagram search API defaults to matching
 on only parts of the search term rather than the whole phrase,
 which explains why random photos tagged with the current year,
@@ -665,8 +665,10 @@ which explains why random photos tagged with the current year,
 got featured overly prominently.
 A~particularly bad example of a~completely irrelevant media gallery
 can be seen in \autoref{fig:medal-table}.
-In the future, we will work around this issue by limiting the search term
-length for Instagram queries.
+Following this observation, we have worked around this issue
+by a~better Unicode-aware regular expression.%
+\footnote{Instagram customization:
+\url{http://bit.ly/instagram-unicode}}
 
 \paragraph{Reprise of Hypotheses and Research Questions}
 
@@ -791,9 +793,11 @@ based on detected concurrent Wikipedia and Wikidata edits
 with the world of social network sites
 at the example of the \emph{2014 Winter Olympics}.
 We have extended the existing tools \emph{Wikipedia Live Monitor}
-and \emph{Social Media Illustrator} such that now we have 
+and \emph{Social Media Illustrator} so that now we have 
 an automated means of generating media galleries
-for breaking news events at scale.
+for breaking news events at scale
+in the form of the Twitter bot @mediagalleries,
+available and archived at \url{https://twitter.com/mediagalleries}.
 We have evaluated media galleries that were auto-generated 
 in the context of the Olympics quantitatively,
 qualitatively, aesthetically, and temporally.
@@ -801,11 +805,9 @@ From the 69~\emph{Winter Olympics} breaking news events,
 we could illustrate 48~events, resulting in a~recall of successfully illustrated Olympics breaking news events of~${\approx}70\%$. 
 From these 48~events, 30~events were illustrated
 with mostly relevant or completely relevant content,
-resulting in a~relative precision of ${\approx}63\%$.
-We note that this version of the application
-does not yet contain the suggested trivial improvements around Instagram
-that were detailed in \autoref{sec:discussion}
-that will greatly improve the system's precision.
+resulting in a~relative precision of ${\approx}63\%$,
+still without the improvements discussed in \autoref{sec:discussion}
+that are now in place.
 
 Future work will mainly focus on further improving the visual aesthetics
 of the generated media galleries.
@@ -839,7 +841,7 @@ By releasing the source code and the social multimedia data
 created in the context of this research under the permissive
 Apache~2.0 license, we invite and hope for others to pick up.
 It is the taking part that counts:
-\url{https://github.com/ANONYMIZED/wikipedia-live-monitor}.
+\url{https://github.com/tomayac/wikipedia-live-monitor}.
 
 \begin{figure}[p!]
   \centering
