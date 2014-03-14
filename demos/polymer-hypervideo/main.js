@@ -1,5 +1,10 @@
 (function() {
   var video = document.querySelector('#video');
+  var canvas = document.createElement('canvas');
+  canvas.width = video.width;
+  canvas.height = video.height;
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
 
   function getYouTubeHtml5VideoUrl(videoId, callback) {
 
@@ -70,10 +75,28 @@
     }
   });
 
-  video.addEventListener('canplaythrough', function() {
-    var canvas = document.createElement('canvas');
-    var currentTime = 0;
+  video.addEventListener('loadedmetadata', function() {
+    console.log('loadedmetadata');
     var endTime = Math.floor(video.duration);
     var step = endTime / 10;
+    drawImage(step);
   }, false);
+
+  function drawImage(step) {
+    if (video.currentTime >= video.duration) {
+      console.log('through');
+      return false;
+    }
+    video.currentTime = video.currentTime + step;
+    console.log(video.currentTime + ' ' + step);
+    ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
+    var url = canvas.toDataURL();
+    var img = document.createElement('img');
+    img.src = url;
+    document.body.appendChild(img);
+    setTimeout(function() {
+      drawImage(step);
+    }, 2000);
+  }
+
 })();
