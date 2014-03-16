@@ -1,0 +1,150 @@
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\usepackage{pifont} 
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+
+% listings and Verbatim environment
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{verbatim}
+\newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
+\newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
+\newcommand{\smalllistingsize}{\fontsize{7.5pt}{9.5pt}}
+\newcommand{\listingsize}{\defaultlistingsize}
+\RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
+\lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
+        aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+        framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+
+% use Courier from this point onward
+\let\oldttdefault\ttdefault
+\renewcommand{\ttdefault}{pcr}
+\let\oldurl\url
+\renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\lstdefinelanguage{JavaScript}{
+  keywords={push, typeof, new, true, false, catch, function, return, null,
+    catch, switch, var, if, in, while, do, else, case, break, div, script, video},
+  keywordstyle=\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morecomment=[s]{<!--}{-->},  
+  commentstyle=\color{darkgray},
+  stringstyle=\color{gray},
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstset{breaklines=true}
+
+% linewrap symbol
+\usepackage{color}
+\definecolor{grey}{RGB}{130,130,130}
+\newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
+
+% todo macro
+\usepackage{color}
+\newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
+
+\def\JSONLD{\mbox{JSON-LD}}
+
+\hyphenation{WebVTT}
+
+\def\JSONLD{\mbox{JSON-LD}}
+
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+% first the title is needed
+\title{Self-Contained Hypervideos\\ Using Web Components}
+
+% a short form should be given in case it is too long for the running head
+\titlerunning{Self-Contained Hypervideos Using Web Components}
+
+% the name(s) of the author(s) follow(s) next
+\author{
+  Thomas Steiner\textsuperscript{1} \and
+  Pierre-Antoine Champin\textsuperscript{1} \and \\
+  Benoît Encelle\textsuperscript{1}\and
+  Yannick Prié\textsuperscript{2}
+}
+%
+\authorrunning{Steiner, Champin, Encelle, and Prié}
+% (feature abused for this document to repeat the title also on left hand pages)
+
+% the affiliations are given next
+\institute{
+  \textsuperscript{1}CNRS, Université de Lyon, LIRIS -- UMR5205, Université Lyon~1, France\\
+  \email{\{tsteiner, pierre-antoine.champin\}@liris.cnrs.fr, benoit.encelle@univ-lyon1.fr}\\
+  \textsuperscript{2}CNRS, Université de Nantes, LINA -- UMR 6241, France\\
+  \email{yannick.prie@univ-nantes.fr}
+}
+
+\maketitle
+
+\begin{abstract}
+The creation of hypervideos is a~manual and tedious task,
+requiring the preparation of assets like still frames,
+the segmentation of videos in scenes or chapters,
+and sometimes even the isolation of objects within the video.
+In this paper, we propose a~semi-automated
+Web-Components-based approach to self-contained hypervideo creation.
+By \emph{self-contained} we mean that all necessary intrinsic components
+of the hypervideo, for example, still frames should come from the video itself
+rather than be included as external assets.
+By leveraging the evolving Web Components standard,
+we obtain a~high degree of abstraction,
+which reduces the task of creating hypervideos
+to textually marking them up with custom HTML elements.
+
+\keywords{Hypervideo, Web Components}
+\end{abstract}
+
+\section{Introduction}
+
+The term \emph{hypervideo} is commonly used to refer to
+\textit{``a~displayed video stream that contains embedded user-clickable anchors''}%
+~\cite{sawhney1996hypercafe,smith2002extensible},
+allowing for navigation between the video and other hypermedia elements.
+In a~2006 article in \emph{The Economist}, the authors write 
+\textit{``[h]yperlinking video involves the use of ``object-tracking'' software
+to make filmed objects, such as cars, clickable as they move around.
+Viewers can then click on items of interest in a~video
+to watch a related clip; after it has played,
+the original video resumes where it left off.
+To inform viewers that a~video is hyperlinked,
+editors can add highlights to moving images, use beeps as audible cues,
+or display still images from hyperlinked videos
+next to the clip that is currently playing''}~\cite{economist2006hypervideo}.
+In standard literature, hypervideo is considered a~logical consequence
+of the related concept of \emph{hypertext}.
+In contrast to hypertext, hypervideo necessarily includes a~time component,
+as content changes over time.
+In consequence, hypervideo has different technical and aesthetic requirements
+than hypertext, the most obvious one being appropriate segmentation in scenes
+or even objects.
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+\end{document}
