@@ -303,6 +303,30 @@ In this paper, we are especially interested in
 text tracks of kind \texttt{metadata}
 that are meant to be used from a~scripting context and
 that are not displayed by user agents.
+For scripting purposes, the video element
+has a~property called \texttt{textTracks}
+that returns a~\texttt{TextTrackList} of
+\texttt{TextTrack} members, each of which correspond
+to track elements.
+A~\texttt{TextTrack} has a~\texttt{cues} property
+that returns a~\texttt{TextTrackCueList} of individual
+\texttt{TextTrackCue} items.
+Important for us, both \texttt{TextTrack} and
+\texttt{TextTrackCue} elements
+can be dynamically generated.
+\autoref{listing:webvtt-example} shows a~sample WebVTT file.
+
+\begin{lstlisting}[caption={Example WebVTT file with two cues},
+  label=listing:webvtt-example, float=b!]
+WEBVTT
+
+00:01.000 --> 00:04.000
+Never drink liquid nitrogen.
+
+00:05.000 --> 00:09.000
+It will perforate your stomach.
+\end{lstlisting}
+
 
 \begin{table}[b!]\footnotesize
 \begin{tabular}{ r | p{5.5cm} } % ACM column width 8.45cm, 0.83cm gutter
@@ -334,33 +358,6 @@ Not displayed by user agent.\\
   \label{table:texttrackkinds}
 \end{table}
 
-For scripting purposes, the video element
-has a~property called \texttt{textTracks}
-that returns a~\texttt{TextTrackList} of
-\texttt{TextTrack} members, each of which correspond
-to track elements.
-A~\texttt{TextTrack} has a~\texttt{cues} property
-that returns a~\texttt{TextTrackCueList} of individual
-\texttt{TextTrackCue} items.
-Cue data is accessible via properties like
-\texttt{startTime} and \texttt{endTime} and,
-most importantly, \texttt{text} to obtain a~cue's payload.
-When the payload is in JSON format,
-it can be parsed via the
-\texttt{JSON.parse()} function in JavaScript.
-When a~video is playing,
-JavaScript events of the \texttt{TextTrack} and \texttt{TextTrackCue}
-elements fire automatically when the \texttt{currentTime}
-of the video matches
-a~cue's \texttt{startTime} or \texttt{endTime}.
-\texttt{TextTrack} elements fire \texttt{oncuechange} events,
-whereas \texttt{TextTrackCue} elements fire
-\texttt{onenter} and \texttt{onexit} events.
-JavaScript applications can subscribe to these events.
-Important for us, both \texttt{TextTrack} and
-\texttt{TextTrackCue} elements
-can be dynamically generated via JavaScript.
-
 \paragraph{\JSONLD}
 
 The \emph{JavaScript Object Notation}%
@@ -379,7 +376,7 @@ Linked Data with a~smooth upgrade path from JSON to \JSONLD.
 \JSONLD\ properties like \texttt{title} can be mapped to taxonomic
 concepts (like \texttt{dc:title} from Dublin Core%
 \footnote{Dublin Core: \url{http://dublincore.org/documents/dces/}})
-via so-called data contexts.\vfill
+via so-called data contexts.
 
 \paragraph{Media Fragments URI}
 
@@ -490,9 +487,9 @@ On these webpages, we detected exactly
 resulting in a~1.37 gigabyte raw text file
 that we have made available publicly.%
 \footnote{2,963,766 \texttt{<video>} tags: \url{https://drive.google.com/file/d/0B9LlSNwL2H8YdWVIQmJDaE81UEk}}
-This means that on average only ${\approx}0.132\%$ of all webpages contain video.
-The whole job took about five hours on
-80~c1.xlarge machines and costed overall \$555,
+This means that on average only ${\approx}0.132\%$ of all webpages contain HTML5 video.
+The whole job took five hours on
+80~c1.xlarge machines and costed \$555,
 consisting of \$468 for Amazon~EC2,
 plus an additional \$87 for Amazon Elastic MapReduce
  (Amazon EMR).\footnote{Amazon EMR:
@@ -1057,7 +1054,8 @@ with Semantic Web compliance upon global publication.
 Our \JSONLD\ context eases common annotation tasks
 by defining the semantics of a~few useful JSON properties described below.
 According to this context, \autoref{listing:webvtt} is interpreted as in
-\autoref{listing:jsonld} (in \JSONLD) and \autoref{listing:rdftriples} (in RDF).
+\autoref{listing:jsonld} (RDF in \JSONLD\ syntax) and \autoref{listing:rdftriples}
+(RDF in N-Triples syntax).
 More advanced annotation tasks can be supported by extending the data context.
 
 \begin{description}[leftmargin=*]
@@ -1185,9 +1183,9 @@ that builds on a~careful study of prior art.
 \paragraph{The CHM Hypervideo Model}
 
 Sadallah \emph{et~al.}\ define
-\emph{hypervideo} as \textit{``interactive video-centric
+\emph{hypervideo} as \textit{``interactive video-cen\-tric
 hypermedia document built upon audiovisual content''}.
-The authors identify three common hypervideo characteristics,\linebreak
+The authors identify three common hypervideo characteristics,
 namely \emph{(i)}~\emph{interactivity}, which, \emph{e.g.},
 can enable richer navigational possibilities,
 \emph{(ii)}~\emph{non-linearity}, which allows for features
@@ -1205,7 +1203,8 @@ in the following.\\
   the corresponding video controls are not necessarily exposed.
 
   \checkmark~Our approach uses the (optionally customizable)
-  default HTML5 player that includes controls that can be hidden.
+  default HTML5 player that includes hidable controls
+  (\autoref{fig:webvtt-editor}).
 
   \item[Timeline] A~timeline is the spatial representation
   of temporally situated metadata in a~video.
@@ -1226,6 +1225,8 @@ in the following.\\
 
   \checkmark~We realize overlays and links
   with \texttt{htmlOverlay} types.
+  \autoref{fig:webvtt-editor} shows both a~graphical (yellow box)
+  and two textual overlays (red and green texts).
 
   \item[Textual or graphical table of contents]
   If a~video is logically separated
@@ -1244,6 +1245,7 @@ in the following.\\
   
   \checkmark~Subtitles and captions are natively supported
   by\linebreak WebVTT tracks of the types \emph{subtitles} and \emph{captions}.
+  \autoref{fig:webvtt-editor} shows active subtitles (white text).
 \end{description}
 
 \begin{figure*}[hbt]
