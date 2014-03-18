@@ -69,9 +69,10 @@
     for (var videoSource in videoSources) {
       videoSource = videoSources[videoSource];
       var source = document.createElement('source');
-      source.src = videoSource.original_url;
+      source.src = 'http://127.0.0.1:9292/' + videoSource.original_url.replace(/^https?:\/\//, '');
       source.type = videoSource.type.replace(/\+/g, ' ').replace(/"/g, '\"');
       video.appendChild(source);
+      video.crossOrigin = 'Anonymous';
     }
   });
 
