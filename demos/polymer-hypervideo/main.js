@@ -41,7 +41,7 @@
     };
 
     // Translate to HTML5 video URL, try at least
-    var  url = 'https://cors-anywhere.herokuapp.com/' +
+    var  url = 'http://127.0.0.1:9292/' +
         'www.youtube.com/get_video_info?video_id=' + videoId
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
