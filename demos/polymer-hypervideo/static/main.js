@@ -1,4 +1,9 @@
+'use strict';
+
 (function() {
+
+  var CORS_PROXY = 'http://localhost:5001/';
+
   var video = document.querySelector('#video');
   var canvas = document.createElement('canvas');
   canvas.width = video.width;
@@ -41,7 +46,7 @@
     };
 
     // Translate to HTML5 video URL, try at least
-    var  url = 'http://127.0.0.1:9292/' +
+    var  url = CORS_PROXY +
         'www.youtube.com/get_video_info?video_id=' + videoId
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
@@ -69,7 +74,8 @@
     for (var videoSource in videoSources) {
       videoSource = videoSources[videoSource];
       var source = document.createElement('source');
-      source.src = 'http://127.0.0.1:9292/' + videoSource.original_url.replace(/^https?:\/\//, '');
+      source.src = CORS_PROXY +
+          videoSource.original_url.replace(/^https?:\/\//, '');
       source.type = videoSource.type.replace(/\+/g, ' ').replace(/"/g, '\"');
       video.appendChild(source);
       video.crossOrigin = 'Anonymous';
@@ -99,5 +105,4 @@
       drawImage(step);
     }, 2000);
   }
-
 })();

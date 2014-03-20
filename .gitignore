@@ -32,6 +32,8 @@
 *.vrb
 *.xdy
 *.tdo
+*.tmproj
+*.mp4
 demos/warczenschwein/.classpath
 demos/warczenschwein/data/
 demos/warczenschwein/lib/

@@ -1,0 +1,19 @@
+{
+  "name": "polymer-hypervideo",
+  "version": "0.0.1",
+  "description": "Hypervideo creation based on Web Components using the Polymer framework",
+  "main": "app.js",
+  "dependencies": {
+    "corsproxy": "~0.2.14"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "keywords": [
+    "hypervideo",
+    "web",
+    "components",
+    "polymer"
+  ],
+  "author": "Thomas Steiner",
+  "license": "Apache 2.0"
+}
