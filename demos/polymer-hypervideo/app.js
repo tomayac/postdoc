@@ -15,7 +15,9 @@ app.get('/', function(req, res) {
 });
 
 // start the CORS proxy
-httpProxy.createServer(corsProxy).listen(5001);
+var corsProxyPort = 5001;
+httpProxy.createServer(corsProxy).listen(corsProxyPort, 'localhost');
+console.log('CORS proxy running on ' + corsProxyPort);
 
 // start the server
 var port = process.env.PORT || 5000;

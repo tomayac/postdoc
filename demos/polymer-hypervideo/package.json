@@ -4,7 +4,9 @@
   "description": "Hypervideo creation based on Web Components using the Polymer framework",
   "main": "app.js",
   "dependencies": {
-    "corsproxy": "~0.2.14"
+    "corsproxy": "~0.2.14",
+    "express": "~3.4.8",
+    "http-proxy": "~0.10"
   },
   "devDependencies": {},
   "scripts": {},

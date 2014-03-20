@@ -46,8 +46,8 @@
     };
 
     // Translate to HTML5 video URL, try at least
-    var  url = CORS_PROXY +
-        'www.youtube.com/get_video_info?video_id=' + videoId
+    var  url = CORS_PROXY + 'www.youtube.com/get_video_info?video_id=' +
+        videoId
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
@@ -74,8 +74,8 @@
     for (var videoSource in videoSources) {
       videoSource = videoSources[videoSource];
       var source = document.createElement('source');
-      source.src = CORS_PROXY +
-          videoSource.original_url.replace(/^https?:\/\//, '');
+      source.src = CORS_PROXY + videoSource.original_url
+          .replace(/^https?:\/\//, '');
       source.type = videoSource.type.replace(/\+/g, ' ').replace(/"/g, '\"');
       video.appendChild(source);
       video.crossOrigin = 'Anonymous';
