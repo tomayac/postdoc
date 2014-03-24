@@ -84,25 +84,23 @@
 
   video.addEventListener('loadedmetadata', function() {
     console.log('loadedmetadata');
-    var endTime = Math.floor(video.duration);
-    var step = endTime / 10;
-    drawImage(step);
+    time = 20.0;
+    getStillFrame(time, function(img) {
+      document.body.appendChild(img);
+    });
   }, false);
 
-  function drawImage(step) {
-    if (video.currentTime >= video.duration) {
-      console.log('through');
-      return false;
+  function getStillFrame(time, callback) {
+    if (time > video.duration) {
+      return callback('Requested time greater than video duration');
     }
-    video.currentTime = video.currentTime + step;
-    console.log(video.currentTime + ' ' + step);
-    ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
-    var url = canvas.toDataURL();
-    var img = document.createElement('img');
-    img.src = url;
-    document.body.appendChild(img);
+    video.currentTime = time;
     setTimeout(function() {
-      drawImage(step);
+      ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
+      var img = document.createElement('img');
+      var url = canvas.toDataURL();
+      img.src = url;
+      return callback(null, img);
     }, 2000);
   }
 })();
