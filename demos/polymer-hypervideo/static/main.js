@@ -6,6 +6,7 @@
 
   var video = document.querySelector('#video');
   var canvas = document.createElement('canvas');
+  canvas.style.display = 'none';
   canvas.width = video.width;
   canvas.height = video.height;
   document.body.appendChild(canvas);
@@ -84,13 +85,44 @@
 
   video.addEventListener('loadedmetadata', function() {
     console.log('loadedmetadata');
-    time = 20.0;
-    getStillFrame(time, function(img) {
-      document.body.appendChild(img);
-    });
+    var tracks = video.textTracks || video.querySelectorAll('track');
+    for (var i = 0, lenI = tracks.length; i < lenI; i++) {
+      var track = tracks[i];
+      if (track.kind = 'chapters') {
+        track.mode = 'hidden';
+        if (!track.cues) {
+          console.log('Track not loaded yet, adding load listener');
+          track.addEventListener('load', function(e) {
+            console.log('Track finally loaded, reading cues');
+            return readChapterCues(e.target.cues);
+          });
+        } else {
+          setTimeout(function() {
+            console.log('Track loaded, reading cues');
+            return readChapterCues(track.cues);
+          }, 2000);
+        }
+      }
+    }
+
   }, false);
 
-  function getStillFrame(time, callback) {
+  function readChapterCues(cues) {
+    for (var i = 0, lenI = cues.length; i < lenI; i++) {
+      var cue = cues.item(i);
+      (function(innerCue) {
+        setTimeout(function() {
+          getStillFrame(innerCue, function(err, img, text) {
+            displayStillFrame(img, text);
+          });
+        }, 2000 * i);
+      })(cue);
+    }
+  }
+
+  function getStillFrame(cue, callback) {
+    var time = cue.startTime;
+    var text = cue.text;
     if (time > video.duration) {
       return callback('Requested time greater than video duration');
     }
@@ -100,7 +132,17 @@
       var img = document.createElement('img');
       var url = canvas.toDataURL();
       img.src = url;
-      return callback(null, img);
-    }, 2000);
+      return callback(null, img, text);
+    }, 1000);
+  }
+
+  function displayStillFrame(img, text) {
+    var li = document.createElement('li');
+    var span = document.createElement('span');
+    span.textContent = text;
+    li.appendChild(span);
+    li.appendChild(document.createElement('br'));
+    li.appendChild(img);
+    document.body.appendChild(li);
   }
 })();
