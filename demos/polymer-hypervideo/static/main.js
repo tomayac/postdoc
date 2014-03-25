@@ -5,6 +5,15 @@
   var CORS_PROXY = 'http://localhost:5001/';
 
   var video = document.querySelector('#video');
+  var chapters = document.querySelector('#chapters');
+  chapters.addEventListener('click', function(e) {
+    var current = e.target;
+    while (current.nodeName !== 'LI') {
+      current = current.parentNode;
+    }
+    video.currentTime = current.dataset.start;
+  }, false);
+
   var canvas = document.createElement('canvas');
   canvas.style.display = 'none';
   canvas.width = video.width;
@@ -113,7 +122,7 @@
       (function(innerCue) {
         setTimeout(function() {
           getStillFrame(innerCue, function(err, img, text) {
-            displayStillFrame(img, text);
+            displayStillFrame(img, text, innerCue.startTime);
           });
         }, 2000 * i);
       })(cue);
@@ -130,19 +139,22 @@
     setTimeout(function() {
       ctx.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
       var img = document.createElement('img');
+      img.setAttribute('class', 'hypervideo');
       var url = canvas.toDataURL();
       img.src = url;
       return callback(null, img, text);
     }, 1000);
   }
 
-  function displayStillFrame(img, text) {
+  function displayStillFrame(img, text, start) {
     var li = document.createElement('li');
-    var span = document.createElement('span');
-    span.textContent = text;
-    li.appendChild(span);
-    li.appendChild(document.createElement('br'));
-    li.appendChild(img);
-    document.body.appendChild(li);
+    li.dataset.start = start;
+    var figure = document.createElement('figure');
+    li.appendChild(figure);
+    figure.appendChild(img);
+    var figcaption = document.createElement('figcaption');
+    figcaption.textContent = text;
+    figure.appendChild(figcaption);
+    chapters.appendChild(li);
   }
 })();

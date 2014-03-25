@@ -4,9 +4,15 @@
     <link href="main.css" media="all" rel="stylesheet" type="text/css"/>
   </head>
   <body>
-    <video width="400" height="225" controls id="video">
+    <h1>Hypervideo Demo</h1>
+    <h2>Main Video</h2>
+    <video class="hypervideo" width="400" height="225" controls id="video">
       <track kind="chapters" src="chapters.vtt" srclang="en"/>
     </video>
+    <section>
+      <h2>Chapters</h2>
+      <ul id="chapters"></ul>
+    </section>
     <script src="main.js"></script>
   </body>
 </html>
