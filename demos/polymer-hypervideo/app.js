@@ -4,8 +4,8 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var server = http.createServer(app);
-var corsProxy = require('corsproxy');
-var httpProxy = require('http-proxy');
+var request = require('request');
+var url = require('url');
 
 // start static serving
 // and set default route to index.html
@@ -14,10 +14,29 @@ app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-// start the CORS proxy
-var corsProxyPort = 5001;
-httpProxy.createServer(corsProxy).listen(corsProxyPort, 'localhost');
-console.log('CORS proxy running on ' + corsProxyPort);
+app.get(/^\/cors\/(.+)$/, function(req, res) {
+  var pathname = url.parse(req.url).pathname;
+  var uri = decodeURIComponent(pathname.replace(/^\/cors\/(.+)$/, '$1'));
+  res.setHeaders = {
+    'access-control-allow-methods': 'HEAD, POST, GET, PUT, PATCH, DELETE',
+    'access-control-max-age': '86400',
+    'access-control-allow-credentials': 'true',
+    'access-control-allow-origin': req.headers.origin || '*'
+  };
+  try {
+    var headers = req.headers;
+    var options = {
+      url: uri,
+      headers: headers
+    };
+    options.headers.referer = 'https://www.youtube.com/watch';
+    delete options.headers.host;
+    request.get(options).pipe(res);
+  } catch(e) {
+    res.statusCode = 404;
+    res.send('Error 404 File not found.');
+  }
+});
 
 // start the server
 var port = process.env.PORT || 5000;

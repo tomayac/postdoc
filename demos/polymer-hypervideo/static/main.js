@@ -1,8 +1,9 @@
+/* jshint browser:true */
 'use strict';
 
 (function() {
 
-  var CORS_PROXY = 'http://localhost:5001/';
+  var CORS_PROXY = document.location.href + 'cors/';
 
   var video = document.querySelector('#video');
   var chapters = document.querySelector('#chapters');
@@ -56,8 +57,8 @@
     };
 
     // Translate to HTML5 video URL, try at least
-    var  url = CORS_PROXY + 'www.youtube.com/get_video_info?video_id=' +
-        videoId
+    var  url = CORS_PROXY + encodeURIComponent(
+        'http://www.youtube.com/get_video_info?video_id=' + videoId);
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
@@ -75,7 +76,7 @@
         }
         return callback(video.sources);
       }
-    }
+    };
     xhr.open('GET', url, true);
     xhr.send();
   }
@@ -84,8 +85,7 @@
     for (var videoSource in videoSources) {
       videoSource = videoSources[videoSource];
       var source = document.createElement('source');
-      source.src = CORS_PROXY + videoSource.original_url
-          .replace(/^https?:\/\//, '');
+      source.src = CORS_PROXY + encodeURIComponent(videoSource.original_url);
       source.type = videoSource.type.replace(/\+/g, ' ').replace(/"/g, '\"');
       video.appendChild(source);
       video.crossOrigin = 'Anonymous';
@@ -97,7 +97,7 @@
     var tracks = video.textTracks || video.querySelectorAll('track');
     for (var i = 0, lenI = tracks.length; i < lenI; i++) {
       var track = tracks[i];
-      if (track.kind = 'chapters') {
+      if (track.kind === 'chapters') {
         track.mode = 'hidden';
         if (!track.cues) {
           console.log('Track not loaded yet, adding load listener');
