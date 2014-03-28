@@ -19,6 +19,7 @@ h1 {
   color: white;
   font-size: 1.2em;
   margin: 5px;
+  clear: both;
 }
 
 h2 {
@@ -26,4 +27,5 @@ h2 {
   color: gray;
   font-size: 1.1em;
   margin: 5px;
+  clear: both;
 }
