@@ -1,0 +1,11 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="polymer-hypervideo" attributes="src width height poster">
+  <template>
+    <video controls crossorigin="Anonymous" src="{{src}}" width="{{width}}" height="{{height}}" poster="{{poster}}"></video>
+  </template>
+  <script>
+    Polymer('polymer-hypervideo', {
+    });
+  </script>
+</polymer-element>
