@@ -3,7 +3,6 @@
      -moz-box-sizing: border-box;
       -ms-box-sizing: border-box;
           box-sizing: border-box;
-  /* width: 300px; */
   padding: 0px;
   margin: 0px;
 }
@@ -27,42 +26,4 @@ h2 {
   color: gray;
   font-size: 1.1em;
   margin: 5px;
-}
-
-ul {
-  margin: 0px;
-}
-
-li {
-  float: left;
-  margin-right: 5px;
-  list-style: none;
-}
-
-video.hypervideo {
-  width: 400px;
-  height: auto;
-  border: 3px solid #000;
-  -webkit-box-shadow: 5px 5px 5px #111;
-          box-shadow: 5px 5px 5px #111;
-
-}
-
-img.hypervideo {
-  border: 3px solid #000;
-  width: 190px;
-  height: auto;
-  margin: 5px 5px;
-  overflow: hidden;
-  -webkit-box-shadow: 5px 5px 5px #111;
-          box-shadow: 5px 5px 5px #111;
-  cursor: pointer;
-}
-
-figcaption {
-  margin: 2px;
-  background-color: white;
-  -webkit-box-shadow: 5px 5px 5px #111;
-          box-shadow: 5px 5px 5px #111;
-  cursor: pointer;
 }

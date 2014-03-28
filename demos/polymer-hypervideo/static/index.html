@@ -1,28 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="main.css" media="all" rel="stylesheet" type="text/css"/>
     <!-- 1. Load platform.js for polyfill support. -->
     <script src="bower_components/platform/platform.js"></script>
     <!-- 2. Use an HTML Import to bring in the element. -->
     <link rel="import" href="elements/polymer-hypervideo.html">
-
-    <link href="main.css" media="all" rel="stylesheet" type="text/css"/>
   </head>
   <body>
     <h1>Hypervideo Demo</h1>
-    <h2>Main Video</h2>
-    <video class="hypervideo" width="400" height="225" controls id="video">
-      <track kind="chapters" src="chapters.vtt" srclang="en"/>
-    </video>
-    <section>
-      <h2>Chapters</h2>
-      <ul id="chapters"></ul>
-      <br/>
-    </section>
-
     <h2>Polymer Hypervideo</h2>
-    <polymer-hypervideo src="video.mp4"></polymer-hypervideo>
-
-    <script src="main.js"></script>
+    <polymer-hypervideo src="video.mp4" chapters="chapters.vtt" width="400" height="225"></polymer-hypervideo>
   </body>
 </html>
