@@ -65,7 +65,9 @@
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Bots vs. Wikipedians, Anons vs. Logged-Ins:\\ A~Global Study of Edit Activity on Wikipedia and Wikidata}
+\title{Bots vs. Wikipedians, Anons vs. Logged-Ins (Redux):\\ A~Global Study of Edit Activity on Wikipedia and Wikidata}
+
+\subtitle{Extended Version of the WWW2014 Web Science Track Short Paper}
 
 \numberofauthors{1}
 
@@ -222,6 +224,11 @@ and on bot activity in general.
 In continuation, we have deep-dived into the data
 and looked at the most \emph{bot-edited}, \emph{human-edited},
 and \emph{anonymously-edited} Wikipedias and Wikidata.
+The current paper is an extended version of the short paper
+\textit{Bots vs.\ Wikipedians, Anons vs.\ Logged-Ins}%
+~\cite{steiner2014botsvswikipedians} that appeared
+as a~poster in the Web Science track at the World Wide Web 
+conference 2014 in Seoul, Korea.
 
 \section{Methodology and Tools}
 
@@ -260,6 +267,24 @@ The message components are \emph{(i)}~article name, \emph{(ii)}~revision URL,
 \emph{(iii)}~Wiki\-pedia editor handle, and
 \emph{(iv)}~change size and description.
 
+\begin{figure}[t!]
+  \centering
+  \fbox{\includegraphics[width=0.97\linewidth]{bots-vs-wikipedians.png}}
+  \caption{Screenshot of the application available at \url{http://wikipedia-edits.herokuapp.com/}
+    (edited for legibility),
+    the source code is available under the terms
+    of the Apache 2.0 license}
+  \label{fig:screenshot}
+\end{figure}
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width=\linewidth]{console.png}
+  \caption{Output of the command line tool cURL
+    showing the MIME type \texttt{text/event-stream}, the CORS header, and two edits when connecting to the API \url{http://wikipedia-edits.herokuapp.com/sse/}}
+  \label{fig:console}
+\end{figure}
+
 \paragraph{Server-Sent Events}
 
 Server-Sent Events~\cite{hickson2012sse}
@@ -287,7 +312,7 @@ When the client loses connection,
 it automatically reconnects,
 \emph{i.e.}\ without manual interaction.
 
-\begin{figure}[h!]
+\begin{figure}[b!]
 \begin{lstlisting}[caption={Server-Sent Event of type ``enedit''
   (formatted for legibility, \texttt{data:} allows no line breaks)},
   label=code:sse-server, language=JavaScript]
@@ -334,22 +359,15 @@ source.addEventListener('enedit', function(e) {
 \end{lstlisting}
 \end{figure}
 
-\begin{figure}[h!]
-  \centering
-  \fbox{\includegraphics[width=\linewidth]{bots-vs-wikipedians.png}}
-  \caption{Screenshot of the application available at \url{http://wikipedia-edits.herokuapp.com/} (cropped)}
-  \label{fig:screenshot}
-\end{figure}
-
 \paragraph{Implementation Details}
 
 Our application is based on a~Server-Sent Events API
 that we have implemented in Node.js,
 a~server side JavaScript software system
 designed for writing scalable Internet applications.
-%Programs are created using event-driven,
-%asynchronous input/output operations
-%to minimize overhead and maximize scalability.
+Programs are created using event-driven,
+asynchronous input/output operations
+to minimize overhead and maximize scalability.
 Using Martyn Smith's Node.js IRC library,%
 \footnote{Node IRC:
 \url{https://github.com/martynsmith/node-irc}}
@@ -358,13 +376,15 @@ and send Server-Sent Events whenever we detect one.
 Our API is available publicly online
 at the URL \url{http://wikipedia-edits.herokuapp.com/sse}
 and open for third parties to use.
-On the client side,t in the actual application,
+On the client side, in the actual application,
 we have registered generic event handlers for events
 pushed by the API and keep track of edit statistics over time.
 This application can be tested at
-\url{http://wikipedia-edits.herokuapp.com/}.\linebreak
+\url{http://wikipedia-edits.herokuapp.com/}.
 A~screenshot of the application
-can be seen in \autoref{fig:screenshot}.
+can be seen in \autoref{fig:screenshot},
+the raw output of the command line tool cURL when
+connecting to the API can be seen in \autoref{fig:console}.
 
 \section{Results}
 
@@ -623,7 +643,7 @@ We accessed the statistics on December 13, 2013,
 where the data was processed up until October 31, 2013.
 Based upon the fact that these database dumps
 of all Wikipedias are also publicly available,
-in 2005 Voß~\cite{voss2005measuring} gave 
+in 2005 Voss~\cite{voss2005measuring} gave 
 an overview on Wikipedia research
 and analyzed articles, authors, edits, and links,
 as well as content and quality.
@@ -660,7 +680,7 @@ edit statistics for 36~Wikipedias, Wikimedia Commons, and Wikidata.
 We provide detailed realtime statistics for all Wikipedias and Wikidata.
 The \emph{Wikipedia Recent Changes Map} tool,
 by LaPorte and Hashemi~\cite{laporte2013map},
-inspired by a~similar too called \emph{WikipediaVision}%
+inspired by a~similar tool called \emph{WikipediaVision}%
 ~\cite{kozma2013map} by László Kozma,
 takes the IP addresses of anonymous editors
 of some of the biggest Wikipedias and maps them
@@ -710,7 +730,9 @@ classified as global, however, with realtime support.
 
 We have introduced an application
 and underlying API for the realtime monitoring
-of all 287~Wikipedias and Wikidata.
+of all 287~Wikipedias \emph{and} Wikidata.
+To the best of our knowledge,
+this is the first study to look at Wikidata editing statistics.
 Via this application, which was also open-sourced under the Apache~2.0 license,
 we have collected more than 3.8~million edit events
 that we have analyzed in order to get a~better understanding
@@ -729,13 +751,13 @@ Further, we envision a~global bot health check system
 that, based on the regular bot behavior patters,
 tries to detect outliers caused by
 potentially rogue bots or failing bots,
-so that we can alert adminstrators early on
+so that we can alert administrators early on
 \textit{``when the levee breaks''}~\cite{geiger2013withoutbots}.
 On the research side, an interesting step to take
 is to look at qualitative differences
 between bot edits and human edits, and for the latter,
 logged-in and anonymous edits.
-While we now have a~feeling about relative and absolute numbers,
+While we now have a~feeling for relative and absolute numbers,
 looking into the contents of the actual edits---%
 which our API allows, as for each edit event it sends the
 \texttt{diffUrl} and \texttt{languageClusterUrl}
@@ -743,8 +765,7 @@ which our API allows, as for each edit event it sends the
 opens many research opportunities ranging from spam
 and vandalism detection~\cite{alfonseca2013spam}
 to realtime article tracking for monitoring events
-as they happen on Wikipedia~\cite{steiner2013mjnomore}
-or even disaster response.
+as they happen on Wikipedia~\cite{steiner2013mjnomore}.
 Like with Twitter's Streaming APIs%
 \footnote{Twitter Streaming APIs:
 \url{https://dev.twitter.com/docs/streaming-apis}}
@@ -754,6 +775,38 @@ our API can facilitate interesting use cases
 for data from Wikipedia and Wikidata like the detection of
 edit wars~\cite{yasseri2012conflicts}
 reflecting real-world conflicts.
+In future versions of the Server-Sent Events API,
+we plan to allow developers to specify
+certain terms, articles, languages, categories,
+multimedia uploads, \emph{etc.},
+so that, rather than subscribe to the full firehose edit stream,
+they can track only a~subset of articles they are interested in.
+This will be very useful for use cases like  
+disaster response, where interested parties
+could subscribe to all sorts of edit events
+where the corresponding articles are categorized as
+describing disasters,
+or where high-quality, geo-tagged multimedia data
+as in \autoref{fig:terry} gets added,
+which can help prioritize efforts of disaster responders.
+Another use case is brand perception monitoring,
+where brand owners could subscribe to all edit events
+mentioning the relevant brand terms.
+We also envision a~feature similar to Web hooks~\cite{lindsay2007webhooks},
+where rather than use the Server-Sent Events API directly,
+developers specify URLs where they want to be notified
+by the system once edit events occur.
+Finally, we want to implement support for the PubSubHubbub
+protocol~\cite{fitzpatrick2013pubsubhubbub},
+which allows for a~scalable and distributed
+publish-subscribe architecture.
+
+\begin{figure}[t!]
+  \includegraphics[width=\linewidth]{1280px-TerryPkwyGasStation.jpg}
+  \caption{Wind damaged gas station on Terry Parkway, Terrytown,
+    Westbank suburb of New Orleans (Source: \url{http://commons.wikimedia.org/wiki/File:TerryPkwyGasStation.jpg})}
+  \label{fig:terry}  
+\end{figure}
 
 Concluding, we have contributed a~useful
 Wikipedia and Wikidata monitoring tool
@@ -761,10 +814,8 @@ as well as an open API
 and have performed an initial global study 
 with interesting and surprising insights that
 expectedly will be the first in a~series
-of many more future studies and applications by us
-and others.
+of many more future studies and applications by us and others.
  
 \bibliographystyle{abbrv}
 \bibliography{references}
-\balancecolumns
 \end{document}

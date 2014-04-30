@@ -6,12 +6,21 @@
     <script src="bower_components/platform/platform.js"></script>
     <!-- 2. Use an HTML Import to bring in the element. -->
     <link rel="import" href="elements/polymer-hypervideo.html">
+    <link rel="import" href="elements/polymer-overlay.html">
   </head>
   <body>
     <h1>Hypervideo Demo</h1>
     <h2>Polymer Hypervideo (local, doesn't work on Heroku)</h2>
     <polymer-hypervideo src="video.mp4" chapters="chapters.vtt" width="400" height="225"></polymer-hypervideo>
     <h2>Polymer Hypervideo (remote, works on Heroku)</h2>
-    <polymer-hypervideo src="big_buck_bunny.mp4" chapters="thumbs.vtt" width="400" height="225"></polymer-hypervideo>
+    <polymer-hypervideo src="big_buck_bunny.mp4" chapters="thumbs.vtt" width="400" height="225">
+      <polymer-overlay style="color:green;" start="10" stop="20">
+        Hello World
+      </polymer-overlay>
+      <polymer-overlay style="color:green;" start="10" stop="20">
+        <img src="fr.png">
+        Bonjour monde!
+      </polymer-overlay>      
+    </polymer-hypervideo>
   </body>
 </html>

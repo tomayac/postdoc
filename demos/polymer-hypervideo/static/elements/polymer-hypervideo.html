@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="./polymer-overlay.html">
 
 <polymer-element name="polymer-hypervideo" attributes="src width height poster chapters">
   <template>
@@ -13,13 +14,15 @@
         height="{{height}}"
         poster="{{poster}}">
     </video>
+    {{elements}}
   </template>
   <script>
     Polymer('polymer-hypervideo', {
       created: function() {
       },
       ready: function() {
-//        'use strict';
+        this.shadowRoot.innerHTML += this.innerHTML;
+
         if (this.chapters) {
           var CORS_PROXY = document.location.href + 'cors/';
 

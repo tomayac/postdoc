@@ -1,0 +1,23 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="polymer-overlay" attributes="start stop styling">
+  <template>
+    <link href="polymer-overlay.css" media="all" rel="stylesheet" type="text/css"/>
+    <div id="container" class="container" style="{{styling}}">
+    </div>
+  </template>
+  <script>
+    Polymer('polymer-overlay', {
+      created: function() {
+      },
+      ready: function() {
+        this.$.container.innerHTML += this.innerHTML;
+        var offsetY = '-225px';
+        var width = '380px';
+        this.$.container.style.position = 'relative';
+        this.$.container.style.top = offsetY;
+        this.$.container.style.width = width;
+      }
+    });
+  </script>
+</polymer-element>
