@@ -3,20 +3,31 @@
 <polymer-element name="polymer-overlay" attributes="start stop styling">
   <template>
     <link href="polymer-overlay.css" media="all" rel="stylesheet" type="text/css"/>
-    <div id="container" class="container" style="{{styling}}">
-    </div>
+    <div id="container" class="container" style="{{styling}}"></div>
   </template>
   <script>
     Polymer('polymer-overlay', {
+      publish: {
+        currentTime: 0
+      },
       created: function() {
       },
       ready: function() {
-        this.$.container.innerHTML += this.innerHTML;
-        var offsetY = '-225px';
-        var width = '380px';
-        this.$.container.style.position = 'relative';
-        this.$.container.style.top = offsetY;
-        this.$.container.style.width = width;
+        this.$.container.innerHTML = this.innerHTML;
+        this.$.container.style.display = 'none';
+
+        // listen for the parent hypervideo's timeupdate events and toggle the
+        // overlay's visibility accordingly to its start and stop
+        var that = this;
+        document.addEventListener('hypervideotimeupdate', function(e) {
+          that.currentTime = e.detail.currentTime;
+          if ((that.start <= that.currentTime) &&
+              (that.currentTime < that.stop)) {
+            that.$.container.style.display = 'block';
+          } else {
+            that.$.container.style.display = 'none';
+          }
+        });
       }
     });
   </script>

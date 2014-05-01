@@ -1,7 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="./polymer-overlay.html">
 
-<polymer-element name="polymer-hypervideo" attributes="src width height poster chapters">
+<polymer-element name="polymer-hypervideo" attributes="src width height poster chapters youTubeVideoId">
   <template>
     <link href="polymer-hypervideo.css" media="all" rel="stylesheet" type="text/css"/>
     <video
@@ -9,24 +9,41 @@
         class="hypervideo"
         controls
         crossorigin="Anonymous"
-        src="{{src}}"
         width="{{width}}"
         height="{{height}}"
         poster="{{poster}}">
     </video>
-    {{elements}}
+    <div id="overlays"></div>
   </template>
   <script>
     Polymer('polymer-hypervideo', {
+      publish: {
+        currentTime: 0
+      },
       created: function() {
       },
       ready: function() {
-        this.shadowRoot.innerHTML += this.innerHTML;
+        var video = this.$.hypervideo;
+        if (this.src) {
+          video.src = this.src;
+        }
+        // display the overlays and place them on top of the video
+        this.$.overlays.innerHTML = this.innerHTML;
+        this.$.overlays.style.position = 'relative';
+        this.$.overlays.style.top = (-0.33 * this.height) + 'px';
+        this.$.overlays.style.left = (0.05 * this.width) + 'px';
+        this.$.overlays.style.width = (0.9 * this.width) + 'px';
 
+        // publish timeupdate events
+        var that = this;
+        video.addEventListener('timeupdate', function(e) {
+          that.currentTime = video.currentTime;
+          that.fire('hypervideotimeupdate', {currentTime: that.currentTime});
+        }, false);
+
+        // create the chapters table of contents
         if (this.chapters) {
           var CORS_PROXY = document.location.href + 'cors/';
-
-          var video = this.$.hypervideo;
           var track = document.createElement('track');
           track.src = this.chapters;
           track.kind = 'chapters';
@@ -109,35 +126,31 @@
             xhr.send();
           }
 
-          /*
-          getYouTubeHtml5VideoUrl('m2ml0oAwWBE', function(videoSources) {
-            for (var videoSource in videoSources) {
-              videoSource = videoSources[videoSource];
-              var source = document.createElement('source');
-              source.src = CORS_PROXY + encodeURIComponent(videoSource.original_url);
-              source.type = videoSource.type.replace(/\+/g, ' ').replace(/"/g, '\"');
-              video.appendChild(source);
-              video.crossOrigin = 'Anonymous';
-            }
-          });
-          */
+          if (this.youTubeVideoId) {
+            getYouTubeHtml5VideoUrl(this.youTubeVideoId, function(videoSources) {
+              for (var videoSource in videoSources) {
+                videoSource = videoSources[videoSource];
+                var source = document.createElement('source');
+                source.src = CORS_PROXY + encodeURIComponent(videoSource.original_url);
+                source.type = videoSource.type.replace(/\+/g, ' ').replace(/"/g, '\"');
+                video.appendChild(source);
+                video.crossOrigin = 'Anonymous';
+              }
+            });
+          }
 
           video.addEventListener('loadedmetadata', function() {
-            console.log('loadedmetadata');
             var tracks = video.textTracks || video.querySelectorAll('track');
             for (var i = 0, lenI = tracks.length; i < lenI; i++) {
               var track = tracks[i];
               if (track.kind === 'chapters') {
                 track.mode = 'hidden';
                 if (!track.cues) {
-                  console.log('Track not loaded yet, adding load listener');
                   track.addEventListener('load', function(e) {
-                    console.log('Track finally loaded, reading cues');
                     return readChapterCues(e.target.cues);
                   });
                 } else {
                   setTimeout(function() {
-                    console.log('Track loaded, reading cues');
                     return readChapterCues(track.cues);
                   }, 2000);
                 }

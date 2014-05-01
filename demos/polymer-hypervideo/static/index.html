@@ -10,17 +10,24 @@
   </head>
   <body>
     <h1>Hypervideo Demo</h1>
+    <!--
     <h2>Polymer Hypervideo (local, doesn't work on Heroku)</h2>
     <polymer-hypervideo src="video.mp4" chapters="chapters.vtt" width="400" height="225"></polymer-hypervideo>
-    <h2>Polymer Hypervideo (remote, works on Heroku)</h2>
+    -->
+    <h2>Polymer Hypervideo (short SD video)</h2>
     <polymer-hypervideo src="big_buck_bunny.mp4" chapters="thumbs.vtt" width="400" height="225">
       <polymer-overlay style="color:green;" start="10" stop="20">
-        Hello World
-      </polymer-overlay>
-      <polymer-overlay style="color:green;" start="10" stop="20">
-        <img src="fr.png">
+        <img src="fr.png"/>
         Bonjour monde!
-      </polymer-overlay>      
+      </polymer-overlay>
+    </polymer-hypervideo>
+
+    <h2>Polymer Hypervideo (long HD video)</h2>
+    <polymer-hypervideo youTubeVideoId="m2ml0oAwWBE" chapters="thumbs.vtt" width="400" height="225">
+      <polymer-overlay style="color:green;" start="10" stop="20">
+        <img src="fr.png"/>
+        Bonjour monde!
+      </polymer-overlay>
     </polymer-hypervideo>
   </body>
 </html>
