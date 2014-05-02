@@ -7,7 +7,7 @@
 
 div.container {
   background-color: white;
-  opacity: 0.5;
+  opacity: .75;
   border: solid black 1px;
   border-radius: 3px;
   padding: 3px;

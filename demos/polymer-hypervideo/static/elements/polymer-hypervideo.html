@@ -4,16 +4,17 @@
 <polymer-element name="polymer-hypervideo" attributes="src width height poster chapters youTubeVideoId">
   <template>
     <link href="polymer-hypervideo.css" media="all" rel="stylesheet" type="text/css"/>
-    <video
-        id="hypervideo"
-        class="hypervideo"
-        controls
-        crossorigin="Anonymous"
-        width="{{width}}"
-        height="{{height}}"
-        poster="{{poster}}">
-    </video>
-    <div id="overlays"></div>
+    <div style="position:relative">
+      <div id="wrapper">
+        <video
+            id="hypervideo"
+            class="hypervideo"
+            controls
+            crossorigin="Anonymous">
+        </video>
+        <div id="overlays"></div>
+      </div>
+    </div>
   </template>
   <script>
     Polymer('polymer-hypervideo', {
@@ -21,18 +22,56 @@
         currentTime: 0
       },
       created: function() {
+        if (!String.prototype.trim) {
+          String.prototype.trim = function() {
+            return this.replace(/^\s+|\s+$/g, '');
+          };
+        }
       },
       ready: function() {
+        // initialize the video
         var video = this.$.hypervideo;
         if (this.src) {
-          video.src = this.src;
+          this.src.split(/\s/g).forEach(function(src) {
+            var source = document.createElement('source');
+            source.src = src;
+            video.appendChild(source);
+          });
         }
+        video.height = this.height || video.offsetHeight;
+        video.width = this.width || video.offsetWidth;
+        if (this.poster) {
+          video.poster = this.poster;
+        }
+        var container = this.$.wrapper;
+
+        // show spinner while the hypervideo gets prepared
+        var splashDiv = document.createElement('div');
+        splashDiv.setAttribute('class', 'spinner');
+        var splashSpinner = document.createElement('div');
+        splashSpinner.setAttribute('class', 'progress');
+        splashDiv.appendChild(splashSpinner);
+        splashDiv.style.width = video.width + 'px';
+        splashDiv.style.height = video.height + 'px';
+        splashDiv.style.position = 'absolute';
+        splashDiv.style.top = video.offsetTop + 'px';
+        splashDiv.style.left = video.offsetLeft + 'px';
+        splashSpinner.style.position = 'relative';
+        splashSpinner.style.top = (video.offsetHeight / 2 - 60 / 2) + 'px';
+        splashSpinner.style.left = (video.offsetWidth / 2 - 60 / 2) + 'px';
+        var loadingDiv = document.createElement('div');
+        loadingDiv.textContent = 'Loading';
+        splashSpinner.appendChild(loadingDiv);
+        container.appendChild(splashDiv);
+
         // display the overlays and place them on top of the video
-        this.$.overlays.innerHTML = this.innerHTML;
-        this.$.overlays.style.position = 'relative';
-        this.$.overlays.style.top = (-0.33 * this.height) + 'px';
-        this.$.overlays.style.left = (0.05 * this.width) + 'px';
-        this.$.overlays.style.width = (0.9 * this.width) + 'px';
+        var overlays = this.$.overlays;
+        overlays.innerHTML = this.innerHTML.trim();
+        overlays.style.position = 'absolute';
+        overlays.style.top = (video.offsetTop + 0.75 * video.offsetHeight) +
+            'px';
+        overlays.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
+        overlays.style.width = (0.9 * this.width) + 'px';
 
         // publish timeupdate events
         var that = this;
@@ -51,20 +90,22 @@
           video.appendChild(track);
 
           var chapters = document.createElement('ul');
-          this.shadowRoot.appendChild(chapters);
+          chapters.style.display = 'none';
+          container.appendChild(chapters);
           chapters.addEventListener('click', function(e) {
             var current = e.target;
             while (current.nodeName !== 'LI') {
               current = current.parentNode;
             }
             video.currentTime = current.dataset.start;
+            video.play();
           }, false);
 
           var canvas = document.createElement('canvas');
           canvas.style.display = 'none';
           canvas.width = video.width;
           canvas.height = video.height;
-          this.shadowRoot.appendChild(canvas);
+          container.appendChild(canvas);
           var ctx = canvas.getContext('2d');
 
           function getYouTubeHtml5VideoUrl(videoId, callback) {
@@ -83,7 +124,8 @@
             };
 
             var decodeStreamMap = function(url_encoded_fmt_stream_map) {
-              var quality, sources, stream, type, urlEncodedStream, _i, _len, _ref;
+              var quality, sources, stream, type, urlEncodedStream, _i, _len,
+                  _ref;
               sources = {};
               _ref = url_encoded_fmt_stream_map.split(',');
               for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -107,19 +149,27 @@
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
               if (xhr.readyState === 4 && xhr.status === 200) {
-                var video = decodeQueryString(xhr.responseText);
+                var youTubeVideo = decodeQueryString(xhr.responseText);
                 // video.live_playback is '1' for Hangouts on Air
-                if (video.status === 'fail' || video.live_playback) {
+                if ((youTubeVideo.status === 'fail') ||
+                    (youTubeVideo.live_playback)) {
                   return callback(false);
                 }
-                if (!video.url_encoded_fmt_stream_map) {
+                if (!youTubeVideo.url_encoded_fmt_stream_map) {
                   return callback(false);
                 }
-                video.sources = decodeStreamMap(video.url_encoded_fmt_stream_map);
-                if (!video.sources) {
+                youTubeVideo.sources =
+                    decodeStreamMap(youTubeVideo.url_encoded_fmt_stream_map);
+                if (!youTubeVideo.sources) {
                   return callback(false);
                 }
-                return callback(video.sources);
+                var mediumQuality = {};
+                for (var key in youTubeVideo.sources) {
+                  if (/.*?medium.*?/gi.test(key)) {
+                    mediumQuality[key] = youTubeVideo.sources[key];
+                  }
+                }
+                return callback(mediumQuality);
               }
             };
             xhr.open('GET', url, true);
@@ -127,14 +177,16 @@
           }
 
           if (this.youTubeVideoId) {
-            getYouTubeHtml5VideoUrl(this.youTubeVideoId, function(videoSources) {
+            getYouTubeHtml5VideoUrl(this.youTubeVideoId,
+                function(videoSources) {
               for (var videoSource in videoSources) {
                 videoSource = videoSources[videoSource];
                 var source = document.createElement('source');
-                source.src = CORS_PROXY + encodeURIComponent(videoSource.original_url);
-                source.type = videoSource.type.replace(/\+/g, ' ').replace(/"/g, '\"');
+                source.src = CORS_PROXY +
+                    encodeURIComponent(videoSource.original_url);
+                source.type = videoSource.type.replace(/\+/g, ' ')
+                    .replace(/"/g, '\"');
                 video.appendChild(source);
-                video.crossOrigin = 'Anonymous';
               }
             });
           }
@@ -162,13 +214,18 @@
           function readChapterCues(cues) {
             for (var i = 0, lenI = cues.length; i < lenI; i++) {
               var cue = cues.item(i);
-              (function(innerCue) {
+              (function(innerCue, innerI) {
                 setTimeout(function() {
                   getStillFrame(innerCue, function(err, img, text) {
                     displayStillFrame(img, text, innerCue.startTime);
+                    if (innerI === lenI - 1) {
+                      video.currentTime = 0;
+                      chapters.style.display = 'block';
+                      splashDiv.remove();
+                    }
                   });
                 }, 2000 * i);
-              })(cue);
+              })(cue, i);
             }
           }
 

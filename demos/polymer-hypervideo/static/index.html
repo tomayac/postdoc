@@ -10,20 +10,33 @@
   </head>
   <body>
     <h1>Hypervideo Demo</h1>
-    <!--
-    <h2>Polymer Hypervideo (local, doesn't work on Heroku)</h2>
-    <polymer-hypervideo src="video.mp4" chapters="chapters.vtt" width="400" height="225"></polymer-hypervideo>
-    -->
+
     <h2>Polymer Hypervideo (short SD video)</h2>
-    <polymer-hypervideo src="big_buck_bunny.mp4" chapters="thumbs.vtt" width="400" height="225">
-      <polymer-overlay style="color:green;" start="10" stop="20">
+
+    <polymer-hypervideo src="big_buck_bunny.mp4 big_buck_bunny.webm" chapters="thumbs.vtt" width="400" height="225">
+      <polymer-overlay style="color:green;" start="10" stop="25">
         <img src="fr.png"/>
         Bonjour monde!
+      </polymer-overlay>
+
+      <polymer-overlay style="color:red; position:absolute; top:-35px; opacity: .5;" start="15" stop="30">
+        <img src="fr.png"/>
+        Collision manuelle!
+      </polymer-overlay>
+
+      <polymer-overlay style="color:blue;" start="35" stop="45">
+        Au revoir monde!
+        <img src="fr.png"/>
+      </polymer-overlay>
+
+      <polymer-overlay style="color:orange;" start="40" stop="50">
+        Collision auto
       </polymer-overlay>
     </polymer-hypervideo>
 
     <h2>Polymer Hypervideo (long HD video)</h2>
-    <polymer-hypervideo youTubeVideoId="m2ml0oAwWBE" chapters="thumbs.vtt" width="400" height="225">
+
+    <polymer-hypervideo youTubeVideoId="m2ml0oAwWBE" chapters="chapters.vtt" width="400" height="225">
       <polymer-overlay style="color:green;" start="10" stop="20">
         <img src="fr.png"/>
         Bonjour monde!

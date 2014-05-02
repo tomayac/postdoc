@@ -11,9 +11,14 @@
         currentTime: 0
       },
       created: function() {
+        if (!String.prototype.trim) {
+          String.prototype.trim = function() {
+            return this.replace(/^\s+|\s+$/g, '');
+          };
+        }
       },
       ready: function() {
-        this.$.container.innerHTML = this.innerHTML;
+        this.$.container.innerHTML = this.innerHTML.trim();
         this.$.container.style.display = 'none';
 
         // listen for the parent hypervideo's timeupdate events and toggle the
