@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="polymer-overlay" attributes="start stop styling">
+<polymer-element name="polymer-overlay" attributes="start end styling">
   <template>
     <link href="polymer-overlay.css" media="all" rel="stylesheet" type="text/css"/>
     <div id="container" class="container" style="{{styling}}"></div>
@@ -22,12 +22,12 @@
         this.$.container.style.display = 'none';
 
         // listen for the parent hypervideo's timeupdate events and toggle the
-        // overlay's visibility accordingly to its start and stop
+        // overlay's visibility accordingly to its start and end
         var that = this;
         document.addEventListener('hypervideotimeupdate', function(e) {
           that.currentTime = e.detail.currentTime;
           if ((that.start <= that.currentTime) &&
-              (that.currentTime < that.stop)) {
+              (that.currentTime < that.end)) {
             that.$.container.style.display = 'block';
           } else {
             that.$.container.style.display = 'none';

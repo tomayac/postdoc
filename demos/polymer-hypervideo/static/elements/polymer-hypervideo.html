@@ -13,6 +13,7 @@
             crossorigin="Anonymous">
         </video>
         <div id="overlays"></div>
+        <ul id="chapters" style="display: none;"></ul>
       </div>
     </div>
   </template>
@@ -20,6 +21,20 @@
     Polymer('polymer-hypervideo', {
       publish: {
         currentTime: 0
+      },
+      currentTimeChanged: function(oldTime, currentTime) {
+        var chapters = this.$.chapters;
+        var thumbnails = chapters.querySelectorAll('li');
+        for (var i = 0, lenI = thumbnails.length; i < lenI; i++) {
+          var thumbnail = thumbnails[i];
+          var start = thumbnail.dataset.start;
+          var end = thumbnail.dataset.end;
+          if (start <= currentTime && currentTime < end) {
+            thumbnail.classList.add('current');
+          } else {
+            thumbnail.classList.remove('current');
+          }
+        }
       },
       created: function() {
         if (!String.prototype.trim) {
@@ -74,6 +89,7 @@
         overlays.style.width = (0.9 * this.width) + 'px';
 
         // publish timeupdate events
+        var thumbnails;
         var that = this;
         video.addEventListener('timeupdate', function(e) {
           that.currentTime = video.currentTime;
@@ -89,9 +105,7 @@
           track.srclang = 'en';
           video.appendChild(track);
 
-          var chapters = document.createElement('ul');
-          chapters.style.display = 'none';
-          container.appendChild(chapters);
+          var chapters = this.$.chapters;
           chapters.addEventListener('click', function(e) {
             var current = e.target;
             while (current.nodeName !== 'LI') {
@@ -217,7 +231,8 @@
               (function(innerCue, innerI) {
                 setTimeout(function() {
                   getStillFrame(innerCue, function(err, img, text) {
-                    displayStillFrame(img, text, innerCue.startTime);
+                    displayStillFrame(img, text, innerCue.startTime,
+                        innerCue.endTime);
                     if (innerI === lenI - 1) {
                       video.currentTime = 0;
                       chapters.style.display = 'block';
@@ -246,9 +261,10 @@
             }, 1000);
           }
 
-          function displayStillFrame(img, text, start) {
+          function displayStillFrame(img, text, start, end) {
             var li = document.createElement('li');
             li.dataset.start = start;
+            li.dataset.end = end;
             var figure = document.createElement('figure');
             li.appendChild(figure);
             figure.appendChild(img);
