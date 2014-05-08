@@ -1,0 +1,25 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="./polymer-overlay.html">
+
+<polymer-element name="polymer-timeline" attributes="orientation">
+  <template>
+    <link href="polymer-timeline.css" media="all" rel="stylesheet" type="text/css"/>
+    <div id="container" class="container" style="{{styling}}"></div>
+  </template>
+  <script>
+    Polymer('polymer-timeline', {
+      innerHtml: '',
+      created: function() {
+      },
+      ready: function() {
+        var that = this;
+        document.addEventListener('hypervideoinnerhtmlupdate', function(e) {
+          var div = document.createElement('div');
+          that.innerHtml = e.detail.innerHtml;
+          div.innerHTML = that.innerHtml;
+          that.$.container.innerHTML = div.textContent;
+        }, false);
+      }
+    });
+  </script>
+</polymer-element>

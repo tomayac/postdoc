@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="./polymer-overlay.html">
+<link rel="import" href="./polymer-timeline.html">
 
 <polymer-element name="polymer-hypervideo" attributes="src width height poster chapters youTubeVideoId">
   <template>
@@ -13,6 +14,7 @@
             crossorigin="Anonymous">
         </video>
         <div id="overlays"></div>
+        <div id="timeline"></div>
         <ul id="chapters" style="display: none;"></ul>
       </div>
     </div>
@@ -20,7 +22,8 @@
   <script>
     Polymer('polymer-hypervideo', {
       publish: {
-        currentTime: 0
+        currentTime: 0,
+        innerHtml: null
       },
       currentTimeChanged: function(oldTime, currentTime) {
         var chapters = this.$.chapters;
@@ -35,6 +38,9 @@
             thumbnail.classList.remove('current');
           }
         }
+      },
+      innerHtmlChanged: function(oldInnerHtml, newInnerHtml) {
+
       },
       created: function() {
         if (!String.prototype.trim) {
@@ -81,16 +87,28 @@
 
         // display the overlays and place them on top of the video
         var overlays = this.$.overlays;
-        overlays.innerHTML = this.innerHTML.trim();
+        var polymerOverlays = this.querySelectorAll('polymer-overlay');
+        for (var i = 0, lenI = polymerOverlays.length; i < lenI; i++) {
+          overlays.appendChild(polymerOverlays[i]);
+        }
         overlays.style.position = 'absolute';
         overlays.style.top = (video.offsetTop + 0.75 * video.offsetHeight) +
             'px';
         overlays.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
         overlays.style.width = (0.9 * this.width) + 'px';
 
+        var timeline = this.$.timeline;
+        timeline.appendChild(document.createElement('polymer-timeline'));
+        var that = this;
+        setTimeout(function() {
+          that.fire(
+            'hypervideoinnerhtmlupdate',
+            {innerHtml: overlays.innerHTML}
+          );
+        }, 0);
+
         // publish timeupdate events
         var thumbnails;
-        var that = this;
         video.addEventListener('timeupdate', function(e) {
           that.currentTime = video.currentTime;
           that.fire('hypervideotimeupdate', {currentTime: that.currentTime});
