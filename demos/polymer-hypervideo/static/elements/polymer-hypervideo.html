@@ -23,7 +23,9 @@
     Polymer('polymer-hypervideo', {
       publish: {
         currentTime: 0,
-        innerHtml: null
+        duration: 0,
+        height: 0,
+        width: 0
       },
       currentTimeChanged: function(oldTime, currentTime) {
         var chapters = this.$.chapters;
@@ -43,11 +45,6 @@
 
       },
       created: function() {
-        if (!String.prototype.trim) {
-          String.prototype.trim = function() {
-            return this.replace(/^\s+|\s+$/g, '');
-          };
-        }
       },
       ready: function() {
         // initialize the video
@@ -97,27 +94,39 @@
         overlays.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
         overlays.style.width = (0.9 * this.width) + 'px';
 
+        // display the timelines
         var timelines = this.$.timelines;
         var polymerTimelines = this.querySelectorAll('polymer-timeline');
         for (var i = 0, lenI = polymerTimelines.length; i < lenI; i++) {
           timelines.appendChild(polymerTimelines[i]);
         }
+
         var that = this;
-        setTimeout(function() {
+        video.addEventListener('loadedmetadata', function() {
+          that.duration = video.duration;
+          // adjust the timeline dimensions according to the video duration
+          timelines.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
           that.fire(
             'hypervideoinnerhtmlupdate',
             {
               overlays: overlays.innerHTML,
-              timelines: timelines.innerHTML
+              duration: that.duration,
+              height: that.height,
+              width: that.width
             }
           );
-        }, 0);
+        });
 
         // publish timeupdate events
         var thumbnails;
         video.addEventListener('timeupdate', function(e) {
           that.currentTime = video.currentTime;
-          that.fire('hypervideotimeupdate', {currentTime: that.currentTime});
+          that.fire(
+            'hypervideotimeupdate',
+            {
+              currentTime: that.currentTime
+            }
+          );
         }, false);
 
         // create the chapters table of contents

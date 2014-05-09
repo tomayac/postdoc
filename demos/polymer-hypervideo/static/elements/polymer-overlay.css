@@ -5,7 +5,7 @@
           box-sizing: border-box;
 }
 
-div.container {
+.container {
   background-color: white;
   opacity: .75;
   border: solid black 1px;

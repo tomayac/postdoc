@@ -9,21 +9,74 @@
   <script>
     Polymer('polymer-timeline', {
       overlays: '',
+      height: 0,
+      width: 0,
+      duration: 0,
+      currentTime: 0,
       created: function() {
       },
       ready: function() {
+        var container = this.$.container;
         var that = this;
+
         document.addEventListener('hypervideoinnerhtmlupdate', function(e) {
-          that.overlays = e.detail.overlays;
+          var data = e.detail;
           var tempDiv = document.createElement('div');
-          tempDiv.innerHTML = that.overlays;
-          var polymerOverlays = tempDiv.querySelectorAll('polymer-overlay');
-          for (var i = 0, lenI = polymerOverlays.length; i < lenI; i++) {
-            var overlay = polymerOverlays[i];
-            that.$.container.innerHTML += '<br>Start ' + overlay.getAttribute('start');
-            that.$.container.innerHTML += '<br>End ' + overlay.getAttribute('end') + '<hr>';
+          tempDiv.innerHTML = data.overlays;
+          that.overlays = tempDiv.querySelectorAll('polymer-overlay');
+          that.timelines = data.timelines;
+          that.duration = data.duration;
+          that.height = data.height;
+          that.width = data.width;
+
+          if (that.orientation === 'landscape') {
+            container.style.height = that.height + 'px';
+            container.style.width = that.duration + 'em';
+          } else {
+            container.style.width = that.width + 'px';
+            container.style.height = that.duration + 'em';
           }
-        }, false);
+
+          for (var i = 0, lenI = that.overlays.length; i < lenI; i++) {
+            var overlay = that.overlays[i];
+            var overlayMarker = document.createElement('div');
+            container.appendChild(overlayMarker);
+            var start = overlay.getAttribute('start');
+            var end = overlay.getAttribute('end');
+            overlayMarker.innerHTML += start + '--' + end;
+            overlayMarker.classList.add('overlayMarker');
+            overlayMarker.classList.add('overlay-' + start + '-' + end);
+            if (that.orientation === 'landscape') {
+              overlayMarker.style.marginLeft = start + 'em';
+              overlayMarker.style.width = (end - start) + 'em';
+            } else {
+              overlayMarker.style.marginTop = start + 'em';
+              overlayMarker.style.height = (end - start) + 'em';
+            }
+          }
+        });
+
+        document.addEventListener('hypervideotimeupdate', function(e) {
+          that.currentTime = e.detail.currentTime;
+          for (var i = 0, lenI = that.overlays.length; i < lenI; i++) {
+            var overlay = that.overlays[i];
+            var start = overlay.getAttribute('start');
+            var end = overlay.getAttribute('end');
+            if ((that.currentTime >= start) && (that.currentTime < end)) {
+              var matching =
+                  container.querySelectorAll('.overlay-' + start + '-' + end);
+              for (var j = 0, lenJ = matching.length; j < lenJ; j++) {
+                matching[j].classList.add('current');
+              }
+            } else {
+              var nonMatching =
+                  container.querySelectorAll('.overlay-' + start + '-' + end);
+              for (var j = 0, lenJ = nonMatching.length; j < lenJ; j++) {
+                nonMatching[j].classList.remove('current');
+              }
+            }
+          }
+        });
       }
     });
   </script>
