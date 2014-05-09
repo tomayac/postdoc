@@ -8,16 +8,21 @@
   </template>
   <script>
     Polymer('polymer-timeline', {
-      innerHtml: '',
+      overlays: '',
       created: function() {
       },
       ready: function() {
         var that = this;
         document.addEventListener('hypervideoinnerhtmlupdate', function(e) {
-          var div = document.createElement('div');
-          that.innerHtml = e.detail.innerHtml;
-          div.innerHTML = that.innerHtml;
-          that.$.container.innerHTML = div.textContent;
+          that.overlays = e.detail.overlays;
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = that.overlays;
+          var polymerOverlays = tempDiv.querySelectorAll('polymer-overlay');
+          for (var i = 0, lenI = polymerOverlays.length; i < lenI; i++) {
+            var overlay = polymerOverlays[i];
+            that.$.container.innerHTML += '<br>Start ' + overlay.getAttribute('start');
+            that.$.container.innerHTML += '<br>End ' + overlay.getAttribute('end') + '<hr>';
+          }
         }, false);
       }
     });
