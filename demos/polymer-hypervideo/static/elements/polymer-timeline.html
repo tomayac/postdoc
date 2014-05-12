@@ -4,7 +4,10 @@
 <polymer-element name="polymer-timeline" attributes="orientation">
   <template>
     <link href="polymer-timeline.css" media="all" rel="stylesheet" type="text/css"/>
-    <div id="container" class="container" style="{{styling}}"></div>
+    <div id="timeline" class="timeline">
+      <div id="container" class="container" style="{{styling}}"></div>
+    </div>
+    <input id="zoom" class="zoom" type="range" min="12" max="50" value="12" step="0.5" />
   </template>
   <script>
     Polymer('polymer-timeline', {
@@ -17,7 +20,13 @@
       },
       ready: function() {
         var container = this.$.container;
+        var zoom = this.$.zoom;
+        var timeline = this.$.timeline;
         var that = this;
+
+        zoom.addEventListener('input', function() {
+          container.style.fontSize = this.value + 'px';
+        });
 
         document.addEventListener('hypervideoinnerhtmlupdate', function(e) {
           var data = e.detail;
@@ -32,27 +41,64 @@
           if (that.orientation === 'landscape') {
             container.style.height = that.height + 'px';
             container.style.width = that.duration + 'em';
+            container.style.backgroundImage = 'linear-gradient(90deg, transparent 11px, #eee 11px, #eee 12px, transparent 12px)';
+            container.style.backgroundSize = '1em 100%';
+
+            timeline.style.height = container.style.height;
+            timeline.style.width = (that.width * 2) + 'px';
+            timeline.style.overflowX = 'auto';
+            timeline.style.overflowY = 'hidden';
           } else {
             container.style.width = that.width + 'px';
             container.style.height = that.duration + 'em';
+            container.style.backgroundImage = 'linear-gradient(0deg, transparent 11px, #eee 11px, #eee 12px, transparent 12px)';
+            container.style.backgroundSize = '100% 1em';
+
+            timeline.style.width = container.style.width;
+            timeline.style.height = (that.height * 2) + 'px';
+            timeline.style.overflowY = 'auto';
+            timeline.style.overflowX = 'hidden';
           }
 
+          var occupiedAreas = [];
           for (var i = 0, lenI = that.overlays.length; i < lenI; i++) {
             var overlay = that.overlays[i];
             var overlayMarker = document.createElement('div');
             container.appendChild(overlayMarker);
             var start = overlay.getAttribute('start');
             var end = overlay.getAttribute('end');
-            overlayMarker.innerHTML += start + '--' + end;
+            var div = document.createElement('div');
+            div.innerHTML += start + '&ndash;' + end;
+            overlayMarker.appendChild(div);
             overlayMarker.classList.add('overlayMarker');
             overlayMarker.classList.add('overlay-' + start + '-' + end);
+            var level = 0;
+            occupiedAreas.forEach(function(area) {
+              if ((start >= area.start) &&
+                  (start <= area.end)) {
+                level++;
+              }
+            });
             if (that.orientation === 'landscape') {
               overlayMarker.style.marginLeft = start + 'em';
               overlayMarker.style.width = (end - start) + 'em';
+              overlayMarker.style.height = '1.1em';
+              overlayMarker.style.marginTop = (level * 1.2) + 'em';
             } else {
+              div.classList.add('rotated');
               overlayMarker.style.marginTop = start + 'em';
               overlayMarker.style.height = (end - start) + 'em';
+              overlayMarker.style.width = '1.1em';
+              overlayMarker.style.marginLeft = (level * 1.2) + 'em';
             }
+            occupiedAreas.push({
+              start: start,
+              end: end,
+              level: level
+            });
+            occupiedAreas.sort(function(a, b) {
+              return b.start - a.start
+            });
           }
         });
 
