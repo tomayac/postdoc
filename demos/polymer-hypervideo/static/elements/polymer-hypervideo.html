@@ -24,6 +24,7 @@
       publish: {
         currentTime: 0,
         duration: 0,
+        chaptersData: [],
         height: 0,
         width: 0
       },
@@ -40,9 +41,6 @@
             thumbnail.classList.remove('current');
           }
         }
-      },
-      innerHtmlChanged: function(oldInnerHtml, newInnerHtml) {
-
       },
       created: function() {
       },
@@ -259,9 +257,16 @@
           }, false);
 
           function readChapterCues(cues) {
+            var chaptersData = [];
             for (var i = 0, lenI = cues.length; i < lenI; i++) {
               var cue = cues.item(i);
               (function(innerCue, innerI) {
+                chaptersData.push({
+                  startTime: innerCue.startTime,
+                  endTime: innerCue.endTime,
+                  text: innerCue.text,
+                  id: innerCue.id
+                });
                 setTimeout(function() {
                   getStillFrame(innerCue, function(err, img, text) {
                     displayStillFrame(img, text, innerCue.startTime,
@@ -275,6 +280,13 @@
                 }, 2000 * i);
               })(cue, i);
             }
+            that.fire('chaptersupdate',
+            {
+              chapters: chaptersData,
+              duration: that.duration,
+              height: that.height,
+              width: that.width
+            });
           }
 
           function getStillFrame(cue, callback) {

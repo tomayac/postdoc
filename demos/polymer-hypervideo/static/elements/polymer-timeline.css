@@ -13,7 +13,7 @@
   opacity: .75;
   border: solid black 1px;
   border-radius: 3px;
-  padding: 3px;
+  padding: 0px;
   font-size: 12px;
 }
 
@@ -23,6 +23,16 @@
   position: absolute;
   opacity: 0.75;
   white-space: nowrap;
+  border: solid white 1px;
+}
+
+.chapterMarker {
+  color: black;
+  background-color: green;
+  position: absolute;
+  opacity: 0.75;
+  white-space: nowrap;
+  border: solid white 1px;
 }
 
 .rotated {

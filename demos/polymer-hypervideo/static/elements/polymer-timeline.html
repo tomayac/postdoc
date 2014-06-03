@@ -23,9 +23,55 @@
         var zoom = this.$.zoom;
         var timeline = this.$.timeline;
         var that = this;
+        var maxLevel = 0;
 
         zoom.addEventListener('input', function() {
           container.style.fontSize = this.value + 'px';
+        });
+
+        document.addEventListener('chaptersupdate', function(e) {
+          var data = e.detail;
+          var occupiedAreas = [];
+          for (var i = 0, lenI = data.chapters.length; i < lenI; i++) {
+            var chapter = data.chapters[i];
+            var chapterMarker = document.createElement('div');
+            container.appendChild(chapterMarker);
+            var start = chapter.startTime;
+            var end = chapter.endTime;
+            var div = document.createElement('div');
+            div.innerHTML += start + '&ndash;' + end;
+            chapterMarker.appendChild(div);
+            chapterMarker.classList.add('chapterMarker');
+            chapterMarker.classList.add('chapter-' + start + '-' + end);
+            var level = maxLevel + 1;
+            occupiedAreas.forEach(function(area) {
+              if ((start > area.start) &&
+                  (start < area.end)) {
+                level++;
+                maxLevel = level;
+              }
+            });
+            if (that.orientation === 'landscape') {
+              chapterMarker.style.marginLeft = start + 'em';
+              chapterMarker.style.width = (end - start) + 'em';
+              chapterMarker.style.height = '1.1em';
+              chapterMarker.style.marginTop = (level * 1.2) + 'em';
+            } else {
+              div.classList.add('rotated');
+              chapterMarker.style.marginTop = start + 'em';
+              chapterMarker.style.height = (end - start) + 'em';
+              chapterMarker.style.width = '1.1em';
+              chapterMarker.style.marginLeft = (level * 1.2) + 'em';
+            }
+            occupiedAreas.push({
+              start: start,
+              end: end,
+              level: level
+            });
+            occupiedAreas.sort(function(a, b) {
+              return b.start - a.start
+            });
+          }
         });
 
         document.addEventListener('hypervideoinnerhtmlupdate', function(e) {
@@ -72,11 +118,12 @@
             overlayMarker.appendChild(div);
             overlayMarker.classList.add('overlayMarker');
             overlayMarker.classList.add('overlay-' + start + '-' + end);
-            var level = 0;
+            var level = maxLevel;
             occupiedAreas.forEach(function(area) {
               if ((start >= area.start) &&
                   (start <= area.end)) {
                 level++;
+                maxLevel = level;
               }
             });
             if (that.orientation === 'landscape') {
