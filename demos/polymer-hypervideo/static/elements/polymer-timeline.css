@@ -17,11 +17,26 @@
   font-size: 12px;
 }
 
+.timeMarker {
+  position: absolute;
+  border: solid black 1px;
+  background-color: black;
+}
+
 .overlayMarker {
   color: black;
   background-color: red;
   position: absolute;
-  opacity: 0.75;
+  opacity: 0.5;
+  white-space: nowrap;
+  border: solid white 1px;
+}
+
+.actorMarker {
+  color: white;
+  background-color: blue;
+  position: absolute;
+  opacity: 0.5;
   white-space: nowrap;
   border: solid white 1px;
 }
@@ -30,7 +45,7 @@
   color: black;
   background-color: green;
   position: absolute;
-  opacity: 0.75;
+  opacity: 0.5;
   white-space: nowrap;
   border: solid white 1px;
 }
@@ -41,5 +56,5 @@
 }
 
 .current {
-  background-color: orange;
+  opacity: 1;
 }

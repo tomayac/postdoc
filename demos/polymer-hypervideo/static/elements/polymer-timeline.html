@@ -12,6 +12,8 @@
   <script>
     Polymer('polymer-timeline', {
       overlays: '',
+      actors: '',
+      chapters: '',
       height: 0,
       width: 0,
       duration: 0,
@@ -29,9 +31,21 @@
           container.style.fontSize = this.value + 'px';
         });
 
+        var timeMarker = document.createElement('div');
+        timeMarker.classList.add('timeMarker');
+        if (that.orientation === 'landscape') {
+          timeMarker.style.width = '1px';
+          timeMarker.style.height = '100%';
+        } else {
+          timeMarker.style.width = '100%';
+          timeMarker.style.height = '1px';
+        }
+        container.appendChild(timeMarker);
+
         document.addEventListener('chaptersupdate', function(e) {
           var data = e.detail;
           var occupiedAreas = [];
+          that.chapters = data.chapters;
           for (var i = 0, lenI = data.chapters.length; i < lenI; i++) {
             var chapter = data.chapters[i];
             var chapterMarker = document.createElement('div');
@@ -39,7 +53,7 @@
             var start = chapter.startTime;
             var end = chapter.endTime;
             var div = document.createElement('div');
-            div.innerHTML += start + '&ndash;' + end;
+            div.innerHTML += 'Chapter ' + start + '&ndash;' + end;
             chapterMarker.appendChild(div);
             chapterMarker.classList.add('chapterMarker');
             chapterMarker.classList.add('chapter-' + start + '-' + end);
@@ -114,7 +128,7 @@
             var start = overlay.getAttribute('start');
             var end = overlay.getAttribute('end');
             var div = document.createElement('div');
-            div.innerHTML += start + '&ndash;' + end;
+            div.innerHTML += 'Overlay ' + start + '&ndash;' + end;
             overlayMarker.appendChild(div);
             overlayMarker.classList.add('overlayMarker');
             overlayMarker.classList.add('overlay-' + start + '-' + end);
@@ -147,10 +161,89 @@
               return b.start - a.start
             });
           }
+
+          var tempDiv = document.createElement('div');
+          tempDiv.innerHTML = data.actors;
+          that.actors = tempDiv.querySelectorAll('polymer-actor');
+          that.timelines = data.timelines;
+          that.duration = data.duration;
+          that.height = data.height;
+          that.width = data.width;
+
+          if (that.orientation === 'landscape') {
+            container.style.height = that.height + 'px';
+            container.style.width = that.duration + 'em';
+            container.style.backgroundImage = 'linear-gradient(90deg, transparent 11px, #eee 11px, #eee 12px, transparent 12px)';
+            container.style.backgroundSize = '1em 100%';
+
+            timeline.style.height = container.style.height;
+            timeline.style.width = (that.width * 2) + 'px';
+            timeline.style.overflowX = 'auto';
+            timeline.style.overflowY = 'hidden';
+          } else {
+            container.style.width = that.width + 'px';
+            container.style.height = that.duration + 'em';
+            container.style.backgroundImage = 'linear-gradient(0deg, transparent 11px, #eee 11px, #eee 12px, transparent 12px)';
+            container.style.backgroundSize = '100% 1em';
+
+            timeline.style.width = container.style.width;
+            timeline.style.height = (that.height * 2) + 'px';
+            timeline.style.overflowY = 'auto';
+            timeline.style.overflowX = 'hidden';
+          }
+
+          var occupiedAreas = [];
+          for (var i = 0, lenI = that.actors.length; i < lenI; i++) {
+            var actor = that.actors[i];
+            var actorMarker = document.createElement('div');
+            container.appendChild(actorMarker);
+            var start = actor.getAttribute('start');
+            var end = actor.getAttribute('end');
+            var div = document.createElement('div');
+            div.innerHTML += 'Actor ' + start + '&ndash;' + end;
+            actorMarker.appendChild(div);
+            actorMarker.classList.add('actorMarker');
+            actorMarker.classList.add('actor-' + start + '-' + end);
+            var level = maxLevel;
+            occupiedAreas.forEach(function(area) {
+              if ((start >= area.start) &&
+                  (start <= area.end)) {
+                level++;
+                maxLevel = level;
+              }
+            });
+            if (that.orientation === 'landscape') {
+              actorMarker.style.marginLeft = start + 'em';
+              actorMarker.style.width = (end - start) + 'em';
+              actorMarker.style.height = '1.1em';
+              actorMarker.style.marginTop = (level * 1.2) + 'em';
+            } else {
+              div.classList.add('rotated');
+              actorMarker.style.marginTop = start + 'em';
+              actorMarker.style.height = (end - start) + 'em';
+              actorMarker.style.width = '1.1em';
+              actorMarker.style.marginLeft = (level * 1.2) + 'em';
+            }
+            occupiedAreas.push({
+              start: start,
+              end: end,
+              level: level
+            });
+            occupiedAreas.sort(function(a, b) {
+              return b.start - a.start
+            });
+          }
         });
 
         document.addEventListener('hypervideotimeupdate', function(e) {
           that.currentTime = e.detail.currentTime;
+
+          if (that.orientation === 'landscape') {
+            timeMarker.style.marginLeft = that.currentTime + 'em';
+          } else {
+            timeMarker.style.marginTop = that.currentTime + 'em';
+          }
+
           for (var i = 0, lenI = that.overlays.length; i < lenI; i++) {
             var overlay = that.overlays[i];
             var start = overlay.getAttribute('start');
@@ -169,6 +262,45 @@
               }
             }
           }
+
+          for (var i = 0, lenI = that.chapters.length; i < lenI; i++) {
+            var chapter = that.chapters[i];
+            var start = chapter.startTime;
+            var end = chapter.endTime;
+            if ((that.currentTime >= start) && (that.currentTime < end)) {
+              var matching =
+                  container.querySelectorAll('.chapter-' + start + '-' + end);
+              for (var j = 0, lenJ = matching.length; j < lenJ; j++) {
+                matching[j].classList.add('current');
+              }
+            } else {
+              var nonMatching =
+                  container.querySelectorAll('.chapter-' + start + '-' + end);
+              for (var j = 0, lenJ = nonMatching.length; j < lenJ; j++) {
+                nonMatching[j].classList.remove('current');
+              }
+            }
+          }
+
+          for (var i = 0, lenI = that.actors.length; i < lenI; i++) {
+            var actor = that.actors[i];
+            var start = actor.getAttribute('start');
+            var end = actor.getAttribute('end');
+            if ((that.currentTime >= start) && (that.currentTime < end)) {
+              var matching =
+                  container.querySelectorAll('.actor-' + start + '-' + end);
+              for (var j = 0, lenJ = matching.length; j < lenJ; j++) {
+                matching[j].classList.add('current');
+              }
+            } else {
+              var nonMatching =
+                  container.querySelectorAll('.actor-' + start + '-' + end);
+              for (var j = 0, lenJ = nonMatching.length; j < lenJ; j++) {
+                nonMatching[j].classList.remove('current');
+              }
+            }
+          }
+
         });
       }
     });

@@ -1,5 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="./polymer-overlay.html">
+<link rel="import" href="./polymer-actor.html">
 <link rel="import" href="./polymer-timeline.html">
 
 <polymer-element name="polymer-hypervideo" attributes="src width height poster chapters youTubeVideoId">
@@ -14,6 +15,7 @@
             crossorigin="Anonymous">
         </video>
         <div id="overlays"></div>
+        <div id="actors"></div>
         <div id="timelines"></div>
         <ul id="chapters" style="display: none;"></ul>
       </div>
@@ -92,6 +94,18 @@
         overlays.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
         overlays.style.width = (0.9 * this.width) + 'px';
 
+        // display the actors and place them on top of the video
+        var actors = this.$.actors;
+        var polymerActors = this.querySelectorAll('polymer-actor');
+        for (var i = 0, lenI = polymerActors.length; i < lenI; i++) {
+          actors.appendChild(polymerActors[i]);
+        }
+        actors.style.position = 'absolute';
+        actors.style.top = (video.offsetTop + 0.25 * video.offsetHeight) +
+            'px';
+        actors.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
+        actors.style.width = (0.9 * this.width) + 'px';
+
         // display the timelines
         var timelines = this.$.timelines;
         var polymerTimelines = this.querySelectorAll('polymer-timeline');
@@ -108,6 +122,7 @@
             'hypervideoinnerhtmlupdate',
             {
               overlays: overlays.innerHTML,
+              actors: actors.innerHTML,
               duration: that.duration,
               height: that.height,
               width: that.width
