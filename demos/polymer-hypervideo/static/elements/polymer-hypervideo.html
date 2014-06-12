@@ -3,7 +3,7 @@
 <link rel="import" href="./polymer-actor.html">
 <link rel="import" href="./polymer-timeline.html">
 
-<polymer-element name="polymer-hypervideo" attributes="src width height poster chapters youTubeVideoId">
+<polymer-element name="polymer-hypervideo" attributes="src width height poster chapters displayThumbnails youTubeVideoId">
   <template>
     <link href="polymer-hypervideo.css" media="all" rel="stylesheet" type="text/css"/>
     <div style="position:relative">
@@ -47,6 +47,8 @@
       created: function() {
       },
       ready: function() {
+        this.displayThumbnails = this.displayThumbnails === 'true' ?
+            true : false;
         // initialize the video
         var video = this.$.hypervideo;
         if (this.src) {
@@ -131,7 +133,6 @@
         });
 
         // publish timeupdate events
-        var thumbnails;
         video.addEventListener('timeupdate', function(e) {
           that.currentTime = video.currentTime;
           that.fire(
@@ -282,17 +283,19 @@
                   text: innerCue.text,
                   id: innerCue.id
                 });
-                setTimeout(function() {
-                  getStillFrame(innerCue, function(err, img, text) {
-                    displayStillFrame(img, text, innerCue.startTime,
-                        innerCue.endTime);
-                    if (innerI === lenI - 1) {
-                      video.currentTime = 0;
-                      chapters.style.display = 'block';
-                      splashDiv.remove();
-                    }
-                  });
-                }, 2000 * i);
+                if (that.displayThumbnails) {
+                  setTimeout(function() {
+                    getStillFrame(innerCue, function(err, img, text) {
+                      displayStillFrame(img, text, innerCue.startTime,
+                          innerCue.endTime);
+                      if (innerI === lenI - 1) {
+                        video.currentTime = 0;
+                        chapters.style.display = 'block';
+                        splashDiv.remove();
+                      }
+                    });
+                  }, 2000 * i);
+                }
               })(cue, i);
             }
             that.fire('chaptersupdate',
@@ -302,6 +305,9 @@
               height: that.height,
               width: that.width
             });
+            if (!that.displayThumbnails) {
+              splashDiv.remove();
+            }
           }
 
           function getStillFrame(cue, callback) {
