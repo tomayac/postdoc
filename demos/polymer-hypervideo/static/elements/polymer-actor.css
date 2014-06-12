@@ -12,3 +12,10 @@
   border-radius: 3px;
   padding: 3px;
 }
+
+.xywh {
+  background-color: white;
+  opacity: .5;
+  border: solid 2px yellow;
+  position: absolute;
+}

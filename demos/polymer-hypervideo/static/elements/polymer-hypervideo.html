@@ -28,7 +28,8 @@
         duration: 0,
         chaptersData: [],
         height: 0,
-        width: 0
+        width: 0,
+        actorsOffset: {}
       },
       currentTimeChanged: function(oldTime, currentTime) {
         var chapters = this.$.chapters;
@@ -127,7 +128,11 @@
               actors: actors.innerHTML,
               duration: that.duration,
               height: that.height,
-              width: that.width
+              width: that.width,
+              actorsOffset: {
+                left: actors.offsetLeft,
+                top: actors.offsetTop
+              }
             }
           );
         });
