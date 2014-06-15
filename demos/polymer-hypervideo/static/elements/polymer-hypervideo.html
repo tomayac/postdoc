@@ -3,7 +3,7 @@
 <link rel="import" href="./polymer-actor.html">
 <link rel="import" href="./polymer-timeline.html">
 
-<polymer-element name="polymer-hypervideo" attributes="src width height poster chapters displayThumbnails youTubeVideoId">
+<polymer-element name="polymer-hypervideo" attributes="src width height poster subtitles captions chapters displayThumbnails youTubeVideoId">
   <template>
     <link href="polymer-hypervideo.css" media="all" rel="stylesheet" type="text/css"/>
     <div style="position:relative">
@@ -14,10 +14,11 @@
             controls
             crossorigin="Anonymous">
         </video>
-        <div id="overlays"></div>
-        <div id="actors"></div>
-        <div id="timelines"></div>
-        <ul id="chapters" style="display: none;"></ul>
+        <div class="overlays" id="overlays"></div>
+        <div class="actors" id="actors"></div>
+        <div class="timelines" id="timelines"></div>
+        <div class="subtitles" id="subtitles"></div>
+        <ul class="chapters" id="chapters" style="display: none;"></ul>
       </div>
     </div>
   </template>
@@ -44,10 +45,26 @@
             thumbnail.classList.remove('current');
           }
         }
+
+        var subtitles = this.$.subtitles;
+        var subtitleCues = subtitles.querySelectorAll('span');
+        for (var i = 0, lenI = subtitleCues.length; i < lenI; i++) {
+          var subtitleCue = subtitleCues[i];
+          var start = subtitleCue.dataset.start;
+          var end = subtitleCue.dataset.end;
+          if (start <= currentTime && currentTime < end) {
+            subtitleCue.classList.add('current');
+          } else {
+            subtitleCue.classList.remove('current');
+          }
+        }
       },
       created: function() {
       },
       ready: function() {
+        var chapters = this.$.chapters;
+        var subtitles = this.$.subtitles;
+        var captions = this.$.captions;
         this.displayThumbnails = this.displayThumbnails === 'true' ?
             true : false;
         // initialize the video
@@ -148,6 +165,58 @@
           );
         }, false);
 
+        // create the captions
+        if (this.captions) {
+          var track = document.createElement('track');
+          track.src = this.captions;
+          track.kind = 'captions';
+          track.srclang = 'en';
+          video.appendChild(track);
+        }
+
+        // create the subtitles
+        if (this.subtitles) {
+          var track = document.createElement('track');
+          track.src = this.subtitles;
+          track.kind = 'subtitles';
+          track.srclang = 'en';
+          video.appendChild(track);
+
+          subtitles.addEventListener('click', function(e) {
+            var current = e.target;
+            if (!current) {
+              return;
+            }
+            while (current.nodeName !== 'SPAN') {
+              current = current.parentNode;
+            }
+            video.currentTime = current.dataset.start;
+            video.play();
+          }, false);
+
+          subtitles.addEventListener('mouseover', function(e) {
+            var current = e.target;
+            if (!current) {
+              return;
+            }
+            while (current.nodeName !== 'SPAN') {
+              current = current.parentNode;
+            }
+            current.classList.add('subtitlesMouseover');
+          }, false);
+
+          subtitles.addEventListener('mouseout', function(e) {
+            var current = e.target;
+            if (!current) {
+              return;
+            }
+            while (current.nodeName !== 'SPAN') {
+              current = current.parentNode;
+            }
+            current.classList.remove('subtitles_mouseover');
+          }, false);
+        }
+
         // create the chapters table of contents
         if (this.chapters) {
           var CORS_PROXY = document.location.href + 'cors/';
@@ -157,7 +226,6 @@
           track.srclang = 'en';
           video.appendChild(track);
 
-          var chapters = this.$.chapters;
           chapters.addEventListener('click', function(e) {
             var current = e.target;
             while (current.nodeName !== 'LI') {
@@ -261,21 +329,52 @@
             var tracks = video.textTracks || video.querySelectorAll('track');
             for (var i = 0, lenI = tracks.length; i < lenI; i++) {
               var track = tracks[i];
-              if (track.kind === 'chapters') {
-                track.mode = 'hidden';
-                if (!track.cues) {
-                  track.addEventListener('load', function(e) {
-                    return readChapterCues(e.target.cues);
-                  });
-                } else {
-                  setTimeout(function() {
-                    return readChapterCues(track.cues);
-                  }, 2000);
+              (function(innerTrack) {
+                if (innerTrack.kind === 'chapters') {
+                  innerTrack.mode = 'hidden';
+                  if (!innerTrack.cues) {
+                    innerTrack.addEventListener('load', function(e) {
+                      return readChapterCues(e.target.cues);
+                    });
+                  } else {
+                    setTimeout(function() {
+                      return readChapterCues(innerTrack.cues);
+                    }, 2000);
+                  }
+                } else if (innerTrack.kind === 'subtitles') {
+                  if (!innerTrack.cues) {
+                    innerTrack.addEventListener('load', function(e) {
+                      return readSubtitleCues(e.target.cues);
+                    });
+                  } else {
+                    setTimeout(function() {
+                      return readSubtitleCues(innerTrack.cues);
+                    }, 2000);
+                  }
                 }
-              }
+              })(track);
             }
-
           }, false);
+
+          function readSubtitleCues(cues) {
+            var subtitlesData = [];
+            var tempDiv = document.createElement('div');
+            for (var i = 0, lenI = cues.length; i < lenI; i++) {
+              var cue = cues.item(i);
+              subtitlesData.push({
+                startTime: cue.startTime,
+                endTime: cue.endTime,
+                text: cue.text,
+                id: cue.id
+              });
+              var span = document.createElement('span');
+              span.dataset.start = cue.startTime;
+              span.dataset.end = cue.endTime;
+              tempDiv.innerHTML = cue.text + ' ';
+              span.textContent = tempDiv.textContent;
+              subtitles.appendChild(span);
+            }
+          }
 
           function readChapterCues(cues) {
             var chaptersData = [];
