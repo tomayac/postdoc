@@ -6,7 +6,7 @@
 }
 
 .timeline {
-
+  clear: both;
 }
 
 .container {
@@ -20,6 +20,11 @@
 }
 
 .settings {
+  background-color: white;
+  border: solid black 1px;
+  border-radius: 3px;
+  padding: 0px;
+  font-size: 12px;
 }
 
 .timeMarker {
