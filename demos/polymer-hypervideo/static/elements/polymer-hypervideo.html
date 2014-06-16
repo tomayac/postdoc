@@ -133,6 +133,13 @@
           timelines.appendChild(polymerTimelines[i]);
         }
 
+        // listen for events coming from the timeline component
+        document.addEventListener('currenttimeupdate', function(e) {
+          var data = e.detail;
+          video.currentTime = data.currentTime;
+          video.play();
+        }, false);
+
         var that = this;
         video.addEventListener('loadedmetadata', function() {
           that.duration = video.duration;
@@ -184,7 +191,7 @@
 
           subtitles.addEventListener('click', function(e) {
             var current = e.target;
-            if (!current) {
+            if (current === subtitles) {
               return;
             }
             while (current.nodeName !== 'SPAN') {
@@ -196,24 +203,25 @@
 
           subtitles.addEventListener('mouseover', function(e) {
             var current = e.target;
-            if (!current) {
+            if (current === subtitles) {
               return;
             }
             while (current.nodeName !== 'SPAN') {
               current = current.parentNode;
+
             }
             current.classList.add('subtitlesMouseover');
           }, false);
 
           subtitles.addEventListener('mouseout', function(e) {
             var current = e.target;
-            if (!current) {
+            if (current === subtitles) {
               return;
             }
             while (current.nodeName !== 'SPAN') {
               current = current.parentNode;
             }
-            current.classList.remove('subtitles_mouseover');
+            current.classList.remove('subtitlesMouseover');
           }, false);
         }
 
@@ -402,13 +410,15 @@
                 }
               })(cue, i);
             }
-            that.fire('chaptersupdate',
-            {
-              chapters: chaptersData,
-              duration: that.duration,
-              height: that.height,
-              width: that.width
-            });
+            that.fire(
+              'chaptersupdate',
+              {
+                chapters: chaptersData,
+                duration: that.duration,
+                height: that.height,
+                width: that.width
+              }
+            );
             if (!that.displayThumbnails) {
               splashDiv.remove();
             }

@@ -6,6 +6,7 @@
     <link href="polymer-timeline.css" media="all" rel="stylesheet" type="text/css"/>
     <div id="timeline" class="timeline">
       <div id="container" class="container" style="{{styling}}"></div>
+      <div id="settings" class="settings"></div>
     </div>
     <input id="zoom" class="zoom" type="range" min="12" max="50" value="12" step="0.5" />
   </template>
@@ -22,6 +23,7 @@
       },
       ready: function() {
         var container = this.$.container;
+        var settings = this.$.settings;
         var zoom = this.$.zoom;
         var timeline = this.$.timeline;
         var that = this;
@@ -42,6 +44,24 @@
         }
         container.appendChild(timeMarker);
 
+        container.addEventListener('click', function(e) {
+          var current = e.target;
+          if (current === container) {
+            return;
+          }
+          while ((!current.classList.contains('actorMarker')) &&
+                 (!current.classList.contains('overlayMarker')) &&
+                 (!current.classList.contains('chapterMarker'))) {
+            current = current.parentNode;
+          }
+          that.fire(
+            'currenttimeupdate',
+            {
+              currentTime: current.dataset.start
+            }
+          );
+        }, false);
+
         document.addEventListener('chaptersupdate', function(e) {
           var data = e.detail;
           var occupiedAreas = [];
@@ -54,6 +74,8 @@
             var end = chapter.endTime;
             var div = document.createElement('div');
             div.innerHTML += 'Chapter ' + start + '&ndash;' + end;
+            chapterMarker.dataset.start = start;
+            chapterMarker.dataset.end = end;
             chapterMarker.appendChild(div);
             chapterMarker.classList.add('chapterMarker');
             chapterMarker.classList.add('chapter-' + start + '-' + end);
@@ -86,6 +108,17 @@
               return b.start - a.start
             });
           }
+          var checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.id = Date.now();
+          var label = document.createElement('label');
+          label.setAttribute('for', checkbox.id);
+          label.textContent = 'Chapters';
+          var settingsContainer = document.createElement('div');
+          settingsContainer.appendChild(checkbox);
+          settingsContainer.appendChild(label);
+          settings.appendChild(settingsContainer);
+
         });
 
         document.addEventListener('hypervideoinnerhtmlupdate', function(e) {
@@ -105,7 +138,7 @@
             container.style.backgroundSize = '1em 100%';
 
             timeline.style.height = container.style.height;
-            timeline.style.width = (that.width * 2) + 'px';
+            timeline.style.width = (that.width * 2 + 200) + 'px';
             timeline.style.overflowX = 'auto';
             timeline.style.overflowY = 'hidden';
           } else {
@@ -130,6 +163,8 @@
             var div = document.createElement('div');
             div.innerHTML += 'Overlay ' + start + '&ndash;' + end;
             overlayMarker.appendChild(div);
+            overlayMarker.dataset.start = start;
+            overlayMarker.dataset.end = end;
             overlayMarker.classList.add('overlayMarker');
             overlayMarker.classList.add('overlay-' + start + '-' + end);
             var level = maxLevel;
@@ -161,6 +196,16 @@
               return b.start - a.start
             });
           }
+          var checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.id = Date.now();
+          var label = document.createElement('label');
+          label.setAttribute('for', checkbox.id);
+          label.textContent = 'Overlays';
+          var settingsContainer = document.createElement('div');
+          settingsContainer.appendChild(checkbox);
+          settingsContainer.appendChild(label);
+          settings.appendChild(settingsContainer);
 
           var tempDiv = document.createElement('div');
           tempDiv.innerHTML = data.actors;
@@ -169,29 +214,6 @@
           that.duration = data.duration;
           that.height = data.height;
           that.width = data.width;
-
-          if (that.orientation === 'landscape') {
-            container.style.height = that.height + 'px';
-            container.style.width = that.duration + 'em';
-            container.style.backgroundImage = 'linear-gradient(90deg, transparent 11px, #eee 11px, #eee 12px, transparent 12px)';
-            container.style.backgroundSize = '1em 100%';
-
-            timeline.style.height = container.style.height;
-            timeline.style.width = (that.width * 2) + 'px';
-            timeline.style.overflowX = 'auto';
-            timeline.style.overflowY = 'hidden';
-          } else {
-            container.style.width = that.width + 'px';
-            container.style.height = that.duration + 'em';
-            container.style.backgroundImage = 'linear-gradient(0deg, transparent 11px, #eee 11px, #eee 12px, transparent 12px)';
-            container.style.backgroundSize = '100% 1em';
-
-            timeline.style.width = container.style.width;
-            timeline.style.height = (that.height * 2) + 'px';
-            timeline.style.overflowY = 'auto';
-            timeline.style.overflowX = 'hidden';
-          }
-
           var occupiedAreas = [];
           for (var i = 0, lenI = that.actors.length; i < lenI; i++) {
             var actor = that.actors[i];
@@ -202,6 +224,8 @@
             var div = document.createElement('div');
             div.innerHTML += 'Actor ' + start + '&ndash;' + end;
             actorMarker.appendChild(div);
+            actorMarker.dataset.start = start;
+            actorMarker.dataset.end = end;
             actorMarker.classList.add('actorMarker');
             actorMarker.classList.add('actor-' + start + '-' + end);
             var level = maxLevel;
@@ -233,6 +257,17 @@
               return b.start - a.start
             });
           }
+          var checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.id = Date.now();
+          var label = document.createElement('label');
+          label.setAttribute('for', checkbox.id);
+          label.textContent = 'Actors';
+          var settingsContainer = document.createElement('div');
+          settingsContainer.appendChild(checkbox);
+          settingsContainer.appendChild(label);
+          settings.appendChild(settingsContainer);
+
         });
 
         document.addEventListener('hypervideotimeupdate', function(e) {
