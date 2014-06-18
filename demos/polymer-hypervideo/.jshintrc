@@ -3,6 +3,7 @@
   "globals": {
     "Polymer": false
   },
+  "boss": true,
   "bitwise": false,
   "curly": true,
   "indent": 2,

@@ -65,13 +65,25 @@ Polymer('polymer-timeline', {
     });
 
     container.addEventListener('mousemove', function(e) {
+      var current = e.target;
+      while (current !== container) {
+        current = current.parentNode;
+      }
+      var offsetLeft = 0;
+      var offsetTop = 0;
+      if (current.offsetParent) {
+        do {
+          offsetLeft += current.offsetLeft;
+          offsetTop += current.offsetTop;
+        } while (current = current.offsetParent);
+      }
       var fontSize = parseInt(getComputedStyle(container)
           .fontSize.replace('px', ''), 10);
       if (that.orientation === 'landscape') {
-        var xEm = (e.offsetX - timeline.scrollLeft) / fontSize;
+        var xEm = (e.clientX - offsetLeft) / fontSize;
         timeMarker.style.marginLeft = xEm + 'em';
       } else {
-        var yEm = (e.offsetY - timeline.scrollTop) / fontSize;
+        var yEm = (e.clientY - offsetTop) / fontSize;
         timeMarker.style.marginTop = yEm + 'em';
       }
     });
@@ -83,9 +95,9 @@ Polymer('polymer-timeline', {
             .fontSize.replace('px', ''), 10);
         var currentTime;
         if (that.orientation === 'landscape') {
-          currentTime = e.offsetX / fontSize;
+          currentTime = (e.offsetX - timeline.scrollLeft) / fontSize;
         } else {
-          currentTime = e.offsetY / fontSize;
+          currentTime = (e.offsetY - timeline.scrollTop) / fontSize;
         }
         return that.fire(
           'currenttimeupdate',
