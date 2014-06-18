@@ -1,4 +1,8 @@
 {
+  "browser": true,
+  "globals": {
+    "Polymer": false
+  },
   "bitwise": false,
   "curly": true,
   "indent": 2,
