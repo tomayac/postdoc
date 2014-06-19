@@ -41,7 +41,7 @@ Polymer('polymer-hypervideo', {
   ready: function() {
     var chapters = this.$.chapters;
     var subtitles = this.$.subtitles;
-    this.displayThumbnails = this.displayThumbnails === 'true' ?
+    this.displayChaptersThumbnails = this.displaychaptersthumbnails === 'true' ?
         true : false;
     // initialize the video
     var video = this.$.hypervideo;
@@ -370,7 +370,7 @@ Polymer('polymer-hypervideo', {
               text: innerCue.text,
               id: innerCue.id
             });
-            if (that.displayThumbnails) {
+            if (that.displayChaptersThumbnails) {
               setTimeout(function() {
                 getStillFrame(innerCue, function(err, img, text) {
                   displayStillFrame(img, text, innerCue.startTime,
@@ -394,7 +394,7 @@ Polymer('polymer-hypervideo', {
             width: that.width
           }
         );
-        if (!that.displayThumbnails) {
+        if (!that.displayChaptersThumbnails) {
           splashDiv.remove();
         }
       };
