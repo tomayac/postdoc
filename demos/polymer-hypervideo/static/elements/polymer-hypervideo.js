@@ -39,10 +39,33 @@ Polymer('polymer-hypervideo', {
   created: function() {
   },
   ready: function() {
-    var chapters = this.$.chapters;
-    var subtitles = this.$.subtitles;
-    this.displayChaptersThumbnails = this.displaychaptersthumbnails === 'true' ?
-        true : false;
+
+    // listen for subtitles
+    this.subtitles = false;
+    this.displaySubtitlesGroup = false;
+    document.addEventListener('subtitlesfound', function(e) {
+      var data = e.detail;
+      that.subtitles = data.src;
+      that.displaySubtitlesGroup = data.displaySubtitlesGroup === 'true' ?
+          true : false;
+      if (that.subtitles) {
+        createSubtitlesGroup();
+      }
+    });
+
+    // listen for chapters
+    this.chapters = false;
+    this.displayChaptersThumbnails = false;
+    document.addEventListener('chaptersfound', function(e) {
+      var data = e.detail;
+      that.chapters = data.src;
+      that.displayChaptersThumbnails =
+          data.displayChaptersThumbnails === 'true' ? true : false;
+      if (that.chapters) {
+        createChaptersToc();
+      }
+    });
+
     // initialize the video
     var video = this.$.hypervideo;
     if (this.src) {
@@ -158,58 +181,61 @@ Polymer('polymer-hypervideo', {
     }
 
     // create the subtitles
-    if (this.subtitles) {
+    var createSubtitlesGroup = function() {
       var track = document.createElement('track');
-      track.src = this.subtitles;
+      track.src = that.subtitles;
       track.kind = 'subtitles';
       track.srclang = 'en';
       video.appendChild(track);
 
-      subtitles.addEventListener('click', function(e) {
-        var current = e.target;
-        if (current === subtitles) {
-          return;
-        }
-        while (current.nodeName !== 'SPAN') {
-          current = current.parentNode;
-        }
-        video.currentTime = current.dataset.start;
-        video.play();
-      }, false);
+      if (that.displaySubtitlesGroup) {
+        var subtitles = that.$.subtitles;
+        subtitles.addEventListener('click', function(e) {
+          var current = e.target;
+          if (current === subtitles) {
+            return;
+          }
+          while (current.nodeName !== 'SPAN') {
+            current = current.parentNode;
+          }
+          video.currentTime = current.dataset.start;
+          video.play();
+        }, false);
 
-      subtitles.addEventListener('mouseover', function(e) {
-        var current = e.target;
-        if (current === subtitles) {
-          return;
-        }
-        while (current.nodeName !== 'SPAN') {
-          current = current.parentNode;
+        subtitles.addEventListener('mouseover', function(e) {
+          var current = e.target;
+          if (current === subtitles) {
+            return;
+          }
+          while (current.nodeName !== 'SPAN') {
+            current = current.parentNode;
 
-        }
-        current.classList.add('subtitlesMouseover');
-      }, false);
+          }
+          current.classList.add('subtitlesMouseover');
+        }, false);
 
-      subtitles.addEventListener('mouseout', function(e) {
-        var current = e.target;
-        if (current === subtitles) {
-          return;
-        }
-        while (current.nodeName !== 'SPAN') {
-          current = current.parentNode;
-        }
-        current.classList.remove('subtitlesMouseover');
-      }, false);
-    }
+        subtitles.addEventListener('mouseout', function(e) {
+          var current = e.target;
+          if (current === subtitles) {
+            return;
+          }
+          while (current.nodeName !== 'SPAN') {
+            current = current.parentNode;
+          }
+          current.classList.remove('subtitlesMouseover');
+        }, false);
+      }
+    };
 
-    // create the chapters table of contents
-    if (this.chapters) {
+    // creates the chapters table of contents
+    var createChaptersToc = function() {
       var CORS_PROXY = document.location.href + 'cors/';
       var track = document.createElement('track');
-      track.src = this.chapters;
+      track.src = that.chapters;
       track.kind = 'chapters';
       track.srclang = 'en';
       video.appendChild(track);
-
+      var chapters = that.$.chapters;
       chapters.addEventListener('click', function(e) {
         var current = e.target;
         while (current.nodeName !== 'LI') {
@@ -293,8 +319,8 @@ Polymer('polymer-hypervideo', {
         xhr.send();
       };
 
-      if (this.youTubeVideoId) {
-        getYouTubeHtml5VideoUrl(this.youTubeVideoId,
+      if (that.youTubeVideoId) {
+        getYouTubeHtml5VideoUrl(that.youTubeVideoId,
             function(videoSources) {
           for (var videoSource in videoSources) {
             videoSource = videoSources[videoSource];
@@ -340,6 +366,10 @@ Polymer('polymer-hypervideo', {
       }, false);
 
       var readSubtitleCues = function(cues) {
+        if (!that.displaySubtitlesGroup) {
+          return;
+        }
+        var subtitles = that.$.subtitles;
         var subtitlesData = [];
         var tempDiv = document.createElement('div');
         for (var i = 0, lenI = cues.length; i < lenI; i++) {
@@ -428,6 +458,6 @@ Polymer('polymer-hypervideo', {
         figure.appendChild(figcaption);
         chapters.appendChild(li);
       };
-    }
+    };
   }
 });

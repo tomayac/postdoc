@@ -11,7 +11,11 @@
 
     <h2>Polymer Hypervideo (Local video)</h2>
 
-    <polymer-hypervideo src="big_buck_bunny.mp4 big_buck_bunny.webm" subtitles="subtitles.vtt" displaysubtitlesgroup="true" chapters="thumbs.vtt" displaychaptersthumbnails="true" width="400" height="225">
+    <polymer-hypervideo src="big_buck_bunny.mp4 big_buck_bunny.webm" width="400" height="225">
+
+      <polymer-subtitles src="subtitles.vtt" displaysubtitlesgroup="true"></polymer-subtitles>
+
+      <polymer-chapters src="thumbs.vtt" displaychaptersthumbnails="true"></polymer-chapters>
 
       <polymer-overlay style="color:green;" start="10" end="25">
         <img src="fr.png"/>
