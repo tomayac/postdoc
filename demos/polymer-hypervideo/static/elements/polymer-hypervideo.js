@@ -39,10 +39,37 @@ Polymer('polymer-hypervideo', {
   created: function() {
   },
   ready: function() {
+    var that = this;
+
+    document.addEventListener('webcomponentstocready', function() {
+      // get all child <polymer-*> child nodes
+      var treeWalker = document.createTreeWalker(
+        that,
+        NodeFilter.SHOW_ELEMENT,
+        {
+          acceptNode: function(node) {
+            return /^polymer-/gi.test(node.nodeName) ?
+                NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+          }
+        },
+        false
+      );
+      var webComponents = [];
+      while(treeWalker.nextNode()) {
+        webComponents.push(treeWalker.currentNode);
+      }
+console.log('fire')
+      that.fire(
+        'webcomponentstoc',
+        {
+          webComponentsToC: webComponents
+        }
+      );
+    }, false);
 
     // listen for subtitles
-    this.subtitles = false;
-    this.displaySubtitlesGroup = false;
+    that.subtitles = false;
+    that.displaySubtitlesGroup = false;
     document.addEventListener('subtitlesfound', function(e) {
       var data = e.detail;
       that.subtitles = data.src;
@@ -54,8 +81,8 @@ Polymer('polymer-hypervideo', {
     });
 
     // listen for chapters
-    this.chapters = false;
-    this.displayChaptersThumbnails = false;
+    that.chapters = false;
+    that.displayChaptersThumbnails = false;
     document.addEventListener('chaptersfound', function(e) {
       var data = e.detail;
       that.chapters = data.src;
@@ -67,20 +94,20 @@ Polymer('polymer-hypervideo', {
     });
 
     // initialize the video
-    var video = this.$.hypervideo;
-    if (this.src) {
-      this.src.split(/\s/g).forEach(function(src) {
+    var video = that.$.hypervideo;
+    if (that.src) {
+      that.src.split(/\s/g).forEach(function(src) {
         var source = document.createElement('source');
         source.src = src;
         video.appendChild(source);
       });
     }
-    video.height = this.height || video.offsetHeight;
-    video.width = this.width || video.offsetWidth;
-    if (this.poster) {
-      video.poster = this.poster;
+    video.height = that.height || video.offsetHeight;
+    video.width = that.width || video.offsetWidth;
+    if (that.poster) {
+      video.poster = that.poster;
     }
-    var container = this.$.wrapper;
+    var container = that.$.wrapper;
 
     // show spinner while the hypervideo gets prepared
     var splashDiv = document.createElement('div');
@@ -102,32 +129,32 @@ Polymer('polymer-hypervideo', {
     container.appendChild(splashDiv);
 
     // display the overlays and place them on top of the video
-    var overlays = this.$.overlays;
-    var polymerOverlays = this.querySelectorAll('polymer-overlay');
+    var overlays = that.$.overlays;
+    var polymerOverlays = that.querySelectorAll('polymer-overlay');
     for (var i = 0, lenI = polymerOverlays.length; i < lenI; i++) {
       overlays.appendChild(polymerOverlays[i]);
     }
     overlays.style.position = 'absolute';
     overlays.style.top = (video.offsetTop + 0.75 * video.offsetHeight) +
         'px';
-    overlays.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
-    overlays.style.width = (0.9 * this.width) + 'px';
+    overlays.style.left = (video.offsetLeft + (0.05 * that.width)) + 'px';
+    overlays.style.width = (0.9 * that.width) + 'px';
 
     // display the actors and place them on top of the video
-    var actors = this.$.actors;
-    var polymerActors = this.querySelectorAll('polymer-actor');
+    var actors = that.$.actors;
+    var polymerActors = that.querySelectorAll('polymer-actor');
     for (var i = 0, lenI = polymerActors.length; i < lenI; i++) {
       actors.appendChild(polymerActors[i]);
     }
     actors.style.position = 'absolute';
     actors.style.top = (video.offsetTop + 0.25 * video.offsetHeight) +
         'px';
-    actors.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
-    actors.style.width = (0.9 * this.width) + 'px';
+    actors.style.left = (video.offsetLeft + (0.05 * that.width)) + 'px';
+    actors.style.width = (0.9 * that.width) + 'px';
 
     // display the timelines
-    var timelines = this.$.timelines;
-    var polymerTimelines = this.querySelectorAll('polymer-timeline');
+    var timelines = that.$.timelines;
+    var polymerTimelines = that.querySelectorAll('polymer-timeline');
     for (var i = 0, lenI = polymerTimelines.length; i < lenI; i++) {
       timelines.appendChild(polymerTimelines[i]);
     }
@@ -139,11 +166,10 @@ Polymer('polymer-hypervideo', {
       video.play();
     }, false);
 
-    var that = this;
     video.addEventListener('loadedmetadata', function() {
       that.duration = video.duration;
       // adjust the timeline dimensions according to the video duration
-      timelines.style.left = (video.offsetLeft + (0.05 * this.width)) + 'px';
+      timelines.style.left = (video.offsetLeft + (0.05 * that.width)) + 'px';
       that.fire(
         'hypervideoinnerhtmlupdate',
         {
@@ -172,9 +198,9 @@ Polymer('polymer-hypervideo', {
     }, false);
 
     // create the captions
-    if (this.captions) {
+    if (that.captions) {
       var track = document.createElement('track');
-      track.src = this.captions;
+      track.src = that.captions;
       track.kind = 'captions';
       track.srclang = 'en';
       video.appendChild(track);
