@@ -5,7 +5,6 @@
           box-sizing: border-box;
 }
 
-
 .container {
   background-color: white;
   color: black;
@@ -16,16 +15,10 @@
   cursor: pointer;
 }
 
-.polymer-elem {
-  font-style: bold;
-  color: black;
+span.subtitlesMouseover {
+  text-decoration: underline;
 }
 
-ol {
-  background-color: white;
-  opacity: .75;
-  border: solid black 1px;
-  border-radius: 3px;
-  padding: 0px;
-  font-size: 12px;
+span.current {
+  color: red;
 }

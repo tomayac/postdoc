@@ -3,7 +3,9 @@
 <polymer-element name="polymer-overlay" attributes="start end styling">
   <template>
     <link href="polymer-overlay.css" media="all" rel="stylesheet" type="text/css"/>
-    <div id="container" class="container" style="{{styling}}"></div>
+    <div id="container" class="container" style="{{styling}}">
+      <content></content>
+    </div>
   </template>
   <script src="polymer-overlay.js"></script>
 </polymer-element>

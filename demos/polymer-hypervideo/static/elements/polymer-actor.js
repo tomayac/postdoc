@@ -4,18 +4,18 @@ Polymer('polymer-actor', {
   created: function() {
   },
   ready: function() {
-    var container = this.$.container;
-    if (this.url && this.name) {
-      container.innerHTML = '<a href="' + this.url + '">' +
-          this.name + '</a>';
-    } else if (this.name) {
-      container.innerHTML = this.name;
-    } else if (this.url) {
-      container.innerHTML = this.url;
+    var that = this;
+    var container = that.$.container;
+    if (that.url && that.name) {
+      container.innerHTML = '<a href="' + that.url + '">' +
+          that.name + '</a>';
+    } else if (that.name) {
+      container.innerHTML = that.name;
+    } else if (that.url) {
+      container.innerHTML = that.url;
     }
     container.style.display = 'none';
 
-    var that = this;
     document.addEventListener('hypervideoinnerhtmlupdate', function(e) {
       var data = e.detail;
       if (that.xywh && /\d+,\d+,\d+,\d+/.test(that.xywh)) {
