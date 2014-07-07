@@ -1,16 +1,17 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="./polymer-overlay.html">
-<link rel="import" href="./polymer-actor.html">
-<link rel="import" href="./polymer-timeline.html">
-<link rel="import" href="./polymer-chapters.html">
-<link rel="import" href="./polymer-subtitles.html">
-<link rel="import" href="./polymer-web-components-toc.html">
+<link rel="import" href="./polymer-data-actor.html">
+<link rel="import" href="./polymer-data-annotation.html">
+<link rel="import" href="./polymer-data-overlay.html">
+<link rel="import" href="./polymer-track-chapters.html">
+<link rel="import" href="./polymer-track-subtitles.html">
+<link rel="import" href="./polymer-visualization-timeline.html">
+<link rel="import" href="./polymer-visualization-toc.html">
 
-<polymer-element name="polymer-hypervideo" attributes="src width height poster youTubeVideoId">
+<polymer-element name="polymer-hypervideo" attributes="src width height poster youtubevideoid">
   <template>
     <link href="polymer-hypervideo.css" media="all" rel="stylesheet" type="text/css"/>
     <div style="position:relative">
-      <div id="wrapper">
+      <div id="container">
         <video
             id="hypervideo"
             class="hypervideo"
@@ -21,5 +22,6 @@
       </div>
     </div>
   </template>
+  <script src="util.js"></script>
   <script src="polymer-hypervideo.js"></script>
 </polymer-element>

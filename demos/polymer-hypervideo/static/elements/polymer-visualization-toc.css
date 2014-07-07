@@ -12,13 +12,14 @@
   width: 90%;
   -webkit-box-shadow: 5px 5px 5px #111;
           box-shadow: 5px 5px 5px #111;
+}
+
+li > span {
+  font-style: bold;
+  color: black;
   cursor: pointer;
 }
 
-span.subtitlesMouseover {
+li > span:hover {
   text-decoration: underline;
-}
-
-span.current {
-  color: red;
 }

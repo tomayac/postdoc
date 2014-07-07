@@ -1,6 +1,6 @@
 'use strict';
 
-Polymer('polymer-actor', {
+Polymer('polymer-data-actor', {
   created: function() {
   },
   ready: function() {
@@ -14,9 +14,8 @@ Polymer('polymer-actor', {
     } else if (that.url) {
       container.innerHTML = that.url;
     }
-    container.style.display = 'none';
 
-    document.addEventListener('hypervideoinnerhtmlupdate', function(e) {
+    document.addEventListener('hypervideoloadedmetadata', function(e) {
       var data = e.detail;
       if (that.xywh && /\d+,\d+,\d+,\d+/.test(that.xywh)) {
         var components = that.xywh.split(',');
@@ -32,15 +31,14 @@ Polymer('polymer-actor', {
       }
     });
 
-    // listen for the parent hypervideo's timeupdate events and toggle the
-    // overlay's visibility accordingly to its start and end
+    // @todo: this should be handled by the parent
     document.addEventListener('hypervideotimeupdate', function(e) {
       that.currentTime = e.detail.currentTime;
       if ((that.start <= that.currentTime) &&
           (that.currentTime < that.end)) {
-        container.style.display = 'block';
+        that.style.display = 'block';
       } else {
-        container.style.display = 'none';
+        that.style.display = 'none';
       }
     });
   }

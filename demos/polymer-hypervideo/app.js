@@ -16,7 +16,7 @@ app.get('/', function(req, res) {
 
 app.get(/^\/cors\/(.+)$/, function(req, res) {
   var pathname = url.parse(req.url).pathname;
-  var uri = decodeURIComponent(pathname.replace(/^\/cors\/(.+)$/, '$1'));
+  var url = decodeURIComponent(pathname.replace(/^\/cors\/(.+)$/, '$1'));
   res.setHeaders = {
     'access-control-allow-methods': 'HEAD, POST, GET, PUT, PATCH, DELETE',
     'access-control-max-age': '86400',
@@ -26,7 +26,7 @@ app.get(/^\/cors\/(.+)$/, function(req, res) {
   try {
     var headers = req.headers;
     var options = {
-      url: uri,
+      url: url,
       headers: headers
     };
     options.headers.referer = 'https://www.youtube.com/watch';

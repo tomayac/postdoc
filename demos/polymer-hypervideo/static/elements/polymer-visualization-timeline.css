@@ -17,6 +17,7 @@
   padding: 0px;
   font-size: 12px;
   float: left;
+  position: relative;
 }
 
 .settings {
@@ -33,34 +34,36 @@
   background-color: black;
 }
 
-.overlayMarker {
+.marker {
+  position: absolute;
+  opacity: 0.5;
+  white-space: nowrap;
+  border: solid white 1px;
+  cursor: pointer;
+}
+
+.marker:hover {
+  opacity: 1;
+}
+
+.annotations {
+  color: black;
+  background-color: yellow;
+}
+
+.overlays {
   color: black;
   background-color: red;
-  position: absolute;
-  opacity: 0.5;
-  white-space: nowrap;
-  border: solid white 1px;
-  cursor: pointer;
 }
 
-.actorMarker {
+.actors {
   color: white;
   background-color: blue;
-  position: absolute;
-  opacity: 0.5;
-  white-space: nowrap;
-  border: solid white 1px;
-  cursor: pointer;
 }
 
-.chapterMarker {
+.chapters {
   color: black;
   background-color: green;
-  position: absolute;
-  opacity: 0.5;
-  white-space: nowrap;
-  border: solid white 1px;
-  cursor: pointer;
 }
 
 .rotated {

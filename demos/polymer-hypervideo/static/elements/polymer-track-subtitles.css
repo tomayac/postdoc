@@ -5,7 +5,6 @@
           box-sizing: border-box;
 }
 
-
 .container {
   background-color: white;
   color: black;
@@ -13,19 +12,16 @@
   width: 90%;
   -webkit-box-shadow: 5px 5px 5px #111;
           box-shadow: 5px 5px 5px #111;
+}
+
+.container > span {
   cursor: pointer;
 }
 
-.polymer-elem {
-  font-style: bold;
-  color: black;
+.container > span:hover {
+  text-decoration: underline;
 }
 
-ol {
-  background-color: white;
-  opacity: .75;
-  border: solid black 1px;
-  border-radius: 3px;
-  padding: 0px;
-  font-size: 12px;
+.current {
+  color: red;
 }
