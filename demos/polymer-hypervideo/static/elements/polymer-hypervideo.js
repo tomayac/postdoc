@@ -1,5 +1,6 @@
 'use strict';
 
+/* global queryRegExSelector, queryRegExSelectorAll, getYouTubeHtml5VideoUrl */
 Polymer('polymer-hypervideo', {
   publish: {
     currentTime: 0,
@@ -12,7 +13,9 @@ Polymer('polymer-hypervideo', {
   },
   ready: function() {
     var that = this;
+    var spinner;
     var video = that.$.hypervideo;
+    var CORS_PROXY = document.location.href + 'cors/';
 
     var initializeVideo = function() {
       // either add sources for regular video
@@ -46,6 +49,10 @@ Polymer('polymer-hypervideo', {
       // add poster
       if (that.poster) {
         video.poster = that.poster;
+      }
+      // mute video
+      if (that.muted !== null) {
+        video.muted = true;
       }
     };
 
@@ -87,7 +94,7 @@ Polymer('polymer-hypervideo', {
 
     (function() {
       initializeVideo();
-//      var spinner = showSpinner();
+      spinner = showSpinner();
       positionDataAnnotations();
     })();
 
@@ -97,7 +104,16 @@ Polymer('polymer-hypervideo', {
       track.default = true;
       track.src = data.src;
       track.kind = data.kind;
-      track.srclang = data.kind === 'subtitles' ? 'en' : '';
+      if (track.kind === 'subtitles' || track.kind === 'captions') {
+        track.srclang = 'en';
+      } else if (track.kind === 'chapters') {
+        var canvas = document.createElement('canvas');
+        canvas.width = video.width;
+        canvas.height = video.height;
+        var ctx = canvas.getContext('2d');
+        that.ctx = ctx;
+        that.canvas = canvas;
+      }
       track.addEventListener('load', function(e) {
         return readCues(e.target.track.cues, data.kind);
       });
@@ -171,19 +187,63 @@ Polymer('polymer-hypervideo', {
       video.play();
     }, false);
 
+    document.addEventListener('requeststillframes', function(e) {
+      var cues = e.detail.cues;
+      var functions = [];
+      cues.forEach(function(cue) {
+        var start = cue.start;
+        if (start > video.duration) {
+          return;
+        }
+        functions.push({
+          cue: cue,
+          func: function() {
+            video.currentTime = start;
+          }
+        });
+      });
+      var getNextStillFrame = function() {
+        that.ctx.drawImage(video, 0, 0, video.clientWidth,
+            video.clientHeight);
+        var img = document.createElement('img');
+        img.setAttribute('class', 'hypervideo');
+        var url = that.canvas.toDataURL();
+        img.src = url;
+        var cue = functions[processedStillFrames].cue;
+        that.fire(
+          'receivestillframe',
+          {
+            img: img,
+            text: cue.text,
+            start: cue.start,
+            end: cue.end
+          }
+        );
+        processedStillFrames++;
+        if (functions[processedStillFrames]) {
+          functions[processedStillFrames].func();
+        } else {
+          video.removeEventListener('seeked', getNextStillFrame);
+          spinner.remove();
+        }
+      };
+      var processedStillFrames = 0;
+      video.addEventListener('seeked', getNextStillFrame);
+      functions[processedStillFrames].func();
+    });
+
     video.addEventListener('loadedmetadata', function() {
       that.duration = video.duration;
       // adjust the timeline dimensions according to the video duration
       var polymerTimelines = that.querySelectorAll('polymer-timeline');
       for (var i = 0, lenI = polymerTimelines.length; i < lenI; i++) {
-        polymerTimelines[i].style.left = (video.offsetLeft + (0.05 * that.width)) + 'px';
+        polymerTimelines[i].style.left = (video.offsetLeft +
+            (0.05 * that.width)) + 'px';
       }
       var polymerData = queryRegExSelector(that, /^polymer-data-/gi);
       that.fire(
         'hypervideoloadedmetadata',
         {
-          overlays: '',//overlays.innerHTML,
-          actors: '',//actors.innerHTML,
           duration: that.duration,
           height: that.height,
           width: that.width,

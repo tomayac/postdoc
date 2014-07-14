@@ -197,7 +197,6 @@ Polymer('polymer-visualization-timeline', {
     });
 
     document.addEventListener('cuesread', function(e) {
-console.log('Received "cuesread"')
       var data = e.detail;
       if (data.kind === 'chapters') {
         addAnnotations(data.cueData);
@@ -209,8 +208,6 @@ console.log('Received "cuesread"')
         return;
       }
       eventsReceived.dataannotations = true;
-console.log('Received "dataannotations"')
-console.log(e)
       var annotations = e.detail.dataAnnotations;
       addAnnotations(annotations);
     }, false);
@@ -235,7 +232,8 @@ console.log(e)
         annotationMarker.appendChild(div);
         annotationMarker.classList.add('marker');
         annotationMarker.classList.add(annotation.type);
-        annotationMarker.classList.add(annotation.type + '-' + start + '-' + end);
+        annotationMarker.classList.add(annotation.type + '-' + start + '-' +
+            end);
         if (lastType && annotation.type !== lastType) {
           level++;
           maxLevel = level;

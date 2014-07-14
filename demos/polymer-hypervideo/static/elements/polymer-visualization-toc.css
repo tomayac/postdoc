@@ -14,6 +14,10 @@
           box-shadow: 5px 5px 5px #111;
 }
 
+.current {
+  color: red;
+}
+
 li > span {
   font-style: bold;
   color: black;

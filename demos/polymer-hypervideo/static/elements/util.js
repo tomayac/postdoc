@@ -1,3 +1,6 @@
+'use strict';
+
+/* jshint unused:false */
 var queryRegExSelectorAll = function(root, regEx) {
   var treeWalker = document.createTreeWalker(
     root,
