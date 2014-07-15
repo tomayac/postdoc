@@ -60,9 +60,9 @@
 \begin{document}
 %
 % --- Author Metadata here ---
-\conferenceinfo{International World Wide Web Conference}{2014 Seoul, Korea}
+\conferenceinfo{OpenSym '14,}{August 27--29 2014, Berlin, Germany}
 \CopyrightYear{2014} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
-%\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
+\crdata{978-1-4503-3016-9/14/08\\ http://dx.doi.org/10.1145/2641580.2641613}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
 \title{Bots vs. Wikipedians, Anons vs. Logged-Ins (Redux):\\ A~Global Study of Edit Activity on Wikipedia and Wikidata}
@@ -229,6 +229,9 @@ The current paper is an extended version of the short paper
 ~\cite{steiner2014botsvswikipedians} that appeared
 as a~poster in the Web Science track at the World Wide Web 
 conference 2014 in Seoul, Korea.
+The short paper focused on the methodology,
+the present long paper additionally focuses
+on the obtained results.
 
 \section{Methodology and Tools}
 
@@ -373,6 +376,12 @@ Using Martyn Smith's Node.js IRC library,%
 \url{https://github.com/martynsmith/node-irc}}
 we listen for Wikipedia and Wikidata edit events
 and send Server-Sent Events whenever we detect one.
+We detect bots by checking if the bot flag is set---%
+and as this is not the case for all bots---%
+additionally by checking if any of the editor's name
+components contain the pre- or suffix ``bot''.%
+\footnote{Bot detection code:
+\url{https://github.com/tomayac/wikipedia-edits-server-sent-events/blob/master/server.js\#L111-L113}}
 Our API is available publicly online
 at the URL \url{http://wikipedia-edits.herokuapp.com/sse}
 and open for third parties to use.
@@ -394,6 +403,11 @@ to November~6, 2013.
 While this may not sound like a~long time,
 already during this short period
 overall exactly 3,805,185~edit events occurred.
+Reinoso \emph{et~al.}\ have shown in~\cite{reinoso2013tempchar}
+that accessing and editing patterns to Wikipedia articles
+in different languages are strongly dependent on the weekday
+and special seasons (\emph{e.g.}, academic vacations),
+so our results should be regarded with their observations in mind.
 Our application updates in realtime,
 which allows us to detect when relative figures,
 \emph{i.e.}, percentages of bots \emph{vs.}\ Wikipedians
@@ -502,7 +516,8 @@ with the other languages declining approximately linearly.
 \begin{figure}[p]
   \center
   \includegraphics[width=0.84\linewidth]{bots-total-edits.pdf}
-  \caption{Number of bots \emph{vs.}\ number of total edits}
+  \caption{Number of bots \emph{vs.}\ number of total edits
+    (all languages) showing linear growth}
   \label{fig:bots-total-edits}
 \end{figure}
 
@@ -515,7 +530,7 @@ with the other languages declining approximately linearly.
 
 \begin{figure}[p]
   \center
-  \includegraphics[width=\linewidth]{multilingual-bots.pdf}
+  \includegraphics[width=0.9\linewidth]{multilingual-bots.pdf}
   \caption{Multilingual bots active in $\geq5$ languages}
   \label{fig:multilingual-bots}
 \end{figure}
@@ -699,13 +714,21 @@ The application \emph{Wikistream}\footnote{Wikistream:
 visualizes edits on all Wikipedias and Wikidata
 in realtime and uses recently uploaded images from Wikimedia Commons
 as background images, but does not keep track of edit statistics.
+\emph{WikiTrip}~\cite{massa2012wikitrip} is an application
+developed by Massa \emph{et~al.}\ that provides \emph{ad~hoc}
+visualizations over time of several kinds
+of information about the Wikipedians
+who edited a~selected page of any of the Wikipedias:
+their location in the world,
+their gender, and the distribution of logged-in \emph{vs.}\
+anonymous users.
 Several tools provide processed page view statistics
 based on database dumps, examples are
 \emph{Wikipedia article traffic statistics}%
-\footnote{Wikipedia article traffic statistics:
+\footnote{Wikipedia article traffic stats:
 \url{http://stats.grok.se/}} by ``User:Henrik'',
 \emph{Wikipedia article traffic statistics}%
-\footnote{Wikipedia article traffic statistics:
+\footnote{Wikipedia article traffic stats:
 \url{http://toolserver.org/~emw/wikistats/}} by ``User:Emw'',
 or finally \emph{Wikipedia Page Views}%
 \footnote{Wikipedia Page Views: \url{http://wikistats.ins.cwi.nl/}}
@@ -743,6 +766,14 @@ and edits made by bots \emph{vs.}\ edits made by humans
 globally and locally.
 We have looked at bots and their languages
 and created several analyses based thereon.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width=0.45\linewidth]{1280px-TerryPkwyGasStation.jpg}
+  \caption{High-quality, geo-referenced multimedia content
+  for disaster response (\url{http://commons.wikimedia.org/wiki/File:TerryPkwyGasStation.jpg})}
+  \label{fig:terry}  
+\end{figure}
 
 Future wok has several possible directions.
 On the engineering side, we want to improve the application
@@ -793,7 +824,7 @@ Another use case is brand perception monitoring,
 where brand owners could subscribe to all edit events
 mentioning the relevant brand terms.
 We also envision a~feature similar to Web hooks~\cite{lindsay2007webhooks},
-where rather than use the Server-Sent Events API directly,
+where rather than using the Server-Sent Events API directly,
 developers specify URLs where they want to be notified
 by the system once edit events occur.
 Finally, we want to implement support for the PubSubHubbub
@@ -801,20 +832,19 @@ protocol~\cite{fitzpatrick2013pubsubhubbub},
 which allows for a~scalable and distributed
 publish-subscribe architecture.
 
-\begin{figure}[t!]
-  \includegraphics[width=\linewidth]{1280px-TerryPkwyGasStation.jpg}
-  \caption{Wind damaged gas station on Terry Parkway, Terrytown,
-    Westbank suburb of New Orleans (Source: \url{http://commons.wikimedia.org/wiki/File:TerryPkwyGasStation.jpg})}
-  \label{fig:terry}  
-\end{figure}
-
 Concluding, we have contributed a~useful
 Wikipedia and Wikidata monitoring tool
 as well as an open API
 and have performed an initial global study 
-with interesting and surprising insights that
+with both interesting and surprising insights that
 expectedly will be the first in a~series
-of many more future studies and applications by us and others.
+of many more future studies and applications by us
+and hopefully others.
+The developed sample application and its openly licensed
+source code can serve as a~reference
+for other academic researchers
+and even parties with commercial interests
+to build upon.
  
 \bibliographystyle{abbrv}
 \bibliography{references}
