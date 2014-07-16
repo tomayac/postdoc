@@ -1,0 +1,291 @@
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\usepackage{pifont} 
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[hyphens]{url}
+\usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+\def\sectionautorefname{Section}
+\def\subsectionautorefname{Subsection}
+
+% listings and Verbatim environment
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{verbatim}
+\newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
+\newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
+\newcommand{\smalllistingsize}{\fontsize{6.5pt}{7.5pt}}
+\newcommand{\listingsize}{\smalllistingsize}%{\defaultlistingsize}
+\RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
+\lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
+        aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+        framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+
+% use Courier from this point onward
+\let\oldttdefault\ttdefault
+\renewcommand{\ttdefault}{pcr}
+\let\oldurl\url
+\renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\lstdefinelanguage{JavaScript}{
+  keywords={push, typeof, new, true, false, catch, function, return, null,
+    catch, switch, var, if, in, while, do, else, case, break, div, script, video},
+  keywordstyle=\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morecomment=[s]{<!--}{-->},  
+  commentstyle=\color{darkgray},
+  stringstyle=\color{green},
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstset{breaklines=true}
+
+% linewrap symbol
+\usepackage{color}
+\definecolor{grey}{RGB}{130,130,130}
+\newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
+
+% todo macro
+\usepackage{color}
+\newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
+
+\def\JSONLD{\mbox{JSON-LD}}
+
+\hyphenation{WebVTT}
+
+\def\JSONLD{\mbox{JSON-LD}}
+
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+% first the title is needed
+\title{Comprehensive Wikipedia Monitoring for Global and Realtime Natural Disaster Detection}
+
+% a short form should be given in case it is too long for the running head
+\titlerunning{Comprehensive Wikipedia Monitoring for Natural Disaster Detection}
+
+% the name(s) of the author(s) follow(s) next
+\author{
+  Thomas Steiner
+}
+%
+\authorrunning{Comprehensive Wikipedia Monitoring for Natural Disaster Detection}
+% (feature abused for this document to repeat the title also on left hand pages)
+
+% the affiliations are given next
+\institute{
+  Google Germany GmbH, Hamburg, Germany\ \ and\\
+  CNRS, Université de Lyon, LIRIS -- UMR5205, Université Lyon~1, France\\  
+  \email{tsteiner@\{liris.cnrs.fr, google.com\}}
+}
+
+\maketitle
+
+\begin{abstract}
+Natural disasters are harmful events
+resulting from natural processes of the Earth.
+Examples of natural disasters include tsunamis,
+volcanic eruptions, earthquakes, floods, droughts,
+and other geologic processes.
+If they affect populated areas, natural disasters
+can cause economic damage, injuries, or even losses of lives.
+It is thus desirable that natural disasters
+are detected as early as possible
+and potentially affected persons be notified via emergency alerts.
+By their pure nature, natural disasters are global phenomena
+that people refer to by different names,
+for example, the 2014 typhoon \emph{Rammasun}%
+\footnote{Rammasun:
+\url{https://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)}}
+is known as typhoon \emph{Glenda} in the Philippines.
+In this paper, we present our ongoing early-stage research
+on a~realtime Wikipedia-based monitoring system
+for the detection of natural disasters around the globe.
+The long-term objective is to make data about natural disasters 
+detected by this system available through public alerts
+following the Common Alerting Protocol (CAP).
+
+\keywords{Natural disaster detection, crisis response, Wikipedia}
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Natural Disaster Detection and Response: a~Global Challenge}
+
+According to a~study~\cite{laframboise2012naturaldisasters}
+published in 2012 by the International Monetary Funds (IMF),
+700~natural disasters were registered worldwide between 2010 and 2012,
+affecting more than 450~million people.
+According to the study, ``[d]amages have risen
+from an estimated US\$20 billion on average per year
+in the 1990s to about US\$100 billion per year during 2000--10.''
+The authors expect this upward trend to continue
+``as a~result of the rising concentration of people
+living in areas more exposed to natural disasters,
+and climate change.''
+In consequence, public emergency alerting systems
+become more and more crucial in the future.
+
+National agencies like the
+\emph{Federal Emergency Management Agency}
+(FEMA)\footnote{FEMA: \url{http://www.fema.gov/}}
+in the United States of America or the
+\emph{Bundesamt für Bevölkerungsschutz und Katastrophenhilfe}
+(BBK,\footnote{BBK: \url{http://www.bbk.bund.de/}}
+``Federal Office of Civil Protection and Disaster Assistance'')
+in Germany work to ensure the safety of the population
+on a~national level, combining and providing relevant tasks
+and information in a~single place.
+The \emph{United Nations Office for the Coordination of Humanitarian Affairs}
+(OCHA)\footnote{OCHA: \url{http://www.unocha.org/}}
+is a~United Nations (UN) body formed to strengthen the UN's response
+to complex emergencies and natural disasters.
+The \emph{Global Disaster Alert and Coordination System}
+(GDACS)\footnote{GDACS: \url{http://www.gdacs.org/}}
+is ``a~cooperation framework between the United Nations,
+the European Commission, and disaster managers worldwide
+to improve alerts, information exchange, and coordination
+in the first phase after major sudden-onset disasters.''
+Global companies like Facebook,%
+\footnote{Facebook Disaster Relief:
+\url{https://www.facebook.com/DisasterRelief}}
+Airbnb,\footnote{Airbnb Disaster Response:
+\url{https://www.airbnb.com/disaster-response}} or
+Google\footnote{Google Crisis Response:
+\url{https://www.google.org/crisisresponse/}}
+have dedicated crisis response teams that work on
+making critical emergency information accessible in times of disaster.
+As can be seen from the (incomprehensive) list above,
+natural disaster detection and response is a~problem
+tackled on national, international, and global levels;
+both from the public and the private sectors.
+To facilitate collaboration, a~common protocol is needed.
+An exemplary CAP feed stemming from GDACS can be seen in
+\autoref{listing:cap}.
+
+\subsection{The \emph{Common Alerting Protocol}}
+
+The \emph{Common Alerting Protocol} (CAP)~\cite{westfall2010cap}
+is an XML-based general data format for exchanging public warnings
+and emergencies between alerting technologies.
+CAP allows a~warning message to be consistently disseminated simultaneously
+over many warning systems to many applications.
+The protocol increases warning effectiveness and
+simplifies the task of activating a~warning for officials.
+CAP also provides the capability to include multimedia data,
+such as photos, maps, or videos.
+Alerts can be geographically targeted to a~defined warning area. 
+
+\begin{lstlisting}[caption={\emph{Common Alerting Protocol} feed
+from the \emph{Global Disaster Alert and Coordination System} (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, July~16, 2014)},
+  label=listing:cap, language=xml,
+  morekeywords={xmlns,encoding,alert,identifier,sender,sent,status,msgType,scope,incidents,info,category,event,urgency,severity,certainty, senderName,headline,description,web,parameter,value,valueName,area,areaDesc,polygon},
+  float=t!, stringstyle=\color{gray}, ]
+<?xml version="1.0" encoding="utf-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>GDACS_FL_4159_1</identifier>
+  <sender>info@gdacs.org</sender>
+  <sent>2014-07-14T23:59:59-00:00</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <incidents>4159</incidents>
+  <info>
+    <category>Geo</category>
+    <event>Flood</event>
+    <urgency>Past</urgency>
+    <severity>Moderate</severity>
+    <certainty>Unknown</certainty>
+    <senderName>Global Disaster Alert and Coordination System</senderName>
+    <headline />
+    <description />
+    <web>http://www.gdacs.org/reports.aspx?eventype=FL&amp;amp;eventid=4159</web>
+    <parameter><valueName>eventid</valueName><value>4159</value></parameter>
+    <parameter><valueName>currentepisodeid</valueName><value>1</value></parameter>
+    <parameter><valueName>glide</valueName><value /></parameter>
+    <parameter><valueName>version</valueName><value>1</value></parameter>
+    <parameter><valueName>fromdate</valueName>
+        <value>Wed, 21 May 2014 22:00:00 GMT</value></parameter>
+    <parameter><valueName>todate</valueName>
+        <value>Mon, 14 Jul 2014 21:59:59 GMT</value></parameter>
+    <parameter><valueName>eventtype</valueName><value>FL</value></parameter>
+    <parameter><valueName>alertlevel</valueName><value>Green</value></parameter>
+    <parameter><valueName>alerttype</valueName><value>automatic</value></parameter>
+    <parameter><valueName>link</valueName>
+        <value>http://www.gdacs.org/report.aspx?eventtype=FL&amp;amp;eventid=4159</value>
+    </parameter>
+    <parameter><valueName>country</valueName><value>Brazil</value></parameter>
+    <parameter><valueName>eventname</valueName><value /></parameter>
+    <parameter><valueName>severity</valueName><value>Magnitude 7.44</value></parameter>
+    <parameter><valueName>population</valueName><value>0 killed and 0 displaced</value>
+    </parameter>
+    <parameter><valueName>vulnerability</valueName><value /></parameter>
+    <parameter><valueName>sourceid</valueName><value>DFO</value></parameter>
+    <parameter><valueName>iso3</valueName><value /></parameter>
+    <parameter><valueName>hazardcomponents</valueName>
+        <value>FL,dead=0,displaced=0,main_cause=Heavy Rain,severity=2,sqkm=256564.57
+        </value></parameter>
+    <parameter><valueName>datemodified</valueName>
+        <value>Mon, 01 Jan 0001 00:00:00 GMT</value></parameter>
+    <area>
+      <areaDesc>Polygon</areaDesc><polygon>,,100</polygon>
+    </area>
+  </info>
+</alert>
+\end{lstlisting}
+
+\subsection{Contributions, Hypotheses, and Research Questions}
+
+In this paper, we present first results of
+our ongoing early-stage research
+on a~realtime comprehensive Wikipedia-based monitoring system
+for the detection of natural disasters around the globe.
+We are steered by the following hypotheses.
+
+\begin{itemize}
+  \itemsep0em
+  \item[($\mathbb{H}1$)] Textual and multimedia content about
+    natural disasters gets added to Wikipedia in a~timely fashion.
+  \item[($\mathbb{H}2$)] Natural disasters being geographically
+    constrained, content about them gets added to local,
+    \emph{i.e.}, non-English Wikipedias as well.
+  \item[($\mathbb{H}3$)] The link structure of Wikipedia provides
+    for a~meaningful way to discover natural disasters of the future.
+\end{itemize}
+
+\noindent These hypotheses lead us to the research questions below.
+
+\begin{itemize}
+  \itemsep0em
+  \item[($\mathbb{Q}1$)] What breaking news event features
+    determine the relevancy of the corresponding media gallery?
+  \item[($\mathbb{Q}2$)] What factors determine the choice
+    of the preferred media gallery kind for a~breaking news event?
+\end{itemize}
+
+
+
+\section{Related Work}
+
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+\end{document}
