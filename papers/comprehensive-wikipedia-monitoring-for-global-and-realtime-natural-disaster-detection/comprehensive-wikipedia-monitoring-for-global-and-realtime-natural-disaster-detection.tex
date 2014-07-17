@@ -17,6 +17,8 @@
 \def\sectionautorefname{Section}
 \def\subsectionautorefname{Subsection}
 
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+
 % listings and Verbatim environment
 \usepackage{fancyvrb}
 \usepackage{relsize}
@@ -178,8 +180,6 @@ natural disaster detection and response is a~problem
 tackled on national, international, and global levels;
 both from the public and the private sectors.
 To facilitate collaboration, a~common protocol is needed.
-An exemplary CAP feed stemming from GDACS can be seen in
-\autoref{listing:cap}.
 
 \subsection{The \emph{Common Alerting Protocol}}
 
@@ -192,7 +192,9 @@ The protocol increases warning effectiveness and
 simplifies the task of activating a~warning for officials.
 CAP also provides the capability to include multimedia data,
 such as photos, maps, or videos.
-Alerts can be geographically targeted to a~defined warning area. 
+Alerts can be geographically targeted to a~defined warning area.
+An exemplary flood warning CAP feed stemming from GDACS is shown in
+\autoref{listing:cap}.
 
 \begin{lstlisting}[caption={\emph{Common Alerting Protocol} feed
 from the \emph{Global Disaster Alert and Coordination System} (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, July~16, 2014)},
@@ -262,28 +264,68 @@ We are steered by the following hypotheses.
 
 \begin{itemize}
   \itemsep0em
-  \item[($\mathbb{H}1$)] Textual and multimedia content about
-    natural disasters gets added to Wikipedia in a~timely fashion.
+  \item[($\mathbb{H}1$)] Content about natural disasters
+    gets added to Wikipedia in a~timely fashion.
   \item[($\mathbb{H}2$)] Natural disasters being geographically
-    constrained, content about them gets added to local,
-    \emph{i.e.}, non-English Wikipedias as well.
-  \item[($\mathbb{H}3$)] The link structure of Wikipedia provides
-    for a~meaningful way to discover natural disasters of the future.
+    constrained, textual and multimedia content about them
+    gets added to local, \emph{i.e.}, non-English Wikipedias as well.
+  \item[($\mathbb{H}3$)] Link structure dynamics of Wikipedia
+    provide for a~meaningful way to detect future
+    natural disasters, \emph{i.e.}, disasters unknown at system creation time.
 \end{itemize}
 
 \noindent These hypotheses lead us to the research questions below.
 
 \begin{itemize}
   \itemsep0em
-  \item[($\mathbb{Q}1$)] What breaking news event features
-    determine the relevancy of the corresponding media gallery?
-  \item[($\mathbb{Q}2$)] What factors determine the choice
-    of the preferred media gallery kind for a~breaking news event?
+  \item[($\mathbb{Q}1$)] How timely and accurate for the purpose
+    of natural disaster detection is content from Wikipedia
+    compared to the official sources mentioned above?
+  \item[($\mathbb{Q}2$)] Does the disambiguated nature of Wikipedia
+    surpass keyword-based natural disaster detection approaches,
+    \emph{e.g.}, via online social networks or search logs?
 \end{itemize}
 
-
-
 \section{Related Work}
+
+Digitally crowdsourced data for disaster detection and response
+has gained momentum in recent years,
+as the Internet has proven resilient in times of crises,
+compared to other infrastructure.
+Ryan Falor, Crisis Response Product Manager at Google in 2011,
+writes in~\cite{falor2011googleorg} that
+``a~substantial \textup{[\,\dots]} proportion of searches
+are directly related to the crises;
+and people continue to search and access information online
+even while traffic and search levels drop temporarily
+during and immediately following the crises.''
+We provide a~non-exhaustive list of related work
+on natural disaster detection and response below.
+Sakaki \emph{et~al.}\ consider in~\cite{sakaki2010earthquake} each user
+of the online social network (OSN) site
+Twitter\footnote{Twitter: \url{https://twitter.com/}} a~sensor
+for the purpose of earthquake detection in Japan.
+% They devise a~classifier of tweets based on features such as
+% keywords, number of words, and their context;
+% and produce a~probabilistic spatiotemporal model that
+% can find the center and the trajectory of the earthquake.
+Goodchild \emph{et~al.}\ show in~\cite{goodchild2010crowdsourcing}
+how crowdsourced geodata from Wikipedia and
+Wikimapia,\footnote{Wikimapia: \url{http://wikimapia.org/}}
+``a~multilingual open-content collaborative map,''
+can help complete authoritative data about natural disasters.
+In~\cite{abel2012twitcident}, Abel \emph{et~al.}\ describe
+a~crisis monitoring system that extracts relevant content
+about known disasters from Twitter.
+Liu \emph{et~al.}\ examine in~\cite{liu2008search}
+common patterns and norms of natural disaster coverage
+on the photo sharing platform Flickr.%
+\footnote{Flickr: \url{https://www.flickr.com/}}
+We have developed~\cite{steiner2014thesis} a~ monitoring system
+that detects news events from concurrent Wikipedia edits
+and auto-generates related multimedia galleries
+based on content from various OSN sites
+and Wikimedia Commons.\footnote{Wikimedia Commons: \url{https://commons.wikimedia.org/}}
 
 
 \bibliographystyle{abbrv}
