@@ -330,24 +330,29 @@ Finally, Lin and Mishne examine realtime search query churn on Twitter%
 
 \section{Proposed Methodology}
 
-Wikipedia is an international online encyclopedia,
+Wikipedia is an international online encyclopedia
 currently available in 287~languages.%
 \footnote{All Wikipedias: \url{https://meta.wikimedia.org/wiki/List_of_Wikipedias}}
-\emph{(i)} Articles in one language are interlinked with versions of the same article
+\emph{(i)}~Articles in one language are interlinked with versions of the same article
 in different languages, \emph{e.g.}, the article ``Natural disaster''
 on the English Wikipedia
 (\url{https://en.wikipedia.org/wiki/Natural_disaster}) \linebreak
 links to 74~versions of the article in other languages.%
 \footnote{Wikipedia language links:
 \url{http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&titles=Natural_disaster}}
-\emph{(ii)} Each article can have redirects, \emph{i.e.}, different URLs
-that point to it.
+\emph{(ii)}~Each article can have redirects, \emph{i.e.}, different URLs
+that point to the article.
 For the English ``Natural disaster'' article, there are eight redirects,%
-\footnote{Wikipedia backlinks:
+\footnote{Wikipedia redirects:
 \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bllimit=max&bltitle=Natural_disaster}}
 \emph{e.g.}, ``Natural Hazard'' (synonym),
 ``Examples of natural disaster'' (refinement), or
 ``Natural disasters'' (plural).
+\emph{(iii)}~For each article, the list of back links
+that point to the article is available, \emph{i.e.},
+inbound links other than redirects.
+The article ``Natural disaster'' has more than 500 articles that link to it.%
+\footnote{Wikipedia back links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
 
 Starting with the well-curated English article ``Natural disaster'',
 we programmatically follow therein contained links of type
@@ -365,7 +370,17 @@ and of the resulting list of international articles
 in turn all their redirect URLs [step \emph{(ii)} above].
 The end result is a~complete list of all articles in all Wikipedia languages
 and all their redirects that are related to any type of natural disaster.
+We make this list publicly available in different formats
+(\texttt{.txt}, \texttt{.tsv}, \texttt{.json}), where the JSON version
+is the most flexible and recommended one.%
+\footnote{Natural disaster article list:
+\url{https://github.com/tomayac/postdoc/tree/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data}}
 
+
+In the past, we have worked on a~Server-Sent Events API%
+~\cite{steiner2014bots} capable of monitoring realtime edit activity
+of all language versions of Wikipedia.
+This API allows us to easily analyze Wikipedia edits
 
 \bibliographystyle{abbrv}
 \bibliography{references}
