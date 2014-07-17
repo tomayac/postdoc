@@ -26,19 +26,19 @@
 \usepackage{verbatim}
 \newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
 \newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
-\newcommand{\smalllistingsize}{\fontsize{6.5pt}{7.5pt}}
+\newcommand{\smalllistingsize}{\fontsize{6.0pt}{7.0pt}}
 \newcommand{\listingsize}{\smalllistingsize}%{\defaultlistingsize}
 \RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
 \RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
 \lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
-        aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
-        framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+  aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+  framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
 
 % use Courier from this point onward
 \let\oldttdefault\ttdefault
 \renewcommand{\ttdefault}{pcr}
 \let\oldurl\url
-\renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
+%\renewcommand{\url}[1]{\defaultlistingsize\oldurl{#1}}
 
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \lstdefinelanguage{JavaScript}{
@@ -198,8 +198,7 @@ An exemplary flood warning CAP feed stemming from GDACS is shown in
 
 \begin{lstlisting}[caption={\emph{Common Alerting Protocol} feed
 from the \emph{Global Disaster Alert and Coordination System} (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, July~16, 2014)},
-  label=listing:cap, language=xml,
-  morekeywords={xmlns,encoding,alert,identifier,sender,sent,status,msgType,scope,incidents,info,category,event,urgency,severity,certainty, senderName,headline,description,web,parameter,value,valueName,area,areaDesc,polygon},
+  label=listing:cap, language=xml,  morekeywords={xmlns,encoding,alert,identifier,sender,sent,status,msgType,scope,incidents,info,category,event,urgency,severity,certainty, senderName,headline,description,web,parameter,value,valueName,area,areaDesc,polygon},
   float=t!, stringstyle=\color{gray}, ]
 <?xml version="1.0" encoding="utf-8"?>
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
@@ -299,8 +298,8 @@ are directly related to the crises;
 and people continue to search and access information online
 even while traffic and search levels drop temporarily
 during and immediately following the crises.''
-We provide a~non-exhaustive list of related work
-on natural disaster detection and response below.
+In the following, we provide a~non-exhaustive list of related work
+on digitally crowdsourced natural disaster detection and response.
 Sakaki \emph{et~al.}\ consider in~\cite{sakaki2010earthquake} each user
 of the online social network (OSN) site
 Twitter\footnote{Twitter: \url{https://twitter.com/}} a~sensor
@@ -326,6 +325,46 @@ that detects news events from concurrent Wikipedia edits
 and auto-generates related multimedia galleries
 based on content from various OSN sites
 and Wikimedia Commons.\footnote{Wikimedia Commons: \url{https://commons.wikimedia.org/}}
+Finally, Lin and Mishne examine realtime search query churn on Twitter%
+~\cite{lin2012churn} including in the context of natural disasters.
+
+\section{Proposed Methodology}
+
+Wikipedia is an international online encyclopedia,
+currently available in 287~languages.%
+\footnote{All Wikipedias: \url{https://meta.wikimedia.org/wiki/List_of_Wikipedias}}
+\emph{(i)} Articles in one language are interlinked with versions of the same article
+in different languages, \emph{e.g.}, the article ``Natural disaster''
+on the English Wikipedia
+(\url{https://en.wikipedia.org/wiki/Natural_disaster}) \linebreak
+links to 74~versions of the article in other languages.%
+\footnote{Wikipedia language links:
+\url{http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&titles=Natural_disaster}}
+\emph{(ii)} Each article can have redirects, \emph{i.e.}, different URLs
+that point to it.
+For the English ``Natural disaster'' article, there are eight redirects,%
+\footnote{Wikipedia backlinks:
+\url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bllimit=max&bltitle=Natural_disaster}}
+\emph{e.g.}, ``Natural Hazard'' (synonym),
+``Examples of natural disaster'' (refinement), or
+``Natural disasters'' (plural).
+
+Starting with the well-curated English article ``Natural disaster'',
+we programmatically follow therein contained links of type
+``See also:'' and ``Main article:''
+that lead to an exhaustive list of English articles
+of concrete instances of natural disasters,
+\emph{e.g.}, ``Tsunami'' (\url{https://en.wikipedia.org/wiki/Tsunami}), ``Flood'' (\url{https://en.wikipedia.org/wiki/Flood}),
+``Earthquake'' (\url{https://en.wikipedia.org/wiki/Earthquake}),
+\emph{etc.} In total, we obtain links to 23~English articles
+about different types of natural disasters.
+For each of these English natural disasters articles,
+we obtain all versions of each article in different languages
+[step \emph{(i)} above],
+and of the resulting list of international articles
+in turn all their redirect URLs [step \emph{(ii)} above].
+The end result is a~complete list of all articles in all Wikipedia languages
+and all their redirects that are related to any type of natural disaster.
 
 
 \bibliographystyle{abbrv}
