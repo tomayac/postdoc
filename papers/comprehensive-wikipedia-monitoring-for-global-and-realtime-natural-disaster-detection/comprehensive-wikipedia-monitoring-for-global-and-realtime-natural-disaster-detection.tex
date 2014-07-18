@@ -130,7 +130,7 @@ following the Common Alerting Protocol (CAP).
 
 \section{Introduction}
 
-\subsection{Natural Disaster Detection and Response: a~Global Challenge}
+\subsection{Natural Disaster Detection and Response: A~Global Challenge}
 
 According to a~study~\cite{laframboise2012naturaldisasters}
 published in 2012 by the International Monetary Funds (IMF),
@@ -197,8 +197,12 @@ An exemplary flood warning CAP feed stemming from GDACS is shown in
 \autoref{listing:cap}.
 
 \begin{lstlisting}[caption={\emph{Common Alerting Protocol} feed
-from the \emph{Global Disaster Alert and Coordination System} (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, July~16, 2014)},
-  label=listing:cap, language=xml,  morekeywords={xmlns,encoding,alert,identifier,sender,sent,status,msgType,scope,incidents,info,category,event,urgency,severity,certainty, senderName,headline,description,web,parameter,value,valueName,area,areaDesc,polygon},
+  from the \emph{Global Disaster Alert and Coordination System}
+  (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, July~16, 2014)},
+  label=listing:cap, language=xml,morekeywords={xmlns,encoding,alert,
+  identifier,sender,sent,status,msgType,scope,incidents,info,
+  category,event,urgency,severity,certainty, senderName,headline,
+  description,web,parameter,value,valueName,area,areaDesc,polygon},
   float=t!, stringstyle=\color{gray}, ]
 <?xml version="1.0" encoding="utf-8"?>
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
@@ -330,6 +334,8 @@ Finally, Lin and Mishne examine realtime search query churn on Twitter%
 
 \section{Proposed Methodology}
 
+\subsection{Leveraging Wikipedia Link Structure}
+
 Wikipedia is an international online encyclopedia
 currently available in 287~languages.%
 \footnote{All Wikipedias: \url{https://meta.wikimedia.org/wiki/List_of_Wikipedias}}
@@ -354,7 +360,9 @@ inbound links other than redirects.
 The article ``Natural disaster'' has more than 500 articles that link to it.%
 \footnote{Wikipedia back links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
 
-Starting with the well-curated English article ``Natural disaster'',
+\subsection{Identification of Wikipedia Articles for Monitoring}
+
+Starting with the well-curated English seed article ``Natural disaster'',
 we programmatically follow therein contained links of type
 ``See also:'' and ``Main article:''
 that lead to an exhaustive list of English articles
@@ -368,19 +376,61 @@ we obtain all versions of each article in different languages
 [step \emph{(i)} above],
 and of the resulting list of international articles
 in turn all their redirect URLs [step \emph{(ii)} above].
-The end result is a~complete list of all articles in all Wikipedia languages
-and all their redirects that are related to any type of natural disaster.
-We make this list publicly available in different formats
-(\texttt{.txt}, \texttt{.tsv}, \texttt{.json}), where the JSON version
+The intermediate result is a~complete list of all (currently~1,431) articles
+in all Wikipedia languages and all their redirects
+that have any type of natural disaster as their subject.
+We call this list the ``natural disasters list''
+and make it publicly available in different formats
+(\texttt{.txt}, \texttt{.tsv}, and \texttt{.json}), where the JSON version
 is the most flexible and recommended one.%
-\footnote{Natural disaster article list:
+\footnote{``Natural disasters list'':
 \url{https://github.com/tomayac/postdoc/tree/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data}}
+Finally, we obtain for each of the 1,431~articles
+in the ``natural disasters list''
+all their back links, \emph{i.e.}, their inbound links
+[step \emph{(iii)} above], which serves to detect
+instances of natural disasters unknown at system creation time.
+For example, the article ``Typhoon Rammasun (2014)''
+(\url{https://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)})---%
+which, as a~concrete \emph{instance of} a~natural disaster
+of type tropical cyclone, is not contained in our
+``natural disasters list''---links back to ``Tropical cyclone''
+(\url{https://en.wikipedia.org/wiki/Tropical_cyclone}),
+so we can identify ``Typhoon Rammasun (2014)'' as \emph{related to}
+tropical cyclones (but not necessarily \emph{identify as} a~tropical cyclone),
+even if the system did not know about it before.
+The end result is then a~large list called the ``monitoring list''
+of all articles in all Wikipedia languages
+that are somehow related to any of the 1,431~articles
+in our ``natural disasters list''.
 
+\subsection{Monitoring Process}
 
 In the past, we have worked on a~Server-Sent Events API%
-~\cite{steiner2014bots} capable of monitoring realtime edit activity
-of all language versions of Wikipedia.
+~\cite{steiner2014bots} capable of monitoring realtime editing activity
+on all language versions of Wikipedia.
 This API allows us to easily analyze Wikipedia edits
+by reacting on events fired by the API.
+Whenever an edit event occurs, we check if it is for one of the articles
+on our ``monitoring list''. 
+We keep track of historic editing activity for each article
+and upon a~sudden spike of editing activity,
+trigger an alert about a~potential new instance of a~natural disaster
+that the spiking article links back to.
+
+In order to detect spikes, we apply exponential smoothing
+to the last $n = 5$ edit intervals
+with a~smoothing factor $\alpha = 0.5$.
+The therefore required edits either occurred
+during the monitoring period and
+in consequence are known to the system,
+or are retrieved programmatically from the Wikipedia API.%
+\footnote{Wikipedia last revisions:
+\url{https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvlimit=6&rvprop=timestamp|user&titles=Typhoon_Rammasun_(2014)}}
+A~spike occurring when an edit interval gets ``short enough,''
+we report a~spike whenever the latest edit interval
+is shorter than half a~standard deviation $0.5 \times \sigma$.
+
 
 \bibliographystyle{abbrv}
 \bibliography{references}
