@@ -417,14 +417,13 @@ We keep track of historic editing activity for each article
 and upon a~sudden spike of editing activity,
 trigger an alert about a~potential new instance of a~natural disaster
 that the spiking article links back to.
-
 In order to detect spikes, we apply exponential smoothing
 to the last $n = 5$ edit intervals
 with a~smoothing factor $\alpha = 0.5$.
-The therefore required edits either occurred
+The therefore required edits either have occurred
 during the monitoring period and
-in consequence are known to the system,
-or are retrieved programmatically from the Wikipedia API.%
+are thus known to the system,
+or are being retrieved programmatically from the Wikipedia API.%
 \footnote{Wikipedia last revisions:
 \url{https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvlimit=6&rvprop=timestamp|user&titles=Typhoon_Rammasun_(2014)}}
 A~spike occurring when an edit interval gets ``short enough,''
