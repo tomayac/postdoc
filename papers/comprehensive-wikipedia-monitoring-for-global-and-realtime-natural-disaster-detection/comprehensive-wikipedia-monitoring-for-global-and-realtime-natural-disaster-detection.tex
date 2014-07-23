@@ -110,13 +110,13 @@ and other geologic processes.
 If they affect populated areas, natural disasters
 can cause economic damage, injuries, or even losses of lives.
 It is thus desirable that natural disasters
-are detected as early as possible
+be detected as early as possible
 and potentially affected persons be notified via emergency alerts.
 By their pure nature, natural disasters are global phenomena
 that people refer to by different names,
 for example, the 2014 typhoon \emph{Rammasun}%
 \footnote{Rammasun:
-\url{https://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)}}
+\url{http://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)}}
 is known as typhoon \emph{Glenda} in the Philippines.
 In this paper, we present our ongoing early-stage research
 on a~realtime Wikipedia-based monitoring system
@@ -133,8 +133,8 @@ following the Common Alerting Protocol (CAP).
 \subsection{Natural Disaster Detection and Response: A~Global Challenge}
 
 According to a~study~\cite{laframboise2012naturaldisasters}
-published in 2012 by the International Monetary Funds (IMF),
-700~natural disasters were registered worldwide between 2010 and 2012,
+published by the International Monetary Funds (IMF) in 2012,
+about 700~natural disasters were registered worldwide between 2010 and 2012,
 affecting more than 450~million people.
 According to the study, ``[d]amages have risen
 from an estimated US\$20 billion on average per year
@@ -178,8 +178,8 @@ making critical emergency information accessible in times of disaster.
 As can be seen from the (incomprehensive) list above,
 natural disaster detection and response is a~problem
 tackled on national, international, and global levels;
-both from the public and the private sectors.
-To facilitate collaboration, a~common protocol is needed.
+both from the public and private sectors.
+To facilitate collaboration, a~common protocol is essential.
 
 \subsection{The \emph{Common Alerting Protocol}}
 
@@ -197,13 +197,13 @@ An exemplary flood warning CAP feed stemming from GDACS is shown in
 \autoref{listing:cap}.
 
 \begin{lstlisting}[caption={\emph{Common Alerting Protocol} feed
-  from the \emph{Global Disaster Alert and Coordination System}
-  (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, July~16, 2014)},
+  via the \emph{Global Disaster Alert and Coordination System}
+  (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, 2014-07-16)},
   label=listing:cap, language=xml,morekeywords={xmlns,encoding,alert,
   identifier,sender,sent,status,msgType,scope,incidents,info,
   category,event,urgency,severity,certainty, senderName,headline,
   description,web,parameter,value,valueName,area,areaDesc,polygon},
-  float=t!, stringstyle=\color{gray}, ]
+  float=b!, stringstyle=\color{gray}, ]
 <?xml version="1.0" encoding="utf-8"?>
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
   <identifier>GDACS_FL_4159_1</identifier>
@@ -214,14 +214,11 @@ An exemplary flood warning CAP feed stemming from GDACS is shown in
   <scope>Public</scope>
   <incidents>4159</incidents>
   <info>
-    <category>Geo</category>
-    <event>Flood</event>
-    <urgency>Past</urgency>
-    <severity>Moderate</severity>
+    <category>Geo</category><event>Flood</event>
+    <urgency>Past</urgency><severity>Moderate</severity>
     <certainty>Unknown</certainty>
     <senderName>Global Disaster Alert and Coordination System</senderName>
-    <headline />
-    <description />
+    <headline /><description />
     <web>http://www.gdacs.org/reports.aspx?eventype=FL&amp;amp;eventid=4159</web>
     <parameter><valueName>eventid</valueName><value>4159</value></parameter>
     <parameter><valueName>currentepisodeid</valueName><value>1</value></parameter>
@@ -250,9 +247,7 @@ An exemplary flood warning CAP feed stemming from GDACS is shown in
         </value></parameter>
     <parameter><valueName>datemodified</valueName>
         <value>Mon, 01 Jan 0001 00:00:00 GMT</value></parameter>
-    <area>
-      <areaDesc>Polygon</areaDesc><polygon>,,100</polygon>
-    </area>
+    <area><areaDesc>Polygon</areaDesc><polygon>,,100</polygon></area>
   </info>
 </alert>
 \end{lstlisting}
@@ -267,24 +262,24 @@ We are steered by the following hypotheses.
 
 \begin{itemize}
   \itemsep0em
-  \item[($\mathbb{H}1$)] Content about natural disasters
+  \item[$\mathbb{H}1$] Content about natural disasters
     gets added to Wikipedia in a~timely fashion.
-  \item[($\mathbb{H}2$)] Natural disasters being geographically
+  \item[$\mathbb{H}2$] Natural disasters being geographically
     constrained, textual and multimedia content about them
     gets added to local, \emph{i.e.}, non-English Wikipedias as well.
-  \item[($\mathbb{H}3$)] Link structure dynamics of Wikipedia
+  \item[$\mathbb{H}3$] Link structure dynamics of Wikipedia
     provide for a~meaningful way to detect future
     natural disasters, \emph{i.e.}, disasters unknown at system creation time.
 \end{itemize}
 
-\noindent These hypotheses lead us to the research questions below.
+\noindent These hypotheses lead us to the following research questions.
 
 \begin{itemize}
   \itemsep0em
-  \item[($\mathbb{Q}1$)] How timely and accurate for the purpose
+  \item[$\mathbb{Q}1$] How timely and accurate for the purpose
     of natural disaster detection is content from Wikipedia
-    compared to the official sources mentioned above?
-  \item[($\mathbb{Q}2$)] Does the disambiguated nature of Wikipedia
+    compared to authoritative sources mentioned above?
+  \item[$\mathbb{Q}2$] Does the disambiguated nature of Wikipedia
     surpass keyword-based natural disaster detection approaches,
     \emph{e.g.}, via online social networks or search logs?
 \end{itemize}
@@ -296,7 +291,7 @@ has gained momentum in recent years,
 as the Internet has proven resilient in times of crises,
 compared to other infrastructure.
 Ryan Falor, Crisis Response Product Manager at Google in 2011,
-writes in~\cite{falor2011googleorg} that
+remarks in~\cite{falor2011googleorg} that
 ``a~substantial \textup{[\,\dots]} proportion of searches
 are directly related to the crises;
 and people continue to search and access information online
@@ -305,7 +300,7 @@ during and immediately following the crises.''
 In the following, we provide a~non-exhaustive list of related work
 on digitally crowdsourced natural disaster detection and response.
 Sakaki \emph{et~al.}\ consider in~\cite{sakaki2010earthquake} each user
-of the online social network (OSN) site
+of the online social networking (OSN) site
 Twitter\footnote{Twitter: \url{https://twitter.com/}} a~sensor
 for the purpose of earthquake detection in Japan.
 % They devise a~classifier of tweets based on features such as
@@ -322,7 +317,7 @@ a~crisis monitoring system that extracts relevant content
 about known disasters from Twitter.
 Liu \emph{et~al.}\ examine in~\cite{liu2008search}
 common patterns and norms of natural disaster coverage
-on the photo sharing platform Flickr.%
+on the photo sharing site Flickr.%
 \footnote{Flickr: \url{https://www.flickr.com/}}
 We have developed~\cite{steiner2014thesis} a~ monitoring system
 that detects news events from concurrent Wikipedia edits
@@ -338,18 +333,18 @@ Finally, Lin and Mishne examine realtime search query churn on Twitter%
 
 Wikipedia is an international online encyclopedia
 currently available in 287~languages.%
-\footnote{All Wikipedias: \url{https://meta.wikimedia.org/wiki/List_of_Wikipedias}}
+\footnote{All Wikipedias: \url{http://meta.wikimedia.org/wiki/List_of_Wikipedias}}
 \emph{(i)}~Articles in one language are interlinked with versions of the same article
-in different languages, \emph{e.g.}, the article ``Natural disaster''
+in other languages, \emph{e.g.}, the article ``Natural disaster''
 on the English Wikipedia
-(\url{https://en.wikipedia.org/wiki/Natural_disaster}) \linebreak
-links to 74~versions of the article in other languages.%
-\footnote{Wikipedia language links:
+(\url{http://en.wikipedia.org/wiki/Natural_disaster}) \linebreak
+links to 74~versions of this article in other languages.%
+\footnote{Article language links:
 \url{http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&titles=Natural_disaster}}
-\emph{(ii)}~Each article can have redirects, \emph{i.e.}, different URLs
+\emph{(ii)}~Each article can have redirects, \emph{i.e.}, alternative URLs
 that point to the article.
 For the English ``Natural disaster'' article, there are eight redirects,%
-\footnote{Wikipedia redirects:
+\footnote{Article redirects:
 \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bllimit=max&bltitle=Natural_disaster}}
 \emph{e.g.}, ``Natural Hazard'' (synonym),
 ``Examples of natural disaster'' (refinement), or
@@ -358,19 +353,30 @@ For the English ``Natural disaster'' article, there are eight redirects,%
 that point to the article is available, \emph{i.e.},
 inbound links other than redirects.
 The article ``Natural disaster'' has more than 500 articles that link to it.%
-\footnote{Wikipedia back links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
+\footnote{Article inbound links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
+Similarly for the outbound links.%
+\footnote{Wikipedia outbound links: \url{http://en.wikipedia.org/w/api.php?action=query&prop=links&plnamespace=0&format=json&pllimit=max&titles=Natural_disaster}}
+Combining inbound and outbound links for an article,
+we can determine the set of mutual links,
+\emph{i.e.}, the set of articles that the current article links to (outbound links)
+and receives links from (inbound links).
 
 \subsection{Identification of Wikipedia Articles for Monitoring}
 
 Starting with the well-curated English seed article ``Natural disaster'',
-we programmatically follow therein contained links of type
-``See also:'' and ``Main article:''
-that lead to an exhaustive list of English articles
-of concrete instances of natural disasters,
-\emph{e.g.}, ``Tsunami'' (\url{https://en.wikipedia.org/wiki/Tsunami}), ``Flood'' (\url{https://en.wikipedia.org/wiki/Flood}),
-``Earthquake'' (\url{https://en.wikipedia.org/wiki/Earthquake}),
-\emph{etc.} In total, we obtain links to 23~English articles
-about different types of natural disasters.
+we programmatically follow each of the therein contained links of type ``Main article:'',
+which leads to an exhaustive list of English articles
+of concrete types of natural disasters,
+\emph{e.g.}, ``Tsunami'' (\url{http://en.wikipedia.org/wiki/Tsunami}),
+``Flood'' (\url{http://en.wikipedia.org/wiki/Flood}),
+``Earthquake'' (\url{http://en.wikipedia.org/wiki/Earthquake}),
+\emph{etc.} In total, we obtain links to 20~English articles
+about different types of natural disasters.%
+\footnote{``Avalanche'', ``Blizzard'', ``Cyclone'', ``Drought'', ``Earthquake'',
+``Epidemic'', ``Extratropical cyclone'', ``Flood'', ``Gamma-ray burst'', ``Hail'',
+``Heat wave'', ``Impact event'', ``Limnic eruption'', ``Meteorological disaster'',
+``Solar flare'', ``Tornado'', ``Tropical cyclone'', ``Tsunami'',
+``Volcanic eruption'', ``Wildfire''}
 For each of these English natural disasters articles,
 we obtain all versions of each article in different languages
 [step \emph{(i)} above],
@@ -391,14 +397,21 @@ all their back links, \emph{i.e.}, their inbound links
 [step \emph{(iii)} above], which serves to detect
 instances of natural disasters unknown at system creation time.
 For example, the article ``Typhoon Rammasun (2014)''
-(\url{https://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)})---%
+(\url{http://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)})---%
 which, as a~concrete \emph{instance of} a~natural disaster
 of type tropical cyclone, is not contained in our
 ``natural disasters list''---links back to ``Tropical cyclone''
-(\url{https://en.wikipedia.org/wiki/Tropical_cyclone}),
+(\url{http://en.wikipedia.org/wiki/Tropical_cyclone}),
 so we can identify ``Typhoon Rammasun (2014)'' as \emph{related to}
 tropical cyclones (but not necessarily \emph{identify as} a~tropical cyclone),
 even if the system did not know about it before.
+Likewise, we obtain all outbound links,
+\emph{e.g.}, ``Tropical cyclone'' has an outbound link to
+``2014 Pacific typhoon season''
+(\url{http://en.wikipedia.org/wiki/2014_Pacific_typhoon_season}),
+which ``Typhoon Rammasun (2014)'' is part of and consequently
+and inbound link of.
+
 The end result is then a~large list called the ``monitoring list''
 of all articles in all Wikipedia languages
 that are somehow related to any of the 1,431~articles
@@ -425,7 +438,7 @@ during the monitoring period and
 are thus known to the system,
 or are being retrieved programmatically from the Wikipedia API.%
 \footnote{Wikipedia last revisions:
-\url{https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvlimit=6&rvprop=timestamp|user&titles=Typhoon_Rammasun_(2014)}}
+\url{http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvlimit=6&rvprop=timestamp|user&titles=Typhoon_Rammasun_(2014)}}
 A~spike occurring when an edit interval gets ``short enough,''
 we report a~spike whenever the latest edit interval
 is shorter than half a~standard deviation $0.5 \times \sigma$.
