@@ -1,6 +1,7 @@
 \documentclass[runningheads,a4paper]{llncs}
 
 \usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
 
 \usepackage{amssymb}
 \setcounter{tocdepth}{3}
@@ -459,7 +460,27 @@ compared to historic editing activity,
 we report a~spike whenever the latest edit interval
 is shorter than half a~standard deviation $0.5 \times \sigma$.
 
-\section{Evaluation}
+A~subset of all Wikipedia articles are geo-referenced,%
+\footnote{Article geo coordinates:
+\url{http://en.wikipedia.org/w/api.php?action=query&prop=coordinates&format=json&colimit=max&coprop=dim|country|region|globe&coprimary=all&titles=September_11_attacks}}
+so when we detect a~spiking article,
+we try to obtain geo coordinates for the article itself
+(\emph{e.g.}, ``Pazifische Taifunsaison 2014'')
+or any of its language links
+that---as a~consequence of the assumption in $\mathbb{H}2$---%
+may provide more local details
+(\emph{e.g.}, ``2014 Pacific typhoon season'' in English or
+\begin{CJK*}{UTF8}{gbsn}``2014年太平洋颱風季''\end{CJK*} in Chinese).
+
+In a~final step and once a~given confidence threshold has been reached,
+we send out a~notification according to the \emph{Common Alerting Protocol}
+following the format that (for the GDACS system) can be seen in \autoref{listing:cap}.
+
+\section{Implementation Details}
+
+\section{Proposed Steps Towards an Evaluation}
+
+\section{Conclusions and Future Work}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
