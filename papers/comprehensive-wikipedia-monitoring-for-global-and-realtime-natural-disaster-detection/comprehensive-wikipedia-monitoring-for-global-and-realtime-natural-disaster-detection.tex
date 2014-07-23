@@ -350,16 +350,16 @@ For the English ``Natural disaster'' article, there are eight redirects,%
 ``Examples of natural disaster'' (refinement), or
 ``Natural disasters'' (plural).
 \emph{(iii)}~For each article, the list of back links
-that point to the article is available, \emph{i.e.},
+that link to the article is available, \emph{i.e.},
 inbound links other than redirects.
 The article ``Natural disaster'' has more than 500 articles that link to it.%
 \footnote{Article inbound links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
-Similarly for the outbound links.%
-\footnote{Wikipedia outbound links: \url{http://en.wikipedia.org/w/api.php?action=query&prop=links&plnamespace=0&format=json&pllimit=max&titles=Natural_disaster}}
-Combining inbound and outbound links for an article,
-we can determine the set of mutual links,
+We follow an analog approach for the outbound links.%
+\footnote{Article outbound links: \url{http://en.wikipedia.org/w/api.php?action=query&prop=links&plnamespace=0&format=json&pllimit=max&titles=Natural_disaster}}
+By combining an article's in- and outbound links,
+we determine the set of mutual links,
 \emph{i.e.}, the set of articles that the current article links to (outbound links)
-and receives links from (inbound links).
+and at the same time receives links from (inbound links).
 
 \subsection{Identification of Wikipedia Articles for Monitoring}
 
@@ -399,23 +399,32 @@ instances of natural disasters unknown at system creation time.
 For example, the article ``Typhoon Rammasun (2014)''
 (\url{http://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)})---%
 which, as a~concrete \emph{instance of} a~natural disaster
-of type tropical cyclone, is not contained in our
+of type tropical cyclone, is \emph{not} contained in our
 ``natural disasters list''---links back to ``Tropical cyclone''
 (\url{http://en.wikipedia.org/wiki/Tropical_cyclone}),
 so we can identify ``Typhoon Rammasun (2014)'' as \emph{related to}
 tropical cyclones (but not necessarily \emph{identify as} a~tropical cyclone),
-even if the system did not know about it before.
-Likewise, we obtain all outbound links,
+even if the system did not know about its existence before.
+Analog to the inbound links, we obtain all
+outbound links of all articles in the ``natural disasters list'',
 \emph{e.g.}, ``Tropical cyclone'' has an outbound link to
 ``2014 Pacific typhoon season''
 (\url{http://en.wikipedia.org/wiki/2014_Pacific_typhoon_season}),
-which ``Typhoon Rammasun (2014)'' is part of and consequently
-and inbound link of.
-
-The end result is then a~large list called the ``monitoring list''
+which also happens to be an inbound link of ``Tropical cyclone'',
+so we have detected a~mutual, circular link structure.
+\autoref{fig:link-structure} shows the example in its entirety,
+starting from the seed level, to the disaster type level, to the in-/outbound link level.
+The end result is a~large list called the ``monitoring list''
 of all articles in all Wikipedia languages
-that are somehow related to any of the 1,431~articles
-in our ``natural disasters list''.
+that are somehow---via a~redirect, inbound, or outbound link (or resulting mutual link)---%
+related to any of the articles
+in the ``natural disasters list''.
+
+\begin{figure}[hbt]
+  \includegraphics[trim=0mm 165mm 0mm 10mm,clip,width=\linewidth]{link-structure}
+  \caption{Extracted Wikipedia link structure starting from seed article ``Natural disaster''}
+  \label{fig:link-structure}
+\end{figure}
 
 \subsection{Monitoring Process}
 
@@ -426,23 +435,31 @@ This API allows us to easily analyze Wikipedia edits
 by reacting on events fired by the API.
 Whenever an edit event occurs, we check if it is for one of the articles
 on our ``monitoring list''. 
-We keep track of historic editing activity for each article
-and upon a~sudden spike of editing activity,
-trigger an alert about a~potential new instance of a~natural disaster
-that the spiking article links back to.
+We keep track of the historic one-day-window editing activity
+for each article on the ``monitoring list'', and,
+upon a~sudden spike of editing activity,
+trigger an alert about a~potential new instance of a~natural disaster type
+that the spiking article is an inbound or outbound link of (or both).
+So if, \emph{e.g.}, the German article ``Pazifische Taifunsaison 2014'' is spiking,
+we can infer that this is related to a~natural disaster
+of type ``Tropical cyclone'' due to the detected
+mutual link structured mentioned earlier (\autoref{fig:link-structure}).
+
 In order to detect spikes, we apply exponential smoothing
-to the last $n = 5$ edit intervals
+to the last $n$ edit intervals that occurred in the past 24 hours
 with a~smoothing factor $\alpha = 0.5$.
 The therefore required edits either have occurred
 during the monitoring period and
 are thus known to the system,
-or are being retrieved programmatically from the Wikipedia API.%
+or are retrieved programmatically from the Wikipedia API.%
 \footnote{Wikipedia last revisions:
 \url{http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvlimit=6&rvprop=timestamp|user&titles=Typhoon_Rammasun_(2014)}}
-A~spike occurring when an edit interval gets ``short enough,''
+As a~spike occurs when an edit interval gets ``short enough''
+compared to historic editing activity,
 we report a~spike whenever the latest edit interval
 is shorter than half a~standard deviation $0.5 \times \sigma$.
 
+\section{Evaluation}
 
 \bibliographystyle{abbrv}
 \bibliography{references}
