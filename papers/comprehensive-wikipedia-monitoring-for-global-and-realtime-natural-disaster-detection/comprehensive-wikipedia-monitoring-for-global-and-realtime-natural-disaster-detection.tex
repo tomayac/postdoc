@@ -132,6 +132,7 @@ following the Common Alerting Protocol (CAP).
 \section{Introduction}
 
 \subsection{Natural Disaster Detection and Response: A~Global Challenge}
+\label{sec:natural-disaster-detection}
 
 According to a~study~\cite{laframboise2012naturaldisasters}
 published by the International Monetary Funds (IMF) in 2012,
@@ -363,6 +364,7 @@ we determine the set of mutual links,
 and at the same time receives links from (inbound links).
 
 \subsection{Identification of Wikipedia Articles for Monitoring}
+\label{sec:identification-of-monitoring}
 
 Starting with the well-curated English seed article ``Natural disaster'',
 we programmatically follow each of the therein contained links of type ``Main article:'',
@@ -428,8 +430,9 @@ in the ``natural disasters list''.
 \end{figure}
 
 \subsection{Monitoring Process}
+\label{sec:monitoring-process}
 
-In the past, we have worked on a~Server-Sent Events API%
+In the past, we have worked on a~Server-Sent Events (SSE) API%
 ~\cite{steiner2014bots} capable of monitoring realtime editing activity
 on all language versions of Wikipedia.
 This API allows us to easily analyze Wikipedia edits
@@ -472,13 +475,112 @@ may provide more local details
 (\emph{e.g.}, ``2014 Pacific typhoon season'' in English or
 \begin{CJK*}{UTF8}{gbsn}``2014年太平洋颱風季''\end{CJK*} in Chinese).
 
-In a~final step and once a~given confidence threshold has been reached,
+In a~final step, and once a~given confidence threshold has been reached,
 we send out a~notification according to the \emph{Common Alerting Protocol}
 following the format that (for the GDACS system) can be seen in \autoref{listing:cap}.
 
-\section{Implementation Details}
+\subsection{Implementation Details}
 
-\section{Proposed Steps Towards an Evaluation}
+We have created a~prototypal application
+that connects to the SSE API from~\cite{steiner2014bots},
+which is located at \url{http://wikipedia-edits.herokuapp.com/sse}.
+This application uses the ``monitoring list''
+from \autoref{sec:identification-of-monitoring}
+and whenever an edit event sent through the SSE API
+matches any of the articles in the list,
+it checks if, given this article's edit history of the past 24 hours,
+the current edit event shows spiking behavior,
+as outlined in \autoref{sec:monitoring-process}.
+The core source code snippet of the main monitoring loop
+can be seen in \autoref{listing:monitoring}.
+
+\begin{lstlisting}[caption={Main monitoring loop of the natural disaster monitor},
+  label=listing:monitoring, language=JavaScript,
+  float=b!, stringstyle=\color{gray},morekeywords={for,if,console,log,addEventListener,JSON,parse,stringify,forEach}]
+var wikiSource = new EventSource('http://wikipedia-edits.herokuapp.com/sse');
+wikiSource.addEventListener('message', function(e) {
+  var data = JSON.parse(e.data);
+  var article = data.language + ':' + data.article;
+  var disasterObj = disasters[article];
+  if (disasterObj) {
+    console.log('Wikipedia: ' + article + ' => ' + JSON.stringify(disasterObj));
+    for (var role in disasterObj) {
+      var length = disasterObj[role].length;
+      disasterObj[role].forEach(function(disasterType) {
+        if (!disasterTypes[disasterType]) {
+          disasterTypes[disasterType] = {
+            score: 0
+          };
+        }
+        if (!disasterTypes[disasterType][role]) {
+          disasterTypes[disasterType][role] = {
+            articles: [article]
+          };
+        }
+        var boostFactor;
+        if (role === 'disaster link') {
+          boostFactor = 2;
+        } else if (role === 'outbound link') {
+          boostFactor = 1.5;
+        } else if (role === 'inbound link') {
+          boostFactor = 1;
+        } else if (role === 'mutual link') {
+          boostFactor = 2;
+        }
+        disasterTypes[disasterType].score += boostFactor * (1 / length);
+      });
+    }
+    console.log('disasterTypes => ' + JSON.stringify(disasterTypes));
+    // trigger Common Alerting Protocol (CAP) action
+  }
+});
+\end{lstlisting}
+
+\section{Proposed Steps Toward an Evaluation}
+
+We recall our core research questions that were
+$\mathbb{Q}1$ \emph{How timely and accurate for the purpose
+of natural disaster detection is content from Wikipedia
+compared to authoritative sources mentioned above?} and
+$\mathbb{Q}2$ \emph{Does the disambiguated nature of Wikipedia
+surpass keyword-based natural disaster detection approaches,
+\emph{e.g.}, via online social networks or search logs?}
+
+Regarding $\mathbb{Q}1$, only a~manual comparison
+covering several months worth
+of natural disaster data of the relevant authoritative data sources
+mentioned in \autoref{sec:natural-disaster-detection}
+with the output of our system can help respond to the question.
+
+Regarding $\mathbb{Q}2$, we propose an evaluation strategy
+for the OSN site Twitter,
+loosely inspired by the approach of Sakaki \emph{et~al.}\
+in~\cite{sakaki2010earthquake}.
+We choose Twitter as a~data source due to the publicly available user data
+through its streaming APIs,%
+\footnote{Twitter streaming APIs:
+\url{https://dev.twitter.com/docs/streaming-apis/streams/public}}
+which would be considerably harder, if not impossible, with other OSNs or search logs
+due to privacy considerations and API limitations.
+Based on the articles in the ``monitoring list'',
+we put forward using article titles as search terms,
+but without disambiguation hints in parentheses,
+\emph{e.g.}, instead of the complete article title
+``Typhoon Rammasun (2014)'', we suggest using ``Typhoon Rammasun'' alone.
+We advise monitoring the sample stream%
+\footnote{Twitter sample stream:
+\url{https://dev.twitter.com/docs/api/1.1/get/statuses/sample}}
+for the appearance of any of the search terms,
+as the filtered stream%
+\footnote{Twitter filtered stream:
+\url{https://dev.twitter.com/docs/api/1.1/post/statuses/filter}}
+is too limited regarding the number of supported search terms.
+In order to avoid ambiguity issues with the
+international multi-language Twitter sample stream,
+we recommend matching search terms only
+if the Twitter-detected tweet language is the same
+as the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
+
 
 \section{Conclusions and Future Work}
 
