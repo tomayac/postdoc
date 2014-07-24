@@ -352,11 +352,12 @@ For the English ``Natural disaster'' article, there are eight redirects,%
 ``Examples of natural disaster'' (refinement), or
 ``Natural disasters'' (plural).
 \emph{(iii)}~For each article, the list of back links
-that link to the article is available, \emph{i.e.},
+that link to the current article is available, \emph{i.e.},
 inbound links other than redirects.
 The article ``Natural disaster'' has more than 500 articles that link to it.%
 \footnote{Article inbound links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
-We follow an analog approach for the outbound links.%
+Likewise, the list of outbound links, \emph{i.e.}, other articles
+that the current article links to, is available.%
 \footnote{Article outbound links: \url{http://en.wikipedia.org/w/api.php?action=query&prop=links&plnamespace=0&format=json&pllimit=max&titles=Natural_disaster}}
 By combining an article's in- and outbound links,
 we determine the set of mutual links,
@@ -385,7 +386,7 @@ we obtain all versions of each article in different languages
 [step \emph{(i)} above],
 and of the resulting list of international articles
 in turn all their redirect URLs [step \emph{(ii)} above].
-The intermediate result is a~complete list of all (currently~1,431) articles
+The intermediate result is a~complete list of all (currently~1,270) articles
 in all Wikipedia languages and all their redirects
 that have any type of natural disaster as their subject.
 We call this list the ``natural disasters list''
