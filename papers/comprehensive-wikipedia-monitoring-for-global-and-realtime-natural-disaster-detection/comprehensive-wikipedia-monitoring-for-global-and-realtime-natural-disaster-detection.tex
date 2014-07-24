@@ -395,7 +395,7 @@ and make it publicly available in different formats
 is the most flexible and recommended one.%
 \footnote{``Natural disasters list'':
 \url{https://github.com/tomayac/postdoc/tree/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data}}
-Finally, we obtain for each of the 1,431~articles
+Finally, we obtain for each of the 1,270~articles
 in the ``natural disasters list''
 all their back links, \emph{i.e.}, their inbound links
 [step \emph{(iii)} above], which serves to detect
@@ -408,7 +408,7 @@ of type tropical cyclone, is \emph{not} contained in our
 (\url{http://en.wikipedia.org/wiki/Tropical_cyclone}),
 so we can identify ``Typhoon Rammasun (2014)'' as \emph{related to}
 tropical cyclones (but not necessarily \emph{identify as} a~tropical cyclone),
-even if the system did not know about its existence before.
+even if at the system's creation time the typhoon did not exist yet.
 Analog to the inbound links, we obtain all
 outbound links of all articles in the ``natural disasters list'',
 \emph{e.g.}, ``Tropical cyclone'' has an outbound link to
@@ -423,6 +423,7 @@ of all articles in all Wikipedia languages
 that are somehow---via a~redirect, inbound, or outbound link (or resulting mutual link)---%
 related to any of the articles
 in the ``natural disasters list''.
+We make a snapshot of this dynamic list available as well.
 
 \begin{figure}[hbt]
   \includegraphics[trim=0mm 165mm 0mm 10mm,clip,width=\linewidth]{link-structure}
