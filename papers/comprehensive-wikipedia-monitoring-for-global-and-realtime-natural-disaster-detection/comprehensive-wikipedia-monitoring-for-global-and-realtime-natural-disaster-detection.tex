@@ -394,7 +394,7 @@ and make it publicly available in different formats
 (\texttt{.txt}, \texttt{.tsv}, and \texttt{.json}), where the JSON version
 is the most flexible and recommended one.%
 \footnote{``Natural disasters list'':
-\url{https://github.com/tomayac/postdoc/tree/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data}}
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/natural-disasters-list.json}}
 Finally, we obtain for each of the 1,270~articles
 in the ``natural disasters list''
 all their back links, \emph{i.e.}, their inbound links
@@ -423,7 +423,12 @@ of all articles in all Wikipedia languages
 that are somehow---via a~redirect, inbound, or outbound link (or resulting mutual link)---%
 related to any of the articles
 in the ``natural disasters list''.
-We make a snapshot of this dynamic list available as well.
+We make a snapshot of this dynamic ``monitoring list'' available for reference,%
+\footnote{``Monitoring list'':
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/monitoring-list.json}}
+but note that it will be out-of-date soon and should be regenerated
+on a~regular basis.
+The current version holds 141,001 different articles.
 
 \begin{figure}[hbt]
   \includegraphics[trim=0mm 165mm 0mm 10mm,clip,width=\linewidth]{link-structure}
@@ -442,22 +447,20 @@ by reacting on events fired by the API.
 Whenever an edit event occurs, we check if it is for one of the articles
 on our ``monitoring list''. 
 We keep track of the historic one-day-window editing activity
-for each article on the ``monitoring list'', and,
-upon a~sudden spike of editing activity,
+for each article on the ``monitoring list'' including their versions in other languages,
+and, upon a~sudden spike of editing activity,
 trigger an alert about a~potential new instance of a~natural disaster type
 that the spiking article is an inbound or outbound link of (or both).
-So if, \emph{e.g.}, the German article ``Pazifische Taifunsaison 2014'' is spiking,
+To illustrate this, if, \emph{e.g.}, the German article
+``Pazifische Taifunsaison 2014'' including all of its language links is spiking,
 we can infer that this is related to a~natural disaster
 of type ``Tropical cyclone'' due to the detected
-mutual link structured mentioned earlier (\autoref{fig:link-structure}).
+mutual link structure mentioned earlier (\autoref{fig:link-structure}).
 
 In order to detect spikes, we apply exponential smoothing
-to the last $n$ edit intervals that occurred in the past 24 hours
+to the last $n$ edit intervals (we require $n\geq5$) that occurred in the past 24 hours
 with a~smoothing factor $\alpha = 0.5$.
-The therefore required edits either have occurred
-during the monitoring period and
-are thus known to the system,
-or are retrieved programmatically from the Wikipedia API.%
+The therefore required edit events are retrieved programmatically via the Wikipedia API.%
 \footnote{Wikipedia last revisions:
 \url{http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvlimit=6&rvprop=timestamp|user&titles=Typhoon_Rammasun_(2014)}}
 As a~spike occurs when an edit interval gets ``short enough''
@@ -476,21 +479,27 @@ that---as a~consequence of the assumption in $\mathbb{H}2$---%
 may provide more local details
 (\emph{e.g.}, ``2014 Pacific typhoon season'' in English or
 \begin{CJK*}{UTF8}{gbsn}``2014年太平洋颱風季''\end{CJK*} in Chinese).
+We then calculate the center point of all obtained latitude/longitude pairs.
 
-In a~final step, and once a~given confidence threshold has been reached,
-we send out a~notification according to the \emph{Common Alerting Protocol}
-following the format that (for the GDACS system) can be seen in \autoref{listing:cap}.
+In a~final step, once a~given confidence threshold has been reached
+and upon human inspection, we plan to send out a~notification
+according to the \emph{Common Alerting Protocol}
+following the format that (for GDACS) can be seen in \autoref{listing:cap}.
 
 \subsection{Implementation Details}
 
-We have created a~prototypal application
-that connects to the SSE API from~\cite{steiner2014bots},
-which is located at \url{http://wikipedia-edits.herokuapp.com/sse}.
-This application uses the ``monitoring list''
+We have created a~publicly available prototypal demo application
+available at \url{http://disaster-monitor.herokuapp.com/}
+that internally connects to the SSE API from~\cite{steiner2014bots}
+located at \url{http://wikipedia-edits.herokuapp.com/sse}.
+It is implemented in Node.js on the server,
+and as a~JavaScript Web application on the client.
+This application uses an hourly refreshed version of the ``monitoring list''
 from \autoref{sec:identification-of-monitoring}
 and whenever an edit event sent through the SSE API
 matches any of the articles in the list,
-it checks if, given this article's edit history of the past 24 hours,
+it checks if, given this article's and its language links'
+edit history of the past 24 hours,
 the current edit event shows spiking behavior,
 as outlined in \autoref{sec:monitoring-process}.
 The core source code snippet of the main monitoring loop
@@ -499,44 +508,73 @@ can be seen in \autoref{listing:monitoring}.
 \begin{lstlisting}[caption={Main monitoring loop of the natural disaster monitor},
   label=listing:monitoring, language=JavaScript,
   float=b!, stringstyle=\color{gray},morekeywords={for,if,console,log,addEventListener,JSON,parse,stringify,forEach}]
-var wikiSource = new EventSource('http://wikipedia-edits.herokuapp.com/sse');
-wikiSource.addEventListener('message', function(e) {
-  var data = JSON.parse(e.data);
-  var article = data.language + ':' + data.article;
-  var disasterObj = disasters[article];
-  if (disasterObj) {
-    console.log('Wikipedia: ' + article + ' => ' + JSON.stringify(disasterObj));
-    for (var role in disasterObj) {
-      var length = disasterObj[role].length;
-      disasterObj[role].forEach(function(disasterType) {
-        if (!disasterTypes[disasterType]) {
-          disasterTypes[disasterType] = {
-            score: 0
-          };
-        }
-        if (!disasterTypes[disasterType][role]) {
-          disasterTypes[disasterType][role] = {
-            articles: [article]
-          };
-        }
-        var boostFactor;
-        if (role === 'disaster link') {
-          boostFactor = 2;
-        } else if (role === 'outbound link') {
-          boostFactor = 1.5;
-        } else if (role === 'inbound link') {
-          boostFactor = 1;
-        } else if (role === 'mutual link') {
-          boostFactor = 2;
-        }
-        disasterTypes[disasterType].score += boostFactor * (1 / length);
-      });
+var init = function() {
+
+  // fired whenever an edit event happens on any Wikipedia
+  var parseWikipediaEdit = function(data) {
+    var article = data.language + ':' + data.article;
+    var disasterObj = monitoringList[article];
+    // the article is on the monitoring list
+    if (disasterObj) {    
+      showCandidateArticle(data.article, data.language, disasterObj);
     }
-    console.log('disasterTypes => ' + JSON.stringify(disasterTypes));
-    // trigger Common Alerting Protocol (CAP) action
-  }
-});
+  };
+  
+  // fired whenever an article is on the monitoring list
+  var showCandidateArticle = function(article, language, roles) {
+    getGeoData(article, language, function(err, geoData) {
+      getRevisionsData(article, language, function(err, revisionsData) {
+        if (revisionsData.spiking) {
+          // spiking article
+        }
+        if (geoData.averageCoordinates.lat) {
+          // geo-referenced article, create map
+        }
+        // trigger alert if article is spiking
+      });
+    });
+  };  
+
+  getMonitoringList(seedArticle, function(err, data) {
+    // get the initial monitoring list
+    if (err) {
+      return console.log('Error initializing the app.');
+    }
+    monitoringList = data;
+    console.log('Monitoring ' + Object.keys(monitoringList).length +
+        ' candidate Wikipedia articles.');
+    
+    // start monitoring process once we have a monitoring list
+    var wikiSource = new EventSource(wikipediaEdits);
+    wikiSource.addEventListener('message', function(e) {
+      return parseWikipediaEdit(JSON.parse(e.data));
+    });
+    
+    // auto-refresh monitoring list every hour
+    setInterval(function() {
+      getMonitoringList(seedArticle, function(err, data) {
+        if (err) {
+          return console.log('Error refreshing monitoring list.');
+        }
+        monitoringList = data;
+        console.log('Monitoring ' + Object.keys(monitoringList).length +
+            ' candidate Wikipedia articles.');
+      });
+    }, 1000 * 60 * 60);
+  });
+};
+init();
 \end{lstlisting}
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.4\linewidth]{natural-disaster-monitor}
+  \caption{Screenshot of the mobile-friendly ``Natural Disaster Monitor'' application
+    prototype available at \url{http://disaster-monitor.herokuapp.com/}
+    showing detected natural disaster types connected with the (currently non-spiking) article ``Japan''}
+  \label{fig:link-structure}
+\end{figure}
+ 
 
 \section{Proposed Steps Toward an Evaluation}
 
@@ -585,6 +623,26 @@ as the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
 
 
 \section{Conclusions and Future Work}
+
+In this paper, we have presented first steps of our ongoing research
+on the creation of a~Wikipedia-based natural disaster monitoring system,
+in particular, we have finished its underlying code scaffolding.
+While the system itself already works, a~good chunk of work still lies ahead
+with the fine-tuning of its parameters.
+A~first examples are the exponential smoothing parameters
+of the revision intervals, responsible for determining whether an article
+is spiking, and thus a~potential new natural disaster, or not.
+A~second example is the role that natural disasters play with articles:
+they can be inbound, outbound, or mutual links,
+and their importance for actual occurrences of disasters will vary.
+Future work will mainly focus on finding answers to our research questions
+$\mathbb{Q}1$ and $\mathbb{Q}2$ and the verification of the hypotheses
+$\mathbb{H}1$--$\mathbb{H}3$.
+We will focus on the evaluation of the system's usefulness, accuracy,
+and timeliness in comparison to other keyword-based approaches.
+An interesting aspect of our work is that the monitoring system
+is not limited to natural disasters.
+
 
 \bibliographystyle{abbrv}
 \bibliography{references}
