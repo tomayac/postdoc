@@ -24,19 +24,19 @@
 \usepackage{verbatim}
 \newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
 \newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
-\newcommand{\smalllistingsize}{\fontsize{7.5pt}{9.5pt}}
-\newcommand{\listingsize}{\defaultlistingsize}
+\newcommand{\smalllistingsize}{\fontsize{6.0pt}{7.0pt}}
+\newcommand{\listingsize}{\smalllistingsize}%{\defaultlistingsize}
 \RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
 \RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
 \lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
-        aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
-        framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+  aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+  framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
 
 % use Courier from this point onward
 \let\oldttdefault\ttdefault
 \renewcommand{\ttdefault}{pcr}
 \let\oldurl\url
-\renewcommand{\url}[1]{\inlinelistingsize\oldurl{#1}}
+%\renewcommand{\url}[1]{\defaultlistingsize\oldurl{#1}}
 
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \lstdefinelanguage{JavaScript}{
@@ -51,7 +51,7 @@
   morecomment=[s]{/*}{*/},
   morecomment=[s]{<!--}{-->},  
   commentstyle=\color{darkgray},
-  stringstyle=\color{gray},
+  stringstyle=\color{green},
   morestring=[b]',
   morestring=[b]"
 }
@@ -104,29 +104,37 @@
 \maketitle
 
 \begin{abstract}
-The creation of hypervideos is a~manual and tedious task,
+The creation of hypervideos---displayed video streams
+that contain embedded user-clickable anchors and annotations---%
+is a~manual and tedious job,
 requiring the preparation of assets like still frames,
 the segmentation of videos in scenes or chapters,
-and sometimes even the isolation of objects within the video.
+and sometimes even the isolation of objects
+like faces within the video.
 In this paper, we propose a~semi-automated
 Web-Components-based approach to self-contained hypervideo creation.
 By \emph{self-contained} we mean that all necessary intrinsic components
-of the hypervideo, for example, still frames should come from the video itself
+of the hypervideo, \emph{e.g.}, still frames,
+should come from the video itself
 rather than be included as external assets.
-By leveraging the evolving Web Components standard,
+\emph{Web Components} is a~set of specifications,
+which let Web developers apply their HTML, CSS,
+and JavaScript knowledge to build widgets
+that can be reused easily and reliably.
+By leveraging this evolving standard,
 we obtain a~high degree of abstraction,
-which reduces the task of creating hypervideos
-to textually marking them up with custom HTML elements.
+which reduces the burden of creating hypervideos
+to the familiar task of textually marking them up with HTML elements.
 
-\keywords{Hypervideo, Web Components}
+\keywords{Hypervideo, Web Components, semantic video annotation}
 \end{abstract}
 
 \section{Introduction}
 
 The term \emph{hypervideo} is commonly used to refer to
 \textit{``a~displayed video stream that contains embedded user-clickable anchors''}%
-~\cite{sawhney1996hypercafe,smith2002extensible},
-allowing for navigation between the video and other hypermedia elements.
+~\cite{sawhney1996hypercafe,smith2002extensible}
+and annotations, allowing for navigation between the video and other hypermedia elements.
 In a~2006 article in \emph{The Economist}, the authors write 
 \textit{``[h]yperlinking video involves the use of ``object-tracking'' software
 to make filmed objects, such as cars, clickable as they move around.
@@ -144,6 +152,47 @@ as content changes over time.
 In consequence, hypervideo has different technical and aesthetic requirements
 than hypertext, the most obvious one being appropriate segmentation in scenes
 or even objects.
+
+\section{Related Work}
+
+Related work can be regarded under the angles
+of online annotation creation and large-scale Linked Data 
+efforts for video.
+Many have combined Linked Data and video,
+typical examples are~\cite{lambert2010linkeddata} by Lambert \emph{et~al.}\
+and~\cite{hausenblas2009im} by Hausenblas \emph{et~al.}
+There are several text track enriching approaches~\cite{li2013enriching,li2012creating,yi2012synote,steiner2010semwebvid},
+all centered around the application of named entity recognition.
+The online video hosting platform YouTube
+lets video publishers add video annotations
+in a~closed proprietary format.
+From 2009 to 2010, YouTube had a~feature called
+Collaborative Annotations%
+~\cite{fink2009collaborativeannotations}
+that allowed video consumers to collaboratively
+create video annotations.
+In~\cite{vandeursen2012mediafragmentannotations},
+Van Deursen \emph{et~al.}\ present a~system
+that combines Media Fragments URI~\cite{troncy2012mediafragments}
+and the Ontology for Media Resources~\cite{lee2012mediaontology}
+in an HTML5 Web application to convert
+rich media fragment annotations into a~WebVTT file
+that can be used by HTML5-enabled players
+to show the annotations in a~synchronized way.
+Building on their work, in~\cite{steiner2014webvtt},
+we additionally allowed for writing annotations by
+letting annotators create WebVTT cues with an editor.
+Popcorn.js\footnote{Popcorn.js: \url{http://popcornjs.org/}}
+is an HTML5 JavaScript media framework
+for the creation of media mixes
+by adding interactivity and context to videos
+by letting users link social media, feeds,
+visualizations, and other content to moving images.
+PopcornMaker%
+\footnote{PopcornMaker: \url{https://popcorn.webmaker.org/}}
+is an interactive Web authoring environment
+allowing for videos to be annotated on a~timeline.
+Popcorn video annotations are essentially JavaScript~programs.
 
 \bibliographystyle{abbrv}
 \bibliography{references}

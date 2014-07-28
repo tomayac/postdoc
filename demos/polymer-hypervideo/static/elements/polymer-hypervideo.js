@@ -84,7 +84,7 @@ Polymer('polymer-hypervideo', {
       var polymerData = queryRegExSelectorAll(that, /^polymer-data-/gi);
       polymerData.forEach(function(node) {
         node.style.position = 'absolute';
-        node.style.top = (video.offsetTop + 0.75 * video.offsetHeight) +
+        node.style.top = (video.offsetTop + 0.66 * video.offsetHeight) +
             'px';
         node.style.left = (video.offsetLeft + (0.05 * that.width)) + 'px';
         node.style.width = (0.9 * that.width) + 'px';

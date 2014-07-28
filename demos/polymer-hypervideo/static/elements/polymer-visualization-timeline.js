@@ -152,9 +152,10 @@ Polymer('polymer-visualization-timeline', {
 
       var fontSize = parseInt(getComputedStyle(container)
           .fontSize.replace('px', ''), 10);
+      var scalingFactor = 50 / that.duration;
       if (that.orientation === 'landscape') {
         container.style.height = that.height + 'px';
-        container.style.width = that.duration + 'em';
+        container.style.width = (that.duration * scalingFactor) + 'em';
         container.style.backgroundImage = 'linear-gradient(' +
             '90deg,' +
             'transparent ' + (fontSize - 1) + 'px,' +
@@ -167,8 +168,8 @@ Polymer('polymer-visualization-timeline', {
         timeline.style.height = container.style.height;
         // the timeline width should be at max double the video width
         var timelineWidth =
-            that.width * 2 > that.duration * fontSize ?
-                that.duration * fontSize : that.width * 2;
+            that.width * 2 > that.duration * scalingFactor * fontSize ?
+                that.duration * scalingFactor * fontSize : that.width * 2;
         timeline.style.width = timelineWidth + 'px';
         timeline.style.overflowX = 'auto';
         timeline.style.overflowY = 'hidden';
@@ -178,7 +179,7 @@ Polymer('polymer-visualization-timeline', {
         settings.style.marginLeft = timeline.style.width;
       } else {
         container.style.width = that.width + 'px';
-        container.style.height = that.duration + 'em';
+        container.style.height = (that.duration * scalingFactor) + 'em';
         container.style.backgroundImage = 'linear-gradient(' +
             '0deg,' +
             'transparent ' + (fontSize - 1) + 'px,' +

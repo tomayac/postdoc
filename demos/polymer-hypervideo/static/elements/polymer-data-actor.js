@@ -7,7 +7,7 @@ Polymer('polymer-data-actor', {
     var that = this;
     var container = that.$.container;
     if (that.url && that.name) {
-      container.innerHTML = '<a href="' + that.url + '">' +
+      container.innerHTML = '<a target="_blank" href="' + that.url + '">' +
           that.name + '</a>';
     } else if (that.name) {
       container.innerHTML = that.name;
