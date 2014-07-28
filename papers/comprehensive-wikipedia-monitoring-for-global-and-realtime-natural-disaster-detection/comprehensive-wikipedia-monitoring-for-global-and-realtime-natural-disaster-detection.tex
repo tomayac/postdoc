@@ -274,7 +274,7 @@ We are steered by the following hypotheses.
     natural disasters, \emph{i.e.}, disasters unknown at system creation time.
 \end{itemize}
 
-\noindent These hypotheses lead us to the following research questions.
+\pagebreak \noindent These hypotheses lead us to the following research questions.
 
 \begin{itemize}
   \itemsep0em
@@ -431,7 +431,8 @@ on a~regular basis.
 The current version holds 141,001 different articles.
 
 \begin{figure}[hbt]
-  \includegraphics[trim=0mm 165mm 0mm 10mm,clip,width=\linewidth]{link-structure}
+  \centering
+  \includegraphics[trim=0mm 165mm 0mm 10mm,clip,width=0.875\linewidth]{link-structure}
   \caption{Extracted Wikipedia link structure starting from seed article ``Natural disaster''}
   \label{fig:link-structure}
 \end{figure}
@@ -489,9 +490,12 @@ following the format that (for GDACS) can be seen in \autoref{listing:cap}.
 \subsection{Implementation Details}
 
 We have created a~publicly available prototypal demo application
-available at \url{http://disaster-monitor.herokuapp.com/}
-that internally connects to the SSE API from~\cite{steiner2014bots}
-located at \url{http://wikipedia-edits.herokuapp.com/sse}.
+deployed%
+\footnote{Source code:
+\url{https://github.com/tomayac/postdoc/tree/master/demos/disaster-monitor}}
+at \url{http://disaster-monitor.herokuapp.com/}
+that internally connects to the SSE API from~\cite{steiner2014bots}.
+%located at \url{http://wikipedia-edits.herokuapp.com/sse}.
 It is implemented in Node.js on the server,
 and as a~JavaScript Web application on the client.
 This application uses an hourly refreshed version of the ``monitoring list''
@@ -503,7 +507,8 @@ edit history of the past 24 hours,
 the current edit event shows spiking behavior,
 as outlined in \autoref{sec:monitoring-process}.
 The core source code snippet of the main monitoring loop
-can be seen in \autoref{listing:monitoring}.
+can be seen in \autoref{listing:monitoring},
+a~screenshot of the application is shown in \autoref{fig:screenshot}.
 
 \begin{lstlisting}[caption={Main monitoring loop of the natural disaster monitor},
   label=listing:monitoring, language=JavaScript,
@@ -572,7 +577,7 @@ init();
   \caption{Screenshot of the mobile-friendly ``Natural Disaster Monitor'' application
     prototype available at \url{http://disaster-monitor.herokuapp.com/}
     showing detected natural disaster types connected with the (currently non-spiking) article ``Japan''}
-  \label{fig:link-structure}
+  \label{fig:screenshot}
 \end{figure}
  
 
