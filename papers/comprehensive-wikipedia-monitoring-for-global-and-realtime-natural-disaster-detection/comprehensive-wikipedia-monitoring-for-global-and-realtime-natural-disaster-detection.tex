@@ -568,7 +568,7 @@ init();
 
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=0.4\linewidth]{natural-disaster-monitor}
+  \includegraphics[width=0.365\linewidth]{natural-disaster-monitor}
   \caption{Screenshot of the mobile-friendly ``Natural Disaster Monitor'' application
     prototype available at \url{http://disaster-monitor.herokuapp.com/}
     showing detected natural disaster types connected with the (currently non-spiking) article ``Japan''}
@@ -585,13 +585,11 @@ compared to authoritative sources mentioned above?} and
 $\mathbb{Q}2$ \emph{Does the disambiguated nature of Wikipedia
 surpass keyword-based natural disaster detection approaches,
 \emph{e.g.}, via online social networks or search logs?}
-
 Regarding $\mathbb{Q}1$, only a~manual comparison
 covering several months worth
 of natural disaster data of the relevant authoritative data sources
 mentioned in \autoref{sec:natural-disaster-detection}
 with the output of our system can help respond to the question.
-
 Regarding $\mathbb{Q}2$, we propose an evaluation strategy
 for the OSN site Twitter,
 loosely inspired by the approach of Sakaki \emph{et~al.}\
@@ -601,7 +599,7 @@ through its streaming APIs,%
 \footnote{Twitter streaming APIs:
 \url{https://dev.twitter.com/docs/streaming-apis/streams/public}}
 which would be considerably harder, if not impossible, with other OSNs or search logs
-due to privacy considerations and API limitations.
+due to privacy concerns and API limitations.
 Based on the articles in the ``monitoring list'',
 we put forward using article titles as search terms,
 but without disambiguation hints in parentheses,
@@ -616,10 +614,10 @@ as the filtered stream%
 \url{https://dev.twitter.com/docs/api/1.1/post/statuses/filter}}
 is too limited regarding the number of supported search terms.
 In order to avoid ambiguity issues with the
-international multi-language Twitter sample stream,
+international multi-language tweet stream,
 we recommend matching search terms only
-if the Twitter-detected tweet language is the same
-as the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
+if the Twitter-detected tweet language equals
+the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
 
 
 \section{Conclusions and Future Work}
@@ -642,7 +640,14 @@ We will focus on the evaluation of the system's usefulness, accuracy,
 and timeliness in comparison to other keyword-based approaches.
 An interesting aspect of our work is that the monitoring system
 is not limited to natural disasters.
-
+Using an analog approach, we can monitor for human-made disasters
+(called ``Anthropogenic hazard'' on Wikipedia)
+like terrorism, war, power outages, air disasters, \emph{etc.}
+We have created an exemplary ``monitoring list'' and made it available.%
+\footnote{Anthropogenic hazard ``monitoring list'':
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/monitoring-list-anthropogenic-hazard.json}}
+Concluding, we are excited about this research
+and look forward to putting the final system into operational practice.
 
 \bibliographystyle{abbrv}
 \bibliography{references}

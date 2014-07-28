@@ -1,0 +1,6 @@
+{
+  "node": true,
+  "loopfunc": true,
+  "expr": true,
+  "shadow": true
+}

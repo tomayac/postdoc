@@ -1,0 +1,9 @@
+.map {
+  height: 200;
+  width: auto;
+  float: left;
+}
+
+ul {
+  clear: both;
+}
