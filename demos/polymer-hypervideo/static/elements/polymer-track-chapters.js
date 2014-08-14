@@ -12,6 +12,7 @@ Polymer('polymer-track-chapters', {
     var cuesRead = false;
     that.displaychaptersthumbnails = true;
 
+    console.log('Fired event: trackready');
     that.fire(
       'trackready',
       {
@@ -21,6 +22,7 @@ Polymer('polymer-track-chapters', {
     );
 
     document.addEventListener('hypervideoloadedmetadata', function() {
+      console.log('Received event (document): hypervideoloadedmetadata');
       hyperVideoLoadedMetadata = true;
       if ((that.displaychaptersthumbnails) &&
           (hyperVideoLoadedMetadata) &&
@@ -30,6 +32,7 @@ Polymer('polymer-track-chapters', {
     });
 
     document.addEventListener('cuesread', function(e) {
+      console.log('Received event (document): cuesread');
       cuesRead = true;
       var data = e.detail;
       if (data.kind !== 'chapters') {
@@ -44,6 +47,7 @@ Polymer('polymer-track-chapters', {
     });
 
     var displayChaptersThumbnails = function(cues) {
+      console.log('Fired event: requeststillframes');
       that.fire(
         'requeststillframes',
         {
@@ -53,6 +57,7 @@ Polymer('polymer-track-chapters', {
     };
 
     document.addEventListener('receivestillframe', function(e) {
+      console.log('Received event (document): receivestillframe');
       var data = e.detail;
       var img = data.img;
       var text = data.text;
@@ -72,6 +77,7 @@ Polymer('polymer-track-chapters', {
     });
 
     container.addEventListener('click', function(e) {
+      console.log('Received event (container): click');
       var current = e.target;
       if (current === container) {
         return;
@@ -79,6 +85,7 @@ Polymer('polymer-track-chapters', {
       while (current.nodeName !== 'LI') {
         current = current.parentNode;
       }
+      // console.log('Fired event: currenttimeupdate');
       that.fire(
         'currenttimeupdate',
         {
@@ -88,6 +95,7 @@ Polymer('polymer-track-chapters', {
     });
 
     document.addEventListener('hypervideotimeupdate', function(e) {
+      // console.log('Received event (document): hypervideotimeupdate');
       var currentTime = e.detail.currentTime;
       for (var i = 0, lenI = cuesElements.length; i < lenI; i++) {
         var cue = cuesElements[i];

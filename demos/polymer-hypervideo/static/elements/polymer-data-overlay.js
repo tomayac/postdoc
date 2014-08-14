@@ -8,6 +8,7 @@ Polymer('polymer-data-overlay', {
 
     // @todo: this should be handled by the parent
     document.addEventListener('hypervideotimeupdate', function(e) {
+      // console.log('Received event (document): hypervideotimeupdate');
       that.currentTime = e.detail.currentTime;
       if ((that.start <= that.currentTime) &&
           (that.currentTime < that.end)) {

@@ -7,6 +7,7 @@ Polymer('polymer-data-annotation', {
     var that = this;
 
     document.addEventListener('hypervideotimeupdate', function(e) {
+      // console.log('Received event (document): hypervideotimeupdate');
       that.currentTime = e.detail.currentTime;
       if ((that.start <= that.currentTime) &&
           (that.currentTime < that.end)) {

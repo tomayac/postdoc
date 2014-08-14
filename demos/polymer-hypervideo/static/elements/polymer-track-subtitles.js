@@ -8,6 +8,7 @@ Polymer('polymer-track-subtitles', {
     var container = that.$.container;
     var cuesElements = [];
 
+    console.log('Fired event: trackready');
     that.fire(
       'trackready',
       {
@@ -17,6 +18,7 @@ Polymer('polymer-track-subtitles', {
     );
 
     document.addEventListener('cuesread', function(e) {
+      console.log('Received event (document): cuesread');
       var data = e.detail;
       if (that.displaysubtitlesgroup && data.kind === 'subtitles') {
         displaySubtitlesGroup(data.cueData);
@@ -37,6 +39,7 @@ Polymer('polymer-track-subtitles', {
     };
 
     container.addEventListener('click', function(e) {
+      console.log('Received event (container): click');
       var current = e.target;
       if (current === container) {
         return;
@@ -44,6 +47,7 @@ Polymer('polymer-track-subtitles', {
       while (current.nodeName !== 'SPAN') {
         current = current.parentNode;
       }
+      // console.log('Fired event: currenttimeupdate');      
       that.fire(
         'currenttimeupdate',
         {
@@ -53,6 +57,7 @@ Polymer('polymer-track-subtitles', {
     }, false);
 
     document.addEventListener('hypervideotimeupdate', function(e) {
+      // console.log('Received event (document): hypervideotimeupdate');
       var currentTime = e.detail.currentTime;
       for (var i = 0, lenI = cuesElements.length; i < lenI; i++) {
         var cue = cuesElements[i];

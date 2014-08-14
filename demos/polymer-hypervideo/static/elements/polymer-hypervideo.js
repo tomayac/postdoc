@@ -17,6 +17,128 @@ Polymer('polymer-hypervideo', {
     var video = that.$.hypervideo;
     var CORS_PROXY = document.location.href + 'cors/';
 
+    document.addEventListener('webcomponentstocready', function() {
+      console.log('Received event (document): webcomponentstocready');
+      // get all child <polymer-*> child nodes
+      var webComponents = queryRegExSelectorAll(that, /^polymer-/gi);
+      console.log('Fired event: webcomponentstoc');
+      that.fire(
+        'webcomponentstoc',
+        {
+          webComponentsToC: webComponents
+        }
+      );
+    }, false);
+
+    document.addEventListener('timelineready', function() {
+      console.log('Received event (document): timelineready');
+      // get all child <polymer-data-*> child nodes
+      var dataAnnotations = queryRegExSelectorAll(that, /^polymer-data-/gi);
+      var annotations = [];
+      dataAnnotations.forEach(function(annotation) {
+        var type;
+        if (/actor/gi.test(annotation.nodeName)) {
+          type = 'actors';
+        } else if (/overlay/gi.test(annotation.nodeName)) {
+          type = 'overlays';
+        } else {
+          type = 'annotations';
+        }
+        annotations.push({
+          start: parseInt(annotation.getAttribute('start'), 10),
+          end: parseInt(annotation.getAttribute('end'), 10),
+          type: type
+        });
+      });
+      console.log('Fired event: dataannotations');
+      that.fire(
+        'dataannotations',
+        {
+          dataAnnotations: annotations
+        }
+      );
+    }, false);
+
+    // listen for events coming from the timeline component
+    document.addEventListener('currenttimeupdate', function(e) {
+      // console.log('Received event (document): currenttimeupdate');
+      var data = e.detail;
+      video.currentTime = data.currentTime;
+      video.play();
+    }, false);
+
+    document.addEventListener('requeststillframes', function(e) {
+      console.log('Received event (document): requeststillframes');
+      var cues = e.detail.cues;
+      var functions = [];
+      cues.forEach(function(cue) {
+        var start = cue.start;
+        if (start > video.duration) {
+          return;
+        }
+        functions.push({
+          cue: cue,
+          func: function() {
+            video.currentTime = start;
+          }
+        });
+      });
+      var getNextStillFrame = function() {
+        that.ctx.drawImage(video, 0, 0, video.clientWidth,
+            video.clientHeight);
+        var img = document.createElement('img');
+        img.setAttribute('class', 'hypervideo');
+        var url = that.canvas.toDataURL();
+        img.src = url;
+        var cue = functions[processedStillFrames].cue;
+        console.log('Fired event: receivestillframe');
+        that.fire(
+          'receivestillframe',
+          {
+            img: img,
+            text: cue.text,
+            start: cue.start,
+            end: cue.end
+          }
+        );
+        processedStillFrames++;
+        if (functions[processedStillFrames]) {
+          functions[processedStillFrames].func();
+        } else {
+          video.removeEventListener('seeked', getNextStillFrame);
+          spinner.remove();
+        }
+      };
+      var processedStillFrames = 0;
+      video.addEventListener('seeked', getNextStillFrame);
+      console.log('Received event (video): seeked');
+      functions[processedStillFrames].func();
+    });
+
+    document.addEventListener('trackready', function(e) {
+      console.log('Received event (document): trackready');
+      var data = e.detail;
+      var track = document.createElement('track');
+      track.addEventListener('load', function(e) {
+        console.log('Received event (track): load');
+        return readCues(e.target.track.cues, data.kind);
+      }, false);
+      track.default = true;
+      track.src = data.src;
+      track.kind = data.kind;
+      if (track.kind === 'subtitles' || track.kind === 'captions') {
+        track.srclang = 'en';
+      } else if (track.kind === 'chapters') {
+        var canvas = document.createElement('canvas');
+        canvas.width = video.width;
+        canvas.height = video.height;
+        var ctx = canvas.getContext('2d');
+        that.ctx = ctx;
+        that.canvas = canvas;
+      }
+      video.appendChild(track);
+    }, false);
+
     var initializeVideo = function() {
       // either add sources for regular video
       if (that.src) {
@@ -92,34 +214,6 @@ Polymer('polymer-hypervideo', {
       });
     };
 
-    (function() {
-      initializeVideo();
-      spinner = showSpinner();
-      positionDataAnnotations();
-    })();
-
-    document.addEventListener('trackready', function(e) {
-      var data = e.detail;
-      var track = document.createElement('track');
-      track.default = true;
-      track.src = data.src;
-      track.kind = data.kind;
-      if (track.kind === 'subtitles' || track.kind === 'captions') {
-        track.srclang = 'en';
-      } else if (track.kind === 'chapters') {
-        var canvas = document.createElement('canvas');
-        canvas.width = video.width;
-        canvas.height = video.height;
-        var ctx = canvas.getContext('2d');
-        that.ctx = ctx;
-        that.canvas = canvas;
-      }
-      track.addEventListener('load', function(e) {
-        return readCues(e.target.track.cues, data.kind);
-      });
-      video.appendChild(track);
-    }, false);
-
     var readCues = function(cues, kind) {
       var cueData = [];
       for (var i = 0, lenI = cues.length; i < lenI; i++) {
@@ -132,6 +226,7 @@ Polymer('polymer-hypervideo', {
           type: kind
         });
       }
+      console.log('Fired event: cuesread');
       that.fire(
         'cuesread',
         {
@@ -141,98 +236,8 @@ Polymer('polymer-hypervideo', {
       );
     };
 
-    document.addEventListener('webcomponentstocready', function() {
-      // get all child <polymer-*> child nodes
-      var webComponents = queryRegExSelectorAll(that, /^polymer-/gi);
-      that.fire(
-        'webcomponentstoc',
-        {
-          webComponentsToC: webComponents
-        }
-      );
-    }, false);
-
-    document.addEventListener('timelineready', function() {
-      // get all child <polymer-data-*> child nodes
-      var dataAnnotations = queryRegExSelectorAll(that, /^polymer-data-/gi);
-      var annotations = [];
-      dataAnnotations.forEach(function(annotation) {
-        var type;
-        if (/actor/gi.test(annotation.nodeName)) {
-          type = 'actors';
-        } else if (/overlay/gi.test(annotation.nodeName)) {
-          type = 'overlays';
-        } else {
-          type = 'annotations';
-        }
-        annotations.push({
-          start: parseInt(annotation.getAttribute('start'), 10),
-          end: parseInt(annotation.getAttribute('end'), 10),
-          type: type
-        });
-      });
-      that.fire(
-        'dataannotations',
-        {
-          dataAnnotations: annotations
-        }
-      );
-    }, false);
-
-
-    // listen for events coming from the timeline component
-    document.addEventListener('currenttimeupdate', function(e) {
-      var data = e.detail;
-      video.currentTime = data.currentTime;
-      video.play();
-    }, false);
-
-    document.addEventListener('requeststillframes', function(e) {
-      var cues = e.detail.cues;
-      var functions = [];
-      cues.forEach(function(cue) {
-        var start = cue.start;
-        if (start > video.duration) {
-          return;
-        }
-        functions.push({
-          cue: cue,
-          func: function() {
-            video.currentTime = start;
-          }
-        });
-      });
-      var getNextStillFrame = function() {
-        that.ctx.drawImage(video, 0, 0, video.clientWidth,
-            video.clientHeight);
-        var img = document.createElement('img');
-        img.setAttribute('class', 'hypervideo');
-        var url = that.canvas.toDataURL();
-        img.src = url;
-        var cue = functions[processedStillFrames].cue;
-        that.fire(
-          'receivestillframe',
-          {
-            img: img,
-            text: cue.text,
-            start: cue.start,
-            end: cue.end
-          }
-        );
-        processedStillFrames++;
-        if (functions[processedStillFrames]) {
-          functions[processedStillFrames].func();
-        } else {
-          video.removeEventListener('seeked', getNextStillFrame);
-          spinner.remove();
-        }
-      };
-      var processedStillFrames = 0;
-      video.addEventListener('seeked', getNextStillFrame);
-      functions[processedStillFrames].func();
-    });
-
     video.addEventListener('loadedmetadata', function() {
+      console.log('Received event (video): loadedmetadata');
       that.duration = video.duration;
       // adjust the timeline dimensions according to the video duration
       var polymerTimelines = that.querySelectorAll('polymer-timeline');
@@ -241,6 +246,7 @@ Polymer('polymer-hypervideo', {
             (0.05 * that.width)) + 'px';
       }
       var polymerData = queryRegExSelector(that, /^polymer-data-/gi);
+      console.log('Fired event: hypervideoloadedmetadata');
       that.fire(
         'hypervideoloadedmetadata',
         {
@@ -257,7 +263,9 @@ Polymer('polymer-hypervideo', {
 
     // publish timeupdate events
     video.addEventListener('timeupdate', function() {
+      // console.log('Received event (video): timeupdate');
       that.currentTime = video.currentTime;
+      // console.log('Fired event: hypervideotimeupdate');
       that.fire(
         'hypervideotimeupdate',
         {
@@ -265,5 +273,12 @@ Polymer('polymer-hypervideo', {
         }
       );
     }, false);
+
+    (function() {
+      initializeVideo();
+      spinner = showSpinner();
+      positionDataAnnotations();
+    })();
+
   }
 });

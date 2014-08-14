@@ -24,6 +24,7 @@ Polymer('polymer-visualization-timeline', {
     var annotationsElements = [];
 
     zoom.addEventListener('input', function() {
+      console.log('Received event (zoom): input');
       container.style.fontSize = this.value + 'px';
     });
 
@@ -43,6 +44,7 @@ Polymer('polymer-visualization-timeline', {
         y: timeMarker.style.marginTop
       };
       container.addEventListener('mouseenter', function() {
+        console.log('Received event (container): mouseenter');
         currentTimeMarkerPosition = {
           x: timeMarker.style.marginLeft,
           y: timeMarker.style.marginTop
@@ -50,6 +52,7 @@ Polymer('polymer-visualization-timeline', {
       });
 
       document.addEventListener('hypervideotimeupdate', function(e) {
+        // console.log('Received event (document): hypervideotimeupdate');
         var currentTime = e.detail.currentTime;
 
         if (that.orientation === 'landscape') {
@@ -68,11 +71,13 @@ Polymer('polymer-visualization-timeline', {
       });
 
       container.addEventListener('mouseleave', function() {
+        console.log('Received event (container): mouseleave');
         timeMarker.style.marginLeft = currentTimeMarkerPosition.x;
         timeMarker.style.marginTop = currentTimeMarkerPosition.y;
       });
 
       container.addEventListener('mousemove', function(e) {
+        console.log('Received event (container): mousemove');
         var current = e.target;
         while (current !== container) {
           current = current.parentNode;
@@ -97,6 +102,7 @@ Polymer('polymer-visualization-timeline', {
       });
 
       container.addEventListener('click', function(e) {
+        console.log('Received event (container): click');
         var current = e.target;
         if (current === container) {
           var fontSize = parseInt(getComputedStyle(container)
@@ -107,6 +113,7 @@ Polymer('polymer-visualization-timeline', {
           } else {
             currentTime = (e.offsetY - timeline.scrollTop) / fontSize;
           }
+          // console.log('Fired event: currenttimeupdate');          
           return that.fire(
             'currenttimeupdate',
             {
@@ -120,6 +127,7 @@ Polymer('polymer-visualization-timeline', {
                  (!current.classList.contains('chapters'))) {
             current = current.parentNode;
           }
+          // console.log('Fired event: currenttimeupdate');          
           that.fire(
             'currenttimeupdate',
             {
@@ -131,6 +139,7 @@ Polymer('polymer-visualization-timeline', {
     };
 
     settings.addEventListener('click', function(e) {
+      console.log('Received event (settings): click');
       var current = e.target;
       if (current.nodeName.toLowerCase() === 'label') {
         current = current.previousSibling;
@@ -145,6 +154,7 @@ Polymer('polymer-visualization-timeline', {
     });
 
     document.addEventListener('hypervideoloadedmetadata', function(e) {
+      console.log('Received event (document): hypervideoloadedmetadata');
       var data = e.detail;
       that.duration = data.duration;
       that.height = data.height;
@@ -198,6 +208,7 @@ Polymer('polymer-visualization-timeline', {
     });
 
     document.addEventListener('cuesread', function(e) {
+      console.log('Received event (document): cuesread');
       var data = e.detail;
       if (data.kind === 'chapters') {
         addAnnotations(data.cueData);
@@ -205,6 +216,7 @@ Polymer('polymer-visualization-timeline', {
     }, false);
 
     document.addEventListener('dataannotations', function(e) {
+      console.log('Received event (document): dataannotations');
       if (eventsReceived.dataannotations) {
         return;
       }
@@ -282,6 +294,7 @@ Polymer('polymer-visualization-timeline', {
       });
     };
 
+    console.log('Fired event: timelineready');
     that.fire('timelineready');
     addTimeMarker();
   }

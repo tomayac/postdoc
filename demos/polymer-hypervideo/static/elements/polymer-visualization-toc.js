@@ -9,6 +9,7 @@ Polymer('polymer-visualization-toc', {
     var container = that.$.container;
     // listen for events
     document.addEventListener('webcomponentstoc', function(e) {
+      console.log('Received event (document): webcomponentstoc');
       var fragment = document.createDocumentFragment();
       var ol = document.createElement('ol');
       fragment.appendChild(ol);
@@ -29,6 +30,7 @@ Polymer('polymer-visualization-toc', {
         ol.appendChild(li);
       });
       container.appendChild(fragment);
+      console.log('Fired event: webcomponentsparsed');      
       that.fire(
         'webcomponentsparsed',
         {
@@ -38,6 +40,7 @@ Polymer('polymer-visualization-toc', {
     });
 
     container.addEventListener('click', function(e) {
+      console.log('Received event (container): click');
       var current = e.target;
       if (current === container) {
         return;
@@ -48,6 +51,7 @@ Polymer('polymer-visualization-toc', {
           return;
         }
       }
+      // console.log('Fired event: currenttimeupdate');      
       that.fire(
         'currenttimeupdate',
         {
@@ -57,6 +61,7 @@ Polymer('polymer-visualization-toc', {
     }, false);
 
     document.addEventListener('hypervideotimeupdate', function(e) {
+      // console.log('Received event (document): hypervideotimeupdate');
       var currentTime = e.detail.currentTime;
       for (var i = 0, lenI = cuesElements.length; i < lenI; i++) {
         var cue = cuesElements[i];
@@ -71,6 +76,7 @@ Polymer('polymer-visualization-toc', {
     }, false);
 
     // notify listeners about your existance
+    console.log('Fired event: webcomponentstocready');    
     that.fire('webcomponentstocready');
   }
 });

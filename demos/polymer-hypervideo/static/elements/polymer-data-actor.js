@@ -16,6 +16,7 @@ Polymer('polymer-data-actor', {
     }
 
     document.addEventListener('hypervideoloadedmetadata', function(e) {
+      console.log('Received event (document): hypervideoloadedmetadata');
       var data = e.detail;
       if (that.xywh && /\d+,\d+,\d+,\d+/.test(that.xywh)) {
         var components = that.xywh.split(',');
@@ -33,6 +34,7 @@ Polymer('polymer-data-actor', {
 
     // @todo: this should be handled by the parent
     document.addEventListener('hypervideotimeupdate', function(e) {
+      // console.log('Received event (document): hypervideotimeupdate');
       that.currentTime = e.detail.currentTime;
       if ((that.start <= that.currentTime) &&
           (that.currentTime < that.end)) {
