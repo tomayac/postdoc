@@ -11,7 +11,7 @@ var url = require('url');
 // and set default route to index.html
 app.use(express.static(__dirname + '/static'));
 app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/index.html');
+  res.redirect(301, 'polymer-hypervideo/');
 });
 
 app.get(/^\/cors\/(.+)$/, function(req, res) {
