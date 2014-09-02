@@ -4,9 +4,7 @@
 Polymer('polymer-hypervideo', {
   publish: {
     currentTime: 0,
-    duration: 0,
-    height: 0,
-    width: 0,
+    duration: null,
     actorsOffset: {}
   },
   created: function() {
@@ -167,8 +165,18 @@ Polymer('polymer-hypervideo', {
         });
       }
       // determine video dimensions
-      video.height = that.height || video.offsetHeight;
-      video.width = that.width || video.offsetWidth;
+      if (that.width) {
+        that.width = parseInt(that.width, 10);
+      } else {
+        that.width = 400;
+      }
+      if (that.width) {
+        that.height = parseInt(that.height, 10);
+      } else {
+        that.height = 225;
+      }
+      video.height = that.height;
+      video.width = that.width;
       // add poster
       if (that.poster) {
         video.poster = that.poster;

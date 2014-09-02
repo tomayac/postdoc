@@ -12,6 +12,15 @@ Polymer('polymer-track-chapters', {
     var cuesRead = false;
     that.displaychaptersthumbnails = true;
 
+    if (that.width) {
+      container.style.width = that.width + 'px';
+    } else {
+      container.style.width = '50%';
+    }
+    if (that.height) {
+      container.style.height = that.height + 'px';
+    }
+
     console.log('Fired event: trackready');
     that.fire(
       'trackready',

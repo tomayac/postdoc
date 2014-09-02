@@ -7,6 +7,14 @@ Polymer('polymer-visualization-toc', {
     var that = this;
     var cuesElements = [];
     var container = that.$.container;
+    if (that.width) {
+      container.style.width = that.width + 'px';
+    } else {
+      container.style.width = '50%';
+    }
+    if (that.height) {
+      container.style.height = that.height + 'px';
+    }
     // listen for events
     document.addEventListener('webcomponentstoc', function(e) {
       console.log('Received event (document): webcomponentstoc');
@@ -30,7 +38,7 @@ Polymer('polymer-visualization-toc', {
         ol.appendChild(li);
       });
       container.appendChild(fragment);
-      console.log('Fired event: webcomponentsparsed');      
+      console.log('Fired event: webcomponentsparsed');
       that.fire(
         'webcomponentsparsed',
         {
@@ -51,7 +59,7 @@ Polymer('polymer-visualization-toc', {
           return;
         }
       }
-      // console.log('Fired event: currenttimeupdate');      
+      // console.log('Fired event: currenttimeupdate');
       that.fire(
         'currenttimeupdate',
         {
@@ -76,7 +84,7 @@ Polymer('polymer-visualization-toc', {
     }, false);
 
     // notify listeners about your existance
-    console.log('Fired event: webcomponentstocready');    
+    console.log('Fired event: webcomponentstocready');
     that.fire('webcomponentstocready');
   }
 });

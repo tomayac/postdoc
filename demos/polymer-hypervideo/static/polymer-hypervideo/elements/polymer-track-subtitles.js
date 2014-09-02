@@ -6,6 +6,14 @@ Polymer('polymer-track-subtitles', {
   ready: function() {
     var that = this;
     var container = that.$.container;
+    if (that.width) {
+      container.style.width = that.width + 'px';
+    } else {
+      container.style.width = '50%';
+    }
+    if (that.height) {
+      container.style.height = that.height + 'px';
+    }
     var cuesElements = [];
 
     console.log('Fired event: trackready');
@@ -47,7 +55,7 @@ Polymer('polymer-track-subtitles', {
       while (current.nodeName !== 'SPAN') {
         current = current.parentNode;
       }
-      // console.log('Fired event: currenttimeupdate');      
+      // console.log('Fired event: currenttimeupdate');
       that.fire(
         'currenttimeupdate',
         {
