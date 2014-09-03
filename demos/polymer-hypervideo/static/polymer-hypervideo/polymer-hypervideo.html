@@ -1,15 +1,21 @@
 <link rel="import" href="../polymer/polymer.html">
 <!--
-Element providing solution to no problem in particular.
+This element serves as a container element for various hypervideo-related sub-elements.
 
 ##### Example
 
-    <polymer-hypervideo></polymer-hypervideo>
+    <polymer-hypervideo
+        // Provide different encodings as space-separated list
+        src="big_buck_bunny.mp4 big_buck_bunny.webm"
+        width="800"
+        height="450"
+        muted>
+    </polymer-hypervideo>
 
 @element polymer-hypervideo
-@blurb Element providing solution to no problem in particular.
+@blurb This element serves as a container element for various hypervideo-related sub-elements.
 @status alpha
-@url github.io
+@url http://github.com/tomayac/postdoc/demos/polymer-hypervideo
 -->
 <polymer-element name="polymer-hypervideo" attributes="src width height poster muted youtubevideoid">
   <template>
