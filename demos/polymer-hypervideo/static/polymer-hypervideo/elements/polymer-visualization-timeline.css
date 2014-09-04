@@ -41,6 +41,12 @@
   background-color: black;
 }
 
+.playHead {
+  position: absolute;
+  border: solid red 1px;
+  background-color: red;
+}
+
 .marker {
   position: absolute;
   opacity: 0.5;

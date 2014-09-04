@@ -35,8 +35,9 @@ Polymer('polymer-visualization-timeline', {
       container.style.fontSize = this.value + 'px';
     });
 
-    var addTimeMarker = function() {
+    var addTimeMarkers = function() {
       var timeMarker = document.createElement('div');
+      timeMarker.style.display = 'none';
       timeMarker.classList.add('timeMarker');
       if (that.orientation === 'landscape') {
         timeMarker.style.width = '1px';
@@ -51,8 +52,20 @@ Polymer('polymer-visualization-timeline', {
         y: timeMarker.style.marginTop || '0em'
       };
 
+      var playHead = document.createElement('div');
+      playHead.classList.add('playHead');
+      if (that.orientation === 'landscape') {
+        playHead.style.width = '1px';
+        playHead.style.height = '100%';
+      } else {
+        playHead.style.width = '100%';
+        playHead.style.height = '1px';
+      }
+      container.appendChild(playHead);
+
       container.addEventListener('mouseenter', function() {
         console.log('Received event (container): mouseenter');
+        timeMarker.style.display = 'block';
         currentTimeMarkerPosition = {
           x: timeMarker.style.marginLeft || '0em',
           y: timeMarker.style.marginTop || '0em'
@@ -63,6 +76,7 @@ Polymer('polymer-visualization-timeline', {
 
       container.addEventListener('mouseleave', function() {
         console.log('Received event (container): mouseleave');
+        timeMarker.style.display = 'none';
         timeMarker.style.marginLeft = currentTimeMarkerPosition.x;
         timeMarker.style.marginTop = currentTimeMarkerPosition.y;
       }, false);
@@ -97,48 +111,44 @@ Polymer('polymer-visualization-timeline', {
       container.addEventListener('click', function(e) {
         console.log('Received event (container): click');
         var current = e.target;
-        if (current === container) {
-          fontSize = parseInt(getComputedStyle(container).fontSize
-              .replace('px', ''), 10);
-          var currentTime;
-          if (that.orientation === 'landscape') {
-            currentTime = (e.offsetX - timeline.scrollLeft) / fontSize;
-          } else {
-            currentTime = (e.offsetY - timeline.scrollTop) / fontSize;
-          }
-          // console.log('Fired event: currenttimeupdate');
-          return that.fire(
-            'currenttimeupdate',
-            {
-              currentTime: currentTime
-            }
-          );
-        } else {
-          while ((current.classList) &&
-                 (!current.classList.contains('annotations')) &&
-                 (!current.classList.contains('actors')) &&
-                 (!current.classList.contains('overlays')) &&
-                 (!current.classList.contains('chapters'))) {
-            current = current.parentNode;
-          }
-          // console.log('Fired event: currenttimeupdate');
-          that.fire(
-            'currenttimeupdate',
-            {
-              currentTime: current.dataset.start
-            }
-          );
+        var currentTime;
+        while ((current !== container) &&
+               (current.classList) &&
+               (!current.classList.contains('annotations')) &&
+               (!current.classList.contains('actors')) &&
+               (!current.classList.contains('overlays')) &&
+               (!current.classList.contains('chapters'))) {
+          current = current.parentNode;
         }
+        if (current.dataset && current.dataset.start) {
+          // navigate to the start time of the active annotation
+          currentTime = current.dataset.start;
+        } else {
+          // navigate to the exact position of the time marker
+          if (that.orientation === 'landscape') {
+            currentTime = timeMarker.style.marginLeft.replace('em', '');
+          } else {
+            currentTime = timeMarker.style.marginTop.replace('em', '');
+          }
+          currentTime /= scalingFactor;
+        }
+        // console.log('Fired event: currenttimeupdate');
+        return that.fire(
+          'currenttimeupdate',
+          {
+            currentTime: currentTime
+          }
+        );
       }, false);
 
       document.addEventListener('hypervideotimeupdate', function(e) {
         // console.log('Received event (document): hypervideotimeupdate');
-        var currentTime = e.detail.currentTime;
+        var currentTime = e.detail.currentTime * scalingFactor;
 
         if (that.orientation === 'landscape') {
-          timeMarker.style.marginLeft = currentTime + 'em';
+          playHead.style.marginLeft = currentTime + 'em';
         } else {
-          timeMarker.style.marginTop = currentTime + 'em';
+          playHead.style.marginTop = currentTime + 'em';
         }
         for (var i = 0, lenI = annotationsElements.length; i < lenI; i++) {
           if ((annotationsElements[i].dataset.start <= currentTime) &&
@@ -335,6 +345,6 @@ Polymer('polymer-visualization-timeline', {
 
     console.log('Fired event: timelineready');
     that.fire('timelineready');
-    addTimeMarker();
+    addTimeMarkers();
   }
 });
