@@ -263,8 +263,8 @@ Polymer('polymer-hypervideo', {
           height: that.height,
           width: that.width,
           actorsOffset: {
-            left: polymerData.style.left.replace('px', ''),
-            top: polymerData.style.top.replace('px', '')
+            left: polymerData ? polymerData.style.left.replace('px', '') : null,
+            top: polymerData ? polymerData.style.top.replace('px', '') : null
           }
         }
       );

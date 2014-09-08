@@ -14,6 +14,11 @@ app.get('/', function(req, res) {
   res.redirect(301, 'polymer-hypervideo/');
 });
 
+app.use(express.static(__dirname + '/spectacle-en-lignes'));
+app.get('/spectacle-en-lignes', function(req, res) {
+  res.sendfile(__dirname + '/spectacle-en-lignes/index.html');
+});
+
 app.get(/^\/cors\/(.+)$/, function(req, res) {
   var pathname = url.parse(req.url).pathname;
   var uri = decodeURIComponent(pathname.replace(/^\/cors\/(.+)$/, '$1'));

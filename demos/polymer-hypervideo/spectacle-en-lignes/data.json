@@ -1,4 +1,5 @@
-[ { video: 'http://spectacleenlignes.fr/data/theatre/lecture-a-la-table_4af0d0/720p.mp4',
+var VIDEO_DATA = [
+  { video: 'http://spectacleenlignes.fr/data/theatre/lecture-a-la-table_4af0d0/720p.mp4',
     json: 'http://spectacleenlignes.fr/plateforme/ldt/cljson/id/dbe14364-b8c0-11e3-b82e-005056ab0020' },
   { video: 'http://spectacleenlignes.fr/data/theatre/lecture-a-la-table-jour-2_94c2cf/720p.mp4',
     json: 'http://spectacleenlignes.fr/plateforme/ldt/cljson/id/d6f30018-b8c0-11e3-b82e-005056ab0020' },
