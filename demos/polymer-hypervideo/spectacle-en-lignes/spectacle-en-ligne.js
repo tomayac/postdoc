@@ -1,6 +1,6 @@
 // global config with the video URLs and the metadata JSONs
 var CORS_PROXY = document.location.origin + '/cors/';
-var video = CORS_PROXY + encodeURIComponent(VIDEO_DATA[0].video);
+var video = VIDEO_DATA[0].video; //CORS_PROXY + encodeURIComponent(VIDEO_DATA[0].video);
 var json = CORS_PROXY + encodeURIComponent(VIDEO_DATA[0].json);
 
 var createHypervideo = (function(video, json) {
@@ -21,14 +21,17 @@ var createHypervideo = (function(video, json) {
     hypervideo.appendChild(timeline);
 
     var chapters = document.createElement('polymer-track-chapters');
-    var vtt = video.split('/')[4].split('%2F')[5];
+    var vtt = video.split('/')[5];
     chapters.setAttribute('src', './vtt/' + vtt + '.vtt');
     chapters.setAttribute('displaychaptersthumbnails', true);
     chapters.setAttribute('width', 800);
     hypervideo.appendChild(chapters);
 
     var data = JSON.parse(this.responseText);
-    data.annotations.forEach(function(data) {
+    data.annotations.sort(function(a, b) {
+      // sort annotations by ascending start time
+      return a.begin - b.begin;
+    }).forEach(function(data) {
       var start = data.begin / 1000;
       var end = data.end / 1000;
       var description = data.content.description;
@@ -38,11 +41,6 @@ var createHypervideo = (function(video, json) {
       annotation.textContent = description;
       hypervideo.appendChild(annotation);
     });
-
-    var link = document.createElement('link');
-    link.setAttribute('rel', 'import');
-    link.setAttribute('href', './polymer-hypervideo/polymer-hypervideo.html');
-    document.body.appendChild(link);
 
     document.body.appendChild(fragment);
   };
