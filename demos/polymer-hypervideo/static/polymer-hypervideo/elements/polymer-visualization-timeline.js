@@ -308,14 +308,14 @@ Polymer('polymer-visualization-timeline', {
         if (that.orientation === 'landscape') {
           annotationMarker.style.marginLeft = (scalingFactor * start) + 'em';
           annotationMarker.style.width = (scalingFactor * (end - start)) + 'em';
-          annotationMarker.style.height = '1.1em';
+          annotationMarker.style.height = (fontSize * 1.1) + 'px'; // '1.1em';
           annotationMarker.style.marginTop = (level * 1.2) + 'em';
         } else {
           div.classList.add('rotated');
           annotationMarker.style.marginTop = (scalingFactor * start) + 'em';
           annotationMarker.style.height = (scalingFactor * (end - start)) +
               'em';
-          annotationMarker.style.width = '1.1em';
+          annotationMarker.style.width = (fontSize * 1.1) + 'px'; // '1.1em';
           annotationMarker.style.marginLeft = (level * 1.2) + 'em';
         }
         lastInserted = {
