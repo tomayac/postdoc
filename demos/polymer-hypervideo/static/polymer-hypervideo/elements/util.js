@@ -2,6 +2,43 @@
 
 /* jshint unused:false */
 var queryRegExSelectorAll = function(root, regEx) {
+  function walk(node) {
+    regEx.lastIndex = 0;
+    if (node.nodeType === Node.ELEMENT_NODE && regEx.test(node.nodeName)) {
+      nodes.push(node);
+    }
+    for (var child = node.firstChild; child; child = child.nextSibling) {
+      walk(child);
+    }
+  }
+
+  var nodes = [];
+  walk(root);
+  return nodes;
+};
+
+var queryRegExSelector = function(root, regEx) {
+  function walk(node) {
+    if (nodes.length) {
+      return;
+    }
+    regEx.lastIndex = 0;
+    if (node.nodeType === Node.ELEMENT_NODE && regEx.test(node.nodeName)) {
+      nodes.push(node);
+    }
+    for (var child = node.firstChild; child; child = child.nextSibling) {
+      walk(child);
+    }
+  }
+
+  var nodes = [];
+  walk(root);
+  return nodes[0] ? nodes[0] : null;
+};
+
+
+/*
+var queryRegExSelectorAll = function(root, regEx) {
   var treeWalker = document.createTreeWalker(
     root,
     NodeFilter.SHOW_ELEMENT,
@@ -40,6 +77,7 @@ var queryRegExSelector = function(root, regEx) {
     return null;
   }
 };
+*/
 
 var getYouTubeHtml5VideoUrl = function(videoId, callback) {
   var decodeQueryString = function(queryString) {
