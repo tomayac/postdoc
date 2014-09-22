@@ -202,7 +202,7 @@ Polymer('polymer-visualization-timeline', {
 
         timeline.style.overflowX = 'auto';
         timeline.style.overflowY = 'hidden';
-        timeline.style.float = 'left';
+        timeline.style.cssFloat = 'left';
         timeline.style.height = that.height ?
             that.height + 'px' : that.videoHeight + 'px';
         timeline.style.width = (that.duration * scalingFactor) + 'em';

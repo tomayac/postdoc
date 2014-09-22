@@ -68,6 +68,9 @@ Polymer('polymer-hypervideo', {
     document.addEventListener('requeststillframes', function(e) {
       console.log('Received event (document): requeststillframes');
       var cues = e.detail.cues;
+      if (!cues) {
+        return;
+      }
       var functions = [];
       cues.forEach(function(cue) {
         var start = cue.start;
@@ -123,6 +126,7 @@ Polymer('polymer-hypervideo', {
         return readCues(e.target.track.cues, data.kind);
       }, false);
       track.default = true;
+      track.track.mode = 'showing';
       track.src = data.src;
       track.kind = data.kind;
       if (track.kind === 'subtitles' || track.kind === 'captions') {
@@ -224,9 +228,12 @@ Polymer('polymer-hypervideo', {
     };
 
     var readCues = function(cues, kind) {
+      if (!cues) {
+        return;
+      }
       var cueData = [];
       for (var i = 0, lenI = cues.length; i < lenI; i++) {
-        var cue = cues.item(i);
+        var cue = cues.item ? cues.item(i) : cues[i];
         cueData.push({
           start: parseInt(cue.startTime, 10),
           end: parseInt(cue.endTime, 10),
