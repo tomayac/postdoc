@@ -27,3 +27,8 @@ h2 {
   margin: 5px;
   clear: both;
 }
+
+polymer-hypervideo::shadow video::cue(v) { color: orange; }
+polymer-hypervideo::shadow video::cue(v[voice="Brick"]) { color: blue; }
+polymer-hypervideo::shadow video::cue(v[voice="Margaret"]) { color: red; }
+polymer-hypervideo::shadow video::cue(v[voice="Grand Maman"]) { color: yellow; }

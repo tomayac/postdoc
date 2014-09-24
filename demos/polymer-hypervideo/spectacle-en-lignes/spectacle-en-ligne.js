@@ -11,14 +11,49 @@ var transcript = CORS_PROXY ?
 
 var createHypervideo = (function(video, json, transcript) {
 
-  var createPolymerElements = function(metadataJson, transcriptHtml) {
-    var start = transcriptHtml.indexOf('<body ');
-    var end = transcriptHtml.indexOf('</body>');
-    var temp = document.createElement('div');
-    temp.innerHTML = transcriptHtml.substring(start, end);
-    var paragraphs = temp.querySelectorAll('p[id]');
-    console.log(paragraphs);
+  var createTextTrack = function(transcriptHtml) {
 
+    var toHHMMSSmmm = function(duration) {
+      var milliseconds = parseInt((duration % 1000) / 100);
+      var seconds = parseInt((duration / 1000) %60);
+      var minutes = parseInt((duration / (1000 * 60)) % 60);
+      var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+      hours = hours < 10 ? '0' + hours : hours;
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+      milliseconds = milliseconds < 10 ? '00' + milliseconds :
+          milliseconds < 100 ? '0' + milliseconds : milliseconds;
+      return hours + ':' + minutes + ':' + seconds + '.' + milliseconds;
+    };
+
+    var temp = document.createElement('div');
+    temp.innerHTML =
+        transcriptHtml.replace(/^.*?<body\b.*?>(.*?)<\/body>.*?$/gi, '$1');
+    var paragraphs = temp.querySelectorAll('p[id]');
+    var textTrack = 'WEBVTT\n\n';
+    for (var i = 0, lenI = paragraphs.length; i < lenI; i++) {
+      var paragraph = paragraphs[i].textContent.replace(/\n/g, '').trim();
+      // Extract the line number
+      var line = paragraph.replace(/^(\d+-\d+).*?$/g, '$1');
+      // Extract the text and create voice spans
+      var text = paragraph.replace(/^(?:\d+-\d+)(.*?)$/g, '$1')
+          .replace(/^(\w+(?:\s\w+)?)(\s*:\s*)(.*?)$/g, function(m, v, c, t) {
+            return '<v ' + v.replace(/\b\w+/g, function(n) {
+              return n.charAt(0).toUpperCase() + n.substr(1).toLowerCase();
+            }) + '>' + t;
+          });
+
+      textTrack +=
+          line + ':\n' + // id
+          toHHMMSSmmm(i * 1000) + ' --> ' + // start
+          toHHMMSSmmm((i + 1) * 1000) + '\n' + // end
+          text + '\n\n'; // payload
+    }
+    var textTrackBlob = new Blob([textTrack], {type: 'text/plain'});
+    return URL.createObjectURL(textTrackBlob);
+  };
+
+  var createPolymerElements = function(metadataJson, transcriptHtml) {
     var fragment = document.createDocumentFragment();
     var hypervideo = document.createElement('polymer-hypervideo');
     hypervideo.setAttribute('src', video);
@@ -39,6 +74,13 @@ var createHypervideo = (function(video, json, transcript) {
     chapters.setAttribute('displaychaptersthumbnails', true);
     chapters.setAttribute('width', 800);
     hypervideo.appendChild(chapters);
+
+    var subtitles = document.createElement('polymer-track-subtitles');
+    var textTrackFile = createTextTrack(transcriptHtml);
+    subtitles.setAttribute('src', textTrackFile);
+    subtitles.setAttribute('displaysubtitlesgroup', true);
+    subtitles.setAttribute('width', 800);
+    hypervideo.appendChild(subtitles);
 
     metadataJson.annotations.sort(function(a, b) {
       // sort annotations by ascending start time

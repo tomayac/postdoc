@@ -39,9 +39,10 @@ Polymer('polymer-track-subtitles', {
         var span = document.createElement('span');
         span.dataset.start = cue.start;
         span.dataset.end = cue.end;
-        tempDiv.innerHTML = cue.text + ' ';
-        span.textContent = tempDiv.textContent;
+        tempDiv.innerHTML = cue.text;
+        span.innerHTML = tempDiv.textContent;
         container.appendChild(span);
+        container.appendChild(document.createElement('br'));
         cuesElements.push(span);
       });
     };

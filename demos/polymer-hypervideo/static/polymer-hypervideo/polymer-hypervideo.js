@@ -121,10 +121,24 @@ Polymer('polymer-hypervideo', {
       console.log('Received event (document): trackready');
       var data = e.detail;
       var track = document.createElement('track');
+      var cuesRead = false;
       track.addEventListener('load', function(e) {
-        console.log('Received event (track): load');
-        return readCues(e.target.track.cues, data.kind);
+        if (!cuesRead) {
+          console.log('Received event (track): load');
+          cuesRead = true;
+          return readCues(e.target.track.cues, data.kind);
+        }
       }, false);
+      var trackLoadedInterval = setInterval(function() {
+        if (track.readyState >= 2) {
+          clearInterval(trackLoadedInterval);
+          if (!cuesRead) {
+            console.log('Received event (track): readyState');
+            cuesRead = true;
+            return readCues(track.track.cues, data.kind);
+          }
+        }
+      }, 100);
       track.default = true;
       track.track.mode = 'showing';
       track.src = data.src;
@@ -174,13 +188,13 @@ Polymer('polymer-hypervideo', {
       } else {
         that.width = 400;
       }
-      if (that.width) {
+      video.width = that.width;
+      if (that.height) {
         that.height = parseInt(that.height, 10);
       } else {
         that.height = 225;
       }
       video.height = that.height;
-      video.width = that.width;
       // add poster
       if (that.poster) {
         video.poster = that.poster;
