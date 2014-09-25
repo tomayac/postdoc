@@ -5,6 +5,10 @@
           box-sizing: border-box;
 }
 
+.search {
+  margin: 1em auto;
+}
+
 .container {
   background-color: white;
   color: black;
@@ -16,11 +20,11 @@
           box-shadow: 5px 5px 5px #111;
 }
 
-.container > span {
+.cuesContainer > div {
   cursor: pointer;
 }
 
-.container > span:hover {
+.cuesContainer > div:hover {
   text-decoration: underline;
 }
 
