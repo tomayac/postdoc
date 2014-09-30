@@ -3,8 +3,7 @@ var CORS_PROXY = document.location.hostname === 'localhost' ?
     document.location.origin + '/cors/' : '';
 var video = VIDEO_DATA[4].video;
 var json = VIDEO_DATA[4].json;
-var transcriptUrl = 'http://spectacleenlignes.fr/plateforme/ctb';
-var transcript = transcriptUrl;
+var transcript = 'http://spectacleenlignes.fr/plateforme/ctb';
 
 var createHypervideo = (function(video, json, transcript) {
 
@@ -58,7 +57,7 @@ var createHypervideo = (function(video, json, transcript) {
     hypervideo.setAttribute('src', video + '.mp4 ' + video + '.mkv');
     hypervideo.setAttribute('width', 800);
     hypervideo.setAttribute('height', 450);
-    hypervideo.setAttribute('muted', true);
+    hypervideo.setAttribute('muted', false);
     fragment.appendChild(hypervideo);
 
     var tmpTrack = document.createElement('track');
@@ -83,6 +82,44 @@ var createHypervideo = (function(video, json, transcript) {
       subtitles.setAttribute('displaysubtitlesgroup', true);
       subtitles.setAttribute('width', 800);
       hypervideo.appendChild(subtitles);
+
+      var iframe = document.createElement('iframe');
+      iframe.style.width = '800px';
+      iframe.style.height = '300px';
+      iframe.addEventListener('load', function() {
+        var contentDocument = iframe.contentDocument;
+        var tmpDiv = contentDocument.createElement('div');
+        tmpDiv.innerHTML = transcriptHtml;
+        contentDocument.body.appendChild(tmpDiv);
+        // Highlight lines in the current video
+        var textLines = contentDocument.querySelectorAll('p[id]');
+        for (var i = 0, lenI = textLines.length; i < lenI; i++) {
+          var textLine = textLines[i];
+          if (lines[textLine.id]) {
+            textLine.style.backgroundColor = 'yellow';
+          }
+        }
+        // Highlight the currently active line
+        document.addEventListener('hypervideocuechange', function(e) {
+          console.log('Received event (document): hypervideocuechange');
+          var cues = e.detail.activeCues;
+          var textLines = contentDocument.querySelectorAll('p[id]');
+          for (var i = 0, lenI = textLines.length; i < lenI; i++) {
+            var textLine = textLines[i];
+            textLine.style.color = 'black';
+          }
+          for (var i = 0, lenI = cues.length; i < lenI; i++) {
+            var cue = cues[i];
+            if (/^\d+-\d+$/.test(cue.text)) {
+              var textLine =
+                  contentDocument.querySelector('p[id="' + cue.text + '"]');
+              iframe.contentWindow.scrollTo(0, textLine.offsetTop - 20);
+              textLine.style.color = 'red';
+            }
+          }
+        });
+      });
+      hypervideo.appendChild(iframe);
 
       var timeline = document.createElement('polymer-visualization-timeline');
       timeline.setAttribute('orientation', 'landscape');

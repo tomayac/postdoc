@@ -27,6 +27,15 @@ Polymer('polymer-hypervideo', {
           return readCues(e.target.track.cues, data.kind);
         }
       }, false);
+      track.addEventListener('cuechange', function() {
+        console.log('Fired event: hypervideocuechange');
+        that.fire(
+          'hypervideocuechange',
+          {
+            activeCues: track.track.activeCues
+          }
+        );
+      });
       var trackLoadedInterval = setInterval(function() {
         if (track.readyState >= 2) {
           clearInterval(trackLoadedInterval);
@@ -37,8 +46,8 @@ Polymer('polymer-hypervideo', {
           }
         }
       }, 100);
-      track.default = true;
       track.src = data.src;
+      track.default = true;
       track.kind = data.kind;
       if (track.kind === 'subtitles' || track.kind === 'captions') {
         track.srclang = 'en';
@@ -200,7 +209,7 @@ Polymer('polymer-hypervideo', {
         video.poster = that.poster;
       }
       // mute video
-      if (that.muted !== null) {
+      if (that.muted !== null && that.muted !== 'false') {
         video.muted = true;
       }
     };
