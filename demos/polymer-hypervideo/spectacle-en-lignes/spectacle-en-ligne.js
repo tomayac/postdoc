@@ -1,10 +1,8 @@
 // global config with the video URLs and the metadata JSONs
 var CORS_PROXY = document.location.hostname === 'localhost' ?
     document.location.origin + '/cors/' : '';
-var video = CORS_PROXY ?
-    CORS_PROXY + encodeURIComponent(VIDEO_DATA[0].video) : VIDEO_DATA[0].video;
-var json = CORS_PROXY ?
-    CORS_PROXY + encodeURIComponent(VIDEO_DATA[0].json) : VIDEO_DATA[0].json;
+var video = VIDEO_DATA[4].video;
+var json = VIDEO_DATA[4].json;
 var transcriptUrl = 'http://spectacleenlignes.fr/plateforme/ctb';
 var transcript = CORS_PROXY ?
     CORS_PROXY + encodeURIComponent(transcriptUrl) : transcriptUrl;
@@ -37,7 +35,8 @@ var createHypervideo = (function(video, json, transcript) {
       var line = paragraph.replace(/^(\d+-\d+).*?$/g, '$1');
       // Extract the text and create voice spans
       var text = paragraph.replace(/^(?:\d+-\d+)(.*?)$/g, '$1')
-          .replace(/^(\w+(?:\s\w+)?)(\s*:\s*)(.*?)$/g, function(m, v, c, t) {
+          .replace(/^(\w+(?:\s+\w+)?)(?:\s*\(.*?\))?(\s*:\s*)(.*?)$/g,
+          function(m, v, c, t) {
             return '<v ' + v.replace(/\b\w+/g, function(n) {
               return n.charAt(0).toUpperCase() + n.substr(1).toLowerCase();
             }) + '>' + t;
@@ -56,7 +55,7 @@ var createHypervideo = (function(video, json, transcript) {
   var createPolymerElements = function(metadataJson, transcriptHtml) {
     var fragment = document.createDocumentFragment();
     var hypervideo = document.createElement('polymer-hypervideo');
-    hypervideo.setAttribute('src', video);
+    hypervideo.setAttribute('src', video + '.mp4 ' + video + '.mkv');
     hypervideo.setAttribute('width', 800);
     hypervideo.setAttribute('height', 450);
     hypervideo.setAttribute('muted', true);
@@ -69,8 +68,7 @@ var createHypervideo = (function(video, json, transcript) {
     hypervideo.appendChild(timeline);
 
     var chapters = document.createElement('polymer-track-chapters');
-    var vtt = video.split('/')[5];
-    chapters.setAttribute('src', './vtt/' + vtt + '.vtt');
+    chapters.setAttribute('src', video + '.vtt');
     chapters.setAttribute('displaychaptersthumbnails', true);
     chapters.setAttribute('width', 800);
     hypervideo.appendChild(chapters);

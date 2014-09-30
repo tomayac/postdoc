@@ -140,11 +140,11 @@ Polymer('polymer-hypervideo', {
         }
       }, 100);
       track.default = true;
-      track.track.mode = 'showing';
       track.src = data.src;
       track.kind = data.kind;
       if (track.kind === 'subtitles' || track.kind === 'captions') {
         track.srclang = 'en';
+        track.track.mode = 'showing';
       } else if (track.kind === 'chapters') {
         var canvas = document.createElement('canvas');
         canvas.width = video.width;

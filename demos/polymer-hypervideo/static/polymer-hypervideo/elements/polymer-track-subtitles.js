@@ -71,7 +71,9 @@ Polymer('polymer-track-subtitles', {
         div.dataset.start = cue.start;
         div.dataset.end = cue.end;
         tempDiv.innerHTML = cue.text;
-        div.innerHTML = tempDiv.textContent;
+        var speaker = cue.text.replace(/^<v\s+(\w+(?:\s+\w+)?)>.*?$/g,
+            '<strong>$1:</strong> ');
+        div.innerHTML = speaker + tempDiv.textContent;
         cuesContainer.appendChild(div);
         cuesElements.push(div);
       });

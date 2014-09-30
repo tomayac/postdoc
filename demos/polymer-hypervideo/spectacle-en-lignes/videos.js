@@ -1,79 +1,66 @@
-var URL = require('url');
+var VIDEO_DATA = (function() {
+  var urls = [
+    'http://spectacleenlignes.fr/data/demonstrateur/bout-a-bout-avec-les-enfants_a4c293_SON_SATURE/bout-a-bout-avec-les-enfants_a4c293_SON_SATURE_a1',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a11',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a14',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a16',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a1',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a21',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a25',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a28',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a32',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a35',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a37',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a4',
+    'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a7',
+    'http://spectacleenlignes.fr/data/demonstrateur/filage-de-la-piece-jour-39-deuxieme-partie_eab942_SON_GRESILLE/filage-de-la-piece-jour-39-deuxieme-partie_eab942_SON_GRESILLE_a57',
+    'http://spectacleenlignes.fr/data/demonstrateur/filage-de-la-piece-jour-39-deuxieme-partie_eab942_SON_GRESILLE/filage-de-la-piece-jour-39-deuxieme-partie_eab942_SON_GRESILLE_a61',
+    'http://spectacleenlignes.fr/data/demonstrateur/filage-technique-jour-40-deuxieme-partie_58b2a6_SON_GRESILLE/filage-technique-jour-40-deuxieme-partie_58b2a6_SON_GRESILLE_a1',
+    'http://spectacleenlignes.fr/data/demonstrateur/lecture-a-la-table_4af0d0/lecture-a-la-table_4af0d0_a10',
+    'http://spectacleenlignes.fr/data/demonstrateur/lecture-a-la-table_4af0d0/lecture-a-la-table_4af0d0_a19',
+    'http://spectacleenlignes.fr/data/demonstrateur/lecture-a-la-table_4af0d0/lecture-a-la-table_4af0d0_a24',
+    'http://spectacleenlignes.fr/data/demonstrateur/lecture-a-la-table-jour-2_94c2cf/lecture-a-la-table-jour-2_94c2cf_a27',
+    'http://spectacleenlignes.fr/data/demonstrateur/lecture-a-la-table-jour-2_94c2cf/lecture-a-la-table-jour-2_94c2cf_a33',
+    'http://spectacleenlignes.fr/data/demonstrateur/premier-bout-a-bout-de-la-piece-jour-23_73654f/premier-bout-a-bout-de-la-piece-jour-23_73654f_a1',
+    'http://spectacleenlignes.fr/data/demonstrateur/premiers-pas-sur-le-plateau-jour-4_62598a/premiers-pas-sur-le-plateau-jour-4_62598a_a38',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-1-jour-15_b822f8/travail-sur-lacte-1-jour-15_b822f8_a10',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-1-jour-15_b822f8/travail-sur-lacte-1-jour-15_b822f8_a12',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-1-jour-15_b822f8/travail-sur-lacte-1-jour-15_b822f8_a16',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-1-jour-15_b822f8/travail-sur-lacte-1-jour-15_b822f8_a17',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-1-jour-15_b822f8/travail-sur-lacte-1-jour-15_b822f8_a1',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-1-jour-15_b822f8/travail-sur-lacte-1-jour-15_b822f8_a6',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-1-jour-17-deuxieme-partie_7ccb06/travail-sur-lacte-1-jour-17-deuxieme-partie_7ccb06_a4',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-2-et-lacte-1-suivi-dun-filage-de-la-piece-jour-29_f3c0e9/travail-sur-lacte-2-et-lacte-1-suivi-dun-filage-de-la-piece-jour-29_f3c0e9_a18',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-2-jour-18_5e9fe9/travail-sur-lacte-2-jour-18_5e9fe9_a105',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-2-jour-18_5e9fe9/travail-sur-lacte-2-jour-18_5e9fe9_a110',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-2-jour-18_5e9fe9/travail-sur-lacte-2-jour-18_5e9fe9_a113',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-2-jour-18_5e9fe9/travail-sur-lacte-2-jour-18_5e9fe9_s_3E817D84-90C7-09C2-3C17-A922937DE6BE',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-2-jour-18_5e9fe9/travail-sur-lacte-2-jour-18_5e9fe9_s_80886BED-10D3-EED5-01E3-A9253A6C0A61',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-2-jour-18_5e9fe9/travail-sur-lacte-2-jour-18_5e9fe9_s_B314D56D-3142-42FF-97D1-A9265641F90A',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-1-jour-22_4c3a75/travail-sur-lacte-3-et-lacte-1-jour-22_4c3a75_a86',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_a54',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_s_50E87BC4-79F3-378C-6C47-89E146D6B96A',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_s_582029C2-A859-4447-4AC2-89DF195B62B1',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_s_7996FD09-C3A0-F8F4-E3E2-89E30C3F7E8B',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_s_83FD7287-8DAD-E341-DD54-89E880D1DD5A',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_s_993D7E41-810F-AC29-1C95-8F4BBFE50D28',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547/travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_s_D44414A7-9661-E2F9-5D74-89F2F5DA1215',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610_a67',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610_a71',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610_a76',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610_s_CF034B59-BC3B-BC94-C654-58658569D140',
+    'http://spectacleenlignes.fr/data/demonstrateur/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610/travail-sur-lacte-3-et-lacte-2-jour-16_c8d610_s_F6811119-AB93-A19E-C184-58610996FDF3'
+  ];
 
-var urls = [
-  'http://spectacleenlignes.fr/plateforme/player?g=lecture-a-la-table_4af0d0&d=theatre&f=720p.mp4&p=dbe14364-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=lecture-a-la-table-jour-2_94c2cf&d=theatre&f=720p.mp4&p=d6f30018-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=premiers-pas-sur-le-plateau-jour-3_f0e090&d=theatre&f=720p.mp4&p=df55ed1a-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=premiers-pas-sur-le-plateau-jour-4_62598a&d=theatre&f=720p.mp4&p=d5491a72-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=debut-du-travail-de-precisi…lacte-1_583a96&d=theatre&f=720p.mp4&p=d61b00dc-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=debut-du-travail-de-precisi…-partie_78ba09&d=theatre&f=720p.mp4&p=d7257c00-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=debut-du-travail-de-precisi…-jour-6_2163ec&d=theatre&f=720p.mp4&p=d6881d34-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3_575187&d=theatre&f=720p.mp4&p=d9368d86-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3_327ce7&d=theatre&f=720p.mp4&p=dcf13444-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-partie-2_ea81a1&d=theatre&f=720p.mp4&p=e046b718-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-partie-3_c29e85&d=theatre&f=720p.mp4&p=d6c0035c-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-et-lact…-jour-8_c0d547&d=theatre&f=720p.mp4&p=d8fe658c-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-jour-9_ecdc86&d=theatre&f=720p.mp4&p=df96887a-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-10_5efa30&d=theatre&f=720p.mp4&p=dc84f432-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-11_81c6dc&d=theatre&f=720p.mp4&p=d57e7c26-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-le-texte-en-ita…jour-12_cb7e14&d=theatre&f=720p.mp4&p=d9a610d4-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-14_d28fbf&d=theatre&f=720p.mp4&p=d4c5b600-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-jour-15_b822f8&d=theatre&f=720p.mp4&p=d9707e2e-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-et-lact…jour-16_c8d610&d=theatre&f=720p.mp4&p=e0f3fc7a-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-jour-17_9851f7&d=theatre&f=720p.mp4&p=d5e92346-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-jour-17…-partie_7ccb06&d=theatre&f=720p.mp4&p=df17803e-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-18_5e9fe9&d=theatre&f=720p.mp4&p=e1665b26-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-jour-19_eb8c1b&d=theatre&f=720p.mp4&p=d50fea72-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-et-lact…jour-20_cdac55&d=theatre&f=720p.mp4&p=dcbac0ee-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-et-lact…-partie_3b0b72&d=theatre&f=720p.mp4&p=e0ba8616-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-et-lact…jour-22_4c3a75&d=theatre&f=720p.mp4&p=dc4c5898-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=premier-bout-a-bout-de-la-p…jour-23_73654f&d=theatre&f=720p.mp4&p=d8ca0314-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-et-lact…jour-24_3340dd&d=theatre&f=720p.mp4&p=d654f9b8-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-et-lact…jour-25_da3633&d=theatre&f=720p.mp4&p=dc13c8a2-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-et-lact…jour-26_a240a4&d=theatre&f=720p.mp4&p=e210beb8-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-jour-27_3d5f91&d=theatre&f=720p.mp4&p=',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-et-lact…jour-29_f3c0e9&d=theatre&f=720p.mp4&p=e1dc7770-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte1-jour-30-…d87_PAS_DE_SON&d=theatre&f=720p.mp4&p=dd5686be-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte1-jour-30-…35f_PAS_DE_SON&d=theatre&f=720p.mp4&p=ddc1ca32-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-jour-31…8ea_PAS_DE_SON&d=theatre&f=720p.mp4&p=de6882aa-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-jour-31-a…692_PAS_DE_SON&d=theatre&f=720p.mp4&p=de2f686c-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-jour-32…487_PAS_DE_SON&d=theatre&f=720p.mp4&p=ddf5f208-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-32…a3e_PAS_DE_SON&d=theatre&f=720p.mp4&p=dea607d8-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-jour-33…ENT_SON_FAIBLE&d=theatre&f=720p.mp4&p=d7c66d68-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-33…-partie_b9a55f&d=theatre&f=720p.mp4&p=e01207ca-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-34…c4c01_ENCODAGE&d=theatre&f=720p.mp4&p=db32b0c4-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-3-jour-34…6a455_ENCODAGE&d=theatre&f=720p.mp4&p=da4b16b0-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-35…SON_DEBUT_VENT&d=theatre&f=720p.mp4&p=d75a5132-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=premier-bout-a-bout-de-la-p…-partie_6fed99&d=theatre&f=720p.mp4&p=d9e2fd32-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-jour-36…-partie_ea88af&d=theatre&f=720p.mp4&p=d5b49fea-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=deuxieme-bout-a-bout-a-grig…a_SON_GRESILLE&d=theatre&f=720p.mp4&p=d8920cca-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-1-et-lact…931_PAS_DE_SON&d=theatre&f=720p.mp4&p=dd8d4a0a-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-37…fb6_PAS_DE_SON&d=theatre&f=720p.mp4&p=dee11922-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-sur-lacte-2-jour-38…f6dae_ENCODAGE&d=theatre&f=720p.mp4&p=db709b3c-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=bout-a-bout-avec-les-enfant…293_SON_SATURE&d=theatre&f=720p.mp4&p=d83084a0-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=reglages-sur-lacte-2-jour-3…aef4f_ENCODAGE&d=theatre&f=720p.mp4&p=da84ae48-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=filage-de-la-piece-jour-39-…2_SON_GRESILLE&d=theatre&f=720p.mp4&p=d7909f94-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=reglages-dans-lacte-2-jour-…79e58_ENCODAGE&d=theatre&f=720p.mp4&p=daf2cbd0-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=filage-technique-jour-40-de…6_SON_GRESILLE&d=theatre&f=720p.mp4&p=d7f85468-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=travail-des-scenes-necessit…ODAGE_GRESILLE&d=theatre&f=720p.mp4&p=d860a590-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=filage-de-la-piece-jour-41-…-partie_062bc9&d=theatre&f=720p.mp4&p=dfd68ac4-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=reglage-de-la-fin-de-la-pie…515d5_ENCODAGE&d=theatre&f=720p.mp4&p=dbaeded8-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=filage-de-la-piece-jour-42-…-partie_154908&d=theatre&f=720p.mp4&p=da161da2-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=filage-de-la-piece-jour-43_b04136&d=theatre&f=720p.mp4&p=e080dd8a-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=derniers-reglages-avant-der…f3a6f_ENCODAGE&d=theatre&f=720p.mp4&p=dab8068a-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=dernier-filage-de-la-piece-…-partie_a299b6&d=theatre&f=720p.mp4&p=e12faf72-b8c0-11e3-b82e-005056ab0020',
-  'http://spectacleenlignes.fr/plateforme/player?g=generale-de-la-piece-jour-4…862_PAS_DE_SON&d=theatre&f=720p.mp4&p=dd228bac-b8c0-11e3-b82e-005056ab0020'
-];
-
-var urlObjects = [];
-urls.forEach(function(urlString) {
-  var url = URL.parse(urlString, true);
-  var query = url.query;
-  var videoUrl = 'http://spectacleenlignes.fr/data/' + query.d + '/' + query.g + '/' + query.f;
-  var jsonUrl = 'http://spectacleenlignes.fr/plateforme/ldt/cljson/id/' + query.p;
-  urlObjects.push({
-    video: videoUrl,
-    json: jsonUrl
+  var urlObjects = [];
+  urls.forEach(function(urlString) {
+    var id = new URL(urlString).pathname.split('/')[3];
+    var jsonUrl = 'http://spectacleenlignes.fr/data/theatre/' + id +
+        '/cinelab.json';
+    urlObjects.push({
+      video: urlString,
+      json: jsonUrl
+    });
   });
-});
-console.log(urlObjects);
+  return urlObjects;
+})();
