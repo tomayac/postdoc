@@ -347,8 +347,10 @@ Polymer('polymer-visualization-timeline', {
       });
     };
 
-    console.log('Fired event: timelineready');
-    that.fire('timelineready');
-    addTimeMarkers();
+    setTimeout(function() {
+      console.log('Fired event: timelineready');
+      that.fire('timelineready');
+      addTimeMarkers();
+    }, 250);
   }
 });

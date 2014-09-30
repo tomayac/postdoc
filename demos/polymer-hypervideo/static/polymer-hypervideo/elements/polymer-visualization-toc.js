@@ -84,7 +84,9 @@ Polymer('polymer-visualization-toc', {
     }, false);
 
     // notify listeners about your existance
-    console.log('Fired event: webcomponentstocready');
-    that.fire('webcomponentstocready');
+    setTimeout(function() {
+      console.log('Fired event: webcomponentstocready');
+      that.fire('webcomponentstocready');
+    }, 250);
   }
 });

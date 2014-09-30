@@ -20,15 +20,6 @@ Polymer('polymer-track-subtitles', {
     }
     var cuesElements = [];
 
-    console.log('Fired event: trackready');
-    that.fire(
-      'trackready',
-      {
-        src: that.src,
-        kind: 'subtitles'
-      }
-    );
-
     document.addEventListener('cuesread', function(e) {
       console.log('Received event (document): cuesread');
       var data = e.detail;
@@ -111,5 +102,16 @@ Polymer('polymer-track-subtitles', {
         }
       }
     }, false);
+
+    setTimeout(function() {
+      console.log('Fired event: trackready');
+      that.fire(
+        'trackready',
+        {
+          src: that.src,
+          kind: 'subtitles'
+        }
+      );
+    }, 250);
   }
 });

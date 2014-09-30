@@ -21,15 +21,6 @@ Polymer('polymer-track-chapters', {
       container.style.height = that.height + 'px';
     }
 
-    console.log('Fired event: trackready');
-    that.fire(
-      'trackready',
-      {
-        src: that.src,
-        kind: 'chapters'
-      }
-    );
-
     document.addEventListener('hypervideoloadedmetadata', function() {
       console.log('Received event (document): hypervideoloadedmetadata');
       hyperVideoLoadedMetadata = true;
@@ -117,5 +108,16 @@ Polymer('polymer-track-chapters', {
         }
       }
     }, false);
+
+    setTimeout(function() {
+      console.log('Fired event: trackready');
+      that.fire(
+        'trackready',
+        {
+          src: that.src,
+          kind: 'chapters'
+        }
+      );
+    }, 250);
   }
 });

@@ -4,12 +4,11 @@ var CORS_PROXY = document.location.hostname === 'localhost' ?
 var video = VIDEO_DATA[4].video;
 var json = VIDEO_DATA[4].json;
 var transcriptUrl = 'http://spectacleenlignes.fr/plateforme/ctb';
-var transcript = CORS_PROXY ?
-    CORS_PROXY + encodeURIComponent(transcriptUrl) : transcriptUrl;
+var transcript = transcriptUrl;
 
 var createHypervideo = (function(video, json, transcript) {
 
-  var createTextTrack = function(transcriptHtml) {
+  var createTextTrack = function(transcriptHtml, lines) {
 
     var toHHMMSSmmm = function(duration) {
       var milliseconds = parseInt((duration % 1000) / 100);
@@ -41,12 +40,13 @@ var createHypervideo = (function(video, json, transcript) {
               return n.charAt(0).toUpperCase() + n.substr(1).toLowerCase();
             }) + '>' + t;
           });
-
-      textTrack +=
-          line + ':\n' + // id
-          toHHMMSSmmm(i * 1000) + ' --> ' + // start
-          toHHMMSSmmm((i + 1) * 1000) + '\n' + // end
-          text + '\n\n'; // payload
+      if (lines[line]) {
+        textTrack +=
+            line + ':\n' + // id
+            toHHMMSSmmm(lines[line].start * 1000) + ' --> ' + // start
+            toHHMMSSmmm(lines[line].end * 1000) + '\n' + // end
+            text + '\n\n'; // payload
+      }
     }
     var textTrackBlob = new Blob([textTrack], {type: 'text/plain'});
     return URL.createObjectURL(textTrackBlob);
@@ -61,24 +61,48 @@ var createHypervideo = (function(video, json, transcript) {
     hypervideo.setAttribute('muted', true);
     fragment.appendChild(hypervideo);
 
-    var timeline = document.createElement('polymer-visualization-timeline');
-    timeline.setAttribute('orientation', 'landscape');
-    timeline.setAttribute('width', 800);
-    timeline.setAttribute('height', 150);
-    hypervideo.appendChild(timeline);
+    var tmpTrack = document.createElement('track');
+    var tmpVideo = document.createElement('video');
+    tmpVideo.setAttribute('crossorigin', 'Anonymous');
+    tmpVideo.style.display = 'none';
+    tmpVideo.appendChild(tmpTrack);
+    tmpTrack.src = video + '.vtt';
+    tmpTrack.track.mode = 'showing';
+    tmpTrack.addEventListener('load', function() {
+      var lines = {};
+      for (var i = 0, lenI = tmpTrack.track.cues.length; i < lenI; i++) {
+        var cue = tmpTrack.track.cues[i];
+        lines[cue.text] = {
+          start: cue.startTime,
+          end: cue.endTime
+        };
+      }
+      var subtitles = document.createElement('polymer-track-subtitles');
+      var textTrackFile = createTextTrack(transcriptHtml, lines);
+      subtitles.setAttribute('src', textTrackFile);
+      subtitles.setAttribute('displaysubtitlesgroup', true);
+      subtitles.setAttribute('width', 800);
+      hypervideo.appendChild(subtitles);
 
-    var chapters = document.createElement('polymer-track-chapters');
-    chapters.setAttribute('src', video + '.vtt');
-    chapters.setAttribute('displaychaptersthumbnails', true);
-    chapters.setAttribute('width', 800);
-    hypervideo.appendChild(chapters);
+      var timeline = document.createElement('polymer-visualization-timeline');
+      timeline.setAttribute('orientation', 'landscape');
+      timeline.setAttribute('width', 800);
+      timeline.setAttribute('height', 150);
+      hypervideo.appendChild(timeline);
 
-    var subtitles = document.createElement('polymer-track-subtitles');
-    var textTrackFile = createTextTrack(transcriptHtml);
-    subtitles.setAttribute('src', textTrackFile);
-    subtitles.setAttribute('displaysubtitlesgroup', true);
-    subtitles.setAttribute('width', 800);
-    hypervideo.appendChild(subtitles);
+      var chapters = document.createElement('polymer-track-chapters');
+      chapters.setAttribute('src', video + '.vtt');
+      chapters.setAttribute('displaychaptersthumbnails', true);
+      chapters.setAttribute('width', 800);
+      hypervideo.appendChild(chapters);
+    });
+    var source1 = document.createElement('source');
+    tmpVideo.appendChild(source1);
+    source1.src = video + '.mp4';
+    var source2 = document.createElement('source');
+    tmpVideo.appendChild(source2);
+    source2.src = video + '.mkv';
+    document.body.appendChild(tmpVideo);
 
     metadataJson.annotations.sort(function(a, b) {
       // sort annotations by ascending start time

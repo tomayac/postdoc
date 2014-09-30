@@ -15,6 +15,45 @@ Polymer('polymer-hypervideo', {
     var video = that.$.hypervideo;
     var CORS_PROXY = document.location.origin + '/cors/';
 
+    document.addEventListener('trackready', function(e) {
+      console.log('Received event (document): trackready');
+      var data = e.detail;
+      var track = document.createElement('track');
+      var cuesRead = false;
+      track.addEventListener('load', function(e) {
+        if (!cuesRead) {
+          console.log('Received event (track): load');
+          cuesRead = true;
+          return readCues(e.target.track.cues, data.kind);
+        }
+      }, false);
+      var trackLoadedInterval = setInterval(function() {
+        if (track.readyState >= 2) {
+          clearInterval(trackLoadedInterval);
+          if (!cuesRead) {
+            console.log('Received event (track): readyState');
+            cuesRead = true;
+            return readCues(track.track.cues, data.kind);
+          }
+        }
+      }, 100);
+      track.default = true;
+      track.src = data.src;
+      track.kind = data.kind;
+      if (track.kind === 'subtitles' || track.kind === 'captions') {
+        track.srclang = 'en';
+        track.track.mode = 'showing';
+      } else if (track.kind === 'chapters') {
+        var canvas = document.createElement('canvas');
+        canvas.width = video.width;
+        canvas.height = video.height;
+        var ctx = canvas.getContext('2d');
+        that.ctx = ctx;
+        that.canvas = canvas;
+      }
+      video.appendChild(track);
+    }, false);
+
     document.addEventListener('webcomponentstocready', function() {
       console.log('Received event (document): webcomponentstocready');
       // get all child <polymer-*> child nodes
@@ -85,6 +124,7 @@ Polymer('polymer-hypervideo', {
         });
       });
       var getNextStillFrame = function() {
+        console.log('Received event (video): seeked');
         that.ctx.drawImage(video, 0, 0, video.clientWidth,
             video.clientHeight);
         var img = document.createElement('img');
@@ -113,48 +153,8 @@ Polymer('polymer-hypervideo', {
       };
       var processedStillFrames = 0;
       video.addEventListener('seeked', getNextStillFrame);
-      console.log('Received event (video): seeked');
       functions[processedStillFrames].func();
     });
-
-    document.addEventListener('trackready', function(e) {
-      console.log('Received event (document): trackready');
-      var data = e.detail;
-      var track = document.createElement('track');
-      var cuesRead = false;
-      track.addEventListener('load', function(e) {
-        if (!cuesRead) {
-          console.log('Received event (track): load');
-          cuesRead = true;
-          return readCues(e.target.track.cues, data.kind);
-        }
-      }, false);
-      var trackLoadedInterval = setInterval(function() {
-        if (track.readyState >= 2) {
-          clearInterval(trackLoadedInterval);
-          if (!cuesRead) {
-            console.log('Received event (track): readyState');
-            cuesRead = true;
-            return readCues(track.track.cues, data.kind);
-          }
-        }
-      }, 100);
-      track.default = true;
-      track.src = data.src;
-      track.kind = data.kind;
-      if (track.kind === 'subtitles' || track.kind === 'captions') {
-        track.srclang = 'en';
-        track.track.mode = 'showing';
-      } else if (track.kind === 'chapters') {
-        var canvas = document.createElement('canvas');
-        canvas.width = video.width;
-        canvas.height = video.height;
-        var ctx = canvas.getContext('2d');
-        that.ctx = ctx;
-        that.canvas = canvas;
-      }
-      video.appendChild(track);
-    }, false);
 
     var initializeVideo = function() {
       // either add sources for regular video
@@ -304,11 +304,10 @@ Polymer('polymer-hypervideo', {
       );
     }, false);
 
-    (function() {
+    setTimeout(function() {
       initializeVideo();
       spinner = showSpinner();
       positionDataAnnotations();
-    })();
-
+    }, 100);
   }
 });
