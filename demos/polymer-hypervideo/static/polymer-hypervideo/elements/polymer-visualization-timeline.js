@@ -201,7 +201,7 @@ Polymer('polymer-visualization-timeline', {
         scalingFactor = maxWidth / (that.duration * fontSize);
 
         timeline.style.overflowX = 'auto';
-        timeline.style.overflowY = 'hidden';
+        timeline.style.overflowY = 'auto';
         timeline.style.cssFloat = 'left';
         timeline.style.height = that.height ?
             that.height + 'px' : that.videoHeight + 'px';
@@ -231,7 +231,7 @@ Polymer('polymer-visualization-timeline', {
             that.width + 'px' : that.videoWidth + 'px';
         timeline.style.height = (that.duration * scalingFactor) + 'em';
         timeline.style.overflowY = 'auto';
-        timeline.style.overflowX = 'hidden';
+        timeline.style.overflowX = 'auto';
 
         container.style.width = that.width ?
             that.width + 'px' : that.videoWidth + 'px';

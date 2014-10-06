@@ -317,6 +317,6 @@ Polymer('polymer-hypervideo', {
       initializeVideo();
       spinner = showSpinner();
       positionDataAnnotations();
-    }, 100);
+    }, 50);
   }
 });

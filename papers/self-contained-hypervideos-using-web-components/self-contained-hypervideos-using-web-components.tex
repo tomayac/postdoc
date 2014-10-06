@@ -205,14 +205,17 @@ that can be reused easily and reliably.\footnote{Web Components:
 \url{http://www.chromium.org/blink/web-components}}
 According to a~(recently discontinued) W3C Working Draft introductory document,%
 \footnote{Discontinued W3C Working Draft document:
-\url{http://www.w3.org/TR/2013/WD-components-intro-20130606/}}
+\url{http://www.w3.org/TR/2013/WD-components-intro-20130606/}~\cite{cooney2013webcomponents}}
 the component model for the Web (``Web Components'') consists of five pieces:
 
 \begin{description}
-  \item[Imports] which defines how templates, decorators and custom elements are packaged and loaded as a~resource.
-  \item[Shadow DOM] which encapsulates a~DOM subtree for more reliable composition of user interface elements.    
+  \item[Imports] which defines how templates, decorators and custom elements are packaged and loaded as a~resource%
+  ~\cite{glazkov2014htmlimports}.
+  \item[Shadow DOM] which encapsulates a~DOM subtree for more reliable composition of user interface elements%
+  ~\cite{glazkov2014shadowdom}.    
+  \item[Custom Elements] which let authors define their own elements, with new tag names and new script interfaces%
+  ~\cite{glazkov2013customelements}.  
   \item[Decorators] which apply templates based on CSS selectors to affect rich visual and behavioral changes to documents.
-  \item[Custom Elements] which let authors define their own elements, with new tag names and new script interfaces.
   \item[Templates] which define chunks of inert markup that can be activated for use.  
 \end{description}
 
@@ -261,7 +264,7 @@ In Polymer, all element names have to start with ``polymer-''.
     and \texttt{<polymer-data-*>} elements in a~temporal context.
 \end{description}
 
-\noindent We make an online demo Web application available at
+\noindent We have made an online demo application available at
 \url{http://hypervideo.herokuapp.com} and also share its source code.%
 \footnote{Hypervideo Demo:
 \url{https://github.com/tomayac/postdoc/tree/master/demos/polymer-hypervideo}}
@@ -313,9 +316,9 @@ document.addEventListener('hypervideotimeupdate', function(e) {
 });
 \end{lstlisting}
 
-\begin{figure}[hbt]
+\begin{figure}[htb!]
   \centering
-  \includegraphics[width=0.575\linewidth]{screenshot}
+  \includegraphics[width=0.53\linewidth]{screenshot}
   \caption{Generated hypervideo based on the mark-up in \autoref{listing:polymer},
   including subtitles, chapters, timeline, and table of contents widgets;
   the actor annotation contains a spatial fragment~\cite{troncy2012mediafragments}
@@ -326,16 +329,17 @@ document.addEventListener('hypervideotimeupdate', function(e) {
 
 \section{Linked Data Considerations}
 
+The \emph{Frequently Asked Questions} section of the Polymer project states:
 ``As Polymer makes use of polyfills, search engines treat Polymer-based
 applications no differently than they do other JavaScript-based Web apps.
 In fact, Google’s crawler understands JavaScript heavy applications.%
 \footnote{Google Web application understanding:
 \url{http://googlewebmastercentral.blogspot.com/2014/05/understanding-web-pages-better.html}}
 Going forward, it is a~reasonable assumption
-that as use of native Shadow DOM increases,
+that as use of native Shadow DOM~\cite{glazkov2014shadowdom} increases,
 search engine providers will try to adapt to understand it,
 just as they have adapted to other new Web technologies in the past.''%
-\footnote{From the FAQ of Polymer:
+\footnote{Polymer FAQ:
 \url{http://www.polymer-project.org/resources/faq.html}}
 In the longterm, this paths the way toward the semantic information
 introduced through Web Components mark-up
