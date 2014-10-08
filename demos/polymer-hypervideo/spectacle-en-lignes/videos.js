@@ -59,7 +59,8 @@ var VIDEO_DATA = (function() {
         '/cinelab.json';
     urlObjects.push({
       video: urlString,
-      json: jsonUrl
+      json: jsonUrl,
+      id: id
     });
   });
   return urlObjects;

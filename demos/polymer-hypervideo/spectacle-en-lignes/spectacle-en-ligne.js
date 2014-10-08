@@ -1,12 +1,9 @@
-// global config with the video URLs and the metadata JSONs
 var CORS_PROXY = document.location.hostname === 'localhost' ?
     document.location.origin + '/cors/' : '';
-var video = VIDEO_DATA[4].video;
-var json = VIDEO_DATA[4].json;
-var transcript = 'http://spectacleenlignes.fr/plateforme/ctb';
 
-var createHypervideo = (function(video, json, transcript) {
-
+var createHypervideo = function(video, json, transcript) {
+  var container = document.querySelector('#container');
+  container.innerHTML = '';
   var createTextTrack = function(transcriptHtml, lines) {
 
     var toHHMMSSmmm = function(duration) {
@@ -140,7 +137,7 @@ var createHypervideo = (function(video, json, transcript) {
       });
     });
 
-    document.body.appendChild(fragment);
+    container.appendChild(fragment);
   };
 
   var getMetadataJson = function(callback) {
@@ -163,39 +160,94 @@ var createHypervideo = (function(video, json, transcript) {
     xhr.send();
   };
 
-  async.parallel({
-    metadataJson: getMetadataJson,
-    transcriptHtml: getTranscriptHtml
-  }, function(err, results) {
-    if (err) {
-      throw(err);
-    }
-    var tmpTrack = document.createElement('track');
-    var tmpVideo = document.createElement('video');
-    tmpVideo.setAttribute('crossorigin', 'Anonymous');
-    tmpVideo.style.display = 'none';
-    tmpVideo.appendChild(tmpTrack);
-    tmpTrack.src = video + '.vtt';
-    tmpTrack.track.mode = 'showing';
-    tmpTrack.addEventListener('load', function() {
-      var lines = {};
-      for (var i = 0, lenI = tmpTrack.track.cues.length; i < lenI; i++) {
-        var cue = tmpTrack.track.cues[i];
-        lines[cue.text] = {
-          start: cue.startTime,
-          end: cue.endTime
-        };
+  var start = (function() {
+    async.parallel({
+      metadataJson: getMetadataJson,
+      transcriptHtml: getTranscriptHtml
+    }, function(err, results) {
+      if (err) {
+        throw(err);
       }
-      metadataJson = JSON.parse(results.metadataJson);
-      createPolymerElements(metadataJson, results.transcriptHtml, lines);
+      var tmpTrack = document.createElement('track');
+      var tmpVideo = document.createElement('video');
+      tmpVideo.setAttribute('crossorigin', 'Anonymous');
+      tmpVideo.style.display = 'none';
+      tmpVideo.appendChild(tmpTrack);
+      tmpTrack.src = video + '.vtt';
+      tmpTrack.track.mode = 'showing';
+      tmpTrack.addEventListener('load', function() {
+        var lines = {};
+        for (var i = 0, lenI = tmpTrack.track.cues.length; i < lenI; i++) {
+          var cue = tmpTrack.track.cues[i];
+          lines[cue.text] = {
+            start: cue.startTime,
+            end: cue.endTime
+          };
+        }
+        metadataJson = JSON.parse(results.metadataJson);
+        createPolymerElements(metadataJson, results.transcriptHtml, lines);
+      });
+      var source1 = document.createElement('source');
+      tmpVideo.appendChild(source1);
+      source1.src = video + '.mp4';
+      var source2 = document.createElement('source');
+      tmpVideo.appendChild(source2);
+      source2.src = video + '.mkv';
+      container.appendChild(tmpVideo);
     });
-    var source1 = document.createElement('source');
-    tmpVideo.appendChild(source1);
-    source1.src = video + '.mp4';
-    var source2 = document.createElement('source');
-    tmpVideo.appendChild(source2);
-    source2.src = video + '.mkv';
-    document.body.appendChild(tmpVideo);
-  });
+  })();
+};
 
-})(video, json, transcript);
+
+var init = (function() {
+  var videoSelect = document.querySelector('#videoSelect');
+
+  var videoSelectChange = function() {
+    var index = videoSelect.options[videoSelect.selectedIndex].value || 0;
+    var video = VIDEO_DATA[index].video;
+    var json = VIDEO_DATA[index].json;
+    var id = VIDEO_DATA[index].id;
+    var transcript = 'http://spectacleenlignes.fr/plateforme/ctb';
+    var title = id.replace(/-/g, ' ').replace(/_.*?$/, '');
+    history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + id);
+    return createHypervideo(video, json, transcript);
+  };
+  videoSelect.addEventListener('change', videoSelectChange);
+
+  var functions = {};
+  var lookUp = {};
+  VIDEO_DATA.forEach(function(video, i) {
+    // check if the .vtt-s exist
+    var url = video.video;
+    functions[url] = function(callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.onload = function() {
+        // fill the select box
+        var id = video.id;
+        lookUp[id] = i;
+        var option = document.createElement('option');
+        option.textContent = id.replace(/-/g, ' ');
+        option.value = i;
+        videoSelect.appendChild(option);
+        return callback(null, url);
+      };
+      xhr.onerror = function() {
+        return callback(url);
+      };
+      xhr.open('get', url + '.vtt', true);
+      xhr.send();
+    };
+  });
+  async.parallel(
+    functions,
+    function(err, results) {
+      if (document.location.hash) {
+        var videoId = document.location.hash.substr(1);
+        var index = lookUp[videoId];
+        console.log('Starting with video ' + videoId);
+      }
+      videoSelect.selectedIndex = index || 4;
+      return videoSelectChange();
+    }
+  );
+})();
