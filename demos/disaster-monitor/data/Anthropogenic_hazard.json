@@ -1,0 +1,4237 @@
+{
+    "Arson": {
+        "ar": {
+            "label": "إحراق الممتلكات",
+            "title": "إحراق الممتلكات",
+            "url": "http://www.ar.wikipedia.org/wiki/إحراق_الممتلكات"
+        },
+        "bg": {
+            "label": "Палеж",
+            "title": "Палеж",
+            "url": "http://www.bg.wikipedia.org/wiki/Палеж"
+        },
+        "cs": {
+            "label": "Žhářství",
+            "title": "Žhářství",
+            "url": "http://www.cs.wikipedia.org/wiki/Žhářství"
+        },
+        "da": {
+            "label": "Brandstiftelse",
+            "title": "Brandstiftelse",
+            "url": "http://www.da.wikipedia.org/wiki/Brandstiftelse"
+        },
+        "de": {
+            "label": "Brandstiftung",
+            "title": "Brandstiftung",
+            "url": "http://www.de.wikipedia.org/wiki/Brandstiftung"
+        },
+        "es": {
+            "label": "Delito de incendio",
+            "title": "Delito de incendio",
+            "url": "http://www.es.wikipedia.org/wiki/Delito_de_incendio"
+        },
+        "eu": {
+            "label": "Eragindako sute",
+            "title": "Eragindako sute",
+            "url": "http://www.eu.wikipedia.org/wiki/Eragindako_sute"
+        },
+        "fa": {
+            "label": "آتش‌افروزی",
+            "title": "آتش‌افروزی",
+            "url": "http://www.fa.wikipedia.org/wiki/آتش‌افروزی"
+        },
+        "fi": {
+            "label": "Tuhopoltto",
+            "title": "Tuhopoltto",
+            "url": "http://www.fi.wikipedia.org/wiki/Tuhopoltto"
+        },
+        "fr": {
+            "label": "Incendie volontaire",
+            "title": "Incendie volontaire",
+            "url": "http://www.fr.wikipedia.org/wiki/Incendie_volontaire"
+        },
+        "he": {
+            "label": "הצתה",
+            "title": "הצתה (פשע)",
+            "url": "http://www.he.wikipedia.org/wiki/הצתה_(פשע)"
+        },
+        "hi": {
+            "label": "आगज़नी",
+            "title": "आगज़नी",
+            "url": "http://www.hi.wikipedia.org/wiki/आगज़नी"
+        },
+        "hr": {
+            "label": "Palež",
+            "title": "Palež",
+            "url": "http://www.hr.wikipedia.org/wiki/Palež"
+        },
+        "ja": {
+            "label": "放火罪",
+            "title": "放火罪",
+            "url": "http://www.ja.wikipedia.org/wiki/放火罪"
+        },
+        "ko": {
+            "label": "방화",
+            "title": "방화",
+            "url": "http://www.ko.wikipedia.org/wiki/방화"
+        },
+        "ms": {
+            "label": "Pembakaran sengaja",
+            "title": "Pembakaran sengaja",
+            "url": "http://www.ms.wikipedia.org/wiki/Pembakaran_sengaja"
+        },
+        "nl": {
+            "label": "Brandstichting",
+            "title": "Brandstichting",
+            "url": "http://www.nl.wikipedia.org/wiki/Brandstichting"
+        },
+        "no": {
+            "label": "Brannstiftelse",
+            "title": "Brannstiftelse",
+            "url": "http://www.no.wikipedia.org/wiki/Brannstiftelse"
+        },
+        "pl": {
+            "label": "Podpalenie",
+            "title": "Podpalenie",
+            "url": "http://www.pl.wikipedia.org/wiki/Podpalenie"
+        },
+        "pt": {
+            "label": "Incêndio",
+            "title": "Incêndio (crime)",
+            "url": "http://www.pt.wikipedia.org/wiki/Incêndio_(crime)"
+        },
+        "ru": {
+            "label": "Поджог",
+            "title": "Поджог",
+            "url": "http://www.ru.wikipedia.org/wiki/Поджог"
+        },
+        "sh": {
+            "label": "Palež",
+            "title": "Palež",
+            "url": "http://www.sh.wikipedia.org/wiki/Palež"
+        },
+        "simple": {
+            "label": "Arson",
+            "title": "Arson",
+            "url": "http://www.simple.wikipedia.org/wiki/Arson"
+        },
+        "sk": {
+            "label": "Podpaľačstvo",
+            "title": "Podpaľačstvo",
+            "url": "http://www.sk.wikipedia.org/wiki/Podpaľačstvo"
+        },
+        "sl": {
+            "label": "Požig",
+            "title": "Požig",
+            "url": "http://www.sl.wikipedia.org/wiki/Požig"
+        },
+        "sv": {
+            "label": "Mordbrand",
+            "title": "Mordbrand",
+            "url": "http://www.sv.wikipedia.org/wiki/Mordbrand"
+        },
+        "tr": {
+            "label": "Kundaklama",
+            "title": "Kundaklama",
+            "url": "http://www.tr.wikipedia.org/wiki/Kundaklama"
+        },
+        "uk": {
+            "label": "Підпал",
+            "title": "Підпал",
+            "url": "http://www.uk.wikipedia.org/wiki/Підпал"
+        },
+        "ur": {
+            "label": "آتش زنی",
+            "title": "آتش زنی",
+            "url": "http://www.ur.wikipedia.org/wiki/آتش_زنی"
+        },
+        "zh": {
+            "label": "縱火",
+            "title": "縱火",
+            "url": "http://www.zh.wikipedia.org/wiki/縱火"
+        },
+        "zh-yue": {
+            "label": "放火",
+            "title": "放火",
+            "url": "http://www.zh-yue.wikipedia.org/wiki/放火"
+        },
+        "en": {
+            "label": "Arson",
+            "title": "Arson",
+            "url": "http://www.en.wikipedia.org/wiki/Arson"
+        },
+        "wikidata": {
+            "label": "Q327541",
+            "title": "Q327541",
+            "url": "http://www.wikidata.org/wiki/Q327541"
+        }
+    },
+    "Riot": {
+        "ar": {
+            "label": "شغب",
+            "title": "شغب",
+            "url": "http://www.ar.wikipedia.org/wiki/شغب"
+        },
+        "ast": {
+            "label": "Disturbiu",
+            "title": "Disturbiu",
+            "url": "http://www.ast.wikipedia.org/wiki/Disturbiu"
+        },
+        "bg": {
+            "label": "Бунт",
+            "title": "Бунт",
+            "url": "http://www.bg.wikipedia.org/wiki/Бунт"
+        },
+        "ca": {
+            "label": "Aldarull",
+            "title": "Aldarull",
+            "url": "http://www.ca.wikipedia.org/wiki/Aldarull"
+        },
+        "cs": {
+            "label": "Nepokoje",
+            "title": "Nepokoje",
+            "url": "http://www.cs.wikipedia.org/wiki/Nepokoje"
+        },
+        "cy": {
+            "label": "Terfysg",
+            "title": "Terfysg",
+            "url": "http://www.cy.wikipedia.org/wiki/Terfysg"
+        },
+        "de": {
+            "label": "Aufruhr",
+            "title": "Aufruhr",
+            "url": "http://www.de.wikipedia.org/wiki/Aufruhr"
+        },
+        "eo": {
+            "label": "Tumulto",
+            "title": "Tumulto",
+            "url": "http://www.eo.wikipedia.org/wiki/Tumulto"
+        },
+        "es": {
+            "label": "Disturbio",
+            "title": "Disturbio",
+            "url": "http://www.es.wikipedia.org/wiki/Disturbio"
+        },
+        "eu": {
+            "label": "Istilu",
+            "title": "Istilu (gatazka)",
+            "url": "http://www.eu.wikipedia.org/wiki/Istilu_(gatazka)"
+        },
+        "fi": {
+            "label": "Mellakka",
+            "title": "Mellakka",
+            "url": "http://www.fi.wikipedia.org/wiki/Mellakka"
+        },
+        "fr": {
+            "label": "Émeute",
+            "title": "Émeute",
+            "url": "http://www.fr.wikipedia.org/wiki/Émeute"
+        },
+        "he": {
+            "label": "מהומה",
+            "title": "מהומה",
+            "url": "http://www.he.wikipedia.org/wiki/מהומה"
+        },
+        "hr": {
+            "label": "Nemiri",
+            "title": "Nemiri",
+            "url": "http://www.hr.wikipedia.org/wiki/Nemiri"
+        },
+        "id": {
+            "label": "Kerusuhan",
+            "title": "Kerusuhan",
+            "url": "http://www.id.wikipedia.org/wiki/Kerusuhan"
+        },
+        "is": {
+            "label": "Óeirðir",
+            "title": "Óeirðir",
+            "url": "http://www.is.wikipedia.org/wiki/Óeirðir"
+        },
+        "it": {
+            "label": "Sommossa",
+            "title": "Sommossa",
+            "url": "http://www.it.wikipedia.org/wiki/Sommossa"
+        },
+        "ja": {
+            "label": "暴動",
+            "title": "暴動",
+            "url": "http://www.ja.wikipedia.org/wiki/暴動"
+        },
+        "jv": {
+            "label": "Ontran-ontran",
+            "title": "Ontran-ontran",
+            "url": "http://www.jv.wikipedia.org/wiki/Ontran-ontran"
+        },
+        "ko": {
+            "label": "폭동",
+            "title": "폭동",
+            "url": "http://www.ko.wikipedia.org/wiki/폭동"
+        },
+        "lt": {
+            "label": "Riaušės",
+            "title": "Riaušės",
+            "url": "http://www.lt.wikipedia.org/wiki/Riaušės"
+        },
+        "mr": {
+            "label": "दंगल",
+            "title": "दंगल",
+            "url": "http://www.mr.wikipedia.org/wiki/दंगल"
+        },
+        "ms": {
+            "label": "Rusuhan",
+            "title": "Rusuhan",
+            "url": "http://www.ms.wikipedia.org/wiki/Rusuhan"
+        },
+        "nl": {
+            "label": "Rel",
+            "title": "Rel",
+            "url": "http://www.nl.wikipedia.org/wiki/Rel"
+        },
+        "pl": {
+            "label": "Zamieszki",
+            "title": "Zamieszki",
+            "url": "http://www.pl.wikipedia.org/wiki/Zamieszki"
+        },
+        "pt": {
+            "label": "Distúrbio",
+            "title": "Distúrbio",
+            "url": "http://www.pt.wikipedia.org/wiki/Distúrbio"
+        },
+        "ru": {
+            "label": "Бунт",
+            "title": "Бунт",
+            "url": "http://www.ru.wikipedia.org/wiki/Бунт"
+        },
+        "sh": {
+            "label": "Neredi",
+            "title": "Neredi",
+            "url": "http://www.sh.wikipedia.org/wiki/Neredi"
+        },
+        "simple": {
+            "label": "Riot",
+            "title": "Riot",
+            "url": "http://www.simple.wikipedia.org/wiki/Riot"
+        },
+        "sv": {
+            "label": "Kravall",
+            "title": "Kravall",
+            "url": "http://www.sv.wikipedia.org/wiki/Kravall"
+        },
+        "th": {
+            "label": "การจลาจล",
+            "title": "การจลาจล",
+            "url": "http://www.th.wikipedia.org/wiki/การจลาจล"
+        },
+        "tt": {
+            "label": "Фетнә",
+            "title": "Фетнә",
+            "url": "http://www.tt.wikipedia.org/wiki/Фетнә"
+        },
+        "uk": {
+            "label": "Бунт",
+            "title": "Бунт",
+            "url": "http://www.uk.wikipedia.org/wiki/Бунт"
+        },
+        "wa": {
+            "label": "Bardouxha",
+            "title": "Bardouxha",
+            "url": "http://www.wa.wikipedia.org/wiki/Bardouxha"
+        },
+        "yi": {
+            "label": "ראיאטן",
+            "title": "ראיאטן",
+            "url": "http://www.yi.wikipedia.org/wiki/ראיאטן"
+        },
+        "zh": {
+            "label": "暴動",
+            "title": "暴動",
+            "url": "http://www.zh.wikipedia.org/wiki/暴動"
+        },
+        "zh-yue": {
+            "label": "暴動",
+            "title": "暴動",
+            "url": "http://www.zh-yue.wikipedia.org/wiki/暴動"
+        },
+        "en": {
+            "label": "Riot",
+            "title": "Riot",
+            "url": "http://www.en.wikipedia.org/wiki/Riot"
+        },
+        "wikidata": {
+            "label": "Q124757",
+            "title": "Q124757",
+            "url": "http://www.wikidata.org/wiki/Q124757"
+        }
+    },
+    "Terrorism": {
+        "an": {
+            "label": "Terrorismo",
+            "title": "Terrorismo",
+            "url": "http://www.an.wikipedia.org/wiki/Terrorismo"
+        },
+        "ar": {
+            "label": "إرهاب",
+            "title": "إرهاب",
+            "url": "http://www.ar.wikipedia.org/wiki/إرهاب"
+        },
+        "az": {
+            "label": "Terrorizm",
+            "title": "Terrorizm",
+            "url": "http://www.az.wikipedia.org/wiki/Terrorizm"
+        },
+        "bat-smg": {
+            "label": "Teruorėzmos",
+            "title": "Teruorėzmos",
+            "url": "http://www.bat-smg.wikipedia.org/wiki/Teruorėzmos"
+        },
+        "be": {
+            "label": "Тэрарызм",
+            "title": "Тэрарызм",
+            "url": "http://www.be.wikipedia.org/wiki/Тэрарызм"
+        },
+        "be-x-old": {
+            "label": "Тэрарызм",
+            "title": "Тэрарызм",
+            "url": "http://www.be-x-old.wikipedia.org/wiki/Тэрарызм"
+        },
+        "bg": {
+            "label": "Тероризъм",
+            "title": "Тероризъм",
+            "url": "http://www.bg.wikipedia.org/wiki/Тероризъм"
+        },
+        "bn": {
+            "label": "সন্ত্রাসবাদ",
+            "title": "সন্ত্রাসবাদ",
+            "url": "http://www.bn.wikipedia.org/wiki/সন্ত্রাসবাদ"
+        },
+        "br": {
+            "label": "Sponterezh",
+            "title": "Sponterezh",
+            "url": "http://www.br.wikipedia.org/wiki/Sponterezh"
+        },
+        "bs": {
+            "label": "Terorizam",
+            "title": "Terorizam",
+            "url": "http://www.bs.wikipedia.org/wiki/Terorizam"
+        },
+        "ca": {
+            "label": "Terrorisme",
+            "title": "Terrorisme",
+            "url": "http://www.ca.wikipedia.org/wiki/Terrorisme"
+        },
+        "ceb": {
+            "label": "Terorismo",
+            "title": "Terorismo",
+            "url": "http://www.ceb.wikipedia.org/wiki/Terorismo"
+        },
+        "ckb": {
+            "label": "تیرۆریزم",
+            "title": "تیرۆریزم",
+            "url": "http://www.ckb.wikipedia.org/wiki/تیرۆریزم"
+        },
+        "cs": {
+            "label": "Terorismus",
+            "title": "Terorismus",
+            "url": "http://www.cs.wikipedia.org/wiki/Terorismus"
+        },
+        "cy": {
+            "label": "Terfysgaeth",
+            "title": "Terfysgaeth",
+            "url": "http://www.cy.wikipedia.org/wiki/Terfysgaeth"
+        },
+        "da": {
+            "label": "Terrorisme",
+            "title": "Terrorisme",
+            "url": "http://www.da.wikipedia.org/wiki/Terrorisme"
+        },
+        "de": {
+            "label": "Terrorismus",
+            "title": "Terrorismus",
+            "url": "http://www.de.wikipedia.org/wiki/Terrorismus"
+        },
+        "el": {
+            "label": "Τρομοκρατία",
+            "title": "Τρομοκρατία",
+            "url": "http://www.el.wikipedia.org/wiki/Τρομοκρατία"
+        },
+        "eo": {
+            "label": "Terorismo",
+            "title": "Terorismo",
+            "url": "http://www.eo.wikipedia.org/wiki/Terorismo"
+        },
+        "es": {
+            "label": "Terrorismo",
+            "title": "Terrorismo",
+            "url": "http://www.es.wikipedia.org/wiki/Terrorismo"
+        },
+        "et": {
+            "label": "Terrorism",
+            "title": "Terrorism",
+            "url": "http://www.et.wikipedia.org/wiki/Terrorism"
+        },
+        "eu": {
+            "label": "Terrorismo",
+            "title": "Terrorismo",
+            "url": "http://www.eu.wikipedia.org/wiki/Terrorismo"
+        },
+        "fa": {
+            "label": "تروریسم",
+            "title": "تروریسم",
+            "url": "http://www.fa.wikipedia.org/wiki/تروریسم"
+        },
+        "fi": {
+            "label": "Terrorismi",
+            "title": "Terrorismi",
+            "url": "http://www.fi.wikipedia.org/wiki/Terrorismi"
+        },
+        "fo": {
+            "label": "Yvirgangur",
+            "title": "Yvirgangur",
+            "url": "http://www.fo.wikipedia.org/wiki/Yvirgangur"
+        },
+        "fr": {
+            "label": "Terrorisme",
+            "title": "Terrorisme",
+            "url": "http://www.fr.wikipedia.org/wiki/Terrorisme"
+        },
+        "ga": {
+            "label": "Sceimhlitheoireacht",
+            "title": "Sceimhlitheoireacht",
+            "url": "http://www.ga.wikipedia.org/wiki/Sceimhlitheoireacht"
+        },
+        "gl": {
+            "label": "Terrorismo",
+            "title": "Terrorismo",
+            "url": "http://www.gl.wikipedia.org/wiki/Terrorismo"
+        },
+        "gu": {
+            "label": "આતંકવાદ",
+            "title": "આતંકવાદ",
+            "url": "http://www.gu.wikipedia.org/wiki/આતંકવાદ"
+        },
+        "he": {
+            "label": "טרור",
+            "title": "טרור",
+            "url": "http://www.he.wikipedia.org/wiki/טרור"
+        },
+        "hi": {
+            "label": "आतंकवाद",
+            "title": "आतंकवाद",
+            "url": "http://www.hi.wikipedia.org/wiki/आतंकवाद"
+        },
+        "hif": {
+            "label": "Atankwaad",
+            "title": "Atankwaad",
+            "url": "http://www.hif.wikipedia.org/wiki/Atankwaad"
+        },
+        "hr": {
+            "label": "Terorizam",
+            "title": "Terorizam",
+            "url": "http://www.hr.wikipedia.org/wiki/Terorizam"
+        },
+        "hu": {
+            "label": "Terrorizmus",
+            "title": "Terrorizmus",
+            "url": "http://www.hu.wikipedia.org/wiki/Terrorizmus"
+        },
+        "hy": {
+            "label": "Ահաբեկչություն",
+            "title": "Ահաբեկչություն",
+            "url": "http://www.hy.wikipedia.org/wiki/Ահաբեկչություն"
+        },
+        "ia": {
+            "label": "Terrorismo",
+            "title": "Terrorismo",
+            "url": "http://www.ia.wikipedia.org/wiki/Terrorismo"
+        },
+        "id": {
+            "label": "Terorisme",
+            "title": "Terorisme",
+            "url": "http://www.id.wikipedia.org/wiki/Terorisme"
+        },
+        "ilo": {
+            "label": "Terorismo",
+            "title": "Terorismo",
+            "url": "http://www.ilo.wikipedia.org/wiki/Terorismo"
+        },
+        "io": {
+            "label": "Terorismo",
+            "title": "Terorismo",
+            "url": "http://www.io.wikipedia.org/wiki/Terorismo"
+        },
+        "is": {
+            "label": "Hryðjuverk",
+            "title": "Hryðjuverk",
+            "url": "http://www.is.wikipedia.org/wiki/Hryðjuverk"
+        },
+        "it": {
+            "label": "Terrorismo",
+            "title": "Terrorismo",
+            "url": "http://www.it.wikipedia.org/wiki/Terrorismo"
+        },
+        "ja": {
+            "label": "テロリズム",
+            "title": "テロリズム",
+            "url": "http://www.ja.wikipedia.org/wiki/テロリズム"
+        },
+        "jbo": {
+            "label": "tadjycolnunte'a",
+            "title": "tadjycolnunte'a",
+            "url": "http://www.jbo.wikipedia.org/wiki/tadjycolnunte'a"
+        },
+        "jv": {
+            "label": "Terorisme",
+            "title": "Terorisme",
+            "url": "http://www.jv.wikipedia.org/wiki/Terorisme"
+        },
+        "ka": {
+            "label": "ტერორიზმი",
+            "title": "ტერორიზმი",
+            "url": "http://www.ka.wikipedia.org/wiki/ტერორიზმი"
+        },
+        "kk": {
+            "label": "Терроризм",
+            "title": "Терроризм",
+            "url": "http://www.kk.wikipedia.org/wiki/Терроризм"
+        },
+        "kn": {
+            "label": "ಭಯೋತ್ಪಾದನೆ",
+            "title": "ಭಯೋತ್ಪಾದನೆ",
+            "url": "http://www.kn.wikipedia.org/wiki/ಭಯೋತ್ಪಾದನೆ"
+        },
+        "ko": {
+            "label": "공포주의",
+            "title": "공포주의",
+            "url": "http://www.ko.wikipedia.org/wiki/공포주의"
+        },
+        "krc": {
+            "label": "Терроризм",
+            "title": "Терроризм",
+            "url": "http://www.krc.wikipedia.org/wiki/Терроризм"
+        },
+        "ku": {
+            "label": "Terorîzm",
+            "title": "Terorîzm",
+            "url": "http://www.ku.wikipedia.org/wiki/Terorîzm"
+        },
+        "la": {
+            "label": "Tromocratia",
+            "title": "Tromocratia",
+            "url": "http://www.la.wikipedia.org/wiki/Tromocratia"
+        },
+        "lad": {
+            "label": "Terrorizmo",
+            "title": "Terrorizmo",
+            "url": "http://www.lad.wikipedia.org/wiki/Terrorizmo"
+        },
+        "lt": {
+            "label": "Terorizmas",
+            "title": "Terorizmas",
+            "url": "http://www.lt.wikipedia.org/wiki/Terorizmas"
+        },
+        "lv": {
+            "label": "Terorisms",
+            "title": "Terorisms",
+            "url": "http://www.lv.wikipedia.org/wiki/Terorisms"
+        },
+        "mk": {
+            "label": "Тероризам",
+            "title": "Тероризам",
+            "url": "http://www.mk.wikipedia.org/wiki/Тероризам"
+        },
+        "ml": {
+            "label": "ഭീകരവാദം",
+            "title": "ഭീകരവാദം",
+            "url": "http://www.ml.wikipedia.org/wiki/ഭീകരവാദം"
+        },
+        "mr": {
+            "label": "दहशतवाद",
+            "title": "दहशतवाद",
+            "url": "http://www.mr.wikipedia.org/wiki/दहशतवाद"
+        },
+        "ms": {
+            "label": "Pengganasan",
+            "title": "Pengganasan",
+            "url": "http://www.ms.wikipedia.org/wiki/Pengganasan"
+        },
+        "mzn": {
+            "label": "تروریسم",
+            "title": "تروریسم",
+            "url": "http://www.mzn.wikipedia.org/wiki/تروریسم"
+        },
+        "nds": {
+            "label": "Terrorismus",
+            "title": "Terrorismus",
+            "url": "http://www.nds.wikipedia.org/wiki/Terrorismus"
+        },
+        "new": {
+            "label": "आतङ्कवाद",
+            "title": "आतङ्कवाद",
+            "url": "http://www.new.wikipedia.org/wiki/आतङ्कवाद"
+        },
+        "nl": {
+            "label": "Terrorisme",
+            "title": "Terrorisme",
+            "url": "http://www.nl.wikipedia.org/wiki/Terrorisme"
+        },
+        "nn": {
+            "label": "Terrorisme",
+            "title": "Terrorisme",
+            "url": "http://www.nn.wikipedia.org/wiki/Terrorisme"
+        },
+        "no": {
+            "label": "Terrorisme",
+            "title": "Terrorisme",
+            "url": "http://www.no.wikipedia.org/wiki/Terrorisme"
+        },
+        "oc": {
+            "label": "Terrorisme",
+            "title": "Terrorisme",
+            "url": "http://www.oc.wikipedia.org/wiki/Terrorisme"
+        },
+        "pl": {
+            "label": "Terroryzm",
+            "title": "Terroryzm",
+            "url": "http://www.pl.wikipedia.org/wiki/Terroryzm"
+        },
+        "pms": {
+            "label": "Terorism",
+            "title": "Terorism",
+            "url": "http://www.pms.wikipedia.org/wiki/Terorism"
+        },
+        "pnb": {
+            "label": "دہشت گردی",
+            "title": "دہشت گردی",
+            "url": "http://www.pnb.wikipedia.org/wiki/دہشت_گردی"
+        },
+        "pt": {
+            "label": "Terrorismo",
+            "title": "Terrorismo",
+            "url": "http://www.pt.wikipedia.org/wiki/Terrorismo"
+        },
+        "ro": {
+            "label": "Terorism",
+            "title": "Terorism",
+            "url": "http://www.ro.wikipedia.org/wiki/Terorism"
+        },
+        "ru": {
+            "label": "Терроризм",
+            "title": "Терроризм",
+            "url": "http://www.ru.wikipedia.org/wiki/Терроризм"
+        },
+        "rue": {
+            "label": "Терорізм",
+            "title": "Терорізм",
+            "url": "http://www.rue.wikipedia.org/wiki/Терорізм"
+        },
+        "rw": {
+            "label": "Iterabwoba",
+            "title": "Iterabwoba",
+            "url": "http://www.rw.wikipedia.org/wiki/Iterabwoba"
+        },
+        "sah": {
+            "label": "Терроризм",
+            "title": "Терроризм",
+            "url": "http://www.sah.wikipedia.org/wiki/Терроризм"
+        },
+        "scn": {
+            "label": "Tirrurìsimu",
+            "title": "Tirrurìsimu",
+            "url": "http://www.scn.wikipedia.org/wiki/Tirrurìsimu"
+        },
+        "sco": {
+            "label": "Terrorism",
+            "title": "Terrorism",
+            "url": "http://www.sco.wikipedia.org/wiki/Terrorism"
+        },
+        "sh": {
+            "label": "Terorizam",
+            "title": "Terorizam",
+            "url": "http://www.sh.wikipedia.org/wiki/Terorizam"
+        },
+        "si": {
+            "label": "ත්‍රස්තවාදය",
+            "title": "ත්‍රස්තවාදය",
+            "url": "http://www.si.wikipedia.org/wiki/ත්‍රස්තවාදය"
+        },
+        "simple": {
+            "label": "Terrorism",
+            "title": "Terrorism",
+            "url": "http://www.simple.wikipedia.org/wiki/Terrorism"
+        },
+        "sk": {
+            "label": "Terorizmus",
+            "title": "Terorizmus",
+            "url": "http://www.sk.wikipedia.org/wiki/Terorizmus"
+        },
+        "sl": {
+            "label": "Terorizem",
+            "title": "Terorizem",
+            "url": "http://www.sl.wikipedia.org/wiki/Terorizem"
+        },
+        "sq": {
+            "label": "Terrorizmi",
+            "title": "Terrorizmi",
+            "url": "http://www.sq.wikipedia.org/wiki/Terrorizmi"
+        },
+        "sr": {
+            "label": "Тероризам",
+            "title": "Тероризам",
+            "url": "http://www.sr.wikipedia.org/wiki/Тероризам"
+        },
+        "sv": {
+            "label": "Terrorism",
+            "title": "Terrorism",
+            "url": "http://www.sv.wikipedia.org/wiki/Terrorism"
+        },
+        "sw": {
+            "label": "Ugaidi",
+            "title": "Ugaidi",
+            "url": "http://www.sw.wikipedia.org/wiki/Ugaidi"
+        },
+        "ta": {
+            "label": "பயங்கரவாதம்",
+            "title": "பயங்கரவாதம்",
+            "url": "http://www.ta.wikipedia.org/wiki/பயங்கரவாதம்"
+        },
+        "te": {
+            "label": "ఉగ్రవాదం",
+            "title": "ఉగ్రవాదం",
+            "url": "http://www.te.wikipedia.org/wiki/ఉగ్రవాదం"
+        },
+        "th": {
+            "label": "การก่อการร้าย",
+            "title": "การก่อการร้าย",
+            "url": "http://www.th.wikipedia.org/wiki/การก่อการร้าย"
+        },
+        "tl": {
+            "label": "Terorismo",
+            "title": "Terorismo",
+            "url": "http://www.tl.wikipedia.org/wiki/Terorismo"
+        },
+        "tr": {
+            "label": "Terörizm",
+            "title": "Terörizm",
+            "url": "http://www.tr.wikipedia.org/wiki/Terörizm"
+        },
+        "tt": {
+            "label": "Террорчылык",
+            "title": "Террорчылык",
+            "url": "http://www.tt.wikipedia.org/wiki/Террорчылык"
+        },
+        "uk": {
+            "label": "Тероризм",
+            "title": "Тероризм",
+            "url": "http://www.uk.wikipedia.org/wiki/Тероризм"
+        },
+        "ur": {
+            "label": "دہشت گردی",
+            "title": "دہشت گردی",
+            "url": "http://www.ur.wikipedia.org/wiki/دہشت_گردی"
+        },
+        "uz": {
+            "label": "Terrorizm",
+            "title": "Terrorizm",
+            "url": "http://www.uz.wikipedia.org/wiki/Terrorizm"
+        },
+        "vi": {
+            "label": "Khủng bố",
+            "title": "Khủng bố",
+            "url": "http://www.vi.wikipedia.org/wiki/Khủng_bố"
+        },
+        "wa": {
+            "label": "Terorisse",
+            "title": "Terorisse",
+            "url": "http://www.wa.wikipedia.org/wiki/Terorisse"
+        },
+        "war": {
+            "label": "Terorismo",
+            "title": "Terorismo",
+            "url": "http://www.war.wikipedia.org/wiki/Terorismo"
+        },
+        "yi": {
+            "label": "טעראריזם",
+            "title": "טעראריזם",
+            "url": "http://www.yi.wikipedia.org/wiki/טעראריזם"
+        },
+        "zh": {
+            "label": "恐怖主义",
+            "title": "恐怖主义",
+            "url": "http://www.zh.wikipedia.org/wiki/恐怖主义"
+        },
+        "zh-min-nan": {
+            "label": "Khióng-pò͘-chú-gī",
+            "title": "Khióng-pò͘-chú-gī",
+            "url": "http://www.zh-min-nan.wikipedia.org/wiki/Khióng-pò͘-chú-gī"
+        },
+        "zh-yue": {
+            "label": "恐怖主義",
+            "title": "恐怖主義",
+            "url": "http://www.zh-yue.wikipedia.org/wiki/恐怖主義"
+        },
+        "en": {
+            "label": "Terrorism",
+            "title": "Terrorism",
+            "url": "http://www.en.wikipedia.org/wiki/Terrorism"
+        },
+        "wikidata": {
+            "label": "Q7283",
+            "title": "Q7283",
+            "url": "http://www.wikidata.org/wiki/Q7283"
+        }
+    },
+    "Crime": {
+        "af": {
+            "label": "Misdaad",
+            "title": "Misdaad",
+            "url": "http://www.af.wikipedia.org/wiki/Misdaad"
+        },
+        "ar": {
+            "label": "جريمة",
+            "title": "جريمة",
+            "url": "http://www.ar.wikipedia.org/wiki/جريمة"
+        },
+        "az": {
+            "label": "Cinayət",
+            "title": "Cinayət",
+            "url": "http://www.az.wikipedia.org/wiki/Cinayət"
+        },
+        "be": {
+            "label": "Злачынства",
+            "title": "Злачынства",
+            "url": "http://www.be.wikipedia.org/wiki/Злачынства"
+        },
+        "be-x-old": {
+            "label": "Злачынства",
+            "title": "Злачынства",
+            "url": "http://www.be-x-old.wikipedia.org/wiki/Злачынства"
+        },
+        "bg": {
+            "label": "Престъпление",
+            "title": "Престъпление",
+            "url": "http://www.bg.wikipedia.org/wiki/Престъпление"
+        },
+        "bn": {
+            "label": "অপরাধ",
+            "title": "অপরাধ",
+            "url": "http://www.bn.wikipedia.org/wiki/অপরাধ"
+        },
+        "bs": {
+            "label": "Kriminal",
+            "title": "Kriminal",
+            "url": "http://www.bs.wikipedia.org/wiki/Kriminal"
+        },
+        "ca": {
+            "label": "Crim",
+            "title": "Crim",
+            "url": "http://www.ca.wikipedia.org/wiki/Crim"
+        },
+        "cs": {
+            "label": "Trestný čin",
+            "title": "Trestný čin",
+            "url": "http://www.cs.wikipedia.org/wiki/Trestný_čin"
+        },
+        "de": {
+            "label": "Verbrechen",
+            "title": "Verbrechen",
+            "url": "http://www.de.wikipedia.org/wiki/Verbrechen"
+        },
+        "el": {
+            "label": "Εγκληματικότητα",
+            "title": "Εγκληματικότητα",
+            "url": "http://www.el.wikipedia.org/wiki/Εγκληματικότητα"
+        },
+        "eo": {
+            "label": "Krimo",
+            "title": "Krimo",
+            "url": "http://www.eo.wikipedia.org/wiki/Krimo"
+        },
+        "et": {
+            "label": "Kuritegu",
+            "title": "Kuritegu",
+            "url": "http://www.et.wikipedia.org/wiki/Kuritegu"
+        },
+        "fa": {
+            "label": "بزه",
+            "title": "بزه",
+            "url": "http://www.fa.wikipedia.org/wiki/بزه"
+        },
+        "fi": {
+            "label": "Rikos",
+            "title": "Rikos",
+            "url": "http://www.fi.wikipedia.org/wiki/Rikos"
+        },
+        "fo": {
+            "label": "Lógarbrot",
+            "title": "Lógarbrot",
+            "url": "http://www.fo.wikipedia.org/wiki/Lógarbrot"
+        },
+        "fr": {
+            "label": "Crime",
+            "title": "Crime",
+            "url": "http://www.fr.wikipedia.org/wiki/Crime"
+        },
+        "he": {
+            "label": "עבירה",
+            "title": "עבירה",
+            "url": "http://www.he.wikipedia.org/wiki/עבירה"
+        },
+        "hi": {
+            "label": "अपराध",
+            "title": "अपराध",
+            "url": "http://www.hi.wikipedia.org/wiki/अपराध"
+        },
+        "hr": {
+            "label": "Kazneno djelo",
+            "title": "Kazneno djelo",
+            "url": "http://www.hr.wikipedia.org/wiki/Kazneno_djelo"
+        },
+        "hu": {
+            "label": "Bűncselekmény",
+            "title": "Bűncselekmény",
+            "url": "http://www.hu.wikipedia.org/wiki/Bűncselekmény"
+        },
+        "id": {
+            "label": "Pidana",
+            "title": "Pidana",
+            "url": "http://www.id.wikipedia.org/wiki/Pidana"
+        },
+        "io": {
+            "label": "Krimino",
+            "title": "Krimino",
+            "url": "http://www.io.wikipedia.org/wiki/Krimino"
+        },
+        "is": {
+            "label": "Glæpur",
+            "title": "Glæpur",
+            "url": "http://www.is.wikipedia.org/wiki/Glæpur"
+        },
+        "it": {
+            "label": "Crimine",
+            "title": "Crimine",
+            "url": "http://www.it.wikipedia.org/wiki/Crimine"
+        },
+        "ja": {
+            "label": "犯罪",
+            "title": "犯罪",
+            "url": "http://www.ja.wikipedia.org/wiki/犯罪"
+        },
+        "jv": {
+            "label": "Kadurjanan",
+            "title": "Kadurjanan",
+            "url": "http://www.jv.wikipedia.org/wiki/Kadurjanan"
+        },
+        "ka": {
+            "label": "დანაშაული",
+            "title": "დანაშაული",
+            "url": "http://www.ka.wikipedia.org/wiki/დანაშაული"
+        },
+        "kn": {
+            "label": "ಅಪರಾಧ",
+            "title": "ಅಪರಾಧ",
+            "url": "http://www.kn.wikipedia.org/wiki/ಅಪರಾಧ"
+        },
+        "ko": {
+            "label": "범죄",
+            "title": "범죄",
+            "url": "http://www.ko.wikipedia.org/wiki/범죄"
+        },
+        "lv": {
+            "label": "Noziegums",
+            "title": "Noziegums",
+            "url": "http://www.lv.wikipedia.org/wiki/Noziegums"
+        },
+        "mk": {
+            "label": "Злосторство",
+            "title": "Злосторство",
+            "url": "http://www.mk.wikipedia.org/wiki/Злосторство"
+        },
+        "mr": {
+            "label": "अपराध",
+            "title": "अपराध",
+            "url": "http://www.mr.wikipedia.org/wiki/अपराध"
+        },
+        "mwl": {
+            "label": "Crime",
+            "title": "Crime",
+            "url": "http://www.mwl.wikipedia.org/wiki/Crime"
+        },
+        "my": {
+            "label": "ရာဇဝတ်မှု",
+            "title": "ရာဇဝတ်မှု",
+            "url": "http://www.my.wikipedia.org/wiki/ရာဇဝတ်မှု"
+        },
+        "nl": {
+            "label": "Misdaad",
+            "title": "Misdaad",
+            "url": "http://www.nl.wikipedia.org/wiki/Misdaad"
+        },
+        "oc": {
+            "label": "Crime",
+            "title": "Crime",
+            "url": "http://www.oc.wikipedia.org/wiki/Crime"
+        },
+        "pl": {
+            "label": "Przestępstwo",
+            "title": "Przestępstwo",
+            "url": "http://www.pl.wikipedia.org/wiki/Przestępstwo"
+        },
+        "pt": {
+            "label": "Crime",
+            "title": "Crime",
+            "url": "http://www.pt.wikipedia.org/wiki/Crime"
+        },
+        "qu": {
+            "label": "Q'uma",
+            "title": "Q'uma",
+            "url": "http://www.qu.wikipedia.org/wiki/Q'uma"
+        },
+        "ro": {
+            "label": "Crimă",
+            "title": "Crimă",
+            "url": "http://www.ro.wikipedia.org/wiki/Crimă"
+        },
+        "ru": {
+            "label": "Преступление",
+            "title": "Преступление",
+            "url": "http://www.ru.wikipedia.org/wiki/Преступление"
+        },
+        "si": {
+            "label": "අපරාධ",
+            "title": "අපරාධ",
+            "url": "http://www.si.wikipedia.org/wiki/අපරාධ"
+        },
+        "simple": {
+            "label": "Crime",
+            "title": "Crime",
+            "url": "http://www.simple.wikipedia.org/wiki/Crime"
+        },
+        "sk": {
+            "label": "Trestný čin",
+            "title": "Trestný čin",
+            "url": "http://www.sk.wikipedia.org/wiki/Trestný_čin"
+        },
+        "sr": {
+            "label": "Злочин",
+            "title": "Злочин",
+            "url": "http://www.sr.wikipedia.org/wiki/Злочин"
+        },
+        "sv": {
+            "label": "Brott",
+            "title": "Brott",
+            "url": "http://www.sv.wikipedia.org/wiki/Brott"
+        },
+        "ta": {
+            "label": "குற்றம்",
+            "title": "குற்றம்",
+            "url": "http://www.ta.wikipedia.org/wiki/குற்றம்"
+        },
+        "te": {
+            "label": "నేరం",
+            "title": "నేరం",
+            "url": "http://www.te.wikipedia.org/wiki/నేరం"
+        },
+        "th": {
+            "label": "อาชญากรรม",
+            "title": "อาชญากรรม",
+            "url": "http://www.th.wikipedia.org/wiki/อาชญากรรม"
+        },
+        "tl": {
+            "label": "Krimen",
+            "title": "Krimen",
+            "url": "http://www.tl.wikipedia.org/wiki/Krimen"
+        },
+        "tr": {
+            "label": "Suç",
+            "title": "Suç",
+            "url": "http://www.tr.wikipedia.org/wiki/Suç"
+        },
+        "uk": {
+            "label": "Злочин",
+            "title": "Злочин",
+            "url": "http://www.uk.wikipedia.org/wiki/Злочин"
+        },
+        "ur": {
+            "label": "جُرم",
+            "title": "جُرم",
+            "url": "http://www.ur.wikipedia.org/wiki/جُرم"
+        },
+        "uz": {
+            "label": "Jinoyat",
+            "title": "Jinoyat",
+            "url": "http://www.uz.wikipedia.org/wiki/Jinoyat"
+        },
+        "vi": {
+            "label": "Tội phạm",
+            "title": "Tội phạm",
+            "url": "http://www.vi.wikipedia.org/wiki/Tội_phạm"
+        },
+        "war": {
+            "label": "Krimen",
+            "title": "Krimen",
+            "url": "http://www.war.wikipedia.org/wiki/Krimen"
+        },
+        "yi": {
+            "label": "פארברעכן",
+            "title": "פארברעכן",
+            "url": "http://www.yi.wikipedia.org/wiki/פארברעכן"
+        },
+        "zh": {
+            "label": "犯罪",
+            "title": "犯罪",
+            "url": "http://www.zh.wikipedia.org/wiki/犯罪"
+        },
+        "en": {
+            "label": "Crime",
+            "title": "Crime",
+            "url": "http://www.en.wikipedia.org/wiki/Crime"
+        },
+        "wikidata": {
+            "label": "Q83267",
+            "title": "Q83267",
+            "url": "http://www.wikidata.org/wiki/Q83267"
+        }
+    },
+    "Civil disorder": {
+        "de": {
+            "label": "Widerstand gegen die Staatsgewalt",
+            "title": "Widerstand gegen die Staatsgewalt",
+            "url": "http://www.de.wikipedia.org/wiki/Widerstand_gegen_die_Staatsgewalt"
+        },
+        "es": {
+            "label": "Desorden civil",
+            "title": "Desorden civil",
+            "url": "http://www.es.wikipedia.org/wiki/Desorden_civil"
+        },
+        "kk": {
+            "label": "Жаппай тәртіпсіздіктер",
+            "title": "Жаппай тәртіпсіздіктер",
+            "url": "http://www.kk.wikipedia.org/wiki/Жаппай_тәртіпсіздіктер"
+        },
+        "ru": {
+            "label": "Массовые беспорядки",
+            "title": "Массовые беспорядки",
+            "url": "http://www.ru.wikipedia.org/wiki/Массовые_беспорядки"
+        },
+        "sr": {
+            "label": "Грађански немири",
+            "title": "Грађански немири",
+            "url": "http://www.sr.wikipedia.org/wiki/Грађански_немири"
+        },
+        "th": {
+            "label": "การก่อความไม่สงบ",
+            "title": "การก่อความไม่สงบ",
+            "url": "http://www.th.wikipedia.org/wiki/การก่อความไม่สงบ"
+        },
+        "uk": {
+            "label": "Масові заворушення",
+            "title": "Масові заворушення",
+            "url": "http://www.uk.wikipedia.org/wiki/Масові_заворушення"
+        },
+        "zh": {
+            "label": "骚乱",
+            "title": "骚乱",
+            "url": "http://www.zh.wikipedia.org/wiki/骚乱"
+        },
+        "en": {
+            "label": "Civil disorder",
+            "title": "Civil disorder",
+            "url": "http://www.en.wikipedia.org/wiki/Civil_disorder"
+        },
+        "wikidata": {
+            "label": "Q686984",
+            "title": "Q686984",
+            "url": "http://www.wikidata.org/wiki/Q686984"
+        }
+    },
+    "Power outage": {
+        "cs": {
+            "label": "Blackout",
+            "title": "Blackout (výpadek dodávky elektřiny)",
+            "url": "http://www.cs.wikipedia.org/wiki/Blackout_(výpadek_dodávky_elektřiny)"
+        },
+        "da": {
+            "label": "Strømsvigt",
+            "title": "Strømsvigt",
+            "url": "http://www.da.wikipedia.org/wiki/Strømsvigt"
+        },
+        "de": {
+            "label": "Stromausfall",
+            "title": "Stromausfall",
+            "url": "http://www.de.wikipedia.org/wiki/Stromausfall"
+        },
+        "eo": {
+            "label": "Elektrorompo",
+            "title": "Elektrorompo",
+            "url": "http://www.eo.wikipedia.org/wiki/Elektrorompo"
+        },
+        "es": {
+            "label": "Apagón eléctrico",
+            "title": "Apagón eléctrico",
+            "url": "http://www.es.wikipedia.org/wiki/Apagón_eléctrico"
+        },
+        "fa": {
+            "label": "قطع برق",
+            "title": "قطع برق",
+            "url": "http://www.fa.wikipedia.org/wiki/قطع_برق"
+        },
+        "fi": {
+            "label": "Sähkökatkos",
+            "title": "Sähkökatkos",
+            "url": "http://www.fi.wikipedia.org/wiki/Sähkökatkos"
+        },
+        "fr": {
+            "label": "Panne de courant",
+            "title": "Panne de courant",
+            "url": "http://www.fr.wikipedia.org/wiki/Panne_de_courant"
+        },
+        "he": {
+            "label": "הפסקת חשמל",
+            "title": "הפסקת חשמל",
+            "url": "http://www.he.wikipedia.org/wiki/הפסקת_חשמל"
+        },
+        "id": {
+            "label": "Mati listrik",
+            "title": "Mati listrik",
+            "url": "http://www.id.wikipedia.org/wiki/Mati_listrik"
+        },
+        "it": {
+            "label": "Black out",
+            "title": "Black out",
+            "url": "http://www.it.wikipedia.org/wiki/Black_out"
+        },
+        "ja": {
+            "label": "停電",
+            "title": "停電",
+            "url": "http://www.ja.wikipedia.org/wiki/停電"
+        },
+        "ko": {
+            "label": "정전",
+            "title": "정전 (전기)",
+            "url": "http://www.ko.wikipedia.org/wiki/정전_(전기)"
+        },
+        "lt": {
+            "label": "Energetinė avarija",
+            "title": "Energetinė avarija",
+            "url": "http://www.lt.wikipedia.org/wiki/Energetinė_avarija"
+        },
+        "ms": {
+            "label": "Gangguan bekalan elektrik",
+            "title": "Gangguan bekalan elektrik",
+            "url": "http://www.ms.wikipedia.org/wiki/Gangguan_bekalan_elektrik"
+        },
+        "nl": {
+            "label": "Stroomuitval",
+            "title": "Stroomuitval",
+            "url": "http://www.nl.wikipedia.org/wiki/Stroomuitval"
+        },
+        "pl": {
+            "label": "Blackout",
+            "title": "Blackout (rozległa awaria zasilania)",
+            "url": "http://www.pl.wikipedia.org/wiki/Blackout_(rozległa_awaria_zasilania)"
+        },
+        "pms": {
+            "label": "Anterussion elétrica",
+            "title": "Anterussion elétrica",
+            "url": "http://www.pms.wikipedia.org/wiki/Anterussion_elétrica"
+        },
+        "pt": {
+            "label": "Blecaute",
+            "title": "Blecaute",
+            "url": "http://www.pt.wikipedia.org/wiki/Blecaute"
+        },
+        "ru": {
+            "label": "Авария в энергосистеме",
+            "title": "Авария в энергосистеме",
+            "url": "http://www.ru.wikipedia.org/wiki/Авария_в_энергосистеме"
+        },
+        "simple": {
+            "label": "Power cut",
+            "title": "Power cut",
+            "url": "http://www.simple.wikipedia.org/wiki/Power_cut"
+        },
+        "sv": {
+            "label": "Elavbrott",
+            "title": "Elavbrott",
+            "url": "http://www.sv.wikipedia.org/wiki/Elavbrott"
+        },
+        "ta": {
+            "label": "மின்சார நிறுத்தம்",
+            "title": "மின்சார நிறுத்தம்",
+            "url": "http://www.ta.wikipedia.org/wiki/மின்சார_நிறுத்தம்"
+        },
+        "vi": {
+            "label": "Mất điện",
+            "title": "Mất điện",
+            "url": "http://www.vi.wikipedia.org/wiki/Mất_điện"
+        },
+        "zh": {
+            "label": "停電",
+            "title": "停電",
+            "url": "http://www.zh.wikipedia.org/wiki/停電"
+        },
+        "en": {
+            "label": "Power outage",
+            "title": "Power outage",
+            "url": "http://www.en.wikipedia.org/wiki/Power_outage"
+        },
+        "wikidata": {
+            "label": "Q828827",
+            "title": "Q828827",
+            "url": "http://www.wikidata.org/wiki/Q828827"
+        }
+    },
+    "War": {
+        "af": {
+            "label": "Oorlog",
+            "title": "Oorlog",
+            "url": "http://www.af.wikipedia.org/wiki/Oorlog"
+        },
+        "an": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.an.wikipedia.org/wiki/Guerra"
+        },
+        "ar": {
+            "label": "حرب",
+            "title": "حرب",
+            "url": "http://www.ar.wikipedia.org/wiki/حرب"
+        },
+        "arc": {
+            "label": "ܩܪܒܐ",
+            "title": "ܩܪܒܐ",
+            "url": "http://www.arc.wikipedia.org/wiki/ܩܪܒܐ"
+        },
+        "arz": {
+            "label": "حرب",
+            "title": "حرب",
+            "url": "http://www.arz.wikipedia.org/wiki/حرب"
+        },
+        "ast": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.ast.wikipedia.org/wiki/Guerra"
+        },
+        "az": {
+            "label": "Müharibə",
+            "title": "Müharibə",
+            "url": "http://www.az.wikipedia.org/wiki/Müharibə"
+        },
+        "bat-smg": {
+            "label": "Vaina",
+            "title": "Vaina",
+            "url": "http://www.bat-smg.wikipedia.org/wiki/Vaina"
+        },
+        "be": {
+            "label": "Вайна",
+            "title": "Вайна",
+            "url": "http://www.be.wikipedia.org/wiki/Вайна"
+        },
+        "be-x-old": {
+            "label": "Вайна",
+            "title": "Вайна",
+            "url": "http://www.be-x-old.wikipedia.org/wiki/Вайна"
+        },
+        "bg": {
+            "label": "Война",
+            "title": "Война",
+            "url": "http://www.bg.wikipedia.org/wiki/Война"
+        },
+        "bn": {
+            "label": "যুদ্ধ",
+            "title": "যুদ্ধ",
+            "url": "http://www.bn.wikipedia.org/wiki/যুদ্ধ"
+        },
+        "bo": {
+            "label": "དམག་འཁྲུག",
+            "title": "དམག་འཁྲུག",
+            "url": "http://www.bo.wikipedia.org/wiki/དམག་འཁྲུག"
+        },
+        "br": {
+            "label": "Brezel",
+            "title": "Brezel",
+            "url": "http://www.br.wikipedia.org/wiki/Brezel"
+        },
+        "bs": {
+            "label": "Rat",
+            "title": "Rat",
+            "url": "http://www.bs.wikipedia.org/wiki/Rat"
+        },
+        "bxr": {
+            "label": "Дайн",
+            "title": "Дайн",
+            "url": "http://www.bxr.wikipedia.org/wiki/Дайн"
+        },
+        "ca": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.ca.wikipedia.org/wiki/Guerra"
+        },
+        "ceb": {
+            "label": "Gubat",
+            "title": "Gubat",
+            "url": "http://www.ceb.wikipedia.org/wiki/Gubat"
+        },
+        "ch": {
+            "label": "Gera",
+            "title": "Gera",
+            "url": "http://www.ch.wikipedia.org/wiki/Gera"
+        },
+        "ckb": {
+            "label": "جەنگ",
+            "title": "جەنگ",
+            "url": "http://www.ckb.wikipedia.org/wiki/جەنگ"
+        },
+        "cs": {
+            "label": "Válka",
+            "title": "Válka",
+            "url": "http://www.cs.wikipedia.org/wiki/Válka"
+        },
+        "cv": {
+            "label": "Вăрçă",
+            "title": "Вăрçă",
+            "url": "http://www.cv.wikipedia.org/wiki/Вăрçă"
+        },
+        "cy": {
+            "label": "Rhyfel",
+            "title": "Rhyfel",
+            "url": "http://www.cy.wikipedia.org/wiki/Rhyfel"
+        },
+        "da": {
+            "label": "Krig",
+            "title": "Krig",
+            "url": "http://www.da.wikipedia.org/wiki/Krig"
+        },
+        "de": {
+            "label": "Krieg",
+            "title": "Krieg",
+            "url": "http://www.de.wikipedia.org/wiki/Krieg"
+        },
+        "el": {
+            "label": "Πόλεμος",
+            "title": "Πόλεμος",
+            "url": "http://www.el.wikipedia.org/wiki/Πόλεμος"
+        },
+        "eo": {
+            "label": "Milito",
+            "title": "Milito",
+            "url": "http://www.eo.wikipedia.org/wiki/Milito"
+        },
+        "es": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.es.wikipedia.org/wiki/Guerra"
+        },
+        "et": {
+            "label": "Sõda",
+            "title": "Sõda",
+            "url": "http://www.et.wikipedia.org/wiki/Sõda"
+        },
+        "eu": {
+            "label": "Gerra",
+            "title": "Gerra",
+            "url": "http://www.eu.wikipedia.org/wiki/Gerra"
+        },
+        "ext": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.ext.wikipedia.org/wiki/Guerra"
+        },
+        "fa": {
+            "label": "جنگ",
+            "title": "جنگ",
+            "url": "http://www.fa.wikipedia.org/wiki/جنگ"
+        },
+        "fi": {
+            "label": "Sota",
+            "title": "Sota",
+            "url": "http://www.fi.wikipedia.org/wiki/Sota"
+        },
+        "fiu-vro": {
+            "label": "Sõda",
+            "title": "Sõda",
+            "url": "http://www.fiu-vro.wikipedia.org/wiki/Sõda"
+        },
+        "fr": {
+            "label": "Guerre",
+            "title": "Guerre",
+            "url": "http://www.fr.wikipedia.org/wiki/Guerre"
+        },
+        "fur": {
+            "label": "Vuere",
+            "title": "Vuere",
+            "url": "http://www.fur.wikipedia.org/wiki/Vuere"
+        },
+        "fy": {
+            "label": "Oarloch",
+            "title": "Oarloch",
+            "url": "http://www.fy.wikipedia.org/wiki/Oarloch"
+        },
+        "ga": {
+            "label": "Cogadh",
+            "title": "Cogadh",
+            "url": "http://www.ga.wikipedia.org/wiki/Cogadh"
+        },
+        "gan": {
+            "label": "打仗",
+            "title": "打仗",
+            "url": "http://www.gan.wikipedia.org/wiki/打仗"
+        },
+        "gd": {
+            "label": "Cogadh",
+            "title": "Cogadh",
+            "url": "http://www.gd.wikipedia.org/wiki/Cogadh"
+        },
+        "gl": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.gl.wikipedia.org/wiki/Guerra"
+        },
+        "he": {
+            "label": "מלחמה",
+            "title": "מלחמה",
+            "url": "http://www.he.wikipedia.org/wiki/מלחמה"
+        },
+        "hi": {
+            "label": "संग्राम",
+            "title": "संग्राम",
+            "url": "http://www.hi.wikipedia.org/wiki/संग्राम"
+        },
+        "hif": {
+            "label": "Yudh",
+            "title": "Yudh",
+            "url": "http://www.hif.wikipedia.org/wiki/Yudh"
+        },
+        "hr": {
+            "label": "Rat",
+            "title": "Rat",
+            "url": "http://www.hr.wikipedia.org/wiki/Rat"
+        },
+        "ht": {
+            "label": "Lagè",
+            "title": "Lagè",
+            "url": "http://www.ht.wikipedia.org/wiki/Lagè"
+        },
+        "hu": {
+            "label": "Háború",
+            "title": "Háború",
+            "url": "http://www.hu.wikipedia.org/wiki/Háború"
+        },
+        "hy": {
+            "label": "Պատերազմ",
+            "title": "Պատերազմ",
+            "url": "http://www.hy.wikipedia.org/wiki/Պատերազմ"
+        },
+        "ia": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.ia.wikipedia.org/wiki/Guerra"
+        },
+        "id": {
+            "label": "Perang",
+            "title": "Perang",
+            "url": "http://www.id.wikipedia.org/wiki/Perang"
+        },
+        "ilo": {
+            "label": "Gubat",
+            "title": "Gubat",
+            "url": "http://www.ilo.wikipedia.org/wiki/Gubat"
+        },
+        "is": {
+            "label": "Stríð",
+            "title": "Stríð",
+            "url": "http://www.is.wikipedia.org/wiki/Stríð"
+        },
+        "it": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.it.wikipedia.org/wiki/Guerra"
+        },
+        "iu": {
+            "label": "ᐊᑭᕋᖅᑑᑎᔪᑦ",
+            "title": "ᐊᑭᕋᖅᑑᑎᔪᑦ",
+            "url": "http://www.iu.wikipedia.org/wiki/ᐊᑭᕋᖅᑑᑎᔪᑦ"
+        },
+        "ja": {
+            "label": "戦争",
+            "title": "戦争",
+            "url": "http://www.ja.wikipedia.org/wiki/戦争"
+        },
+        "jv": {
+            "label": "Perang",
+            "title": "Perang",
+            "url": "http://www.jv.wikipedia.org/wiki/Perang"
+        },
+        "ka": {
+            "label": "ომი",
+            "title": "ომი",
+            "url": "http://www.ka.wikipedia.org/wiki/ომი"
+        },
+        "kg": {
+            "label": "Vita",
+            "title": "Vita",
+            "url": "http://www.kg.wikipedia.org/wiki/Vita"
+        },
+        "kk": {
+            "label": "Соғыс",
+            "title": "Соғыс",
+            "url": "http://www.kk.wikipedia.org/wiki/Соғыс"
+        },
+        "kn": {
+            "label": "ಯುದ್ಧ",
+            "title": "ಯುದ್ಧ",
+            "url": "http://www.kn.wikipedia.org/wiki/ಯುದ್ಧ"
+        },
+        "ko": {
+            "label": "전쟁",
+            "title": "전쟁",
+            "url": "http://www.ko.wikipedia.org/wiki/전쟁"
+        },
+        "krc": {
+            "label": "Къазауат",
+            "title": "Къазауат",
+            "url": "http://www.krc.wikipedia.org/wiki/Къазауат"
+        },
+        "ksh": {
+            "label": "Kreech",
+            "title": "Kreech",
+            "url": "http://www.ksh.wikipedia.org/wiki/Kreech"
+        },
+        "ku": {
+            "label": "Şer",
+            "title": "Şer",
+            "url": "http://www.ku.wikipedia.org/wiki/Şer"
+        },
+        "kv": {
+            "label": "Тыш",
+            "title": "Тыш",
+            "url": "http://www.kv.wikipedia.org/wiki/Тыш"
+        },
+        "ky": {
+            "label": "Согуш",
+            "title": "Согуш",
+            "url": "http://www.ky.wikipedia.org/wiki/Согуш"
+        },
+        "la": {
+            "label": "Bellum",
+            "title": "Bellum",
+            "url": "http://www.la.wikipedia.org/wiki/Bellum"
+        },
+        "lb": {
+            "label": "Krich",
+            "title": "Krich",
+            "url": "http://www.lb.wikipedia.org/wiki/Krich"
+        },
+        "lt": {
+            "label": "Karas",
+            "title": "Karas",
+            "url": "http://www.lt.wikipedia.org/wiki/Karas"
+        },
+        "lv": {
+            "label": "Karš",
+            "title": "Karš",
+            "url": "http://www.lv.wikipedia.org/wiki/Karš"
+        },
+        "map-bms": {
+            "label": "Perang",
+            "title": "Perang",
+            "url": "http://www.map-bms.wikipedia.org/wiki/Perang"
+        },
+        "mhr": {
+            "label": "Сар",
+            "title": "Сар",
+            "url": "http://www.mhr.wikipedia.org/wiki/Сар"
+        },
+        "min": {
+            "label": "Parang",
+            "title": "Parang",
+            "url": "http://www.min.wikipedia.org/wiki/Parang"
+        },
+        "mk": {
+            "label": "Војна",
+            "title": "Војна",
+            "url": "http://www.mk.wikipedia.org/wiki/Војна"
+        },
+        "ml": {
+            "label": "യുദ്ധം",
+            "title": "യുദ്ധം",
+            "url": "http://www.ml.wikipedia.org/wiki/യുദ്ധം"
+        },
+        "mn": {
+            "label": "Дайн",
+            "title": "Дайн",
+            "url": "http://www.mn.wikipedia.org/wiki/Дайн"
+        },
+        "mr": {
+            "label": "युद्ध",
+            "title": "युद्ध",
+            "url": "http://www.mr.wikipedia.org/wiki/युद्ध"
+        },
+        "ms": {
+            "label": "Peperangan",
+            "title": "Peperangan",
+            "url": "http://www.ms.wikipedia.org/wiki/Peperangan"
+        },
+        "mwl": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.mwl.wikipedia.org/wiki/Guerra"
+        },
+        "nds": {
+            "label": "Krieg",
+            "title": "Krieg",
+            "url": "http://www.nds.wikipedia.org/wiki/Krieg"
+        },
+        "nds-nl": {
+            "label": "Kraig",
+            "title": "Kraig",
+            "url": "http://www.nds-nl.wikipedia.org/wiki/Kraig"
+        },
+        "new": {
+            "label": "हताः",
+            "title": "हताः",
+            "url": "http://www.new.wikipedia.org/wiki/हताः"
+        },
+        "nl": {
+            "label": "Oorlog",
+            "title": "Oorlog",
+            "url": "http://www.nl.wikipedia.org/wiki/Oorlog"
+        },
+        "nn": {
+            "label": "Krig",
+            "title": "Krig",
+            "url": "http://www.nn.wikipedia.org/wiki/Krig"
+        },
+        "no": {
+            "label": "Krig",
+            "title": "Krig",
+            "url": "http://www.no.wikipedia.org/wiki/Krig"
+        },
+        "nrm": {
+            "label": "Dgèrre",
+            "title": "Dgèrre",
+            "url": "http://www.nrm.wikipedia.org/wiki/Dgèrre"
+        },
+        "oc": {
+            "label": "Guèrra",
+            "title": "Guèrra",
+            "url": "http://www.oc.wikipedia.org/wiki/Guèrra"
+        },
+        "pdc": {
+            "label": "Grieg",
+            "title": "Grieg",
+            "url": "http://www.pdc.wikipedia.org/wiki/Grieg"
+        },
+        "pl": {
+            "label": "Wojna",
+            "title": "Wojna",
+            "url": "http://www.pl.wikipedia.org/wiki/Wojna"
+        },
+        "pms": {
+            "label": "Guèra",
+            "title": "Guèra",
+            "url": "http://www.pms.wikipedia.org/wiki/Guèra"
+        },
+        "pnb": {
+            "label": "لڑائی",
+            "title": "لڑائی",
+            "url": "http://www.pnb.wikipedia.org/wiki/لڑائی"
+        },
+        "ps": {
+            "label": "جگړه",
+            "title": "جگړه",
+            "url": "http://www.ps.wikipedia.org/wiki/جگړه"
+        },
+        "pt": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.pt.wikipedia.org/wiki/Guerra"
+        },
+        "qu": {
+            "label": "Maqanakuy",
+            "title": "Maqanakuy",
+            "url": "http://www.qu.wikipedia.org/wiki/Maqanakuy"
+        },
+        "ro": {
+            "label": "Război",
+            "title": "Război",
+            "url": "http://www.ro.wikipedia.org/wiki/Război"
+        },
+        "ru": {
+            "label": "Война",
+            "title": "Война",
+            "url": "http://www.ru.wikipedia.org/wiki/Война"
+        },
+        "rue": {
+            "label": "Война",
+            "title": "Война",
+            "url": "http://www.rue.wikipedia.org/wiki/Война"
+        },
+        "sa": {
+            "label": "युद्धम्",
+            "title": "युद्धम्",
+            "url": "http://www.sa.wikipedia.org/wiki/युद्धम्"
+        },
+        "sah": {
+            "label": "Сэрии",
+            "title": "Сэрии",
+            "url": "http://www.sah.wikipedia.org/wiki/Сэрии"
+        },
+        "scn": {
+            "label": "Guerra",
+            "title": "Guerra",
+            "url": "http://www.scn.wikipedia.org/wiki/Guerra"
+        },
+        "sh": {
+            "label": "Rat",
+            "title": "Rat",
+            "url": "http://www.sh.wikipedia.org/wiki/Rat"
+        },
+        "si": {
+            "label": "යුද්ධ",
+            "title": "යුද්ධ",
+            "url": "http://www.si.wikipedia.org/wiki/යුද්ධ"
+        },
+        "simple": {
+            "label": "War",
+            "title": "War",
+            "url": "http://www.simple.wikipedia.org/wiki/War"
+        },
+        "sk": {
+            "label": "Vojna",
+            "title": "Vojna",
+            "url": "http://www.sk.wikipedia.org/wiki/Vojna"
+        },
+        "sl": {
+            "label": "Vojna",
+            "title": "Vojna",
+            "url": "http://www.sl.wikipedia.org/wiki/Vojna"
+        },
+        "sn": {
+            "label": "Hondo",
+            "title": "Hondo",
+            "url": "http://www.sn.wikipedia.org/wiki/Hondo"
+        },
+        "so": {
+            "label": "Dagaalada",
+            "title": "Dagaalada",
+            "url": "http://www.so.wikipedia.org/wiki/Dagaalada"
+        },
+        "sq": {
+            "label": "Lufta",
+            "title": "Lufta",
+            "url": "http://www.sq.wikipedia.org/wiki/Lufta"
+        },
+        "sr": {
+            "label": "Рат",
+            "title": "Рат",
+            "url": "http://www.sr.wikipedia.org/wiki/Рат"
+        },
+        "sv": {
+            "label": "Krig",
+            "title": "Krig",
+            "url": "http://www.sv.wikipedia.org/wiki/Krig"
+        },
+        "sw": {
+            "label": "Vita",
+            "title": "Vita",
+            "url": "http://www.sw.wikipedia.org/wiki/Vita"
+        },
+        "ta": {
+            "label": "போர்",
+            "title": "போர்",
+            "url": "http://www.ta.wikipedia.org/wiki/போர்"
+        },
+        "te": {
+            "label": "యుద్ధం",
+            "title": "యుద్ధం",
+            "url": "http://www.te.wikipedia.org/wiki/యుద్ధం"
+        },
+        "th": {
+            "label": "สงคราม",
+            "title": "สงคราม",
+            "url": "http://www.th.wikipedia.org/wiki/สงคราม"
+        },
+        "tl": {
+            "label": "Digmaan",
+            "title": "Digmaan",
+            "url": "http://www.tl.wikipedia.org/wiki/Digmaan"
+        },
+        "tr": {
+            "label": "Savaş",
+            "title": "Savaş",
+            "url": "http://www.tr.wikipedia.org/wiki/Savaş"
+        },
+        "tt": {
+            "label": "Сугыш",
+            "title": "Сугыш",
+            "url": "http://www.tt.wikipedia.org/wiki/Сугыш"
+        },
+        "uk": {
+            "label": "Війна",
+            "title": "Війна",
+            "url": "http://www.uk.wikipedia.org/wiki/Війна"
+        },
+        "ur": {
+            "label": "جنگ",
+            "title": "جنگ",
+            "url": "http://www.ur.wikipedia.org/wiki/جنگ"
+        },
+        "uz": {
+            "label": "Urush",
+            "title": "Urush",
+            "url": "http://www.uz.wikipedia.org/wiki/Urush"
+        },
+        "vec": {
+            "label": "Guera",
+            "title": "Guera",
+            "url": "http://www.vec.wikipedia.org/wiki/Guera"
+        },
+        "vep": {
+            "label": "Voin",
+            "title": "Voin",
+            "url": "http://www.vep.wikipedia.org/wiki/Voin"
+        },
+        "vi": {
+            "label": "Chiến tranh",
+            "title": "Chiến tranh",
+            "url": "http://www.vi.wikipedia.org/wiki/Chiến_tranh"
+        },
+        "wa": {
+            "label": "Guere",
+            "title": "Guere",
+            "url": "http://www.wa.wikipedia.org/wiki/Guere"
+        },
+        "war": {
+            "label": "Gerá",
+            "title": "Gerá",
+            "url": "http://www.war.wikipedia.org/wiki/Gerá"
+        },
+        "wuu": {
+            "label": "打仗",
+            "title": "打仗",
+            "url": "http://www.wuu.wikipedia.org/wiki/打仗"
+        },
+        "xh": {
+            "label": "Imfazwe",
+            "title": "Imfazwe",
+            "url": "http://www.xh.wikipedia.org/wiki/Imfazwe"
+        },
+        "yi": {
+            "label": "מלחמה",
+            "title": "מלחמה",
+            "url": "http://www.yi.wikipedia.org/wiki/מלחמה"
+        },
+        "yo": {
+            "label": "Ogun",
+            "title": "Ogun",
+            "url": "http://www.yo.wikipedia.org/wiki/Ogun"
+        },
+        "zh": {
+            "label": "战争",
+            "title": "战争",
+            "url": "http://www.zh.wikipedia.org/wiki/战争"
+        },
+        "zh-min-nan": {
+            "label": "Chiàn-cheng",
+            "title": "Chiàn-cheng",
+            "url": "http://www.zh-min-nan.wikipedia.org/wiki/Chiàn-cheng"
+        },
+        "zh-yue": {
+            "label": "打仗",
+            "title": "打仗",
+            "url": "http://www.zh-yue.wikipedia.org/wiki/打仗"
+        },
+        "en": {
+            "label": "War",
+            "title": "War",
+            "url": "http://www.en.wikipedia.org/wiki/War"
+        },
+        "wikidata": {
+            "label": "Q198",
+            "title": "Q198",
+            "url": "http://www.wikidata.org/wiki/Q198"
+        }
+    },
+    "Asymmetric warfare": {
+        "bg": {
+            "label": "Асиметрична война",
+            "title": "Асиметрична война",
+            "url": "http://www.bg.wikipedia.org/wiki/Асиметрична_война"
+        },
+        "cs": {
+            "label": "Asymetrická válka",
+            "title": "Asymetrická válka",
+            "url": "http://www.cs.wikipedia.org/wiki/Asymetrická_válka"
+        },
+        "da": {
+            "label": "Asymmetrisk krigsførelse",
+            "title": "Asymmetrisk krigsførelse",
+            "url": "http://www.da.wikipedia.org/wiki/Asymmetrisk_krigsførelse"
+        },
+        "de": {
+            "label": "Asymmetrische Kriegführung",
+            "title": "Asymmetrische Kriegführung",
+            "url": "http://www.de.wikipedia.org/wiki/Asymmetrische_Kriegführung"
+        },
+        "el": {
+            "label": "Ασύμμετρη απειλή",
+            "title": "Ασύμμετρη απειλή",
+            "url": "http://www.el.wikipedia.org/wiki/Ασύμμετρη_απειλή"
+        },
+        "es": {
+            "label": "Guerra asimétrica",
+            "title": "Guerra asimétrica",
+            "url": "http://www.es.wikipedia.org/wiki/Guerra_asimétrica"
+        },
+        "fa": {
+            "label": "جنگ نامتقارن",
+            "title": "جنگ نامتقارن",
+            "url": "http://www.fa.wikipedia.org/wiki/جنگ_نامتقارن"
+        },
+        "fi": {
+            "label": "Epäsymmetrinen sodankäynti",
+            "title": "Epäsymmetrinen sodankäynti",
+            "url": "http://www.fi.wikipedia.org/wiki/Epäsymmetrinen_sodankäynti"
+        },
+        "fr": {
+            "label": "Guerre asymétrique",
+            "title": "Guerre asymétrique",
+            "url": "http://www.fr.wikipedia.org/wiki/Guerre_asymétrique"
+        },
+        "he": {
+            "label": "לוחמה אסימטרית",
+            "title": "לוחמה אסימטרית",
+            "url": "http://www.he.wikipedia.org/wiki/לוחמה_אסימטרית"
+        },
+        "hr": {
+            "label": "Asimetrično ratovanje",
+            "title": "Asimetrično ratovanje",
+            "url": "http://www.hr.wikipedia.org/wiki/Asimetrično_ratovanje"
+        },
+        "it": {
+            "label": "Guerra asimmetrica",
+            "title": "Guerra asimmetrica",
+            "url": "http://www.it.wikipedia.org/wiki/Guerra_asimmetrica"
+        },
+        "ja": {
+            "label": "非対称戦争",
+            "title": "非対称戦争",
+            "url": "http://www.ja.wikipedia.org/wiki/非対称戦争"
+        },
+        "nl": {
+            "label": "Asymmetrische oorlogsvoering",
+            "title": "Asymmetrische oorlogsvoering",
+            "url": "http://www.nl.wikipedia.org/wiki/Asymmetrische_oorlogsvoering"
+        },
+        "no": {
+            "label": "Asymmetrisk krigføring",
+            "title": "Asymmetrisk krigføring",
+            "url": "http://www.no.wikipedia.org/wiki/Asymmetrisk_krigføring"
+        },
+        "pl": {
+            "label": "Konflikt asymetryczny",
+            "title": "Konflikt asymetryczny",
+            "url": "http://www.pl.wikipedia.org/wiki/Konflikt_asymetryczny"
+        },
+        "ro": {
+            "label": "Război asimetric",
+            "title": "Război asimetric",
+            "url": "http://www.ro.wikipedia.org/wiki/Război_asimetric"
+        },
+        "ru": {
+            "label": "Асимметричная война",
+            "title": "Асимметричная война",
+            "url": "http://www.ru.wikipedia.org/wiki/Асимметричная_война"
+        },
+        "sv": {
+            "label": "Asymmetrisk krigföring",
+            "title": "Asymmetrisk krigföring",
+            "url": "http://www.sv.wikipedia.org/wiki/Asymmetrisk_krigföring"
+        },
+        "tr": {
+            "label": "Asimetrik savaş",
+            "title": "Asimetrik savaş",
+            "url": "http://www.tr.wikipedia.org/wiki/Asimetrik_savaş"
+        },
+        "uk": {
+            "label": "Асиметрична війна",
+            "title": "Асиметрична війна",
+            "url": "http://www.uk.wikipedia.org/wiki/Асиметрична_війна"
+        },
+        "vi": {
+            "label": "Chiến tranh phi đối xứng",
+            "title": "Chiến tranh phi đối xứng",
+            "url": "http://www.vi.wikipedia.org/wiki/Chiến_tranh_phi_đối_xứng"
+        },
+        "zh": {
+            "label": "非對稱作戰",
+            "title": "非對稱作戰",
+            "url": "http://www.zh.wikipedia.org/wiki/非對稱作戰"
+        },
+        "en": {
+            "label": "Asymmetric warfare",
+            "title": "Asymmetric warfare",
+            "url": "http://www.en.wikipedia.org/wiki/Asymmetric_warfare"
+        },
+        "wikidata": {
+            "label": "Q752673",
+            "title": "Q752673",
+            "url": "http://www.wikidata.org/wiki/Q752673"
+        }
+    },
+    "Mine fire": {
+        "de": {
+            "label": "Kohlebrand",
+            "title": "Kohlebrand",
+            "url": "http://www.de.wikipedia.org/wiki/Kohlebrand"
+        },
+        "el": {
+            "label": "Πυρκαγιά ορυχείων",
+            "title": "Πυρκαγιά ορυχείων",
+            "url": "http://www.el.wikipedia.org/wiki/Πυρκαγιά_ορυχείων"
+        },
+        "fa": {
+            "label": "آتش‌سوزی زغال سنگ",
+            "title": "آتش‌سوزی زغال سنگ",
+            "url": "http://www.fa.wikipedia.org/wiki/آتش‌سوزی_زغال_سنگ"
+        },
+        "fr": {
+            "label": "Feu de mine de charbon",
+            "title": "Feu de mine de charbon",
+            "url": "http://www.fr.wikipedia.org/wiki/Feu_de_mine_de_charbon"
+        },
+        "nl": {
+            "label": "Steenkoolbrand",
+            "title": "Steenkoolbrand",
+            "url": "http://www.nl.wikipedia.org/wiki/Steenkoolbrand"
+        },
+        "sr": {
+            "label": "Јамски пожар",
+            "title": "Јамски пожар",
+            "url": "http://www.sr.wikipedia.org/wiki/Јамски_пожар"
+        },
+        "ta": {
+            "label": "சுரங்கத் தீ",
+            "title": "சுரங்கத் தீ",
+            "url": "http://www.ta.wikipedia.org/wiki/சுரங்கத்_தீ"
+        },
+        "uk": {
+            "label": "Рудникова пожежа",
+            "title": "Рудникова пожежа",
+            "url": "http://www.uk.wikipedia.org/wiki/Рудникова_пожежа"
+        },
+        "en": {
+            "label": "Coal seam fire",
+            "title": "Coal seam fire",
+            "url": "http://www.en.wikipedia.org/wiki/Coal_seam_fire"
+        },
+        "wikidata": {
+            "label": "Q1425553",
+            "title": "Q1425553",
+            "url": "http://www.wikidata.org/wiki/Q1425553"
+        }
+    },
+    "Fire": {
+        "af": {
+            "label": "Vuur",
+            "title": "Vuur",
+            "url": "http://www.af.wikipedia.org/wiki/Vuur"
+        },
+        "als": {
+            "label": "Feuer",
+            "title": "Feuer",
+            "url": "http://www.als.wikipedia.org/wiki/Feuer"
+        },
+        "an": {
+            "label": "Fuego",
+            "title": "Fuego",
+            "url": "http://www.an.wikipedia.org/wiki/Fuego"
+        },
+        "ang": {
+            "label": "Fȳr",
+            "title": "Fȳr",
+            "url": "http://www.ang.wikipedia.org/wiki/Fȳr"
+        },
+        "ar": {
+            "label": "نار",
+            "title": "نار (طبيعة)",
+            "url": "http://www.ar.wikipedia.org/wiki/نار_(طبيعة)"
+        },
+        "arc": {
+            "label": "ܢܘܪܐ",
+            "title": "ܢܘܪܐ (ܕܠܩܐ)",
+            "url": "http://www.arc.wikipedia.org/wiki/ܢܘܪܐ_(ܕܠܩܐ)"
+        },
+        "ast": {
+            "label": "Fueu",
+            "title": "Fueu",
+            "url": "http://www.ast.wikipedia.org/wiki/Fueu"
+        },
+        "ay": {
+            "label": "Nina",
+            "title": "Nina",
+            "url": "http://www.ay.wikipedia.org/wiki/Nina"
+        },
+        "az": {
+            "label": "Od",
+            "title": "Od",
+            "url": "http://www.az.wikipedia.org/wiki/Od"
+        },
+        "ba": {
+            "label": "Ут",
+            "title": "Ут",
+            "url": "http://www.ba.wikipedia.org/wiki/Ут"
+        },
+        "bat-smg": {
+            "label": "Ognės",
+            "title": "Ognės",
+            "url": "http://www.bat-smg.wikipedia.org/wiki/Ognės"
+        },
+        "be": {
+            "label": "Агонь",
+            "title": "Агонь",
+            "url": "http://www.be.wikipedia.org/wiki/Агонь"
+        },
+        "be-x-old": {
+            "label": "Агонь",
+            "title": "Агонь",
+            "url": "http://www.be-x-old.wikipedia.org/wiki/Агонь"
+        },
+        "bg": {
+            "label": "Огън",
+            "title": "Огън",
+            "url": "http://www.bg.wikipedia.org/wiki/Огън"
+        },
+        "bn": {
+            "label": "আগুন",
+            "title": "আগুন",
+            "url": "http://www.bn.wikipedia.org/wiki/আগুন"
+        },
+        "br": {
+            "label": "Tan",
+            "title": "Tan",
+            "url": "http://www.br.wikipedia.org/wiki/Tan"
+        },
+        "bs": {
+            "label": "Vatra",
+            "title": "Vatra",
+            "url": "http://www.bs.wikipedia.org/wiki/Vatra"
+        },
+        "ca": {
+            "label": "Foc",
+            "title": "Foc",
+            "url": "http://www.ca.wikipedia.org/wiki/Foc"
+        },
+        "cdo": {
+            "label": "Huōi",
+            "title": "Huōi",
+            "url": "http://www.cdo.wikipedia.org/wiki/Huōi"
+        },
+        "chy": {
+            "label": "Ho'ësta",
+            "title": "Ho'ësta",
+            "url": "http://www.chy.wikipedia.org/wiki/Ho'ësta"
+        },
+        "co": {
+            "label": "Focu",
+            "title": "Focu",
+            "url": "http://www.co.wikipedia.org/wiki/Focu"
+        },
+        "cs": {
+            "label": "Oheň",
+            "title": "Oheň",
+            "url": "http://www.cs.wikipedia.org/wiki/Oheň"
+        },
+        "cv": {
+            "label": "Çулăм",
+            "title": "Çулăм",
+            "url": "http://www.cv.wikipedia.org/wiki/Çулăм"
+        },
+        "cy": {
+            "label": "Tân",
+            "title": "Tân",
+            "url": "http://www.cy.wikipedia.org/wiki/Tân"
+        },
+        "da": {
+            "label": "Ild",
+            "title": "Ild",
+            "url": "http://www.da.wikipedia.org/wiki/Ild"
+        },
+        "de": {
+            "label": "Feuer",
+            "title": "Feuer",
+            "url": "http://www.de.wikipedia.org/wiki/Feuer"
+        },
+        "diq": {
+            "label": "Adır",
+            "title": "Adır",
+            "url": "http://www.diq.wikipedia.org/wiki/Adır"
+        },
+        "el": {
+            "label": "Φωτιά",
+            "title": "Φωτιά",
+            "url": "http://www.el.wikipedia.org/wiki/Φωτιά"
+        },
+        "eo": {
+            "label": "Fajro",
+            "title": "Fajro",
+            "url": "http://www.eo.wikipedia.org/wiki/Fajro"
+        },
+        "es": {
+            "label": "Fuego",
+            "title": "Fuego",
+            "url": "http://www.es.wikipedia.org/wiki/Fuego"
+        },
+        "et": {
+            "label": "Tuli",
+            "title": "Tuli",
+            "url": "http://www.et.wikipedia.org/wiki/Tuli"
+        },
+        "eu": {
+            "label": "Su",
+            "title": "Su",
+            "url": "http://www.eu.wikipedia.org/wiki/Su"
+        },
+        "fa": {
+            "label": "آتش",
+            "title": "آتش",
+            "url": "http://www.fa.wikipedia.org/wiki/آتش"
+        },
+        "fi": {
+            "label": "Tuli",
+            "title": "Tuli",
+            "url": "http://www.fi.wikipedia.org/wiki/Tuli"
+        },
+        "fiu-vro": {
+            "label": "Tuli",
+            "title": "Tuli",
+            "url": "http://www.fiu-vro.wikipedia.org/wiki/Tuli"
+        },
+        "fr": {
+            "label": "Feu",
+            "title": "Feu",
+            "url": "http://www.fr.wikipedia.org/wiki/Feu"
+        },
+        "fur": {
+            "label": "Fûc",
+            "title": "Fûc",
+            "url": "http://www.fur.wikipedia.org/wiki/Fûc"
+        },
+        "fy": {
+            "label": "Fjoer",
+            "title": "Fjoer",
+            "url": "http://www.fy.wikipedia.org/wiki/Fjoer"
+        },
+        "ga": {
+            "label": "Tine",
+            "title": "Tine",
+            "url": "http://www.ga.wikipedia.org/wiki/Tine"
+        },
+        "gan": {
+            "label": "火",
+            "title": "火",
+            "url": "http://www.gan.wikipedia.org/wiki/火"
+        },
+        "gd": {
+            "label": "Teine",
+            "title": "Teine",
+            "url": "http://www.gd.wikipedia.org/wiki/Teine"
+        },
+        "gl": {
+            "label": "Lume",
+            "title": "Lume",
+            "url": "http://www.gl.wikipedia.org/wiki/Lume"
+        },
+        "gn": {
+            "label": "Tata",
+            "title": "Tata",
+            "url": "http://www.gn.wikipedia.org/wiki/Tata"
+        },
+        "he": {
+            "label": "אש",
+            "title": "אש",
+            "url": "http://www.he.wikipedia.org/wiki/אש"
+        },
+        "hi": {
+            "label": "आग",
+            "title": "आग",
+            "url": "http://www.hi.wikipedia.org/wiki/आग"
+        },
+        "hr": {
+            "label": "Vatra",
+            "title": "Vatra",
+            "url": "http://www.hr.wikipedia.org/wiki/Vatra"
+        },
+        "ht": {
+            "label": "Dife",
+            "title": "Dife",
+            "url": "http://www.ht.wikipedia.org/wiki/Dife"
+        },
+        "hu": {
+            "label": "Tűz",
+            "title": "Tűz",
+            "url": "http://www.hu.wikipedia.org/wiki/Tűz"
+        },
+        "hy": {
+            "label": "Կրակ",
+            "title": "Կրակ",
+            "url": "http://www.hy.wikipedia.org/wiki/Կրակ"
+        },
+        "ia": {
+            "label": "Foco",
+            "title": "Foco",
+            "url": "http://www.ia.wikipedia.org/wiki/Foco"
+        },
+        "id": {
+            "label": "Api",
+            "title": "Api",
+            "url": "http://www.id.wikipedia.org/wiki/Api"
+        },
+        "ie": {
+            "label": "Foy",
+            "title": "Foy",
+            "url": "http://www.ie.wikipedia.org/wiki/Foy"
+        },
+        "ilo": {
+            "label": "Apuy",
+            "title": "Apuy",
+            "url": "http://www.ilo.wikipedia.org/wiki/Apuy"
+        },
+        "io": {
+            "label": "Fairo",
+            "title": "Fairo",
+            "url": "http://www.io.wikipedia.org/wiki/Fairo"
+        },
+        "is": {
+            "label": "Eldur",
+            "title": "Eldur",
+            "url": "http://www.is.wikipedia.org/wiki/Eldur"
+        },
+        "it": {
+            "label": "Fuoco",
+            "title": "Fuoco",
+            "url": "http://www.it.wikipedia.org/wiki/Fuoco"
+        },
+        "ja": {
+            "label": "火",
+            "title": "火",
+            "url": "http://www.ja.wikipedia.org/wiki/火"
+        },
+        "jv": {
+            "label": "Geni",
+            "title": "Geni",
+            "url": "http://www.jv.wikipedia.org/wiki/Geni"
+        },
+        "ka": {
+            "label": "ცეცხლი",
+            "title": "ცეცხლი",
+            "url": "http://www.ka.wikipedia.org/wiki/ცეცხლი"
+        },
+        "kk": {
+            "label": "От",
+            "title": "От",
+            "url": "http://www.kk.wikipedia.org/wiki/От"
+        },
+        "km": {
+            "label": "ភ្លើង",
+            "title": "ភ្លើង",
+            "url": "http://www.km.wikipedia.org/wiki/ភ្លើង"
+        },
+        "kn": {
+            "label": "ಬೆಂಕಿ",
+            "title": "ಬೆಂಕಿ",
+            "url": "http://www.kn.wikipedia.org/wiki/ಬೆಂಕಿ"
+        },
+        "ko": {
+            "label": "불",
+            "title": "불",
+            "url": "http://www.ko.wikipedia.org/wiki/불"
+        },
+        "ku": {
+            "label": "Agir",
+            "title": "Agir",
+            "url": "http://www.ku.wikipedia.org/wiki/Agir"
+        },
+        "la": {
+            "label": "Ignis",
+            "title": "Ignis",
+            "url": "http://www.la.wikipedia.org/wiki/Ignis"
+        },
+        "lb": {
+            "label": "Feier",
+            "title": "Feier",
+            "url": "http://www.lb.wikipedia.org/wiki/Feier"
+        },
+        "lez": {
+            "label": "ЦӀай",
+            "title": "ЦӀай",
+            "url": "http://www.lez.wikipedia.org/wiki/ЦӀай"
+        },
+        "lmo": {
+            "label": "Föch",
+            "title": "Föch",
+            "url": "http://www.lmo.wikipedia.org/wiki/Föch"
+        },
+        "ln": {
+            "label": "Mɔ̌tɔ",
+            "title": "Mɔ̌tɔ",
+            "url": "http://www.ln.wikipedia.org/wiki/Mɔ̌tɔ"
+        },
+        "lt": {
+            "label": "Ugnis",
+            "title": "Ugnis",
+            "url": "http://www.lt.wikipedia.org/wiki/Ugnis"
+        },
+        "lv": {
+            "label": "Uguns",
+            "title": "Uguns",
+            "url": "http://www.lv.wikipedia.org/wiki/Uguns"
+        },
+        "mdf": {
+            "label": "Тол",
+            "title": "Тол",
+            "url": "http://www.mdf.wikipedia.org/wiki/Тол"
+        },
+        "mk": {
+            "label": "Оган",
+            "title": "Оган",
+            "url": "http://www.mk.wikipedia.org/wiki/Оган"
+        },
+        "ml": {
+            "label": "തീ",
+            "title": "തീ",
+            "url": "http://www.ml.wikipedia.org/wiki/തീ"
+        },
+        "mn": {
+            "label": "Гал",
+            "title": "Гал",
+            "url": "http://www.mn.wikipedia.org/wiki/Гал"
+        },
+        "ms": {
+            "label": "Api",
+            "title": "Api",
+            "url": "http://www.ms.wikipedia.org/wiki/Api"
+        },
+        "mwl": {
+            "label": "Fuogo",
+            "title": "Fuogo",
+            "url": "http://www.mwl.wikipedia.org/wiki/Fuogo"
+        },
+        "my": {
+            "label": "မီး",
+            "title": "မီး",
+            "url": "http://www.my.wikipedia.org/wiki/မီး"
+        },
+        "mzn": {
+            "label": "تش",
+            "title": "تش",
+            "url": "http://www.mzn.wikipedia.org/wiki/تش"
+        },
+        "nah": {
+            "label": "Tletl",
+            "title": "Tletl",
+            "url": "http://www.nah.wikipedia.org/wiki/Tletl"
+        },
+        "nap": {
+            "label": "Ffuoco",
+            "title": "Ffuoco",
+            "url": "http://www.nap.wikipedia.org/wiki/Ffuoco"
+        },
+        "ne": {
+            "label": "आगो",
+            "title": "आगो",
+            "url": "http://www.ne.wikipedia.org/wiki/आगो"
+        },
+        "nl": {
+            "label": "Vuur",
+            "title": "Vuur",
+            "url": "http://www.nl.wikipedia.org/wiki/Vuur"
+        },
+        "nn": {
+            "label": "Eld",
+            "title": "Eld",
+            "url": "http://www.nn.wikipedia.org/wiki/Eld"
+        },
+        "no": {
+            "label": "Ild",
+            "title": "Ild",
+            "url": "http://www.no.wikipedia.org/wiki/Ild"
+        },
+        "nv": {
+            "label": "Kǫʼ",
+            "title": "Kǫʼ",
+            "url": "http://www.nv.wikipedia.org/wiki/Kǫʼ"
+        },
+        "oc": {
+            "label": "Fuòc",
+            "title": "Fuòc",
+            "url": "http://www.oc.wikipedia.org/wiki/Fuòc"
+        },
+        "pa": {
+            "label": "ਅੱਗ",
+            "title": "ਅੱਗ",
+            "url": "http://www.pa.wikipedia.org/wiki/ਅੱਗ"
+        },
+        "pdc": {
+            "label": "Feier",
+            "title": "Feier",
+            "url": "http://www.pdc.wikipedia.org/wiki/Feier"
+        },
+        "pfl": {
+            "label": "Faia",
+            "title": "Faia",
+            "url": "http://www.pfl.wikipedia.org/wiki/Faia"
+        },
+        "pl": {
+            "label": "Ogień",
+            "title": "Ogień",
+            "url": "http://www.pl.wikipedia.org/wiki/Ogień"
+        },
+        "pnb": {
+            "label": "اگ",
+            "title": "اگ",
+            "url": "http://www.pnb.wikipedia.org/wiki/اگ"
+        },
+        "pt": {
+            "label": "Fogo",
+            "title": "Fogo",
+            "url": "http://www.pt.wikipedia.org/wiki/Fogo"
+        },
+        "qu": {
+            "label": "Nina",
+            "title": "Nina",
+            "url": "http://www.qu.wikipedia.org/wiki/Nina"
+        },
+        "ro": {
+            "label": "Foc",
+            "title": "Foc",
+            "url": "http://www.ro.wikipedia.org/wiki/Foc"
+        },
+        "roa-tara": {
+            "label": "Fuèche",
+            "title": "Fuèche",
+            "url": "http://www.roa-tara.wikipedia.org/wiki/Fuèche"
+        },
+        "ru": {
+            "label": "Огонь",
+            "title": "Огонь",
+            "url": "http://www.ru.wikipedia.org/wiki/Огонь"
+        },
+        "scn": {
+            "label": "Focu",
+            "title": "Focu",
+            "url": "http://www.scn.wikipedia.org/wiki/Focu"
+        },
+        "sco": {
+            "label": "Fire",
+            "title": "Fire",
+            "url": "http://www.sco.wikipedia.org/wiki/Fire"
+        },
+        "sh": {
+            "label": "Vatra",
+            "title": "Vatra",
+            "url": "http://www.sh.wikipedia.org/wiki/Vatra"
+        },
+        "si": {
+            "label": "ගින්දර",
+            "title": "ගින්දර",
+            "url": "http://www.si.wikipedia.org/wiki/ගින්දර"
+        },
+        "simple": {
+            "label": "Fire",
+            "title": "Fire",
+            "url": "http://www.simple.wikipedia.org/wiki/Fire"
+        },
+        "sk": {
+            "label": "Oheň",
+            "title": "Oheň",
+            "url": "http://www.sk.wikipedia.org/wiki/Oheň"
+        },
+        "sl": {
+            "label": "Ogenj",
+            "title": "Ogenj",
+            "url": "http://www.sl.wikipedia.org/wiki/Ogenj"
+        },
+        "sn": {
+            "label": "Moto",
+            "title": "Moto",
+            "url": "http://www.sn.wikipedia.org/wiki/Moto"
+        },
+        "sq": {
+            "label": "Zjarri",
+            "title": "Zjarri",
+            "url": "http://www.sq.wikipedia.org/wiki/Zjarri"
+        },
+        "sr": {
+            "label": "Ватра",
+            "title": "Ватра",
+            "url": "http://www.sr.wikipedia.org/wiki/Ватра"
+        },
+        "sv": {
+            "label": "Eld",
+            "title": "Eld",
+            "url": "http://www.sv.wikipedia.org/wiki/Eld"
+        },
+        "sw": {
+            "label": "Moto",
+            "title": "Moto",
+            "url": "http://www.sw.wikipedia.org/wiki/Moto"
+        },
+        "ta": {
+            "label": "நெருப்பு",
+            "title": "நெருப்பு",
+            "url": "http://www.ta.wikipedia.org/wiki/நெருப்பு"
+        },
+        "te": {
+            "label": "అగ్ని",
+            "title": "అగ్ని",
+            "url": "http://www.te.wikipedia.org/wiki/అగ్ని"
+        },
+        "tg": {
+            "label": "Оташ",
+            "title": "Оташ",
+            "url": "http://www.tg.wikipedia.org/wiki/Оташ"
+        },
+        "th": {
+            "label": "ไฟ",
+            "title": "ไฟ",
+            "url": "http://www.th.wikipedia.org/wiki/ไฟ"
+        },
+        "tl": {
+            "label": "Apoy",
+            "title": "Apoy",
+            "url": "http://www.tl.wikipedia.org/wiki/Apoy"
+        },
+        "tn": {
+            "label": "Molelo",
+            "title": "Molelo",
+            "url": "http://www.tn.wikipedia.org/wiki/Molelo"
+        },
+        "tr": {
+            "label": "Ateş",
+            "title": "Ateş",
+            "url": "http://www.tr.wikipedia.org/wiki/Ateş"
+        },
+        "tt": {
+            "label": "Ут",
+            "title": "Ут",
+            "url": "http://www.tt.wikipedia.org/wiki/Ут"
+        },
+        "uk": {
+            "label": "Вогонь",
+            "title": "Вогонь",
+            "url": "http://www.uk.wikipedia.org/wiki/Вогонь"
+        },
+        "ur": {
+            "label": "آگ",
+            "title": "آگ",
+            "url": "http://www.ur.wikipedia.org/wiki/آگ"
+        },
+        "uz": {
+            "label": "Olov",
+            "title": "Olov",
+            "url": "http://www.uz.wikipedia.org/wiki/Olov"
+        },
+        "vec": {
+            "label": "Fógo",
+            "title": "Fógo",
+            "url": "http://www.vec.wikipedia.org/wiki/Fógo"
+        },
+        "vep": {
+            "label": "Lämoi",
+            "title": "Lämoi",
+            "url": "http://www.vep.wikipedia.org/wiki/Lämoi"
+        },
+        "vi": {
+            "label": "Lửa",
+            "title": "Lửa",
+            "url": "http://www.vi.wikipedia.org/wiki/Lửa"
+        },
+        "war": {
+            "label": "Kalayo",
+            "title": "Kalayo",
+            "url": "http://www.war.wikipedia.org/wiki/Kalayo"
+        },
+        "wo": {
+            "label": "Safara",
+            "title": "Safara",
+            "url": "http://www.wo.wikipedia.org/wiki/Safara"
+        },
+        "yi": {
+            "label": "פייער",
+            "title": "פייער",
+            "url": "http://www.yi.wikipedia.org/wiki/פייער"
+        },
+        "yo": {
+            "label": "Iná",
+            "title": "Iná",
+            "url": "http://www.yo.wikipedia.org/wiki/Iná"
+        },
+        "za": {
+            "label": "Feiz",
+            "title": "Feiz",
+            "url": "http://www.za.wikipedia.org/wiki/Feiz"
+        },
+        "zh": {
+            "label": "火",
+            "title": "火",
+            "url": "http://www.zh.wikipedia.org/wiki/火"
+        },
+        "zh-classical": {
+            "label": "火",
+            "title": "火",
+            "url": "http://www.zh-classical.wikipedia.org/wiki/火"
+        },
+        "zh-min-nan": {
+            "label": "Hoé",
+            "title": "Hoé",
+            "url": "http://www.zh-min-nan.wikipedia.org/wiki/Hoé"
+        },
+        "zh-yue": {
+            "label": "火",
+            "title": "火",
+            "url": "http://www.zh-yue.wikipedia.org/wiki/火"
+        },
+        "en": {
+            "label": "Fire",
+            "title": "Fire",
+            "url": "http://www.en.wikipedia.org/wiki/Fire"
+        },
+        "wikidata": {
+            "label": "Q3196",
+            "title": "Q3196",
+            "url": "http://www.wikidata.org/wiki/Q3196"
+        }
+    },
+    "CBRN": {
+        "ca": {
+            "label": "NBQ",
+            "title": "NBQ",
+            "url": "http://www.ca.wikipedia.org/wiki/NBQ"
+        },
+        "de": {
+            "label": "ABC-Schutz",
+            "title": "ABC-Schutz",
+            "url": "http://www.de.wikipedia.org/wiki/ABC-Schutz"
+        },
+        "es": {
+            "label": "Plan de Defensa Nuclear, Radiológico, Bacteriológico y Químico",
+            "title": "Plan de Defensa Nuclear, Radiológico, Bacteriológico y Químico",
+            "url": "http://www.es.wikipedia.org/wiki/Plan_de_Defensa_Nuclear,_Radiológico,_Bacteriológico_y_Químico"
+        },
+        "fa": {
+            "label": "دفاع ش‌م‌پ‌ه",
+            "title": "دفاع ش‌م‌پ‌ه",
+            "url": "http://www.fa.wikipedia.org/wiki/دفاع_ش‌م‌پ‌ه"
+        },
+        "fi": {
+            "label": "ABC",
+            "title": "ABC (sodankäynti)",
+            "url": "http://www.fi.wikipedia.org/wiki/ABC_(sodankäynti)"
+        },
+        "fr": {
+            "label": "Arme nucléaire, radiologique, bactériologique et chimique",
+            "title": "Arme nucléaire, radiologique, bactériologique et chimique",
+            "url": "http://www.fr.wikipedia.org/wiki/Arme_nucléaire,_radiologique,_bactériologique_et_chimique"
+        },
+        "hr": {
+            "label": "NBK obrana",
+            "title": "NBK obrana",
+            "url": "http://www.hr.wikipedia.org/wiki/NBK_obrana"
+        },
+        "hu": {
+            "label": "ABC-fegyverek",
+            "title": "ABC-fegyverek",
+            "url": "http://www.hu.wikipedia.org/wiki/ABC-fegyverek"
+        },
+        "ja": {
+            "label": "CBRNE",
+            "title": "CBRNE",
+            "url": "http://www.ja.wikipedia.org/wiki/CBRNE"
+        },
+        "nn": {
+            "label": "ABC-våpen",
+            "title": "ABC-våpen",
+            "url": "http://www.nn.wikipedia.org/wiki/ABC-våpen"
+        },
+        "no": {
+            "label": "ABC-våpen",
+            "title": "ABC-våpen",
+            "url": "http://www.no.wikipedia.org/wiki/ABC-våpen"
+        },
+        "pl": {
+            "label": "ABC",
+            "title": "ABC (wojskowość)",
+            "url": "http://www.pl.wikipedia.org/wiki/ABC_(wojskowość)"
+        },
+        "sl": {
+            "label": "Radiološka, biološka in kemična obramba",
+            "title": "Radiološka, biološka in kemična obramba",
+            "url": "http://www.sl.wikipedia.org/wiki/Radiološka,_biološka_in_kemična_obramba"
+        },
+        "sr": {
+            "label": "АБХО",
+            "title": "АБХО",
+            "url": "http://www.sr.wikipedia.org/wiki/АБХО"
+        },
+        "sv": {
+            "label": "CBRN-krigföring",
+            "title": "CBRN-krigföring",
+            "url": "http://www.sv.wikipedia.org/wiki/CBRN-krigföring"
+        },
+        "uk": {
+            "label": "Захист від зброї масового ураження",
+            "title": "Захист від зброї масового ураження",
+            "url": "http://www.uk.wikipedia.org/wiki/Захист_від_зброї_масового_ураження"
+        },
+        "en": {
+            "label": "CBRN defense",
+            "title": "CBRN defense",
+            "url": "http://www.en.wikipedia.org/wiki/CBRN_defense"
+        },
+        "wikidata": {
+            "label": "Q265653",
+            "title": "Q265653",
+            "url": "http://www.wikidata.org/wiki/Q265653"
+        }
+    },
+    "Firestorm": {
+        "bg": {
+            "label": "Огнена буря",
+            "title": "Огнена буря",
+            "url": "http://www.bg.wikipedia.org/wiki/Огнена_буря"
+        },
+        "ca": {
+            "label": "Tempesta de foc",
+            "title": "Tempesta de foc",
+            "url": "http://www.ca.wikipedia.org/wiki/Tempesta_de_foc"
+        },
+        "cs": {
+            "label": "Ohňová bouře",
+            "title": "Ohňová bouře",
+            "url": "http://www.cs.wikipedia.org/wiki/Ohňová_bouře"
+        },
+        "da": {
+            "label": "Ildstorm",
+            "title": "Ildstorm",
+            "url": "http://www.da.wikipedia.org/wiki/Ildstorm"
+        },
+        "de": {
+            "label": "Feuersturm",
+            "title": "Feuersturm",
+            "url": "http://www.de.wikipedia.org/wiki/Feuersturm"
+        },
+        "es": {
+            "label": "Tormenta ígnea",
+            "title": "Tormenta ígnea",
+            "url": "http://www.es.wikipedia.org/wiki/Tormenta_ígnea"
+        },
+        "fi": {
+            "label": "Tulimyrsky",
+            "title": "Tulimyrsky",
+            "url": "http://www.fi.wikipedia.org/wiki/Tulimyrsky"
+        },
+        "fr": {
+            "label": "Tempête de feu",
+            "title": "Tempête de feu",
+            "url": "http://www.fr.wikipedia.org/wiki/Tempête_de_feu"
+        },
+        "he": {
+            "label": "סופת אש",
+            "title": "סופת אש",
+            "url": "http://www.he.wikipedia.org/wiki/סופת_אש"
+        },
+        "ja": {
+            "label": "火災旋風",
+            "title": "火災旋風",
+            "url": "http://www.ja.wikipedia.org/wiki/火災旋風"
+        },
+        "nl": {
+            "label": "Vuurstorm",
+            "title": "Vuurstorm",
+            "url": "http://www.nl.wikipedia.org/wiki/Vuurstorm"
+        },
+        "no": {
+            "label": "Ildstorm",
+            "title": "Ildstorm",
+            "url": "http://www.no.wikipedia.org/wiki/Ildstorm"
+        },
+        "pl": {
+            "label": "Burza ogniowa",
+            "title": "Burza ogniowa",
+            "url": "http://www.pl.wikipedia.org/wiki/Burza_ogniowa"
+        },
+        "pt": {
+            "label": "Tempestade ígnea",
+            "title": "Tempestade ígnea",
+            "url": "http://www.pt.wikipedia.org/wiki/Tempestade_ígnea"
+        },
+        "ru": {
+            "label": "Огненный смерч",
+            "title": "Огненный смерч",
+            "url": "http://www.ru.wikipedia.org/wiki/Огненный_смерч"
+        },
+        "sl": {
+            "label": "Ognjeni vihar",
+            "title": "Ognjeni vihar",
+            "url": "http://www.sl.wikipedia.org/wiki/Ognjeni_vihar"
+        },
+        "sv": {
+            "label": "Eldstorm",
+            "title": "Eldstorm",
+            "url": "http://www.sv.wikipedia.org/wiki/Eldstorm"
+        },
+        "ta": {
+            "label": "நெருப்புப்புயல்",
+            "title": "நெருப்புப்புயல்",
+            "url": "http://www.ta.wikipedia.org/wiki/நெருப்புப்புயல்"
+        },
+        "tr": {
+            "label": "Ateş fırtınası",
+            "title": "Ateş fırtınası",
+            "url": "http://www.tr.wikipedia.org/wiki/Ateş_fırtınası"
+        },
+        "ur": {
+            "label": "آتشی طوفان",
+            "title": "آتشی طوفان",
+            "url": "http://www.ur.wikipedia.org/wiki/آتشی_طوفان"
+        },
+        "vi": {
+            "label": "Bão lửa",
+            "title": "Bão lửa",
+            "url": "http://www.vi.wikipedia.org/wiki/Bão_lửa"
+        },
+        "zh": {
+            "label": "火災旋風",
+            "title": "火災旋風",
+            "url": "http://www.zh.wikipedia.org/wiki/火災旋風"
+        },
+        "en": {
+            "label": "Firestorm",
+            "title": "Firestorm",
+            "url": "http://www.en.wikipedia.org/wiki/Firestorm"
+        },
+        "wikidata": {
+            "label": "Q918145",
+            "title": "Q918145",
+            "url": "http://www.wikidata.org/wiki/Q918145"
+        }
+    },
+    "Wildfire": {
+        "az": {
+            "label": "Meşə yanğınları",
+            "title": "Meşə yanğınları",
+            "url": "http://www.az.wikipedia.org/wiki/Meşə_yanğınları"
+        },
+        "bg": {
+            "label": "Горски пожар",
+            "title": "Горски пожар",
+            "url": "http://www.bg.wikipedia.org/wiki/Горски_пожар"
+        },
+        "bs": {
+            "label": "Šumski požar",
+            "title": "Šumski požar",
+            "url": "http://www.bs.wikipedia.org/wiki/Šumski_požar"
+        },
+        "ca": {
+            "label": "Incendi forestal",
+            "title": "Incendi forestal",
+            "url": "http://www.ca.wikipedia.org/wiki/Incendi_forestal"
+        },
+        "da": {
+            "label": "Skovbrand",
+            "title": "Skovbrand",
+            "url": "http://www.da.wikipedia.org/wiki/Skovbrand"
+        },
+        "de": {
+            "label": "Waldbrand",
+            "title": "Waldbrand",
+            "url": "http://www.de.wikipedia.org/wiki/Waldbrand"
+        },
+        "eo": {
+            "label": "Arbara incendio",
+            "title": "Arbara incendio",
+            "url": "http://www.eo.wikipedia.org/wiki/Arbara_incendio"
+        },
+        "es": {
+            "label": "Incendio forestal",
+            "title": "Incendio forestal",
+            "url": "http://www.es.wikipedia.org/wiki/Incendio_forestal"
+        },
+        "eu": {
+            "label": "Baso-sute",
+            "title": "Baso-sute",
+            "url": "http://www.eu.wikipedia.org/wiki/Baso-sute"
+        },
+        "fa": {
+            "label": "آتش‌سوزی جنگل",
+            "title": "آتش‌سوزی جنگل",
+            "url": "http://www.fa.wikipedia.org/wiki/آتش‌سوزی_جنگل"
+        },
+        "fi": {
+            "label": "Metsäpalo",
+            "title": "Metsäpalo",
+            "url": "http://www.fi.wikipedia.org/wiki/Metsäpalo"
+        },
+        "fr": {
+            "label": "Feu de forêt",
+            "title": "Feu de forêt",
+            "url": "http://www.fr.wikipedia.org/wiki/Feu_de_forêt"
+        },
+        "gl": {
+            "label": "Incendio forestal",
+            "title": "Incendio forestal",
+            "url": "http://www.gl.wikipedia.org/wiki/Incendio_forestal"
+        },
+        "he": {
+            "label": "שריפת יער",
+            "title": "שריפת יער",
+            "url": "http://www.he.wikipedia.org/wiki/שריפת_יער"
+        },
+        "hi": {
+            "label": "दावानल",
+            "title": "दावानल",
+            "url": "http://www.hi.wikipedia.org/wiki/दावानल"
+        },
+        "hr": {
+            "label": "Šumski požar",
+            "title": "Šumski požar",
+            "url": "http://www.hr.wikipedia.org/wiki/Šumski_požar"
+        },
+        "id": {
+            "label": "Kebakaran liar",
+            "title": "Kebakaran liar",
+            "url": "http://www.id.wikipedia.org/wiki/Kebakaran_liar"
+        },
+        "it": {
+            "label": "Incendio boschivo",
+            "title": "Incendio boschivo",
+            "url": "http://www.it.wikipedia.org/wiki/Incendio_boschivo"
+        },
+        "ja": {
+            "label": "山火事",
+            "title": "山火事",
+            "url": "http://www.ja.wikipedia.org/wiki/山火事"
+        },
+        "kk": {
+            "label": "Орман өрті",
+            "title": "Орман өрті",
+            "url": "http://www.kk.wikipedia.org/wiki/Орман_өрті"
+        },
+        "km": {
+            "label": "ភ្លើងឆេះព្រៃ",
+            "title": "ភ្លើងឆេះព្រៃ",
+            "url": "http://www.km.wikipedia.org/wiki/ភ្លើងឆេះព្រៃ"
+        },
+        "kn": {
+            "label": "ಕಾಳ್ಗಿಚ್ಚು",
+            "title": "ಕಾಳ್ಗಿಚ್ಚು",
+            "url": "http://www.kn.wikipedia.org/wiki/ಕಾಳ್ಗಿಚ್ಚು"
+        },
+        "ko": {
+            "label": "산불",
+            "title": "산불",
+            "url": "http://www.ko.wikipedia.org/wiki/산불"
+        },
+        "lt": {
+            "label": "Miško gaisras",
+            "title": "Miško gaisras",
+            "url": "http://www.lt.wikipedia.org/wiki/Miško_gaisras"
+        },
+        "ml": {
+            "label": "കാട്ടുതീ",
+            "title": "കാട്ടുതീ",
+            "url": "http://www.ml.wikipedia.org/wiki/കാട്ടുതീ"
+        },
+        "mr": {
+            "label": "वणवा",
+            "title": "वणवा",
+            "url": "http://www.mr.wikipedia.org/wiki/वणवा"
+        },
+        "ms": {
+            "label": "Kebakaran liar",
+            "title": "Kebakaran liar",
+            "url": "http://www.ms.wikipedia.org/wiki/Kebakaran_liar"
+        },
+        "my": {
+            "label": "တောမီး",
+            "title": "တောမီး",
+            "url": "http://www.my.wikipedia.org/wiki/တောမီး"
+        },
+        "nl": {
+            "label": "Natuurbrand",
+            "title": "Natuurbrand",
+            "url": "http://www.nl.wikipedia.org/wiki/Natuurbrand"
+        },
+        "nn": {
+            "label": "Skogbrann",
+            "title": "Skogbrann",
+            "url": "http://www.nn.wikipedia.org/wiki/Skogbrann"
+        },
+        "no": {
+            "label": "Skogbrann",
+            "title": "Skogbrann",
+            "url": "http://www.no.wikipedia.org/wiki/Skogbrann"
+        },
+        "oc": {
+            "label": "Encendi de bòsc",
+            "title": "Encendi de bòsc",
+            "url": "http://www.oc.wikipedia.org/wiki/Encendi_de_bòsc"
+        },
+        "pl": {
+            "label": "Pożary lasów",
+            "title": "Pożary lasów",
+            "url": "http://www.pl.wikipedia.org/wiki/Pożary_lasów"
+        },
+        "pt": {
+            "label": "Incêndio florestal",
+            "title": "Incêndio florestal",
+            "url": "http://www.pt.wikipedia.org/wiki/Incêndio_florestal"
+        },
+        "ro": {
+            "label": "Incendiu de pădure",
+            "title": "Incendiu de pădure",
+            "url": "http://www.ro.wikipedia.org/wiki/Incendiu_de_pădure"
+        },
+        "ru": {
+            "label": "Лесной пожар",
+            "title": "Лесной пожар",
+            "url": "http://www.ru.wikipedia.org/wiki/Лесной_пожар"
+        },
+        "sh": {
+            "label": "Šumski požar",
+            "title": "Šumski požar",
+            "url": "http://www.sh.wikipedia.org/wiki/Šumski_požar"
+        },
+        "simple": {
+            "label": "Wildfire",
+            "title": "Wildfire",
+            "url": "http://www.simple.wikipedia.org/wiki/Wildfire"
+        },
+        "sr": {
+            "label": "Шумски пожар",
+            "title": "Шумски пожар",
+            "url": "http://www.sr.wikipedia.org/wiki/Шумски_пожар"
+        },
+        "sv": {
+            "label": "Skogsbrand",
+            "title": "Skogsbrand",
+            "url": "http://www.sv.wikipedia.org/wiki/Skogsbrand"
+        },
+        "ta": {
+            "label": "காட்டுத்தீ",
+            "title": "காட்டுத்தீ",
+            "url": "http://www.ta.wikipedia.org/wiki/காட்டுத்தீ"
+        },
+        "te": {
+            "label": "దావానలం",
+            "title": "దావానలం",
+            "url": "http://www.te.wikipedia.org/wiki/దావానలం"
+        },
+        "th": {
+            "label": "ไฟป่า",
+            "title": "ไฟป่า",
+            "url": "http://www.th.wikipedia.org/wiki/ไฟป่า"
+        },
+        "tl": {
+            "label": "Sunog sa gubat",
+            "title": "Sunog sa gubat",
+            "url": "http://www.tl.wikipedia.org/wiki/Sunog_sa_gubat"
+        },
+        "tr": {
+            "label": "Orman yangını",
+            "title": "Orman yangını",
+            "url": "http://www.tr.wikipedia.org/wiki/Orman_yangını"
+        },
+        "uk": {
+            "label": "Лісова пожежа",
+            "title": "Лісова пожежа",
+            "url": "http://www.uk.wikipedia.org/wiki/Лісова_пожежа"
+        },
+        "ur": {
+            "label": "جنگلی آگ",
+            "title": "جنگلی آگ",
+            "url": "http://www.ur.wikipedia.org/wiki/جنگلی_آگ"
+        },
+        "vi": {
+            "label": "Cháy rừng",
+            "title": "Cháy rừng",
+            "url": "http://www.vi.wikipedia.org/wiki/Cháy_rừng"
+        },
+        "yi": {
+            "label": "וואלד פייער",
+            "title": "וואלד פייער",
+            "url": "http://www.yi.wikipedia.org/wiki/וואלד_פייער"
+        },
+        "zh": {
+            "label": "山火",
+            "title": "山火",
+            "url": "http://www.zh.wikipedia.org/wiki/山火"
+        },
+        "zh-yue": {
+            "label": "山火",
+            "title": "山火",
+            "url": "http://www.zh-yue.wikipedia.org/wiki/山火"
+        },
+        "en": {
+            "label": "Wildfire",
+            "title": "Wildfire",
+            "url": "http://www.en.wikipedia.org/wiki/Wildfire"
+        },
+        "wikidata": {
+            "label": "Q169950",
+            "title": "Q169950",
+            "url": "http://www.wikidata.org/wiki/Q169950"
+        }
+    },
+    "Bush fire": {
+        "az": {
+            "label": "Meşə yanğınları",
+            "title": "Meşə yanğınları",
+            "url": "http://www.az.wikipedia.org/wiki/Meşə_yanğınları"
+        },
+        "bg": {
+            "label": "Горски пожар",
+            "title": "Горски пожар",
+            "url": "http://www.bg.wikipedia.org/wiki/Горски_пожар"
+        },
+        "bs": {
+            "label": "Šumski požar",
+            "title": "Šumski požar",
+            "url": "http://www.bs.wikipedia.org/wiki/Šumski_požar"
+        },
+        "ca": {
+            "label": "Incendi forestal",
+            "title": "Incendi forestal",
+            "url": "http://www.ca.wikipedia.org/wiki/Incendi_forestal"
+        },
+        "da": {
+            "label": "Skovbrand",
+            "title": "Skovbrand",
+            "url": "http://www.da.wikipedia.org/wiki/Skovbrand"
+        },
+        "de": {
+            "label": "Waldbrand",
+            "title": "Waldbrand",
+            "url": "http://www.de.wikipedia.org/wiki/Waldbrand"
+        },
+        "eo": {
+            "label": "Arbara incendio",
+            "title": "Arbara incendio",
+            "url": "http://www.eo.wikipedia.org/wiki/Arbara_incendio"
+        },
+        "es": {
+            "label": "Incendio forestal",
+            "title": "Incendio forestal",
+            "url": "http://www.es.wikipedia.org/wiki/Incendio_forestal"
+        },
+        "eu": {
+            "label": "Baso-sute",
+            "title": "Baso-sute",
+            "url": "http://www.eu.wikipedia.org/wiki/Baso-sute"
+        },
+        "fa": {
+            "label": "آتش‌سوزی جنگل",
+            "title": "آتش‌سوزی جنگل",
+            "url": "http://www.fa.wikipedia.org/wiki/آتش‌سوزی_جنگل"
+        },
+        "fi": {
+            "label": "Metsäpalo",
+            "title": "Metsäpalo",
+            "url": "http://www.fi.wikipedia.org/wiki/Metsäpalo"
+        },
+        "fr": {
+            "label": "Feu de forêt",
+            "title": "Feu de forêt",
+            "url": "http://www.fr.wikipedia.org/wiki/Feu_de_forêt"
+        },
+        "gl": {
+            "label": "Incendio forestal",
+            "title": "Incendio forestal",
+            "url": "http://www.gl.wikipedia.org/wiki/Incendio_forestal"
+        },
+        "he": {
+            "label": "שריפת יער",
+            "title": "שריפת יער",
+            "url": "http://www.he.wikipedia.org/wiki/שריפת_יער"
+        },
+        "hi": {
+            "label": "दावानल",
+            "title": "दावानल",
+            "url": "http://www.hi.wikipedia.org/wiki/दावानल"
+        },
+        "hr": {
+            "label": "Šumski požar",
+            "title": "Šumski požar",
+            "url": "http://www.hr.wikipedia.org/wiki/Šumski_požar"
+        },
+        "id": {
+            "label": "Kebakaran liar",
+            "title": "Kebakaran liar",
+            "url": "http://www.id.wikipedia.org/wiki/Kebakaran_liar"
+        },
+        "it": {
+            "label": "Incendio boschivo",
+            "title": "Incendio boschivo",
+            "url": "http://www.it.wikipedia.org/wiki/Incendio_boschivo"
+        },
+        "ja": {
+            "label": "山火事",
+            "title": "山火事",
+            "url": "http://www.ja.wikipedia.org/wiki/山火事"
+        },
+        "kk": {
+            "label": "Орман өрті",
+            "title": "Орман өрті",
+            "url": "http://www.kk.wikipedia.org/wiki/Орман_өрті"
+        },
+        "km": {
+            "label": "ភ្លើងឆេះព្រៃ",
+            "title": "ភ្លើងឆេះព្រៃ",
+            "url": "http://www.km.wikipedia.org/wiki/ភ្លើងឆេះព្រៃ"
+        },
+        "kn": {
+            "label": "ಕಾಳ್ಗಿಚ್ಚು",
+            "title": "ಕಾಳ್ಗಿಚ್ಚು",
+            "url": "http://www.kn.wikipedia.org/wiki/ಕಾಳ್ಗಿಚ್ಚು"
+        },
+        "ko": {
+            "label": "산불",
+            "title": "산불",
+            "url": "http://www.ko.wikipedia.org/wiki/산불"
+        },
+        "lt": {
+            "label": "Miško gaisras",
+            "title": "Miško gaisras",
+            "url": "http://www.lt.wikipedia.org/wiki/Miško_gaisras"
+        },
+        "ml": {
+            "label": "കാട്ടുതീ",
+            "title": "കാട്ടുതീ",
+            "url": "http://www.ml.wikipedia.org/wiki/കാട്ടുതീ"
+        },
+        "mr": {
+            "label": "वणवा",
+            "title": "वणवा",
+            "url": "http://www.mr.wikipedia.org/wiki/वणवा"
+        },
+        "ms": {
+            "label": "Kebakaran liar",
+            "title": "Kebakaran liar",
+            "url": "http://www.ms.wikipedia.org/wiki/Kebakaran_liar"
+        },
+        "my": {
+            "label": "တောမီး",
+            "title": "တောမီး",
+            "url": "http://www.my.wikipedia.org/wiki/တောမီး"
+        },
+        "nl": {
+            "label": "Natuurbrand",
+            "title": "Natuurbrand",
+            "url": "http://www.nl.wikipedia.org/wiki/Natuurbrand"
+        },
+        "nn": {
+            "label": "Skogbrann",
+            "title": "Skogbrann",
+            "url": "http://www.nn.wikipedia.org/wiki/Skogbrann"
+        },
+        "no": {
+            "label": "Skogbrann",
+            "title": "Skogbrann",
+            "url": "http://www.no.wikipedia.org/wiki/Skogbrann"
+        },
+        "oc": {
+            "label": "Encendi de bòsc",
+            "title": "Encendi de bòsc",
+            "url": "http://www.oc.wikipedia.org/wiki/Encendi_de_bòsc"
+        },
+        "pl": {
+            "label": "Pożary lasów",
+            "title": "Pożary lasów",
+            "url": "http://www.pl.wikipedia.org/wiki/Pożary_lasów"
+        },
+        "pt": {
+            "label": "Incêndio florestal",
+            "title": "Incêndio florestal",
+            "url": "http://www.pt.wikipedia.org/wiki/Incêndio_florestal"
+        },
+        "ro": {
+            "label": "Incendiu de pădure",
+            "title": "Incendiu de pădure",
+            "url": "http://www.ro.wikipedia.org/wiki/Incendiu_de_pădure"
+        },
+        "ru": {
+            "label": "Лесной пожар",
+            "title": "Лесной пожар",
+            "url": "http://www.ru.wikipedia.org/wiki/Лесной_пожар"
+        },
+        "sh": {
+            "label": "Šumski požar",
+            "title": "Šumski požar",
+            "url": "http://www.sh.wikipedia.org/wiki/Šumski_požar"
+        },
+        "simple": {
+            "label": "Wildfire",
+            "title": "Wildfire",
+            "url": "http://www.simple.wikipedia.org/wiki/Wildfire"
+        },
+        "sr": {
+            "label": "Шумски пожар",
+            "title": "Шумски пожар",
+            "url": "http://www.sr.wikipedia.org/wiki/Шумски_пожар"
+        },
+        "sv": {
+            "label": "Skogsbrand",
+            "title": "Skogsbrand",
+            "url": "http://www.sv.wikipedia.org/wiki/Skogsbrand"
+        },
+        "ta": {
+            "label": "காட்டுத்தீ",
+            "title": "காட்டுத்தீ",
+            "url": "http://www.ta.wikipedia.org/wiki/காட்டுத்தீ"
+        },
+        "te": {
+            "label": "దావానలం",
+            "title": "దావానలం",
+            "url": "http://www.te.wikipedia.org/wiki/దావానలం"
+        },
+        "th": {
+            "label": "ไฟป่า",
+            "title": "ไฟป่า",
+            "url": "http://www.th.wikipedia.org/wiki/ไฟป่า"
+        },
+        "tl": {
+            "label": "Sunog sa gubat",
+            "title": "Sunog sa gubat",
+            "url": "http://www.tl.wikipedia.org/wiki/Sunog_sa_gubat"
+        },
+        "tr": {
+            "label": "Orman yangını",
+            "title": "Orman yangını",
+            "url": "http://www.tr.wikipedia.org/wiki/Orman_yangını"
+        },
+        "uk": {
+            "label": "Лісова пожежа",
+            "title": "Лісова пожежа",
+            "url": "http://www.uk.wikipedia.org/wiki/Лісова_пожежа"
+        },
+        "ur": {
+            "label": "جنگلی آگ",
+            "title": "جنگلی آگ",
+            "url": "http://www.ur.wikipedia.org/wiki/جنگلی_آگ"
+        },
+        "vi": {
+            "label": "Cháy rừng",
+            "title": "Cháy rừng",
+            "url": "http://www.vi.wikipedia.org/wiki/Cháy_rừng"
+        },
+        "yi": {
+            "label": "וואלד פייער",
+            "title": "וואלד פייער",
+            "url": "http://www.yi.wikipedia.org/wiki/וואלד_פייער"
+        },
+        "zh": {
+            "label": "山火",
+            "title": "山火",
+            "url": "http://www.zh.wikipedia.org/wiki/山火"
+        },
+        "zh-yue": {
+            "label": "山火",
+            "title": "山火",
+            "url": "http://www.zh-yue.wikipedia.org/wiki/山火"
+        },
+        "en": {
+            "label": "Wildfire",
+            "title": "Wildfire",
+            "url": "http://www.en.wikipedia.org/wiki/Wildfire"
+        },
+        "wikidata": {
+            "label": "Q169950",
+            "title": "Q169950",
+            "url": "http://www.wikidata.org/wiki/Q169950"
+        }
+    },
+    "Rail disaster": {
+        "bg": {
+            "label": "Железопътна катастрофа",
+            "title": "Железопътна катастрофа",
+            "url": "http://www.bg.wikipedia.org/wiki/Железопътна_катастрофа"
+        },
+        "da": {
+            "label": "Jernbaneulykker",
+            "title": "Jernbaneulykker",
+            "url": "http://www.da.wikipedia.org/wiki/Jernbaneulykker"
+        },
+        "de": {
+            "label": "Katastrophen im Schienenverkehr",
+            "title": "Katastrophen im Schienenverkehr",
+            "url": "http://www.de.wikipedia.org/wiki/Katastrophen_im_Schienenverkehr"
+        },
+        "fi": {
+            "label": "Junaonnettomuus",
+            "title": "Junaonnettomuus",
+            "url": "http://www.fi.wikipedia.org/wiki/Junaonnettomuus"
+        },
+        "fr": {
+            "label": "Accident ferroviaire",
+            "title": "Accident ferroviaire",
+            "url": "http://www.fr.wikipedia.org/wiki/Accident_ferroviaire"
+        },
+        "he": {
+            "label": "תאונת רכבת",
+            "title": "תאונת רכבת",
+            "url": "http://www.he.wikipedia.org/wiki/תאונת_רכבת"
+        },
+        "is": {
+            "label": "Lestarslys",
+            "title": "Lestarslys",
+            "url": "http://www.is.wikipedia.org/wiki/Lestarslys"
+        },
+        "ja": {
+            "label": "鉄道事故",
+            "title": "鉄道事故",
+            "url": "http://www.ja.wikipedia.org/wiki/鉄道事故"
+        },
+        "ko": {
+            "label": "철도 사고",
+            "title": "철도 사고",
+            "url": "http://www.ko.wikipedia.org/wiki/철도_사고"
+        },
+        "la": {
+            "label": "Calamitas ferriviaria",
+            "title": "Calamitas ferriviaria",
+            "url": "http://www.la.wikipedia.org/wiki/Calamitas_ferriviaria"
+        },
+        "nl": {
+            "label": "Spoorwegongeval",
+            "title": "Spoorwegongeval",
+            "url": "http://www.nl.wikipedia.org/wiki/Spoorwegongeval"
+        },
+        "no": {
+            "label": "Togulykke",
+            "title": "Togulykke",
+            "url": "http://www.no.wikipedia.org/wiki/Togulykke"
+        },
+        "pl": {
+            "label": "Katastrofa kolejowa",
+            "title": "Katastrofa kolejowa",
+            "url": "http://www.pl.wikipedia.org/wiki/Katastrofa_kolejowa"
+        },
+        "pt": {
+            "label": "Acidente ferroviário",
+            "title": "Acidente ferroviário",
+            "url": "http://www.pt.wikipedia.org/wiki/Acidente_ferroviário"
+        },
+        "ru": {
+            "label": "Крушение поезда",
+            "title": "Крушение поезда",
+            "url": "http://www.ru.wikipedia.org/wiki/Крушение_поезда"
+        },
+        "en": {
+            "label": "Train wreck",
+            "title": "Train wreck",
+            "url": "http://www.en.wikipedia.org/wiki/Train_wreck"
+        },
+        "wikidata": {
+            "label": "Q1078765",
+            "title": "Q1078765",
+            "url": "http://www.wikidata.org/wiki/Q1078765"
+        }
+    },
+    "Space accident": {
+        "cs": {
+            "label": "Kosmické havárie",
+            "title": "Kosmické havárie",
+            "url": "http://www.cs.wikipedia.org/wiki/Kosmické_havárie"
+        },
+        "de": {
+            "label": "Liste von Katastrophen der Raumfahrt",
+            "title": "Liste von Katastrophen der Raumfahrt",
+            "url": "http://www.de.wikipedia.org/wiki/Liste_von_Katastrophen_der_Raumfahrt"
+        },
+        "es": {
+            "label": "Muertes en la carrera espacial",
+            "title": "Muertes en la carrera espacial",
+            "url": "http://www.es.wikipedia.org/wiki/Muertes_en_la_carrera_espacial"
+        },
+        "fr": {
+            "label": "Accidents et incidents liés à la conquête spatiale",
+            "title": "Accidents et incidents liés à la conquête spatiale",
+            "url": "http://www.fr.wikipedia.org/wiki/Accidents_et_incidents_liés_à_la_conquête_spatiale"
+        },
+        "he": {
+            "label": "אסונות בחלל",
+            "title": "אסונות בחלל",
+            "url": "http://www.he.wikipedia.org/wiki/אסונות_בחלל"
+        },
+        "hu": {
+            "label": "Űrkatasztrófa",
+            "title": "Űrkatasztrófa",
+            "url": "http://www.hu.wikipedia.org/wiki/Űrkatasztrófa"
+        },
+        "ja": {
+            "label": "宇宙開発における事故",
+            "title": "宇宙開発における事故",
+            "url": "http://www.ja.wikipedia.org/wiki/宇宙開発における事故"
+        },
+        "ko": {
+            "label": "우주 사고",
+            "title": "우주 사고",
+            "url": "http://www.ko.wikipedia.org/wiki/우주_사고"
+        },
+        "nl": {
+            "label": "Lijst van ongevallen en incidenten met ruimtevaartuigen",
+            "title": "Lijst van ongevallen en incidenten met ruimtevaartuigen",
+            "url": "http://www.nl.wikipedia.org/wiki/Lijst_van_ongevallen_en_incidenten_met_ruimtevaartuigen"
+        },
+        "pt": {
+            "label": "Baixas das missões espaciais",
+            "title": "Baixas das missões espaciais",
+            "url": "http://www.pt.wikipedia.org/wiki/Baixas_das_missões_espaciais"
+        },
+        "sk": {
+            "label": "Kozmické havárie",
+            "title": "Kozmické havárie",
+            "url": "http://www.sk.wikipedia.org/wiki/Kozmické_havárie"
+        },
+        "en": {
+            "label": "List of spaceflight-related accidents and incidents",
+            "title": "List of spaceflight-related accidents and incidents",
+            "url": "http://www.en.wikipedia.org/wiki/List_of_spaceflight-related_accidents_and_incidents"
+        },
+        "wikidata": {
+            "label": "Q603630",
+            "title": "Q603630",
+            "url": "http://www.wikidata.org/wiki/Q603630"
+        }
+    },
+    "Incident": {
+        "cs": {
+            "label": "Incident",
+            "title": "Incident",
+            "url": "http://www.cs.wikipedia.org/wiki/Incident"
+        },
+        "es": {
+            "label": "Incidente",
+            "title": "Incidente",
+            "url": "http://www.es.wikipedia.org/wiki/Incidente"
+        },
+        "fr": {
+            "label": "Incident",
+            "title": "Incident",
+            "url": "http://www.fr.wikipedia.org/wiki/Incident"
+        },
+        "ja": {
+            "label": "インシデント",
+            "title": "インシデント",
+            "url": "http://www.ja.wikipedia.org/wiki/インシデント"
+        },
+        "nl": {
+            "label": "Incident",
+            "title": "Incident",
+            "url": "http://www.nl.wikipedia.org/wiki/Incident"
+        },
+        "ru": {
+            "label": "Инцидент",
+            "title": "Инцидент",
+            "url": "http://www.ru.wikipedia.org/wiki/Инцидент"
+        },
+        "uk": {
+            "label": "Інцидент",
+            "title": "Інцидент",
+            "url": "http://www.uk.wikipedia.org/wiki/Інцидент"
+        },
+        "en": {
+            "label": "Incident",
+            "title": "Incident",
+            "url": "http://www.en.wikipedia.org/wiki/Incident"
+        },
+        "wikidata": {
+            "label": "Q1174821",
+            "title": "Q1174821",
+            "url": "http://www.wikidata.org/wiki/Q1174821"
+        }
+    },
+    "Shipwreck": {
+        "be": {
+            "label": "Караблекрушэнне",
+            "title": "Караблекрушэнне",
+            "url": "http://www.be.wikipedia.org/wiki/Караблекрушэнне"
+        },
+        "ca": {
+            "label": "Derelicte",
+            "title": "Derelicte",
+            "url": "http://www.ca.wikipedia.org/wiki/Derelicte"
+        },
+        "cs": {
+            "label": "Lodní vrak",
+            "title": "Lodní vrak",
+            "url": "http://www.cs.wikipedia.org/wiki/Lodní_vrak"
+        },
+        "cy": {
+            "label": "Llongddrylliad",
+            "title": "Llongddrylliad",
+            "url": "http://www.cy.wikipedia.org/wiki/Llongddrylliad"
+        },
+        "da": {
+            "label": "Vrag",
+            "title": "Vrag",
+            "url": "http://www.da.wikipedia.org/wiki/Vrag"
+        },
+        "de": {
+            "label": "Wrack",
+            "title": "Wrack",
+            "url": "http://www.de.wikipedia.org/wiki/Wrack"
+        },
+        "el": {
+            "label": "Ναυάγιο",
+            "title": "Ναυάγιο",
+            "url": "http://www.el.wikipedia.org/wiki/Ναυάγιο"
+        },
+        "eo": {
+            "label": "Vrako",
+            "title": "Vrako",
+            "url": "http://www.eo.wikipedia.org/wiki/Vrako"
+        },
+        "es": {
+            "label": "Pecio",
+            "title": "Pecio",
+            "url": "http://www.es.wikipedia.org/wiki/Pecio"
+        },
+        "et": {
+            "label": "Vrakk",
+            "title": "Vrakk",
+            "url": "http://www.et.wikipedia.org/wiki/Vrakk"
+        },
+        "fi": {
+            "label": "Hylky",
+            "title": "Hylky",
+            "url": "http://www.fi.wikipedia.org/wiki/Hylky"
+        },
+        "fr": {
+            "label": "Épave",
+            "title": "Épave",
+            "url": "http://www.fr.wikipedia.org/wiki/Épave"
+        },
+        "fy": {
+            "label": "Skipswrak",
+            "title": "Skipswrak",
+            "url": "http://www.fy.wikipedia.org/wiki/Skipswrak"
+        },
+        "is": {
+            "label": "Skipsflak",
+            "title": "Skipsflak",
+            "url": "http://www.is.wikipedia.org/wiki/Skipsflak"
+        },
+        "it": {
+            "label": "Relitto",
+            "title": "Relitto",
+            "url": "http://www.it.wikipedia.org/wiki/Relitto"
+        },
+        "la": {
+            "label": "Naufragium",
+            "title": "Naufragium",
+            "url": "http://www.la.wikipedia.org/wiki/Naufragium"
+        },
+        "nl": {
+            "label": "Scheepswrak",
+            "title": "Scheepswrak",
+            "url": "http://www.nl.wikipedia.org/wiki/Scheepswrak"
+        },
+        "pl": {
+            "label": "Wrak",
+            "title": "Wrak",
+            "url": "http://www.pl.wikipedia.org/wiki/Wrak"
+        },
+        "ro": {
+            "label": "Epavă",
+            "title": "Epavă",
+            "url": "http://www.ro.wikipedia.org/wiki/Epavă"
+        },
+        "sv": {
+            "label": "Skeppsvrak",
+            "title": "Skeppsvrak",
+            "url": "http://www.sv.wikipedia.org/wiki/Skeppsvrak"
+        },
+        "en": {
+            "label": "Shipwreck",
+            "title": "Shipwreck",
+            "url": "http://www.en.wikipedia.org/wiki/Shipwreck"
+        },
+        "wikidata": {
+            "label": "Q852190",
+            "title": "Q852190",
+            "url": "http://www.wikidata.org/wiki/Q852190"
+        }
+    },
+    "Air disaster": {
+        "ar": {
+            "label": "حوادث طيران",
+            "title": "حوادث طيران",
+            "url": "http://www.ar.wikipedia.org/wiki/حوادث_طيران"
+        },
+        "bg": {
+            "label": "Списък на самолетни катастрофи",
+            "title": "Списък на самолетни катастрофи",
+            "url": "http://www.bg.wikipedia.org/wiki/Списък_на_самолетни_катастрофи"
+        },
+        "ca": {
+            "label": "Accident aeri",
+            "title": "Accident aeri",
+            "url": "http://www.ca.wikipedia.org/wiki/Accident_aeri"
+        },
+        "cs": {
+            "label": "Letecká nehoda",
+            "title": "Letecká nehoda",
+            "url": "http://www.cs.wikipedia.org/wiki/Letecká_nehoda"
+        },
+        "cy": {
+            "label": "Damweiniau a digwyddiadau cludiant awyr",
+            "title": "Damweiniau a digwyddiadau cludiant awyr",
+            "url": "http://www.cy.wikipedia.org/wiki/Damweiniau_a_digwyddiadau_cludiant_awyr"
+        },
+        "de": {
+            "label": "Flugunfall",
+            "title": "Flugunfall",
+            "url": "http://www.de.wikipedia.org/wiki/Flugunfall"
+        },
+        "eo": {
+            "label": "Katastrofoj ĉe aviado",
+            "title": "Katastrofoj ĉe aviado",
+            "url": "http://www.eo.wikipedia.org/wiki/Katastrofoj_ĉe_aviado"
+        },
+        "es": {
+            "label": "Accidente de aviación",
+            "title": "Accidente de aviación",
+            "url": "http://www.es.wikipedia.org/wiki/Accidente_de_aviación"
+        },
+        "fa": {
+            "label": "سوانح و حوادث هوایی",
+            "title": "سوانح و حوادث هوایی",
+            "url": "http://www.fa.wikipedia.org/wiki/سوانح_و_حوادث_هوایی"
+        },
+        "fi": {
+            "label": "Lento-onnettomuus",
+            "title": "Lento-onnettomuus",
+            "url": "http://www.fi.wikipedia.org/wiki/Lento-onnettomuus"
+        },
+        "fr": {
+            "label": "Accident aérien",
+            "title": "Accident aérien",
+            "url": "http://www.fr.wikipedia.org/wiki/Accident_aérien"
+        },
+        "he": {
+            "label": "אסון תעופה",
+            "title": "אסון תעופה",
+            "url": "http://www.he.wikipedia.org/wiki/אסון_תעופה"
+        },
+        "id": {
+            "label": "Daftar kecelakaan dan insiden pesawat penumpang",
+            "title": "Daftar kecelakaan dan insiden pesawat penumpang",
+            "url": "http://www.id.wikipedia.org/wiki/Daftar_kecelakaan_dan_insiden_pesawat_penumpang"
+        },
+        "is": {
+            "label": "Flugslys",
+            "title": "Flugslys",
+            "url": "http://www.is.wikipedia.org/wiki/Flugslys"
+        },
+        "it": {
+            "label": "Incidente aereo",
+            "title": "Incidente aereo",
+            "url": "http://www.it.wikipedia.org/wiki/Incidente_aereo"
+        },
+        "ja": {
+            "label": "航空事故",
+            "title": "航空事故",
+            "url": "http://www.ja.wikipedia.org/wiki/航空事故"
+        },
+        "kn": {
+            "label": "ವಿಮಾನ ಅಪಘಾತ",
+            "title": "ವಿಮಾನ ಅಪಘಾತ",
+            "url": "http://www.kn.wikipedia.org/wiki/ವಿಮಾನ_ಅಪಘಾತ"
+        },
+        "ko": {
+            "label": "항공 사고",
+            "title": "항공 사고",
+            "url": "http://www.ko.wikipedia.org/wiki/항공_사고"
+        },
+        "nl": {
+            "label": "Vliegramp",
+            "title": "Vliegramp",
+            "url": "http://www.nl.wikipedia.org/wiki/Vliegramp"
+        },
+        "nn": {
+            "label": "Flyulukke",
+            "title": "Flyulukke",
+            "url": "http://www.nn.wikipedia.org/wiki/Flyulukke"
+        },
+        "no": {
+            "label": "Luftfartsulykker og -hendelser",
+            "title": "Luftfartsulykker og -hendelser",
+            "url": "http://www.no.wikipedia.org/wiki/Luftfartsulykker_og_-hendelser"
+        },
+        "pl": {
+            "label": "Katastrofa lotnicza",
+            "title": "Katastrofa lotnicza",
+            "url": "http://www.pl.wikipedia.org/wiki/Katastrofa_lotnicza"
+        },
+        "pt": {
+            "label": "Acidente aéreo",
+            "title": "Acidente aéreo",
+            "url": "http://www.pt.wikipedia.org/wiki/Acidente_aéreo"
+        },
+        "ru": {
+            "label": "Авиационная катастрофа",
+            "title": "Авиационная катастрофа",
+            "url": "http://www.ru.wikipedia.org/wiki/Авиационная_катастрофа"
+        },
+        "sk": {
+            "label": "Letecká nehoda",
+            "title": "Letecká nehoda",
+            "url": "http://www.sk.wikipedia.org/wiki/Letecká_nehoda"
+        },
+        "sr": {
+            "label": "Удес ваздухоплова",
+            "title": "Удес ваздухоплова",
+            "url": "http://www.sr.wikipedia.org/wiki/Удес_ваздухоплова"
+        },
+        "sv": {
+            "label": "Flygolycka",
+            "title": "Flygolycka",
+            "url": "http://www.sv.wikipedia.org/wiki/Flygolycka"
+        },
+        "zh": {
+            "label": "航空事故",
+            "title": "航空事故",
+            "url": "http://www.zh.wikipedia.org/wiki/航空事故"
+        },
+        "zh-yue": {
+            "label": "飛機失事",
+            "title": "飛機失事",
+            "url": "http://www.zh-yue.wikipedia.org/wiki/飛機失事"
+        },
+        "en": {
+            "label": "Aviation accidents and incidents",
+            "title": "Aviation accidents and incidents",
+            "url": "http://www.en.wikipedia.org/wiki/Aviation_accidents_and_incidents"
+        },
+        "wikidata": {
+            "label": "Q744913",
+            "title": "Q744913",
+            "url": "http://www.wikidata.org/wiki/Q744913"
+        }
+    },
+    "Dangerous good": {
+        "ar": {
+            "label": "مادة خطرة",
+            "title": "مادة خطرة",
+            "url": "http://www.ar.wikipedia.org/wiki/مادة_خطرة"
+        },
+        "ca": {
+            "label": "Mercaderia perillosa",
+            "title": "Mercaderia perillosa",
+            "url": "http://www.ca.wikipedia.org/wiki/Mercaderia_perillosa"
+        },
+        "de": {
+            "label": "Gefahrgut",
+            "title": "Gefahrgut",
+            "url": "http://www.de.wikipedia.org/wiki/Gefahrgut"
+        },
+        "es": {
+            "label": "Mercancías peligrosas",
+            "title": "Mercancías peligrosas",
+            "url": "http://www.es.wikipedia.org/wiki/Mercancías_peligrosas"
+        },
+        "fr": {
+            "label": "Matière dangereuse",
+            "title": "Matière dangereuse",
+            "url": "http://www.fr.wikipedia.org/wiki/Matière_dangereuse"
+        },
+        "ga": {
+            "label": "Ábhair ghuaiseacha",
+            "title": "Ábhair ghuaiseacha",
+            "url": "http://www.ga.wikipedia.org/wiki/Ábhair_ghuaiseacha"
+        },
+        "gl": {
+            "label": "Mercadoría perigosa",
+            "title": "Mercadoría perigosa",
+            "url": "http://www.gl.wikipedia.org/wiki/Mercadoría_perigosa"
+        },
+        "he": {
+            "label": "חומרים מסוכנים",
+            "title": "חומרים מסוכנים",
+            "url": "http://www.he.wikipedia.org/wiki/חומרים_מסוכנים"
+        },
+        "hu": {
+            "label": "Veszélyes áruk",
+            "title": "Veszélyes áruk",
+            "url": "http://www.hu.wikipedia.org/wiki/Veszélyes_áruk"
+        },
+        "ja": {
+            "label": "危険物",
+            "title": "危険物",
+            "url": "http://www.ja.wikipedia.org/wiki/危険物"
+        },
+        "kk": {
+            "label": "Қауіптілік класы",
+            "title": "Қауіптілік класы",
+            "url": "http://www.kk.wikipedia.org/wiki/Қауіптілік_класы"
+        },
+        "nl": {
+            "label": "ADR-gevarenklassen en -labels",
+            "title": "ADR-gevarenklassen en -labels",
+            "url": "http://www.nl.wikipedia.org/wiki/ADR-gevarenklassen_en_-labels"
+        },
+        "no": {
+            "label": "Farlig gods",
+            "title": "Farlig gods",
+            "url": "http://www.no.wikipedia.org/wiki/Farlig_gods"
+        },
+        "ru": {
+            "label": "Класс опасности",
+            "title": "Класс опасности",
+            "url": "http://www.ru.wikipedia.org/wiki/Класс_опасности"
+        },
+        "sh": {
+            "label": "Transport opasnih materija",
+            "title": "Transport opasnih materija",
+            "url": "http://www.sh.wikipedia.org/wiki/Transport_opasnih_materija"
+        },
+        "sr": {
+            "label": "Транспорт опасних материја",
+            "title": "Транспорт опасних материја",
+            "url": "http://www.sr.wikipedia.org/wiki/Транспорт_опасних_материја"
+        },
+        "sv": {
+            "label": "Farligt gods",
+            "title": "Farligt gods",
+            "url": "http://www.sv.wikipedia.org/wiki/Farligt_gods"
+        },
+        "tr": {
+            "label": "Tehlikeli madde",
+            "title": "Tehlikeli madde",
+            "url": "http://www.tr.wikipedia.org/wiki/Tehlikeli_madde"
+        },
+        "uk": {
+            "label": "Небезпечний вантаж",
+            "title": "Небезпечний вантаж",
+            "url": "http://www.uk.wikipedia.org/wiki/Небезпечний_вантаж"
+        },
+        "zh": {
+            "label": "危險性物質",
+            "title": "危險性物質",
+            "url": "http://www.zh.wikipedia.org/wiki/危險性物質"
+        },
+        "en": {
+            "label": "Dangerous goods",
+            "title": "Dangerous goods",
+            "url": "http://www.en.wikipedia.org/wiki/Dangerous_goods"
+        },
+        "wikidata": {
+            "label": "Q757138",
+            "title": "Q757138",
+            "url": "http://www.wikidata.org/wiki/Q757138"
+        }
+    }
+}

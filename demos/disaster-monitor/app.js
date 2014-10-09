@@ -12,8 +12,13 @@ var async = require('async');
 var request = require('request');
 var ExpontentialSmoothingStream = require('exponential-smoothing-stream');
 var numbers = require('numbers');
+var env = require('node-env-file');
+if (require('fs').existsSync(__dirname + '/.env')) {
+  env(__dirname + '/.env');
+}
 
 var queryExpander = require('./query-expander.js');
+var util = require ('./util.js');
 
 var LANGUAGE_LINKS_URL = '.wikipedia.org/w/api.php?action=query&' +
     'prop=langlinks&format=json&lllimit=max&titles=';
@@ -27,104 +32,53 @@ var USER_AGENT =
     'Disaster Monitor * Contact: Thomas Steiner (tomac@google.com)';
 var HEADERS = { 'User-Agent': USER_AGENT };
 var PARALLEL_LIMIT = 5;
-var GOOGLE_STATIC_MAPS_API_KEY = process.env.GOOGLE_STATIC_MAPS_API_KEY;
+
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  var format = req.params.format || false;
+  if (format === 'tsv') {
+    res.header('Content-Type', 'text/tab-separated-values');
+  } else if (format === 'txt') {
+    res.header('Content-Type', 'text/plain');
+  } else if (format === 'json') {
+    res.header('Content-Type', 'application/json');
+  }
+  next();
+};
+
+app.use(allowCrossDomain);
+app.use(express.static(__dirname + '/static'));
 
 // Good results with "Natural_disasters" and "Anthropogenic_hazard"
-app.get('/disasters/json/:init?', function(req, res) {
+app.get('/disasters/:format/:language/:init?', function(req, res) {
+  var format = req.params.format;
+  var language = req.params.language;
   var init = req.params.init || 'Natural_disaster';
-  queryExpander.expandQueries(init, function(err, results) {
-    res.header({
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json'
-    });
+  var maxDepth = req.query.maxDepth ? req.query.maxDepth : Number.MAX_VALUE;
+  var keepAlive = setInterval(function() {
+    res.write(' ');
+  }, 10000);
+  queryExpander.expandQueries(language, init, maxDepth, function(err, results) {
     if (err) {
-      return res.send(500, err);
+      return res.end('{}');
     }
-    return res.send(results);
+    clearInterval(keepAlive);
+    if (format === 'tsv') {
+      return res.end(util.toTsv(results));
+    } else if (format === 'txt') {
+      return res.end(util.toTxt(results));
+    } else {
+      return res.end(JSON.stringify(results));
+    }
   });
 });
 
-app.get('/disasters/txt/:init?', function(req, res) {
-  var init = req.params.init || 'Natural_disaster';
-  queryExpander.expandQueries(init, function(err, results) {
-    res.header({
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'text/plain'
-    });
-    if (err) {
-      return res.send(500, err);
-    }
-    var keywords = [];
-    var i = 0;
-    for (var key in results) {
-      var langLinks = results[key].langLinks;
-      keywords[i] = {};
-      for (var language in langLinks) {
-        keywords[i][langLinks[language].label] = true;
-        langLinks[language].alternativeLabels.forEach(function(label) {
-          keywords[i][label] = true;
-        });
-      }
-      keywords[i] = Object.keys(keywords[i]).join(', ');
-      i++;
-    }
-    return res.send(keywords.join('\n\n'));
-  });
-});
-
-app.get('/disasters/tsv/:init?', function(req, res) {
-  var init = req.params.init || 'Natural_disaster';
-  queryExpander.expandQueries(init, function(err, results) {
-    res.header({
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'text/tab-separated-values'
-    });
-    if (err) {
-      return res.send(500, err);
-    }
-    var languages = [];
-    var languageKeywords = {};
-    var lengthsPerLanguage = {};
-    for (var key in results) {
-      var langLinks = Object.keys(results[key].langLinks);
-      langLinks.forEach(function(langLink) {
-        if (languages.indexOf(langLink) === -1) {
-          languages.push(langLink);
-          languageKeywords[langLink] = [];
-          lengthsPerLanguage[langLink] = 0;
-        }
-      });
-    }
-    var tsv = '';
-    languages.sort();
-    var maxLength = 0;
-    for (var key in results) {
-      var langLinks = results[key].langLinks;
-      for (var language in langLinks) {
-        languageKeywords[language].push(langLinks[language].label);
-        lengthsPerLanguage[language] = lengthsPerLanguage[language] + 1;
-        languageKeywords[language] = languageKeywords[language].concat(
-            langLinks[language].alternativeLabels);
-        lengthsPerLanguage[language] = lengthsPerLanguage[language] +
-            langLinks[language].alternativeLabels.length;
-        if (lengthsPerLanguage[language] > maxLength) {
-          maxLength = lengthsPerLanguage[language];
-        }
-      }
-    }
-    tsv += languages.join('\t') + '\n';
-    for (var i = 0; i < maxLength; i++) {
-      languages.forEach(function(language) {
-        tsv += languageKeywords[language][i] ?
-            languageKeywords[language][i] + '\t' : '\t';
-      });
-      tsv += '\n';
-    }
-    return res.send(tsv);
-  });
-});
-
-app.get('/disasters/monitoring-list/:init?', function(req, res) {
+app.get('/monitor/monitoring-list/:init?', function(req, res) {
+  var keepAlive = setInterval(function() {
+    res.write(' ');
+  }, 10000);
   var urls = {};
   var insertArticle = function(article, role, type) {
     if (!urls[article]) {
@@ -140,13 +94,11 @@ app.get('/disasters/monitoring-list/:init?', function(req, res) {
   };
 
   var init = req.params.init || 'Natural_disaster';
-  queryExpander.expandQueries(init, function(err, results) {
-    res.header({
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json'
-    });
+  var language = 'en';
+  var maxDepth = Number.MAX_VALUE;
+  queryExpander.expandQueries(language, init, maxDepth, function(err, results) {
     if (err) {
-      return res.send(500, err);
+      return res.end('{}');
     }
     for (var disasterLabel in results) {
       var disasterType = results[disasterLabel];
@@ -185,20 +137,15 @@ app.get('/disasters/monitoring-list/:init?', function(req, res) {
     }
     console.log('The monitoring list contains ' + Object.keys(urls).length +
     ' items');
-    return res.send(urls);
+    var data = {
+      urls: urls,
+      disasterTypes: Object.keys(results)
+    };
+    return res.end(JSON.stringify(data));
   });
 });
 
-var createGoogleMapsUrl = function(lat, lon) {
-  return 'https://maps.googleapis.com/maps/api/staticmap' +
-      '?key=' + GOOGLE_STATIC_MAPS_API_KEY +
-      '&markers=size:mid|color:orange|' + lat + ',' + lon +
-      '&size=300x200' +
-      '&maptype=terrain' +
-      '&zoom=6';
-};
-
-app.get('/disasters/geolocation/:language/:article', function(req, res) {
+app.get('/monitor/geolocation/:language/:article', function(req, res) {
   var language = req.params.language;
   var article = req.params.article;
   console.log('Geo-referencing ' + language + ':' + article + '.');
@@ -279,7 +226,7 @@ app.get('/disasters/geolocation/:language/:article', function(req, res) {
           return {
             lat: parseFloat(geo[0]),
             lon: parseFloat(geo[1]),
-            map: createGoogleMapsUrl(geo[0], geo[1])
+            map: util.createGoogleMapsUrl(geo[0], geo[1])
           };
         });
         var averageCoordinates = {};
@@ -293,20 +240,20 @@ app.get('/disasters/geolocation/:language/:article', function(req, res) {
               lon: (prev.lon + curr.lon) / arr.length,
             };
           });
-          averageCoordinates.map = createGoogleMapsUrl(averageCoordinates.lat,
-              averageCoordinates.lon);
+          averageCoordinates.map = util.createGoogleMapsUrl(
+              averageCoordinates.lat, averageCoordinates.lon);
         }
         coordinates = {
           individualCoordinates: coordinates,
           averageCoordinates: averageCoordinates,
         };
-        res.send(coordinates);
+        res.send(JSON.stringify(coordinates));
       }
     );
   });
 });
 
-app.get('/disasters/revisions/:language/:article', function(req, res) {
+app.get('/monitor/revisions/:language/:article', function(req, res) {
   var language = req.params.language;
   var article = req.params.article;
   console.log('Getting revisions of ' + language + ':' + article + '.');
@@ -395,11 +342,11 @@ app.get('/disasters/revisions/:language/:article', function(req, res) {
               (intervals[intervals.length - 1] < standardDeviation / 2)) {
             spiking = true;
           }
-          res.send({
+          res.send(JSON.stringify({
             revisions: revisions,
             intervals: intervals,
             spiking: spiking
-          });
+          }));
         });
         revisions.forEach(function(revision, i) {
           if (i > 0) {
@@ -415,12 +362,11 @@ app.get('/disasters/revisions/:language/:article', function(req, res) {
 
 // start static serving
 // and set default route to index.html
-app.use(express.static(__dirname + '/static'));
 app.get('/', function(req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-var port = Number(process.env.PORT || 4000);
+var port = Number(process.env.PORT || 3000);
 app.listen(port, function() {
   console.log('Disaster Monitor listening on port ' + port);
 });

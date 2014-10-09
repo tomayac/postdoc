@@ -5,6 +5,12 @@
   var disasterTypes = {};
   var monitoringList = {};
 
+  var heatmapsData = {
+    heatmaps: {},
+    colors: {}
+  };
+  var heatmapsPoints = {};
+
   var activity = document.querySelector('#activity > span');
   var status = document.querySelector('#status > span');
   var candidate = document.querySelector('#candidate');
@@ -17,7 +23,7 @@
     var cachedMonitoringList = localStorage.getItem('monitoringList');
     if (cachedMonitoringList) {
       cachedMonitoringList = JSON.parse(cachedMonitoringList);
-      if (now - cachedMonitoringList.timestamp <= 1000 * 60 * 60) {
+      if (true/*now - cachedMonitoringList.timestamp <= 1000 * 60 * 60*/) {
         cachedMonitoringList =
             JSON.parse(LZString.decompress(cachedMonitoringList.data));
         console.log('Cached monitoring list still good.');
@@ -25,7 +31,7 @@
       }
     }
     console.log('Cached monitoring list too old or non-existant.');
-    var url = document.location.origin + '/disasters/monitoring-list/' +
+    var url = document.location.origin + '/monitor/monitoring-list/' +
         article;
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -90,10 +96,17 @@
     console.log('Geo-referencing ' + language + ':' + article);
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
-      var geoData = JSON.parse(this.responseText);
-      return callback(null, geoData);
+      try {
+        var geoData = JSON.parse(this.responseText);
+        return callback(null, geoData);
+      } catch(e) {
+        return callback('Not found');
+      }
     };
-    var url = document.location.origin + '/disasters/geolocation/' + language +
+    xhr.onerror = function() {
+      return callback('Not found');
+    };
+    var url = document.location.origin + '/monitor/geolocation/' + language +
         '/' + encodeURIComponent(article);
     xhr.open('get', url, true);
     xhr.send();
@@ -103,10 +116,17 @@
     console.log('Getting revions data for ' + language + ':' + article);
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
-      var revisionsData = JSON.parse(this.responseText);
-      return callback(null, revisionsData);
+      try {
+        var revisionsData = JSON.parse(this.responseText);
+        return callback(null, revisionsData);
+      } catch(e) {
+        return callback('Not found');
+      }
     };
-    var url = document.location.origin + '/disasters/revisions/' + language +
+    xhr.onerror = function() {
+      return callback('Not found');
+    };
+    var url = document.location.origin + '/monitor/revisions/' + language +
         '/' + encodeURIComponent(article);
     xhr.open('get', url, true);
     xhr.send();
@@ -134,13 +154,23 @@
           li.appendChild(document.createTextNode(' (not spiking)'));
         }
         if (geoData.averageCoordinates.lat) {
+          // Static map
           li.appendChild(document.createElement('br'));
           var img = document.createElement('img');
-          img.classList.add('map');
+          img.classList.add('static-map');
           img.src = geoData.averageCoordinates.map;
           img.alt = geoData.averageCoordinates.lat + ', ' +
               geoData.averageCoordinates.lon;
           li.appendChild(img);
+          // Heatmap
+          for (var role in roles) {
+            roles[role].forEach(function(disasterType) {
+              var point = new google.maps.LatLng(
+                  geoData.averageCoordinates.lat,
+                  geoData.averageCoordinates.lon);
+              heatmapsPoints[disasterType].push(point);
+            });
+          }
         }
         var nestedUl = document.createElement('ul');
         li.appendChild(nestedUl);
@@ -165,36 +195,78 @@
   };
 
   var init = function() {
-    getMonitoringList(seedArticle, function(err, data) {
-      if (err) {
-        status.textContent = 'Error initializing the app.';
-        return console.log('Error initializing the app.');
+    console.log('Initializing application');
+    var mapOptions = {
+      mapTypeId: google.maps.MapTypeId.TERRAIN,
+      zoom: 1,
+      center: new google.maps.LatLng(48.524146, 10.535615)
+    };
+    var map = new google.maps.Map(document.querySelector('#map-canvas'),
+        mapOptions);
+    var coldStart = true;
+
+    var randomColors = function(types) {
+      var total = types.length;
+      var i = 360 / (total - 1);
+      for (var x = 0; x < total; x++) {
+        var color = tinycolor('hsl(' + Math.floor(i * x) + ', 100%, 50%)');
+        heatmapsData.colors[types[x]] = color.toRgbString();
       }
-      monitoringList = data;
+    };
+
+    var retrieveMonitoringList = function(err, data) {
+      if (err) {
+        status.textContent = 'Error retrieving monitoring list.';
+        return console.log('Error retrieving monitoring list.');
+      }
+      // Initialize colors
+      randomColors(data.disasterTypes);
+      // Initialize empty heatmaps
+      data.disasterTypes.forEach(function(disaster) {
+        if (!heatmapsData.heatmaps[disaster]) {
+          heatmapsPoints[disaster] = new google.maps.MVCArray([]);
+          heatmapsData.heatmaps[disaster] =
+              new google.maps.visualization.HeatmapLayer({
+            data: heatmapsPoints[disaster],
+            radius: 20,
+            gradient: ['rgba(255, 255, 255, 0)', heatmapsData.colors[disaster]]
+          });
+          heatmapsData.heatmaps[disaster].setMap(map);
+        }
+      });
+      // Create color legend
+      var legend = document.querySelector('#legend');
+      var html = '';
+      for (var color in heatmapsData.colors) {
+        html += '<span style="background-color:' + heatmapsData.colors[color] + ';">' +
+            color + '</span><br/>';
+      }
+      legend.innerHTML = html;
+
+      monitoringList = data.urls;
       console.log('Monitoring ' + Object.keys(monitoringList).length +
           ' candidate Wikipedia articles.');
       status.textContent = 'Monitoring ' + Object.keys(monitoringList).length +
           ' candidate Wikipedia articles.';
-      var wikiSource = new EventSource(wikipediaEdits);
-      wikiSource.addEventListener('message', function(e) {
-        return parseWikipediaEdit(JSON.parse(e.data));
-      });
-      setInterval(function() {
-        getMonitoringList(seedArticle, function(err, data) {
-          if (err) {
-            status.textContent = 'Error refreshing monitoring list.';
-            return console.log('Error refreshing monitoring list.');
-          }
-          monitoringList = data;
-          console.log('Monitoring ' + Object.keys(monitoringList).length +
-              ' candidate Wikipedia articles.');
-          status.textContent = 'Monitoring ' + Object.keys(monitoringList).length +
-              ' candidate Wikipedia articles.';
+      // Only when executed the first time
+      if (coldStart) {
+        // Start the monitoring process
+        var wikiSource = new EventSource(wikipediaEdits);
+        wikiSource.addEventListener('message', function(e) {
+          return parseWikipediaEdit(JSON.parse(e.data));
         });
-      }, 1000 * 60 * 60);
-    });
+        // Refresh monitoring list regularly
+        setInterval(function() {
+          console.log('Refreshing stale monitoring list');
+          getMonitoringList(seedArticle, retrieveMonitoringList);
+        }, 1000 * 60 * 60);
+        coldStart = false;
+      }
+    };
+
+    getMonitoringList(seedArticle, retrieveMonitoringList);
   };
-  init();
+  google.maps.event.addDomListener(window, 'load', init);
 
   /*
   var twitterSource = new EventSource('http://twtr-sample.herokuapp.com/');

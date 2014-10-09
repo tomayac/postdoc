@@ -1,6 +1,33 @@
-.map {
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0.5em;
+}
+
+.static-map {
   height: 200;
   width: auto;
+  float: left;
+}
+
+div#activity {
+  margin-bottom: 1em;
+  line-height: 2em;
+}
+
+div#legend {
+  font-size: 0.8em;
+}
+
+.map-canvas {
+  height: 300px;
+  width: 500px;
+  margin-bottom: 2em;
+  margin-right: 0.5em;
   float: left;
 }
 

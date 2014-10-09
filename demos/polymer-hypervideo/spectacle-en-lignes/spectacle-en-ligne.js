@@ -241,12 +241,14 @@ var init = (function() {
   async.parallel(
     functions,
     function(err, results) {
+      var index;
       if (document.location.hash) {
         var videoId = document.location.hash.substr(1);
-        var index = lookUp[videoId];
+        index = lookUp[videoId];
         console.log('Starting with video ' + videoId);
       }
       videoSelect.selectedIndex = index || 4;
+      alert(videoSelect.selectedIndex)
       return videoSelectChange();
     }
   );
