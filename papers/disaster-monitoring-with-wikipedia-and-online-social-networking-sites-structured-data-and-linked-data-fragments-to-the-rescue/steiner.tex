@@ -1,0 +1,678 @@
+\def\year{2015}
+%File: formatting-instruction.tex
+\documentclass[letterpaper]{article}
+\usepackage{aaai}
+\usepackage{times}
+\usepackage{helvet}
+\usepackage{courier}
+\frenchspacing
+\setlength{\pdfpagewidth}{8.5in}
+\setlength{\pdfpageheight}{11in}
+
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\usepackage{pifont} 
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage[hyphens]{url}
+% \usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+% \def\sectionautorefname{Section}
+% \def\subsectionautorefname{Subsection}
+
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+
+% listings and Verbatim environment
+\usepackage{fancyvrb}
+\usepackage{relsize}
+\usepackage{listings}
+\usepackage{verbatim}
+\newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
+\newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
+\newcommand{\smalllistingsize}{\fontsize{6.0pt}{7.0pt}}
+\newcommand{\listingsize}{\smalllistingsize}%{\defaultlistingsize}
+\RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
+\lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
+  aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+  framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+
+% use Courier from this point onward
+\let\oldttdefault\ttdefault
+\renewcommand{\ttdefault}{pcr}
+\let\oldurl\url
+%\renewcommand{\url}[1]{\defaultlistingsize\oldurl{#1}}
+
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\lstdefinelanguage{JavaScript}{
+  keywords={push, typeof, new, true, false, catch, function, return, null,
+    catch, switch, var, if, in, while, do, else, case, break, div, script, video},
+  keywordstyle=\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morecomment=[s]{<!--}{-->},  
+  commentstyle=\color{darkgray},
+  stringstyle=\color{green},
+  morestring=[b]',
+  morestring=[b]"
+}
+\lstset{breaklines=true}
+
+% linewrap symbol
+\usepackage{color}
+\definecolor{grey}{RGB}{130,130,130}
+\newcommand{\linewrap}{\raisebox{-.6ex}{\textcolor{grey}{$\hookleftarrow$}}}
+
+% todo macro
+\usepackage{color}
+\newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
+
+\hyphenation{WebVTT}
+
+\def\JSONLD{\mbox{JSON-LD}}
+
+\pdfinfo{
+/Title (Disaster Monitoring with Wikipedia and Online Social Networking Sites: Structured Data and Linked Data Fragments to the Rescue?!)
+/Author (Thomas Steiner, Ruben Verborgh)}
+\setcounter{secnumdepth}{2}  
+ \begin{document}
+% The file aaai.sty is the style file for AAAI Press 
+% proceedings, working notes, and technical reports.
+%
+\title{Disaster Monitoring with Wikipedia and Online Social Networking Sites: Structured Data and Linked Data Fragments to the Rescue?!}
+\author{Thomas Steiner\thanks{Second affiliation: CNRS, Université de Lyon, LIRIS -- UMR5205, Université Lyon 1, France}\\
+Google Germany GmbH\\
+ABC Str. 19\\
+D-20355 Hamburg, Germany\\
+\url{tomac@google.com}
+\And
+Ruben Verborgh\\
+Multimedia Lab -- Ghent University -- iMinds\\
+Gaston Crommenlaan 8 bus 201\\
+B-9050 Ledeberg-Ghent, Belgium\\
+\url{ruben.verborgh@ugent.be}
+}
+\maketitle
+\begin{abstract}
+\begin{quote}
+Lorem ipsum
+\end{quote}
+\end{abstract}
+
+\section{Introduction}
+
+\subsection{Natural Disaster Detection and Response: A~Global Challenge}
+\label{sec:natural-disaster-detection}
+
+According to a~study~\cite{laframboise2012naturaldisasters}
+published by the International Monetary Funds (IMF) in 2012,
+about 700~natural disasters were registered worldwide between 2010 and 2012,
+affecting more than 450~million people.
+According to the study, ``[d]amages have risen
+from an estimated US\$20 billion on average per year
+in the 1990s to about US\$100 billion per year during 2000--10.''
+The authors expect this upward trend to continue
+``as a~result of the rising concentration of people
+living in areas more exposed to natural disasters,
+and climate change.''
+In consequence, public emergency alerting systems
+become more and more crucial in the future.
+
+National agencies like the
+\emph{Federal Emergency Management Agency}
+(FEMA)\footnote{FEMA: \url{http://www.fema.gov/}}
+in the United States of America or the
+\emph{Bundesamt für Bevölkerungsschutz und Katastrophenhilfe}
+(BBK,\footnote{BBK: \url{http://www.bbk.bund.de/}}
+``Federal Office of Civil Protection and Disaster Assistance'')
+in Germany work to ensure the safety of the population
+on a~national level, combining and providing relevant tasks
+and information in a~single place.
+The \emph{United Nations Office for the Coordination of Humanitarian Affairs}
+(OCHA)\footnote{OCHA: \url{http://www.unocha.org/}}
+is a~United Nations (UN) body formed to strengthen the UN's response
+to complex emergencies and natural disasters.
+The \emph{Global Disaster Alert and Coordination System}
+(GDACS)\footnote{GDACS: \url{http://www.gdacs.org/}}
+is ``a~cooperation framework between the United Nations,
+the European Commission, and disaster managers worldwide
+to improve alerts, information exchange, and coordination
+in the first phase after major sudden-onset disasters.''
+Global companies like Facebook,%
+\footnote{Facebook Disaster Relief:
+\url{https://www.facebook.com/DisasterRelief}}
+Airbnb,\footnote{Airbnb Disaster Response:
+\url{https://www.airbnb.com/disaster-response}} or
+Google\footnote{Google Crisis Response:
+\url{https://www.google.org/crisisresponse/}}
+have dedicated crisis response teams that work on
+making critical emergency information accessible in times of disaster.
+As can be seen from the (incomprehensive) list above,
+natural disaster detection and response is a~problem
+tackled on national, international, and global levels;
+both from the public and private sectors.
+To facilitate collaboration, a~common protocol is essential.
+
+\subsection{The \emph{Common Alerting Protocol}}
+
+The \emph{Common Alerting Protocol} (CAP)~\cite{westfall2010cap}
+is an XML-based general data format for exchanging public warnings
+and emergencies between alerting technologies.
+CAP allows a~warning message to be consistently disseminated simultaneously
+over many warning systems to many applications.
+The protocol increases warning effectiveness and
+simplifies the task of activating a~warning for officials.
+CAP also provides the capability to include multimedia data,
+such as photos, maps, or videos.
+Alerts can be geographically targeted to a~defined warning area.
+An exemplary flood warning CAP feed stemming from GDACS is shown in
+Listing~\ref{listing:cap}.
+
+\begin{lstlisting}[caption={\emph{Common Alerting Protocol} feed
+  via the \emph{Global Disaster Alert and Coordination System}
+  (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, 2014-07-16)},
+  label=listing:cap, language=xml,morekeywords={xmlns,encoding,alert,
+  identifier,sender,sent,status,msgType,scope,incidents,info,
+  category,event,urgency,severity,certainty, senderName,headline,
+  description,web,parameter,value,valueName,area,areaDesc,polygon},
+  float=*, stringstyle=\color{gray}, ]
+<?xml version="1.0" encoding="utf-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>GDACS_FL_4159_1</identifier>
+  <sender>info@gdacs.org</sender>
+  <sent>2014-07-14T23:59:59-00:00</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <incidents>4159</incidents>
+  <info>
+    <category>Geo</category><event>Flood</event>
+    <urgency>Past</urgency><severity>Moderate</severity>
+    <certainty>Unknown</certainty>
+    <senderName>Global Disaster Alert and Coordination System</senderName>
+    <headline /><description />
+    <web>http://www.gdacs.org/reports.aspx?eventype=FL&amp;amp;eventid=4159</web>
+    <parameter><valueName>eventid</valueName><value>4159</value></parameter>
+    <parameter><valueName>currentepisodeid</valueName><value>1</value></parameter>
+    <parameter><valueName>glide</valueName><value /></parameter>
+    <parameter><valueName>version</valueName><value>1</value></parameter>
+    <parameter><valueName>fromdate</valueName><value>Wed, 21 May 2014 22:00:00 GMT</value></parameter>
+    <parameter><valueName>todate</valueName><value>Mon, 14 Jul 2014 21:59:59 GMT</value></parameter>
+    <parameter><valueName>eventtype</valueName><value>FL</value></parameter>
+    <parameter><valueName>alertlevel</valueName><value>Green</value></parameter>
+    <parameter><valueName>alerttype</valueName><value>automatic</value></parameter>
+    <parameter><valueName>link</valueName><value>http://www.gdacs.org/report.aspx?eventtype=FL&amp;amp;eventid=4159</value></parameter>
+    <parameter><valueName>country</valueName><value>Brazil</value></parameter>
+    <parameter><valueName>eventname</valueName><value /></parameter>
+    <parameter><valueName>severity</valueName><value>Magnitude 7.44</value></parameter>
+    <parameter><valueName>population</valueName><value>0 killed and 0 displaced</value></parameter>
+    <parameter><valueName>vulnerability</valueName><value /></parameter>
+    <parameter><valueName>sourceid</valueName><value>DFO</value></parameter>
+    <parameter><valueName>iso3</valueName><value /></parameter>
+    <parameter>
+      <valueName>hazardcomponents</valueName><value>FL,dead=0,displaced=0,main_cause=Heavy Rain,severity=2,sqkm=256564.57</value>
+    </parameter>
+    <parameter><valueName>datemodified</valueName><value>Mon, 01 Jan 0001 00:00:00 GMT</value></parameter>
+    <area><areaDesc>Polygon</areaDesc><polygon>,,100</polygon></area>
+  </info>
+</alert>
+\end{lstlisting}
+
+\subsection{Linked Data}
+
+Linked Data~\cite{bernerslee2006linkeddata}
+defines a~set of agreed-on best practices and
+principles for interconnecting and publishing
+structured data on the Web.
+It uses Web technologies like the Hypertext Transfer Protocol~(HTTP~,~\cite{fielding1999http})
+and Unique Resource Identifiers~(URIs~\cite{bernerslee2005uri})
+to create typed links between different sources.
+The portal \url{http://linkeddata.org/} (accessed October 27, 2014)
+defines Linked Data as being
+\textit{``about using the Web to connect related data that
+wasn't previously linked, or using the Web
+to lower the barriers to linking data
+currently linked using other methods.''}
+
+\subsection{The Linked Data Principles}
+
+Tim Berners-Lee defined the four rules for Linked Data in a~W3C Design Issue~\cite{bernerslee2006linkeddata}
+published in 2006 as follows:
+
+\begin{enumerate}
+  \item Use URIs as names for things.
+  \item Use HTTP URIs so that people can look up those names.
+  \item When someone looks up a~URI, provide useful information,
+        using the standards (RDF, SPARQL).
+  \item Include links to other URIs,
+        so that they can discover more things.
+\end{enumerate}
+
+Linked Data uses RDF~\cite{klyne2004rdf} to create
+typed links between things in the world.
+The result is oftentimes referred to as the \emph{Web of Data}.
+RDF encodes statements about things in the form of
+\texttt{(subject, predicate, object)} triples.
+If subject and object have URIs from different namespaces,
+Bizer \emph{et~al.}\ speak of \emph{RDF links}
+in~\cite{heath2011linkeddata}.
+
+\subsection{Contributions, Hypotheses, and Research Questions}
+
+In this paper, we present first results of
+our ongoing early-stage research
+on a~realtime comprehensive Wikipedia-based monitoring system
+for the detection of natural disasters around the globe.
+Both authors primarily come from the Semantic Web
+and Linked Data communities
+and have only limited prior experience in disaster response.
+We are steered by the following hypotheses.
+
+\begin{itemize}
+  \itemsep0em
+  \item[$\mathbb{H}1$] Content about natural disasters
+    gets added to Wikipedia and online social networking sites in a~timely fashion.
+  \item[$\mathbb{H}2$] Natural disasters being geographically
+    constrained, textual and multimedia content about them
+    gets added to local, \emph{i.e.}, non-English Wikipedias
+    and online social networking sites
+    in the particular local languages.
+  \item[$\mathbb{H}3$] Link structure dynamics of Wikipedia
+    provide for a~meaningful way to detect future
+    natural disasters, \emph{i.e.}, disasters unknown at system creation time.
+\end{itemize}
+
+\pagebreak \noindent These hypotheses lead us to the following research questions.
+
+\begin{itemize}
+  \itemsep0em
+  \item[$\mathbb{Q}1$] How timely and accurate for the purpose
+    of natural disaster detection is content from Wikipedia
+    compared to authoritative sources mentioned above?
+  \item[$\mathbb{Q}2$] Does the disambiguated nature of Wikipedia
+    surpass keyword-based natural disaster detection approaches,
+    \emph{e.g.}, via online social networks or search logs?
+\end{itemize}
+
+\section{Related Work}
+
+Digitally crowdsourced data for disaster detection and response
+has gained momentum in recent years,
+as the Internet has proven resilient in times of crises,
+compared to other infrastructure.
+Ryan Falor, Crisis Response Product Manager at Google in 2011,
+remarks in~\cite{falor2011googleorg} that
+``a~substantial \textup{[\,\dots]} proportion of searches
+are directly related to the crises;
+and people continue to search and access information online
+even while traffic and search levels drop temporarily
+during and immediately following the crises.''
+In the following, we provide a~non-exhaustive list of related work
+on digitally crowdsourced natural disaster detection and response.
+Sakaki \emph{et~al.}\ consider in~\cite{sakaki2010earthquake} each user
+of the online social networking (OSN) site
+Twitter\footnote{Twitter: \url{https://twitter.com/}} a~sensor
+for the purpose of earthquake detection in Japan.
+% They devise a~classifier of tweets based on features such as
+% keywords, number of words, and their context;
+% and produce a~probabilistic spatiotemporal model that
+% can find the center and the trajectory of the earthquake.
+Goodchild \emph{et~al.}\ show in~\cite{goodchild2010crowdsourcing}
+how crowdsourced geodata from Wikipedia and
+Wikimapia,\footnote{Wikimapia: \url{http://wikimapia.org/}}
+``a~multilingual open-content collaborative map,''
+can help complete authoritative data about natural disasters.
+In~\cite{abel2012twitcident}, Abel \emph{et~al.}\ describe
+a~crisis monitoring system that extracts relevant content
+about known disasters from Twitter.
+Liu \emph{et~al.}\ examine in~\cite{liu2008search}
+common patterns and norms of natural disaster coverage
+on the photo sharing site Flickr.%
+\footnote{Flickr: \url{https://www.flickr.com/}}
+We have developed~\cite{steiner2014thesis} a~ monitoring system
+that detects news events from concurrent Wikipedia edits
+and auto-generates related multimedia galleries
+based on content from various OSN sites
+and Wikimedia Commons.\footnote{Wikimedia Commons: \url{https://commons.wikimedia.org/}}
+Finally, Lin and Mishne examine realtime search query churn on Twitter%
+~\cite{lin2012churn} including in the context of natural disasters.
+
+\section{Proposed Methodology}
+
+\subsection{Leveraging Wikipedia Link Structure}
+
+Wikipedia is an international online encyclopedia
+currently available in 287~languages.%
+\footnote{All Wikipedias: \url{http://meta.wikimedia.org/wiki/List_of_Wikipedias}}
+\emph{(i)}~Articles in one language are interlinked with versions of the same article
+in other languages, \emph{e.g.}, the article ``Natural disaster''
+on the English Wikipedia
+(\url{http://en.wikipedia.org/wiki/Natural_disaster}) \linebreak
+links to 74~versions of this article in other languages.%
+\footnote{Article language links:
+\url{http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&titles=Natural_disaster}}
+\emph{(ii)}~Each article can have redirects, \emph{i.e.}, alternative URLs
+that point to the article.
+For the English ``Natural disaster'' article, there are eight redirects,%
+\footnote{Article redirects:
+\url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bllimit=max&bltitle=Natural_disaster}}
+\emph{e.g.}, ``Natural Hazard'' (synonym),
+``Examples of natural disaster'' (refinement), or
+``Natural disasters'' (plural).
+\emph{(iii)}~For each article, the list of back links
+that link to the current article is available, \emph{i.e.},
+inbound links other than redirects.
+The article ``Natural disaster'' has more than 500 articles that link to it.%
+\footnote{Article inbound links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
+Likewise, the list of outbound links, \emph{i.e.}, other articles
+that the current article links to, is available.%
+\footnote{Article outbound links: \url{http://en.wikipedia.org/w/api.php?action=query&prop=links&plnamespace=0&format=json&pllimit=max&titles=Natural_disaster}}
+By combining an article's in- and outbound links,
+we determine the set of mutual links,
+\emph{i.e.}, the set of articles that the current article links to (outbound links)
+and at the same time receives links from (inbound links).
+
+\subsection{Identification of Wikipedia Articles for Monitoring}
+\label{sec:identification-of-monitoring}
+
+Starting with the well-curated English seed article ``Natural disaster'',
+we programmatically follow each of the therein contained links of type ``Main article:'',
+which leads to an exhaustive list of English articles
+of concrete types of natural disasters,
+\emph{e.g.}, ``Tsunami'' (\url{http://en.wikipedia.org/wiki/Tsunami}),
+``Flood'' (\url{http://en.wikipedia.org/wiki/Flood}),
+``Earthquake'' (\url{http://en.wikipedia.org/wiki/Earthquake}),
+\emph{etc.} In total, we obtain links to 20~English articles
+about different types of natural disasters.%
+\footnote{``Avalanche'', ``Blizzard'', ``Cyclone'', ``Drought'', ``Earthquake'',
+``Epidemic'', ``Extratropical cyclone'', ``Flood'', ``Gamma-ray burst'', ``Hail'',
+``Heat wave'', ``Impact event'', ``Limnic eruption'', ``Meteorological disaster'',
+``Solar flare'', ``Tornado'', ``Tropical cyclone'', ``Tsunami'',
+``Volcanic eruption'', ``Wildfire''}
+For each of these English natural disasters articles,
+we obtain all versions of each article in different languages
+[step \emph{(i)} above],
+and of the resulting list of international articles
+in turn all their redirect URLs [step \emph{(ii)} above].
+The intermediate result is a~complete list of all (currently~1,270) articles
+in all Wikipedia languages and all their redirects
+that have any type of natural disaster as their subject.
+We call this list the ``natural disasters list''
+and make it publicly available in different formats
+(\texttt{.txt}, \texttt{.tsv}, and \texttt{.json}), where the JSON version
+is the most flexible and recommended one.%
+\footnote{``Natural disasters list'':
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/natural-disasters-list.json}}
+Finally, we obtain for each of the 1,270~articles
+in the ``natural disasters list''
+all their back links, \emph{i.e.}, their inbound links
+[step \emph{(iii)} above], which serves to detect
+instances of natural disasters unknown at system creation time.
+For example, the article ``Typhoon Rammasun (2014)''
+(\url{http://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)})---%
+which, as a~concrete \emph{instance of} a~natural disaster
+of type tropical cyclone, is \emph{not} contained in our
+``natural disasters list''---links back to ``Tropical cyclone''
+(\url{http://en.wikipedia.org/wiki/Tropical_cyclone}),
+so we can identify ``Typhoon Rammasun (2014)'' as \emph{related to}
+tropical cyclones (but not necessarily \emph{identify as} a~tropical cyclone),
+even if at the system's creation time the typhoon did not exist yet.
+Analog to the inbound links, we obtain all
+outbound links of all articles in the ``natural disasters list'',
+\emph{e.g.}, ``Tropical cyclone'' has an outbound link to
+``2014 Pacific typhoon season''
+(\url{http://en.wikipedia.org/wiki/2014_Pacific_typhoon_season}),
+which also happens to be an inbound link of ``Tropical cyclone'',
+so we have detected a~mutual, circular link structure.
+Figure~\ref{fig:link-structure} shows the example in its entirety,
+starting from the seed level, to the disaster type level, to the in-/outbound link level.
+The end result is a~large list called the ``monitoring list''
+of all articles in all Wikipedia languages
+that are somehow---via a~redirect, inbound, or outbound link (or resulting mutual link)---%
+related to any of the articles
+in the ``natural disasters list''.
+We make a snapshot of this dynamic ``monitoring list'' available for reference,%
+\footnote{``Monitoring list'':
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/monitoring-list.json}}
+but note that it will be out-of-date soon and should be regenerated
+on a~regular basis.
+The current version holds 141,001 different articles.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[trim=0mm 165mm 0mm 10mm,clip,width=0.875\linewidth]{link-structure}
+  \caption{Extracted Wikipedia link structure starting from seed article ``Natural disaster''}
+  \label{fig:link-structure}
+\end{figure}
+
+\subsection{Monitoring Process}
+\label{sec:monitoring-process}
+
+In the past, we have worked on a~Server-Sent Events (SSE) API%
+~\cite{steiner2014bots} capable of monitoring realtime editing activity
+on all language versions of Wikipedia.
+This API allows us to easily analyze Wikipedia edits
+by reacting on events fired by the API.
+Whenever an edit event occurs, we check if it is for one of the articles
+on our ``monitoring list''. 
+We keep track of the historic one-day-window editing activity
+for each article on the ``monitoring list'' including their versions in other languages,
+and, upon a~sudden spike of editing activity,
+trigger an alert about a~potential new instance of a~natural disaster type
+that the spiking article is an inbound or outbound link of (or both).
+To illustrate this, if, \emph{e.g.}, the German article
+``Pazifische Taifunsaison 2014'' including all of its language links is spiking,
+we can infer that this is related to a~natural disaster
+of type ``Tropical cyclone'' due to the detected
+mutual link structure mentioned earlier (Figure~\ref{fig:link-structure}).
+
+In order to detect spikes, we apply exponential smoothing
+to the last $n$ edit intervals (we require $n\geq5$) that occurred in the past 24 hours
+with a~smoothing factor $\alpha = 0.5$.
+The therefore required edit events are retrieved programmatically via the Wikipedia API.%
+\footnote{Wikipedia last revisions:
+\url{http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvlimit=6&rvprop=timestamp|user&titles=Typhoon_Rammasun_(2014)}}
+As a~spike occurs when an edit interval gets ``short enough''
+compared to historic editing activity,
+we report a~spike whenever the latest edit interval
+is shorter than half a~standard deviation $0.5 \times \sigma$.
+
+A~subset of all Wikipedia articles are geo-referenced,%
+\footnote{Article geo coordinates:
+\url{http://en.wikipedia.org/w/api.php?action=query&prop=coordinates&format=json&colimit=max&coprop=dim|country|region|globe&coprimary=all&titles=September_11_attacks}}
+so when we detect a~spiking article,
+we try to obtain geo coordinates for the article itself
+(\emph{e.g.}, ``Pazifische Taifunsaison 2014'')
+or any of its language links
+that---as a~consequence of the assumption in $\mathbb{H}2$---%
+may provide more local details
+(\emph{e.g.}, ``2014 Pacific typhoon season'' in English or
+\begin{CJK*}{UTF8}{gbsn}``2014年太平洋颱風季''\end{CJK*} in Chinese).
+We then calculate the center point of all obtained latitude/longitude pairs.
+
+In a~final step, once a~given confidence threshold has been reached
+and upon human inspection, we plan to send out a~notification
+according to the \emph{Common Alerting Protocol}
+following the format that (for GDACS) can be seen in Listing~\ref{listing:cap}.
+
+\subsection{Implementation Details}
+
+We have created a~publicly available prototypal demo application
+deployed%
+\footnote{Source code:
+\url{https://github.com/tomayac/postdoc/tree/master/demos/disaster-monitor}}
+at \url{http://disaster-monitor.herokuapp.com/}
+that internally connects to the SSE API from~\cite{steiner2014bots}.
+%located at \url{http://wikipedia-edits.herokuapp.com/sse}.
+It is implemented in Node.js on the server,
+and as a~JavaScript Web application on the client.
+This application uses an hourly refreshed version of the ``monitoring list''
+from Section~\ref{sec:identification-of-monitoring}
+and whenever an edit event sent through the SSE API
+matches any of the articles in the list,
+it checks if, given this article's and its language links'
+edit history of the past 24 hours,
+the current edit event shows spiking behavior,
+as outlined in Section~\ref{sec:monitoring-process}.
+The core source code snippet of the main monitoring loop
+can be seen in Section~\ref{listing:monitoring},
+a~screenshot of the application is shown in Figure~\ref{fig:screenshot}.
+
+\begin{lstlisting}[caption={Main monitoring loop of the natural disaster monitor},
+  label=listing:monitoring, language=JavaScript,
+  float=b!, stringstyle=\color{gray},morekeywords={for,if,console,log,addEventListener,JSON,parse,stringify,forEach}]
+var init = function() {
+
+  // fired whenever an edit event happens on any Wikipedia
+  var parseWikipediaEdit = function(data) {
+    var article = data.language + ':' + data.article;
+    var disasterObj = monitoringList[article];
+    // the article is on the monitoring list
+    if (disasterObj) {    
+      showCandidateArticle(data.article, data.language, disasterObj);
+    }
+  };
+  
+  // fired whenever an article is on the monitoring list
+  var showCandidateArticle = function(article, language, roles) {
+    getGeoData(article, language, function(err, geoData) {
+      getRevisionsData(article, language, function(err, revisionsData) {
+        if (revisionsData.spiking) {
+          // spiking article
+        }
+        if (geoData.averageCoordinates.lat) {
+          // geo-referenced article, create map
+        }
+        // trigger alert if article is spiking
+      });
+    });
+  };  
+
+  getMonitoringList(seedArticle, function(err, data) {
+    // get the initial monitoring list
+    if (err) {
+      return console.log('Error initializing the app.');
+    }
+    monitoringList = data;
+    console.log('Monitoring ' + Object.keys(monitoringList).length +
+        ' candidate Wikipedia articles.');
+    
+    // start monitoring process once we have a monitoring list
+    var wikiSource = new EventSource(wikipediaEdits);
+    wikiSource.addEventListener('message', function(e) {
+      return parseWikipediaEdit(JSON.parse(e.data));
+    });
+    
+    // auto-refresh monitoring list every hour
+    setInterval(function() {
+      getMonitoringList(seedArticle, function(err, data) {
+        if (err) {
+          return console.log('Error refreshing monitoring list.');
+        }
+        monitoringList = data;
+        console.log('Monitoring ' + Object.keys(monitoringList).length +
+            ' candidate Wikipedia articles.');
+      });
+    }, 1000 * 60 * 60);
+  });
+};
+init();
+\end{lstlisting}
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.365\linewidth]{natural-disaster-monitor}
+  \caption{Screenshot of the mobile-friendly ``Natural Disaster Monitor'' application
+    prototype available at \url{http://disaster-monitor.herokuapp.com/}
+    showing detected natural disaster types connected with the (currently non-spiking) article ``Japan''}
+  \label{fig:screenshot}
+\end{figure}
+ 
+
+\section{Proposed Steps Toward an Evaluation}
+
+We recall our core research questions that were
+$\mathbb{Q}1$ \emph{How timely and accurate for the purpose
+of natural disaster detection is content from Wikipedia
+compared to authoritative sources mentioned above?} and
+$\mathbb{Q}2$ \emph{Does the disambiguated nature of Wikipedia
+surpass keyword-based natural disaster detection approaches,
+\emph{e.g.}, via online social networks or search logs?}
+Regarding $\mathbb{Q}1$, only a~manual comparison
+covering several months worth
+of natural disaster data of the relevant authoritative data sources
+mentioned in Section~\ref{sec:natural-disaster-detection}
+with the output of our system can help respond to the question.
+Regarding $\mathbb{Q}2$, we propose an evaluation strategy
+for the OSN site Twitter,
+loosely inspired by the approach of Sakaki \emph{et~al.}\
+in~\cite{sakaki2010earthquake}.
+We choose Twitter as a~data source due to the publicly available user data
+through its streaming APIs,%
+\footnote{Twitter streaming APIs:
+\url{https://dev.twitter.com/docs/streaming-apis/streams/public}}
+which would be considerably harder, if not impossible, with other OSNs or search logs
+due to privacy concerns and API limitations.
+Based on the articles in the ``monitoring list'',
+we put forward using article titles as search terms,
+but without disambiguation hints in parentheses,
+\emph{e.g.}, instead of the complete article title
+``Typhoon Rammasun (2014)'', we suggest using ``Typhoon Rammasun'' alone.
+We advise monitoring the sample stream%
+\footnote{Twitter sample stream:
+\url{https://dev.twitter.com/docs/api/1.1/get/statuses/sample}}
+for the appearance of any of the search terms,
+as the filtered stream%
+\footnote{Twitter filtered stream:
+\url{https://dev.twitter.com/docs/api/1.1/post/statuses/filter}}
+is too limited regarding the number of supported search terms.
+In order to avoid ambiguity issues with the
+international multi-language tweet stream,
+we recommend matching search terms only
+if the Twitter-detected tweet language equals
+the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
+
+
+\section{Conclusions and Future Work}
+
+In this paper, we have presented first steps of our ongoing research
+on the creation of a~Wikipedia-based natural disaster monitoring system,
+in particular, we have finished its underlying code scaffolding.
+While the system itself already works, a~good chunk of work still lies ahead
+with the fine-tuning of its parameters.
+A~first examples are the exponential smoothing parameters
+of the revision intervals, responsible for determining whether an article
+is spiking, and thus a~potential new natural disaster, or not.
+A~second example is the role that natural disasters play with articles:
+they can be inbound, outbound, or mutual links,
+and their importance for actual occurrences of disasters will vary.
+Future work will mainly focus on finding answers to our research questions
+$\mathbb{Q}1$ and $\mathbb{Q}2$ and the verification of the hypotheses
+$\mathbb{H}1$--$\mathbb{H}3$.
+We will focus on the evaluation of the system's usefulness, accuracy,
+and timeliness in comparison to other keyword-based approaches.
+An interesting aspect of our work is that the monitoring system
+is not limited to natural disasters.
+Using an analog approach, we can monitor for human-made disasters
+(called ``Anthropogenic hazard'' on Wikipedia)
+like terrorism, war, power outages, air disasters, \emph{etc.}
+We have created an exemplary ``monitoring list'' and made it available.%
+\footnote{Anthropogenic hazard ``monitoring list'':
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/monitoring-list-anthropogenic-hazard.json}}
+Concluding, we are excited about this research
+and look forward to putting the final system into operational practice.
+
+\bibliographystyle{aaai}
+\bibliography{references}
+\end{document}
