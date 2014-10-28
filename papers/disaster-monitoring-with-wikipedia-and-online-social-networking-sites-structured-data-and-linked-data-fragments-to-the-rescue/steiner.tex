@@ -106,13 +106,24 @@ B-9050 Ledeberg-Ghent, Belgium\\
 \maketitle
 \begin{abstract}
 \begin{quote}
-Lorem ipsum
+In this paper, we present the first results of
+our ongoing early-stage research on a~realtime Wikipedia-based,
+language-agnostic disaster detection and monitoring tool
+that leverages user-generated multimedia content
+shared on online social networking sites
+to help disaster responders prioritize their efforts.
+We make the tool and its source code publicly available
+from the get-go and strive to publish detected disasters
+and accompanying multimedia content
+following the Linked Data principles
+to facilitate its wide consumption.
+
 \end{quote}
 \end{abstract}
 
 \section{Introduction}
 
-\subsection{Natural Disaster Detection and Response: A~Global Challenge}
+\subsection{Disaster Monitoring: A~Global Challenge}
 \label{sec:natural-disaster-detection}
 
 According to a~study~\cite{laframboise2012naturaldisasters}
@@ -162,10 +173,56 @@ As can be seen from the (incomprehensive) list above,
 natural disaster detection and response is a~problem
 tackled on national, international, and global levels;
 both from the public and private sectors.
-To facilitate collaboration, a~common protocol is essential.
+
+\subsection{Hypotheses and Research Questions}
+
+In this paper, we present first results of
+our ongoing early-stage research
+on a~realtime comprehensive Wikipedia-based monitoring system
+for the detection of natural disasters around the globe.
+This system is language-agnostic and leverages
+multimedia content shared on online social networking sites,
+striving to help disaster responders prioritize their efforts.
+Structured data about detected disasters is made available
+in form of Linked Data to facilitate its consumption.
+Both authors primarily come from the Semantic Web
+and Linked Data communities
+and have limited prior experience in disaster response.
+We are steered by the following hypotheses.
+
+\begin{description}
+  \itemsep0em
+  \item[$\mathbb{H}1$] Content about natural disasters
+    gets added to Wikipedia and online social networking sites in a~timely fashion.
+  \item[$\mathbb{H}2$] Natural disasters being geographically
+    constrained, textual and multimedia content about them
+    gets added to local, \emph{i.e.}, non-English Wikipedias
+    and online social networking sites
+    in the particular local languages.
+  \item[$\mathbb{H}3$] Link structure dynamics of Wikipedia
+    provide for a~meaningful way to detect future
+    natural disasters, \emph{i.e.}, disasters unknown at system creation time.
+\end{description}
+
+\noindent These hypotheses lead us to the following research questions.
+
+\begin{description}
+  \itemsep0em
+  \item[$\mathbb{Q}1$] How timely and accurate for the purpose
+    of natural disaster detection is content from Wikipedia
+    and online social networking sites
+    compared to content from authoritative sources mentioned above?
+  \item[$\mathbb{Q}2$] Does the disambiguated nature of Wikipedia
+    (things, not strings) surpass keyword-based natural disaster detection approaches,
+    \emph{e.g.}, via online social network sites or search logs?
+  \item[$\mathbb{Q}3$] How much noise gets added by doing full-text searches
+    (strings, not things) for multimedia content on online social networking sites? 
+\end{description}
+
+\section{Background and Enabling Technologies}
 
 \subsection{The \emph{Common Alerting Protocol}}
-
+To facilitate collaboration, a~common protocol is essential.
 The \emph{Common Alerting Protocol} (CAP)~\cite{westfall2010cap}
 is an XML-based general data format for exchanging public warnings
 and emergencies between alerting technologies.
@@ -229,14 +286,14 @@ Listing~\ref{listing:cap}.
 </alert>
 \end{lstlisting}
 
-\subsection{Linked Data}
+\subsection{Linked Data and Linked Data Principles}
 
 Linked Data~\cite{bernerslee2006linkeddata}
 defines a~set of agreed-on best practices and
 principles for interconnecting and publishing
 structured data on the Web.
-It uses Web technologies like the Hypertext Transfer Protocol~(HTTP~,~\cite{fielding1999http})
-and Unique Resource Identifiers~(URIs~\cite{bernerslee2005uri})
+It uses Web technologies like the Hypertext Transfer Protocol~(HTTP,~\cite{fielding1999http})
+and Unique Resource Identifiers (URIs,~\cite{bernerslee2005uri})
 to create typed links between different sources.
 The portal \url{http://linkeddata.org/} (accessed October 27, 2014)
 defines Linked Data as being
@@ -244,8 +301,6 @@ defines Linked Data as being
 wasn't previously linked, or using the Web
 to lower the barriers to linking data
 currently linked using other methods.''}
-
-\subsection{The Linked Data Principles}
 
 Tim Berners-Lee defined the four rules for Linked Data in a~W3C Design Issue~\cite{bernerslee2006linkeddata}
 published in 2006 as follows:
@@ -268,42 +323,35 @@ If subject and object have URIs from different namespaces,
 Bizer \emph{et~al.}\ speak of \emph{RDF links}
 in~\cite{heath2011linkeddata}.
 
-\subsection{Contributions, Hypotheses, and Research Questions}
+\subsection{Linked Data Fragments}
 
-In this paper, we present first results of
-our ongoing early-stage research
-on a~realtime comprehensive Wikipedia-based monitoring system
-for the detection of natural disasters around the globe.
-Both authors primarily come from the Semantic Web
-and Linked Data communities
-and have only limited prior experience in disaster response.
-We are steered by the following hypotheses.
+The most straightforward way to access Linked Data
+is to dereference the URL of a~Linked Data document
+to retrieve a~representation of the resource identified by that URL.
+An alternative interface is a~data dump,
+which is a~typically large file that contains all triples from a certain dataset.
+Both approaches have their specific disadvantages regarding scalability and currency.
+SPARQL endpoints offer an interface that allows to select data much more granularly.
+This is more convenient for clients, but individual requests
+are considerably more expensive for servers.
+The goal of Linked Data Fragments is to provide a~uniform view
+on all possible interfaces to Linked Data.
+A~Linked Data Fragment of a~Linked Data dataset is a~set of RDF triples
+that consists of three parts~\cite{verborgh2014ldf,verborgh2014ldfiswc}.
 
-\begin{itemize}
-  \itemsep0em
-  \item[$\mathbb{H}1$] Content about natural disasters
-    gets added to Wikipedia and online social networking sites in a~timely fashion.
-  \item[$\mathbb{H}2$] Natural disasters being geographically
-    constrained, textual and multimedia content about them
-    gets added to local, \emph{i.e.}, non-English Wikipedias
-    and online social networking sites
-    in the particular local languages.
-  \item[$\mathbb{H}3$] Link structure dynamics of Wikipedia
-    provide for a~meaningful way to detect future
-    natural disasters, \emph{i.e.}, disasters unknown at system creation time.
-\end{itemize}
+\begin{description}
+  \item[Data] all triples of this dataset that match a specific selector;
+  \item[Metadata] triples that describe the dataset and/or the Linked Data Fragment;
+  \item[Controls] hypermedia links and/or forms that lead to other Linked Data Fragments.
+\end{description}
 
-\pagebreak \noindent These hypotheses lead us to the following research questions.
-
-\begin{itemize}
-  \itemsep0em
-  \item[$\mathbb{Q}1$] How timely and accurate for the purpose
-    of natural disaster detection is content from Wikipedia
-    compared to authoritative sources mentioned above?
-  \item[$\mathbb{Q}2$] Does the disambiguated nature of Wikipedia
-    surpass keyword-based natural disaster detection approaches,
-    \emph{e.g.}, via online social networks or search logs?
-\end{itemize}
+Linked Data Fragments offer an alternative
+to SPARQL for publishing queryable Linked Data.
+Specifically, Triple Pattern Fragments
+(also known as basic Linked Data Fragments),
+a~type of Linked Data Fragments, enable users to host Linked Data
+on low-cost servers with higher availability
+than SPARQL endpoints~\cite{DBLP:conf/semweb/MatteisV14}.
 
 \section{Related Work}
 
