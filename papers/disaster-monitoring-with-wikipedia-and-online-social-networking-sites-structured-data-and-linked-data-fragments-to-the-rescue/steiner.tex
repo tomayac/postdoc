@@ -113,10 +113,11 @@ that leverages user-generated multimedia content
 shared on online social networking sites
 to help disaster responders prioritize their efforts.
 We make the tool and its source code publicly available
-from the get-go and strive to publish detected disasters
+as we make progress on it and strive to publish detected disasters
 and accompanying multimedia content
 following the Linked Data principles
-to facilitate its wide consumption.
+to facilitate its wide consumption,
+redistribution, and evaluation of its usefulness.
 
 \end{quote}
 \end{abstract}
@@ -137,7 +138,7 @@ The authors expect this upward trend to continue
 ``as a~result of the rising concentration of people
 living in areas more exposed to natural disasters,
 and climate change.''
-In consequence, public emergency alerting systems
+In consequence, disaster monitoring will
 become more and more crucial in the future.
 
 National agencies like the
@@ -188,7 +189,10 @@ in form of Linked Data to facilitate its consumption.
 Both authors primarily come from the Semantic Web
 and Linked Data communities
 and have limited prior experience in disaster response.
-We are steered by the following hypotheses.
+An earlier version of this paper without the focus
+on multimedia content from online social networking sites and Linked Data
+was published in~\cite{steiner2014disaster}.
+For the present and further extended work, we are steered by the following hypotheses.
 
 \begin{description}
   \itemsep0em
@@ -204,7 +208,8 @@ We are steered by the following hypotheses.
     natural disasters, \emph{i.e.}, disasters unknown at system creation time.
 \end{description}
 
-\noindent These hypotheses lead us to the following research questions.
+\noindent These hypotheses lead us to the following research questions
+that we strive to answer in the near future.
 
 \begin{description}
   \itemsep0em
@@ -235,6 +240,8 @@ such as photos, maps, or videos.
 Alerts can be geographically targeted to a~defined warning area.
 An exemplary flood warning CAP feed stemming from GDACS is shown in
 Listing~\ref{listing:cap}.
+The step from trees to graphs can be taken through Linked Data,
+which we introduce in the next section.
 
 \begin{lstlisting}[caption={\emph{Common Alerting Protocol} feed
   via the \emph{Global Disaster Alert and Coordination System}
@@ -243,7 +250,7 @@ Listing~\ref{listing:cap}.
   identifier,sender,sent,status,msgType,scope,incidents,info,
   category,event,urgency,severity,certainty, senderName,headline,
   description,web,parameter,value,valueName,area,areaDesc,polygon},
-  float=*t, stringstyle=\color{gray}, ]
+  float=*b, stringstyle=\color{gray}, ]
 <?xml version="1.0" encoding="utf-8"?>
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
   <identifier>GDACS_FL_4159_1</identifier>
@@ -301,7 +308,6 @@ defines Linked Data as being
 wasn't previously linked, or using the Web
 to lower the barriers to linking data
 currently linked using other methods.''}
-
 Tim Berners-Lee defined the four rules for Linked Data in a~W3C Design Issue~\cite{bernerslee2006linkeddata}
 published in 2006 as follows:
 
@@ -379,7 +385,7 @@ for the purpose of earthquake detection in Japan.
 Goodchild \emph{et~al.}\ show in~\cite{goodchild2010crowdsourcing}
 how crowdsourced geodata from Wikipedia and
 Wikimapia,\footnote{Wikimapia: \url{http://wikimapia.org/}}
-``a~multilingual open-content collaborative map,''
+``a~multilingual open-content collaborative map'',
 can help complete authoritative data about natural disasters.
 In~\cite{abel2012twitcident}, Abel \emph{et~al.}\ describe
 a~crisis monitoring system that extracts relevant content
@@ -388,6 +394,15 @@ Liu \emph{et~al.}\ examine in~\cite{liu2008search}
 common patterns and norms of natural disaster coverage
 on the photo sharing site Flickr.%
 \footnote{Flickr: \url{https://www.flickr.com/}}
+Ortmann \emph{et~al.}\ propose in~\cite{ortmann2011disaster}
+to crowdsource Linked Open Data for disaster management
+and also provide a~good overview on well-known crowdsourcing tools
+like  Google Map Maker,%
+\footnote{Google Map Maker:
+\url{http://www.google.com/mapmaker}}
+OpenStreetMap,%
+\footnote{OpenStreetMap: \url{http://www.openstreetmap.org/}}
+and Ushahidi~\cite{okolloh2009ushahidi}.
 We have developed~\cite{steiner2014thesis} a~ monitoring system
 that detects news events from concurrent Wikipedia edits
 and auto-generates related multimedia galleries
@@ -406,7 +421,7 @@ currently available in 287~languages.%
 \emph{(i)}~Articles in one language are interlinked with versions of the same article
 in other languages, \emph{e.g.}, the article ``Natural disaster''
 on the English Wikipedia
-(\url{http://en.wikipedia.org/wiki/Natural_disaster}) \linebreak
+(\url{http://en.wikipedia.org/wiki/Natural_disaster})
 links to 74~versions of this article in other languages.%
 \footnote{Article language links:
 \url{http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&titles=Natural_disaster}}
@@ -500,7 +515,7 @@ The current version holds 141,001 different articles.
 \begin{figure*}[hbt]
   \centering
   \includegraphics[width=0.75\linewidth]{link-structure}
-  \caption{Extracted Wikipedia link structure starting from seed article ``Natural disaster''}
+  \caption{Extracted Wikipedia link structure (tiny excerpt) starting from the seed article ``Natural disaster''}
   \label{fig:link-structure}
 \end{figure*}
 
@@ -552,7 +567,7 @@ We then calculate the center point of all obtained latitude/longitude pairs.
 \subsection{Multimedia Content from Online Social Networking Sites}
 
 In the past, we have worked on an application called
-\emph{Social Media Illustrator}~\cite{steiner2013meteoroid,steiner2013tocrop}
+\emph{Social Media Illustrator}~\cite{steiner2014thesis}
 that provides a~social multimedia search framework
 that enables searching for and extraction of
 multimedia data from the online social networking sites
@@ -571,15 +586,15 @@ In a~first step, it deduplicates exact- and near-duplicate
 social multimedia data based on an algorithm described in%
 ~\cite{steiner2013clustering}.
 It then ranks social multimedia data by social signals%
-~\cite{steiner2013meteoroid} based on an abstraction layer
+~\cite{steiner2014thesis} based on an abstraction layer
 on top of the online social networking sites mentioned above
 and, in a~final step, allows for the creation of media galleries
-following aesthetic principles~\cite{steiner2012aesthetic}
+following aesthetic principles~\cite{steiner2014thesis}
 of the two kinds \emph{Strict Order, Equal Size}
 and \emph{Loose Order, Varying Size},
-defined in~\cite{steiner2013tocrop}.
-We have ported the crucial parts
-of the source code of \emph{Social Media Illustrator}
+defined in~\cite{steiner2014thesis}.
+We have ported crucial parts
+of the code of \emph{Social Media Illustrator}
 from the client-side to the server-side,
 enabling us now to create media galleries at scale and on demand,
 based on the titles of spiking Wikipedia articles.
@@ -588,8 +603,18 @@ each individual media item in the gallery is clickable
 and links back to the original post
 on the particular online social networking site,
 allowing crisis responders to monitor the media gallery as a~whole,
-and to investigate interesting media items at the source.
+and to investigate interesting media items at the source
+and potentially get in contact with the originator.
 
+\begin{figure}[b!]
+  \centering
+  \includegraphics[width=1\linewidth]{natural-disaster-monitor}
+  \caption{Screenshot of the \emph{Natural Disaster Monitor} application
+    prototype available at \url{http://disaster-monitor.herokuapp.com/}
+    showing detected past natural disasters on a~heatmap and a~media gallery for
+    a~currently spiking natural disaster around ``Hurricane Gonzalo''}
+  \label{fig:screenshot}
+\end{figure}
 
 \subsection{Linked Data Publication}
 
@@ -597,6 +622,50 @@ In a~final step, once a~given confidence threshold has been reached
 and upon human inspection, we plan to send out a~notification
 according to the \emph{Common Alerting Protocol}
 following the format that (for GDACS) can be seen in Listing~\ref{listing:cap}.
+While \emph{Common Alerting Protocol} messages are generally well understood,
+additional synergies can be unlocked by leveraging Linked Data sources
+like DBpedia, Wikidata, and Freebase, and interlinking them with detected
+potentially relevant multimedia data from online social networking sites.
+Listing~\ref{listing:linkeddata} shows an early-stage proposal for doing so. 
+A~further to-be-explored approach consists in converting CAP messages to
+Linked Data by transforming the CAP eXtensible Markup Language (XML) format
+to Resource Description Format (RDF) and publishing it.
+
+\begin{lstlisting}[caption={Exemplary Linked Data for \emph{Hurricane Gonzalo using a~yet to-be-defined vocabulary}
+  that interlinks the disaster with several other Linked Data sources and relates it to
+  multimedia content on online social networking sites},
+  label=listing:linkeddata,language=xml,float=*t, stringstyle=\color{gray}]
+<http://ex.org/disaster/en:Hurricane_Gonzalo> <ex:relatedMediaItems> _:b0 .
+<http://ex.org/disaster/en:Hurricane_Gonzalo> <ex:relatedMediaItems> _:b3 .
+<http://ex.org/disaster/en:Hurricane_Gonzalo> <owl:sameAs> "http://en.wikipedia.org/wiki/Hurricane_Gonzalo" .
+<http://ex.org/disaster/en:Hurricane_Gonzalo> <owl:sameAs> "http://live.dbpedia.org/page/Hurricane_Gonzalo" .
+<http://ex.org/disaster/en:Hurricane_Gonzalo> <owl:sameAs> "http://www.freebase.com/m/0123kcg5" .
+_:b0 <ex:mediaUrl> "https://mtc.cdn.vine.co/r/videos/82796227091134303173323251712_2ca88ba5444.5.1.16698738182474199804.mp4?versionId=lQg_XfKqV0RaIuCj.NbGcrF_ZgJXyh_c" .
+_:b0 <ex:micropost> _:b1 .
+_:b0 <ex:micropostUrl> "http://twitter.com/gpessoao/status/527603540860997632" .
+_:b0 <ex:posterUrl> "https://v.cdn.vine.co/r/thumbs/231E0009CF1134303174572797952_2.5.1.16698738182474199804.mp4.jpg?versionId=BqFb7QzroSRabWyfVz0bniPods.rece_" .
+_:b0 <ex:publicationDate> "2014-10-30T03:15:01Z" .
+_:b0 <ex:socialInteractions> _:b2 .
+_:b0 <ex:timestamp> "1414638901000"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:b0 <ex:type> "video" .
+_:b0 <ex:userProfileUrl> "http://twitter.com/alejandroriano" .
+_:b1 <ex:html> "Here's Hurricane #Gonzalo as seen from the @Space_Station as it orbited above today https://t.co/RpJt0P2bXa" .
+_:b1 <ex:plainText> "Here's Hurricane Gonzalo as seen from the Space_Station as it orbited above today" .
+_:b2 <ex:likes> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:b2 <ex:shares> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:b3 <ex:mediaUrl> "https://upload.wikimedia.org/wikipedia/commons/b/bb/Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_%2822.10.2014%29_01.jpg" .
+_:b3 <ex:micropost> _:b4 .
+_:b3 <ex:micropostUrl> "https://commons.wikimedia.org/wiki/File:Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_(22.10.2014)_01.jpg" .
+_:b3 <ex:posterUrl> "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_%2822.10.2014%29_01.jpg/500px-Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_(22.10.2014)_01.jpg" .
+_:b3 <ex:publicationDate> "2014-10-24T08:40:16Z" .
+_:b3 <ex:socialInteractions> _:b5 .
+_:b3 <ex:timestamp> "1414140016000"^^<http://www.w3.org/2001/XMLSchema#integer> .
+_:b3 <ex:type> "photo" .
+_:b3 <ex:userProfileUrl> "https://commons.wikimedia.org/wiki/User:Huhu Uet" .
+_:b4 <ex:html> "Schiffsanleger Wittenbergen - Orkan Gonzalo (22.10.2014) 01" .
+_:b4 <ex:plainText> "Schiffsanleger Wittenbergen - Orkan Gonzalo (22.10.2014) 01" .
+_:b5 <ex:shares> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
+\end{lstlisting}
 
 \subsection{Implementation Details}
 
@@ -617,11 +686,11 @@ it checks if, given this article's and its language links'
 edit history of the past 24 hours,
 the current edit event shows spiking behavior,
 as outlined in Section~\ref{sec:monitoring-process}.
-The core source code snippet of the main monitoring loop
+The core source code of the monitoring loop
 can be seen in Section~\ref{listing:monitoring},
 a~screenshot of the application is shown in Figure~\ref{fig:screenshot}.
 
-\begin{lstlisting}[caption={Main monitoring loop of the natural disaster monitor},
+\begin{lstlisting}[caption={Monitoring loop of the natural disaster monitor},
   label=listing:monitoring, language=JavaScript,
   float=b!, stringstyle=\color{gray},morekeywords={for,if,console,log,addEventListener,JSON,parse,stringify,forEach}]
 var init = function() {
@@ -682,17 +751,6 @@ var init = function() {
 init();
 \end{lstlisting}
 
-\begin{figure}[hbt]
-  \centering
-  \includegraphics[width=1\linewidth]{natural-disaster-monitor}
-  \caption{Screenshot of the \emph{Natural Disaster Monitor} application
-    prototype available at \url{http://disaster-monitor.herokuapp.com/}
-    showing detected past natural disasters on a~heatmap and a~media gallery for
-    a~currently spiking natural disaster around ``Hurricane Gonzalo''}
-  \label{fig:screenshot}
-\end{figure}
- 
-
 \section{Proposed Steps Toward an Evaluation}
 
 We recall our core research questions that were
@@ -736,12 +794,18 @@ we recommend matching search terms only
 if the Twitter-detected tweet language equals
 the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
 
-
 \section{Conclusions and Future Work}
 
 In this paper, we have presented first steps of our ongoing research
 on the creation of a~Wikipedia-based natural disaster monitoring system,
-in particular, we have finished its underlying code scaffolding.
+in particular, we have finished its underlying code scaffolding
+and have connected the system to several online social networking sites
+allowing for the automatic generation of media galleries.
+Further, we have proposed to publish data about detected
+and monitored natural disasters as Linked Data,
+which can be made accessible in a~scalable and \emph{ad hoc} manner
+using Linked Data Fragments~\cite{verborgh2014ldfiswc}
+by leveraging free cloud offers~\cite{DBLP:conf/semweb/MatteisV14}.
 While the system itself already works, a~good chunk of work still lies ahead
 with the fine-tuning of its parameters.
 A~first examples are the exponential smoothing parameters
