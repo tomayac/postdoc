@@ -243,7 +243,7 @@ Listing~\ref{listing:cap}.
   identifier,sender,sent,status,msgType,scope,incidents,info,
   category,event,urgency,severity,certainty, senderName,headline,
   description,web,parameter,value,valueName,area,areaDesc,polygon},
-  float=*, stringstyle=\color{gray}, ]
+  float=*t, stringstyle=\color{gray}, ]
 <?xml version="1.0" encoding="utf-8"?>
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
   <identifier>GDACS_FL_4159_1</identifier>
@@ -497,12 +497,12 @@ but note that it will be out-of-date soon and should be regenerated
 on a~regular basis.
 The current version holds 141,001 different articles.
 
-\begin{figure}[hbt]
+\begin{figure*}[hbt]
   \centering
-  \includegraphics[trim=0mm 165mm 0mm 10mm,clip,width=0.875\linewidth]{link-structure}
+  \includegraphics[width=0.75\linewidth]{link-structure}
   \caption{Extracted Wikipedia link structure starting from seed article ``Natural disaster''}
   \label{fig:link-structure}
-\end{figure}
+\end{figure*}
 
 \subsection{Monitoring Process}
 \label{sec:monitoring-process}
@@ -548,6 +548,50 @@ may provide more local details
 (\emph{e.g.}, ``2014 Pacific typhoon season'' in English or
 \begin{CJK*}{UTF8}{gbsn}``2014年太平洋颱風季''\end{CJK*} in Chinese).
 We then calculate the center point of all obtained latitude/longitude pairs.
+
+\subsection{Multimedia Content from Online Social Networking Sites}
+
+In the past, we have worked on an application called
+\emph{Social Media Illustrator}~\cite{steiner2013meteoroid,steiner2013tocrop}
+that provides a~social multimedia search framework
+that enables searching for and extraction of
+multimedia data from the online social networking sites
+Google\texttt{+},%
+\footnote{Google\texttt{+}: \url{https://plus.google.com/}}
+Facebook,\footnote{Facebook: \url{https://www.facebook.com/}}
+Twitter,\footnote{Twitter: \url{https://twitter.com/}}
+Instagram,\footnote{Instagram: \url{http://instagram.com/}}
+YouTube,\footnote{YouTube: \url{http://www.youtube.com/}}
+Flickr,\footnote{Flickr: \url{http://www.flickr.com/}}
+MobyPicture,\footnote{MobyPicture: \url{http://www.mobypicture.com/}}
+TwitPic,\footnote{TwitPic: \url{http://twitpic.com/}}
+and Wikimedia Commons.%
+\footnote{Wikimedia Commons: \url{http://commons.wikimedia.org/wiki/Main_Page}}
+In a~first step, it deduplicates exact- and near-duplicate
+social multimedia data based on an algorithm described in%
+~\cite{steiner2013clustering}.
+It then ranks social multimedia data by social signals%
+~\cite{steiner2013meteoroid} based on an abstraction layer
+on top of the online social networking sites mentioned above
+and, in a~final step, allows for the creation of media galleries
+following aesthetic principles~\cite{steiner2012aesthetic}
+of the two kinds \emph{Strict Order, Equal Size}
+and \emph{Loose Order, Varying Size},
+defined in~\cite{steiner2013tocrop}.
+We have ported the crucial parts
+of the source code of \emph{Social Media Illustrator}
+from the client-side to the server-side,
+enabling us now to create media galleries at scale and on demand,
+based on the titles of spiking Wikipedia articles.
+One exemplary media gallery can be seen in Figure~\ref{fig:screenshot},
+each individual media item in the gallery is clickable
+and links back to the original post
+on the particular online social networking site,
+allowing crisis responders to monitor the media gallery as a~whole,
+and to investigate interesting media items at the source.
+
+
+\subsection{Linked Data Publication}
 
 In a~final step, once a~given confidence threshold has been reached
 and upon human inspection, we plan to send out a~notification
@@ -640,10 +684,11 @@ init();
 
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=0.365\linewidth]{natural-disaster-monitor}
-  \caption{Screenshot of the mobile-friendly ``Natural Disaster Monitor'' application
+  \includegraphics[width=1\linewidth]{natural-disaster-monitor}
+  \caption{Screenshot of the \emph{Natural Disaster Monitor} application
     prototype available at \url{http://disaster-monitor.herokuapp.com/}
-    showing detected natural disaster types connected with the (currently non-spiking) article ``Japan''}
+    showing detected past natural disasters on a~heatmap and a~media gallery for
+    a~currently spiking natural disaster around ``Hurricane Gonzalo''}
   \label{fig:screenshot}
 \end{figure}
  
@@ -656,7 +701,7 @@ of natural disaster detection is content from Wikipedia
 compared to authoritative sources mentioned above?} and
 $\mathbb{Q}2$ \emph{Does the disambiguated nature of Wikipedia
 surpass keyword-based natural disaster detection approaches,
-\emph{e.g.}, via online social networks or search logs?}
+\emph{e.g.}, via online social networking sites or search logs?}
 Regarding $\mathbb{Q}1$, only a~manual comparison
 covering several months worth
 of natural disaster data of the relevant authoritative data sources
