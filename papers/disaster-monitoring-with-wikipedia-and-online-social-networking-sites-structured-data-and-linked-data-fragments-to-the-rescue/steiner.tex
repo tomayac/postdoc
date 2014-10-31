@@ -25,6 +25,7 @@
 \usepackage[hyphens]{url}
 \newcommand\citep[1]{\citeauthor{#1}, \citeyear{#1}}
 \newcommand\citet[1]{\citeauthor{#1}~(\citeyear{#1})}
+\usepackage[capitalize]{cleveref}
 % \def\sectionautorefname{Section}
 % \def\subsectionautorefname{Subsection}
 
@@ -222,9 +223,17 @@ that we strive to answer in the near future.
     for multimedia content on online social networking sites?
 \end{description}
 
+
+The remainder of the article is structured as follows.
+First we discuss related work and enabling technologies in the next section,
+followed by our methodology in \cref{sec:Methodology}.
+We describe an evaluation strategy in \cref{sec:Evaluation},
+and finally conclude with an outlook on future work in \cref{sec:Conclusion}.
+
 % RV: Perhaps move this after the related work?
 % Or do we need stuff from there for related work?
 \section{Related Work and Enabling Technologies}
+\label{sec:RelatedWork}
 \subsection{Disaster Detection}
 Digitally crowdsourced data for disaster detection and response
 has gained momentum in recent years,
@@ -414,6 +423,7 @@ than public SPARQL endpoints.
 % RV: I still need to connect this section to the rest of the paper
 
 \section{Proposed Methodology}
+\label{sec:Methodology}
 
 \subsection{Leveraging Wikipedia Link Structure}
 
@@ -757,6 +767,7 @@ init();
 \end{lstlisting}
 
 \section{Proposed Steps Toward an Evaluation}
+\label{sec:Evaluation}
 
 We recall our core research questions that were
 $\mathbb{Q}1$ \emph{How timely and accurate for the purpose
@@ -800,6 +811,7 @@ if the Twitter-detected tweet language equals
 the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
 
 \section{Conclusions and Future Work}
+\label{sec:Conclusion}
 
 In this paper, we have presented first steps of our ongoing research
 on the creation of a~Wikipedia-based natural disaster monitoring system,
