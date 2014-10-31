@@ -79,14 +79,12 @@
 \def\JSONLD{\mbox{JSON-LD}}
 
 \pdfinfo{
-/Title (Disaster Monitoring with Wikipedia and Online Social Networking Sites: Structured Data and Linked Data Fragments to the Rescue?!)
+/Title (Disaster Monitoring with Wikipedia and Online Social Networking Sites: Structured Data and Linked Data Fragments to the Rescue?)
 /Author (Thomas Steiner, Ruben Verborgh)}
 \setcounter{secnumdepth}{2}  
  \begin{document}
 
-% RV: perhaps remove the double punctuation at the end?
-%     Or maybe a slightly less catchy title, with "…sites using Structured Data and Linked Data Fragments"
-\title{Disaster Monitoring with Wikipedia and Online Social Networking Sites: Structured Data and Linked Data Fragments to the Rescue?!}
+\title{Disaster Monitoring with Wikipedia and Online Social Networking Sites: Structured Data and Linked Data Fragments to the Rescue?}
 \author{Thomas Steiner\thanks{Second affiliation: CNRS, Université de Lyon, LIRIS -- UMR5205, Université Lyon 1, France}\\
 Google Germany GmbH\\
 ABC Str. 19\\
@@ -102,11 +100,11 @@ B-9050 Ledeberg-Ghent, Belgium\\
 \maketitle
 \begin{abstract}
 \begin{quote}
-% RV: The first sentence is quite information-loaded. Will propose a rephrasing.
 In this paper, we present the first results of
-our ongoing early-stage research on a~realtime Wikipedia-based,
-language-agnostic disaster detection and monitoring tool
-that leverages user-generated multimedia content
+our ongoing early-stage research
+on a~realtime disaster detection and monitoring tool.
+Based on Wikipedia, it is language-agnostic
+and leverages user-generated multimedia content
 shared on online social networking sites
 to help disaster responders prioritize their efforts.
 We make the tool and its source code publicly available
@@ -186,28 +184,21 @@ This system is \emph{language-agnostic} and leverages
 striving to help disaster responders prioritize their efforts.
 Structured data about detected disasters is made available
 in the form of Linked Data to facilitate its consumption.
-% RV: I'm not sure if the sentence below is relevant. What do you want to express?
-Both authors primarily come from the Semantic Web
-and Linked Data communities
-and have limited prior experience in disaster response.
 An earlier version of this paper without the focus
 on multimedia content from online social networking sites and Linked Data
 was published in~\cite{steiner2014disaster}.
-% RV: This is very good stuff!
 For the present and further extended work, we are steered by the following hypotheses.
 
 \begin{description}
   \itemsep0em
-% RV: We could discuss: what does timely mean?
-% Maybe: as soon as possible, or “timely” as in: still time to help people?
   \item[$\mathbb{H}1$] Content about natural disasters
-    gets added to Wikipedia and online social networking sites in a~timely fashion.
-% RV: You mean it gets added there _first_, i.e., before the English version?
+    gets added very fast to Wikipedia and online social networking sites
+    by people in the neighborhood of the event.
   \item[$\mathbb{H}2$] Natural disasters being geographically
     constrained, textual and multimedia content about them
-    gets added to local, \emph{i.e.}, non-English Wikipedias
-    and online social networking sites
-    in the particular local languages.
+    on Wikipedia and social networking sites
+    appear first in local language,
+    perhaps only later in English.
 % RV: That one sounds (too?) mysterious.
   \item[$\mathbb{H}3$] Link structure dynamics of Wikipedia
     provide for a~meaningful way to detect future
@@ -222,12 +213,13 @@ that we strive to answer in the near future.
   \item[$\mathbb{Q}1$] How timely and accurate is content from Wikipedia
     and online social networking sites
     for the purpose of natural disaster detection,
-    compared to content from authoritative sources?
+    compared to content from authoritative and government sources?
   \item[$\mathbb{Q}2$] To what extent can the disambiguated nature of Wikipedia
     (things identified by URIs) improve on keyword-based natural disaster detection approaches,
     \emph{e.g.}, via online social network sites or search logs?
   \item[$\mathbb{Q}3$] How much noise is introduced by full-text searches
-    for multimedia content on online social networking sites? 
+    (which are not based on disambiguated URIs)
+    for multimedia content on online social networking sites?
 \end{description}
 
 % RV: Perhaps move this after the related work?
