@@ -10,6 +10,7 @@
 \setlength{\pdfpageheight}{11in}
 
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 \usepackage{CJKutf8}
 
 \usepackage{amssymb}
@@ -20,16 +21,17 @@
 \noindent\keywordname\enspace\ignorespaces#1}
 
 \usepackage{pifont} 
-\usepackage[utf8]{inputenc}
 \usepackage{enumitem}
 \usepackage[hyphens]{url}
-% \usepackage[pdftex,urlcolor=black,colorlinks=true,linkcolor=black,citecolor=black]{hyperref}
+\usepackage[hidelinks]{hyperref}
+\newcommand\citep[1]{\citeauthor{#1}, \citeyear{#1}}
 % \def\sectionautorefname{Section}
 % \def\subsectionautorefname{Subsection}
 
 \newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
 
 % listings and Verbatim environment
+\usepackage[scaled=.75]{beramono} % More readable fixed-width font
 \usepackage{fancyvrb}
 \usepackage{relsize}
 \usepackage{listings}
@@ -43,12 +45,6 @@
 \lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
   aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
   framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
-
-% use Courier from this point onward
-\let\oldttdefault\ttdefault
-\renewcommand{\ttdefault}{pcr}
-\let\oldurl\url
-%\renewcommand{\url}[1]{\defaultlistingsize\oldurl{#1}}
 
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \lstdefinelanguage{JavaScript}{
@@ -78,7 +74,7 @@
 \usepackage{color}
 \newcommand{\todo}[1]{\noindent\textcolor{red}{{\bf \{TODO}: #1{\bf \}}}}
 
-\hyphenation{WebVTT}
+\hyphenation{WebVTT Wiki-pedia}
 
 \def\JSONLD{\mbox{JSON-LD}}
 
@@ -87,9 +83,9 @@
 /Author (Thomas Steiner, Ruben Verborgh)}
 \setcounter{secnumdepth}{2}  
  \begin{document}
-% The file aaai.sty is the style file for AAAI Press 
-% proceedings, working notes, and technical reports.
-%
+
+% RV: perhaps remove the double punctuation at the end?
+%     Or maybe a slightly less catchy title, with "…sites using Structured Data and Linked Data Fragments"
 \title{Disaster Monitoring with Wikipedia and Online Social Networking Sites: Structured Data and Linked Data Fragments to the Rescue?!}
 \author{Thomas Steiner\thanks{Second affiliation: CNRS, Université de Lyon, LIRIS -- UMR5205, Université Lyon 1, France}\\
 Google Germany GmbH\\
@@ -106,6 +102,7 @@ B-9050 Ledeberg-Ghent, Belgium\\
 \maketitle
 \begin{abstract}
 \begin{quote}
+% RV: The first sentence is quite information-loaded. Will propose a rephrasing.
 In this paper, we present the first results of
 our ongoing early-stage research on a~realtime Wikipedia-based,
 language-agnostic disaster detection and monitoring tool
@@ -113,7 +110,8 @@ that leverages user-generated multimedia content
 shared on online social networking sites
 to help disaster responders prioritize their efforts.
 We make the tool and its source code publicly available
-as we make progress on it and strive to publish detected disasters
+as we make progress on it.
+Furthermore, we strive to publish detected disasters
 and accompanying multimedia content
 following the Linked Data principles
 to facilitate its wide consumption,
@@ -128,7 +126,8 @@ redistribution, and evaluation of its usefulness.
 \label{sec:natural-disaster-detection}
 
 According to a~study~\cite{laframboise2012naturaldisasters}
-published by the International Monetary Funds (IMF) in 2012,
+% RV: Do we need acronyms for terms we don't reuse?
+published by the \emph{International Monetary Fund} (IMF),
 about 700~natural disasters were registered worldwide between 2010 and 2012,
 affecting more than 450~million people.
 According to the study, ``[d]amages have risen
@@ -147,6 +146,7 @@ National agencies like the
 in the United States of America or the
 \emph{Bundesamt für Bevölkerungsschutz und Katastrophenhilfe}
 (BBK,\footnote{BBK: \url{http://www.bbk.bund.de/}}
+% RV: I think the translation is not needed
 ``Federal Office of Civil Protection and Disaster Assistance'')
 in Germany work to ensure the safety of the population
 on a~national level, combining and providing relevant tasks
@@ -162,11 +162,11 @@ the European Commission, and disaster managers worldwide
 to improve alerts, information exchange, and coordination
 in the first phase after major sudden-onset disasters.''
 Global companies like Facebook,%
-\footnote{Facebook Disaster Relief:
+\footnote{Facebook Disaster Relief:\\\null\hspace{2em}
 \url{https://www.facebook.com/DisasterRelief}}
-Airbnb,\footnote{Airbnb Disaster Response:
+Airbnb,\footnote{Airbnb Disaster Response:\\\null\hspace{2em}
 \url{https://www.airbnb.com/disaster-response}} or
-Google\footnote{Google Crisis Response:
+Google\footnote{Google Crisis Response:\\\null\hspace{2em}
 \url{https://www.google.org/crisisresponse/}}
 have dedicated crisis response teams that work on
 making critical emergency information accessible in times of disaster.
@@ -177,32 +177,38 @@ both from the public and private sectors.
 
 \subsection{Hypotheses and Research Questions}
 
-In this paper, we present first results of
+In this paper, we present the first results of
 our ongoing early-stage research
 on a~realtime comprehensive Wikipedia-based monitoring system
 for the detection of natural disasters around the globe.
-This system is language-agnostic and leverages
-multimedia content shared on online social networking sites,
+This system is \emph{language-agnostic} and leverages
+\emph{multimedia content} shared on online social networking sites,
 striving to help disaster responders prioritize their efforts.
 Structured data about detected disasters is made available
-in form of Linked Data to facilitate its consumption.
+in the form of Linked Data to facilitate its consumption.
+% RV: I'm not sure if the sentence below is relevant. What do you want to express?
 Both authors primarily come from the Semantic Web
 and Linked Data communities
 and have limited prior experience in disaster response.
 An earlier version of this paper without the focus
 on multimedia content from online social networking sites and Linked Data
 was published in~\cite{steiner2014disaster}.
+% RV: This is very good stuff!
 For the present and further extended work, we are steered by the following hypotheses.
 
 \begin{description}
   \itemsep0em
+% RV: We could discuss: what does timely mean?
+% Maybe: as soon as possible, or “timely” as in: still time to help people?
   \item[$\mathbb{H}1$] Content about natural disasters
     gets added to Wikipedia and online social networking sites in a~timely fashion.
+% RV: You mean it gets added there _first_, i.e., before the English version?
   \item[$\mathbb{H}2$] Natural disasters being geographically
     constrained, textual and multimedia content about them
     gets added to local, \emph{i.e.}, non-English Wikipedias
     and online social networking sites
     in the particular local languages.
+% RV: That one sounds (too?) mysterious.
   \item[$\mathbb{H}3$] Link structure dynamics of Wikipedia
     provide for a~meaningful way to detect future
     natural disasters, \emph{i.e.}, disasters unknown at system creation time.
@@ -213,15 +219,15 @@ that we strive to answer in the near future.
 
 \begin{description}
   \itemsep0em
-  \item[$\mathbb{Q}1$] How timely and accurate for the purpose
-    of natural disaster detection is content from Wikipedia
+  \item[$\mathbb{Q}1$] How timely and accurate is content from Wikipedia
     and online social networking sites
-    compared to content from authoritative sources mentioned above?
-  \item[$\mathbb{Q}2$] Does the disambiguated nature of Wikipedia
-    (things, not strings) surpass keyword-based natural disaster detection approaches,
+    for the purpose of natural disaster detection,
+    compared to content from authoritative sources?
+  \item[$\mathbb{Q}2$] To what extent can the disambiguated nature of Wikipedia
+    (things identified by URIs) improve on keyword-based natural disaster detection approaches,
     \emph{e.g.}, via online social network sites or search logs?
-  \item[$\mathbb{Q}3$] How much noise gets added by doing full-text searches
-    (strings, not things) for multimedia content on online social networking sites? 
+  \item[$\mathbb{Q}3$] How much noise is introduced by full-text searches
+    for multimedia content on online social networking sites? 
 \end{description}
 
 \section{Background and Enabling Technologies}
@@ -240,9 +246,13 @@ such as photos, maps, or videos.
 Alerts can be geographically targeted to a~defined warning area.
 An exemplary flood warning CAP feed stemming from GDACS is shown in
 Listing~\ref{listing:cap}.
+% RV: We'd have to explain why.
 The step from trees to graphs can be taken through Linked Data,
 which we introduce in the next section.
 
+% RV: Can we somehow summarize these listings?
+% They are very hard, if not impossible, to read.
+% Maybe we should just focus on a few lines?
 \begin{lstlisting}[caption={\emph{Common Alerting Protocol} feed
   via the \emph{Global Disaster Alert and Coordination System}
   (\url{http://www.gdacs.org/xml/gdacs_cap.xml}, 2014-07-16)},
@@ -299,17 +309,16 @@ Linked Data~\cite{bernerslee2006linkeddata}
 defines a~set of agreed-on best practices and
 principles for interconnecting and publishing
 structured data on the Web.
-It uses Web technologies like the Hypertext Transfer Protocol~(HTTP,~\cite{fielding1999http})
-and Unique Resource Identifiers (URIs,~\cite{bernerslee2005uri})
+It uses Web technologies like the Hypertext Transfer Protocol~(HTTP,~\citep{fielding1999http})
+and Unique Resource Identifiers (URIs,~\citep{bernerslee2005uri})
 to create typed links between different sources.
-The portal \url{http://linkeddata.org/} (accessed October 27, 2014)
+The portal \url{http://linkeddata.org/}
 defines Linked Data as being
 \textit{``about using the Web to connect related data that
 wasn't previously linked, or using the Web
 to lower the barriers to linking data
 currently linked using other methods.''}
-Tim Berners-Lee defined the four rules for Linked Data in a~W3C Design Issue~\cite{bernerslee2006linkeddata}
-published in 2006 as follows:
+Tim Berners-Lee (\citeyear{bernerslee2006linkeddata}) defined the four rules for Linked Data in a~W3C Design Issue as follows:
 
 \begin{enumerate}
   \item Use URIs as names for things.
@@ -325,17 +334,17 @@ typed links between things in the world.
 The result is oftentimes referred to as the \emph{Web of Data}.
 RDF encodes statements about things in the form of
 \texttt{(subject, predicate, object)} triples.
+% RV: Are namespaces really an issue? I'd remove the following sentence
 If subject and object have URIs from different namespaces,
 Bizer \emph{et~al.}\ speak of \emph{RDF links}
 in~\cite{heath2011linkeddata}.
 
 \subsection{Linked Data Fragments}
-
 The most straightforward way to access Linked Data
 is to dereference the URL of a~Linked Data document
 to retrieve a~representation of the resource identified by that URL.
 An alternative interface is a~data dump,
-which is a~typically large file that contains all triples from a certain dataset.
+which is a~large file that contains all triples from a certain dataset.
 Both approaches have their specific disadvantages regarding scalability and currency.
 SPARQL endpoints offer an interface that allows to select data much more granularly.
 This is more convenient for clients, but individual requests
