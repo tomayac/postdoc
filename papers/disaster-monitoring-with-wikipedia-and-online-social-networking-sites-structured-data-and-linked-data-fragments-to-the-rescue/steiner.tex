@@ -340,33 +340,34 @@ Bizer \emph{et~al.}\ speak of \emph{RDF links}
 in~\cite{heath2011linkeddata}.
 
 \subsection{Linked Data Fragments}
-The most straightforward way to access Linked Data
-is to dereference the URL of a~Linked Data document
-to retrieve a~representation of the resource identified by that URL.
-An alternative interface is a~data dump,
-which is a~large file that contains all triples from a certain dataset.
-Both approaches have their specific disadvantages regarding scalability and currency.
-SPARQL endpoints offer an interface that allows to select data much more granularly.
-This is more convenient for clients, but individual requests
-are considerably more expensive for servers.
-The goal of Linked Data Fragments is to provide a~uniform view
-on all possible interfaces to Linked Data.
-A~Linked Data Fragment of a~Linked Data dataset is a~set of RDF triples
-that consists of three parts~\cite{verborgh2014ldf,verborgh2014ldfiswc}.
+Various access mechanisms to Linked Data exist on the Web,
+each of which comes with its own trade-offs regarding
+query performance, freshness of data, and server cost/availability.
+To retrieve information about a~specific subject,
+you can dereference its URL.
+SPARQL endpoints allow to execute complex queries on RDF data,
+but they are not always available.
+While endpoints are more convenient for clients,
+individual requests are considerably more expensive for servers.
+Alternatively, a~data dump allows you to query locally.
 
+Linked Data Fragments~\cite{verborgh2014ldfiswc}
+provide a~uniform view on all such possible interfaces to Linked Data,
+by describing each specific type of interface
+by the kind of \emph{fragments} through which it allows access to the dataset.
+Each fragment consists of three parts:
 \begin{description}
-  \item[Data] all triples of this dataset that match a specific selector;
-  \item[Metadata] triples that describe the dataset and/or the Linked Data Fragment;
-  \item[Controls] hypermedia links and/or forms that lead to other Linked Data Fragments.
+  \item[data] all triples of this dataset that match a specific selector;
+  \item[metadata] triples that describe the dataset and/or the Linked Data Fragment;
+  \item[controls] hypermedia links and/or forms that lead to other Linked Data Fragments.
 \end{description}
-
-Linked Data Fragments offer an alternative
-to SPARQL for publishing queryable Linked Data.
-Specifically, Triple Pattern Fragments
-(also known as basic Linked Data Fragments),
-a~type of Linked Data Fragments, enable users to host Linked Data
+This view allows to describe new interfaces
+with different trade-off combinations.
+One such interface is \emph{triple pattern fragments}~\cite{verborgh2014ldfiswc},
+which enables users to host Linked Data
 on low-cost servers with higher availability
-than SPARQL endpoints~\cite{DBLP:conf/semweb/MatteisV14}.
+than public SPARQL endpoints.
+% RV: I still need to connect this section to the rest of the paper
 
 \section{Related Work}
 
