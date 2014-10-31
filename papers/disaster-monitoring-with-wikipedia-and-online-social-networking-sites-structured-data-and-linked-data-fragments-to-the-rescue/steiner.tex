@@ -24,6 +24,7 @@
 \usepackage{enumitem}
 \usepackage[hyphens]{url}
 \newcommand\citep[1]{\citeauthor{#1}, \citeyear{#1}}
+\newcommand\citet[1]{\citeauthor{#1}~(\citeyear{#1})}
 % \def\sectionautorefname{Section}
 % \def\subsectionautorefname{Subsection}
 
@@ -229,7 +230,59 @@ that we strive to answer in the near future.
     for multimedia content on online social networking sites? 
 \end{description}
 
-\section{Background and Enabling Technologies}
+% RV: Perhaps move this after the related work?
+% Or do we need stuff from there for related work?
+\section{Related Work and Enabling Technologies}
+\subsection{Disaster Detection}
+Digitally crowdsourced data for disaster detection and response
+has gained momentum in recent years,
+as the Internet has proven resilient in times of crises,
+compared to other infrastructure.
+Ryan Falor, Crisis Response Product Manager at Google in 2011,
+remarks in~\cite{falor2011googleorg} that
+``a~substantial \textup{[\,\dots]} proportion of searches
+are directly related to the crises;
+and people continue to search and access information online
+even while traffic and search levels drop temporarily
+during and immediately following the crises.''
+In the following, we provide a~non-exhaustive list of related work
+on digitally crowdsourced natural disaster detection and response.
+\citet{sakaki2010earthquake} consider each user
+of the online social networking (OSN) site
+Twitter\footnote{Twitter: \url{https://twitter.com/}} a~sensor
+for the purpose of earthquake detection in Japan.
+% They devise a~classifier of tweets based on features such as
+% keywords, number of words, and their context;
+% and produce a~probabilistic spatiotemporal model that
+% can find the center and the trajectory of the earthquake.
+\citet{goodchild2010crowdsourcing} show
+how crowdsourced geodata from Wikipedia and
+Wikimapia,\footnote{Wikimapia: \url{http://wikimapia.org/}}
+``a~multilingual open-content collaborative map'',
+can help complete authoritative data about natural disasters.
+\citet{abel2012twitcident} describe
+a~crisis monitoring system that extracts relevant content
+about known disasters from Twitter.
+\citet{liu2008search} examine
+common patterns and norms of natural disaster coverage
+on the photo sharing site Flickr.%
+\footnote{Flickr: \url{https://www.flickr.com/}}
+\citet{ortmann2011disaster} propose
+to crowdsource Linked Open Data for disaster management
+and also provide a~good overview on well-known crowdsourcing tools
+like  Google Map Maker,%
+\footnote{Google Map Maker:
+\url{http://www.google.com/mapmaker}}
+OpenStreetMap,%
+\footnote{OpenStreetMap: \url{http://www.openstreetmap.org/}}
+and Ushahidi~\cite{okolloh2009ushahidi}.
+We have developed a~monitoring system~\cite{steiner2014thesis}
+that detects news events from concurrent Wikipedia edits
+and auto-generates related multimedia galleries
+based on content from various OSN sites
+and Wikimedia Commons.\footnote{Wikimedia Commons: \url{https://commons.wikimedia.org/}}
+Finally, \citet{lin2012churn} examine realtime search query churn on Twitter,
+including in the context of natural disasters.
 
 \subsection{The \emph{Common Alerting Protocol}}
 To facilitate collaboration, a~common protocol is essential.
@@ -367,58 +420,6 @@ which enables users to host Linked Data
 on low-cost servers with higher availability
 than public SPARQL endpoints.
 % RV: I still need to connect this section to the rest of the paper
-
-\section{Related Work}
-
-Digitally crowdsourced data for disaster detection and response
-has gained momentum in recent years,
-as the Internet has proven resilient in times of crises,
-compared to other infrastructure.
-Ryan Falor, Crisis Response Product Manager at Google in 2011,
-remarks in~\cite{falor2011googleorg} that
-``a~substantial \textup{[\,\dots]} proportion of searches
-are directly related to the crises;
-and people continue to search and access information online
-even while traffic and search levels drop temporarily
-during and immediately following the crises.''
-In the following, we provide a~non-exhaustive list of related work
-on digitally crowdsourced natural disaster detection and response.
-Sakaki \emph{et~al.}\ consider in~\cite{sakaki2010earthquake} each user
-of the online social networking (OSN) site
-Twitter\footnote{Twitter: \url{https://twitter.com/}} a~sensor
-for the purpose of earthquake detection in Japan.
-% They devise a~classifier of tweets based on features such as
-% keywords, number of words, and their context;
-% and produce a~probabilistic spatiotemporal model that
-% can find the center and the trajectory of the earthquake.
-Goodchild \emph{et~al.}\ show in~\cite{goodchild2010crowdsourcing}
-how crowdsourced geodata from Wikipedia and
-Wikimapia,\footnote{Wikimapia: \url{http://wikimapia.org/}}
-``a~multilingual open-content collaborative map'',
-can help complete authoritative data about natural disasters.
-In~\cite{abel2012twitcident}, Abel \emph{et~al.}\ describe
-a~crisis monitoring system that extracts relevant content
-about known disasters from Twitter.
-Liu \emph{et~al.}\ examine in~\cite{liu2008search}
-common patterns and norms of natural disaster coverage
-on the photo sharing site Flickr.%
-\footnote{Flickr: \url{https://www.flickr.com/}}
-Ortmann \emph{et~al.}\ propose in~\cite{ortmann2011disaster}
-to crowdsource Linked Open Data for disaster management
-and also provide a~good overview on well-known crowdsourcing tools
-like  Google Map Maker,%
-\footnote{Google Map Maker:
-\url{http://www.google.com/mapmaker}}
-OpenStreetMap,%
-\footnote{OpenStreetMap: \url{http://www.openstreetmap.org/}}
-and Ushahidi~\cite{okolloh2009ushahidi}.
-We have developed~\cite{steiner2014thesis} a~ monitoring system
-that detects news events from concurrent Wikipedia edits
-and auto-generates related multimedia galleries
-based on content from various OSN sites
-and Wikimedia Commons.\footnote{Wikimedia Commons: \url{https://commons.wikimedia.org/}}
-Finally, Lin and Mishne examine realtime search query churn on Twitter%
-~\cite{lin2012churn} including in the context of natural disasters.
 
 \section{Proposed Methodology}
 
