@@ -10,6 +10,7 @@
 \setlength{\pdfpageheight}{11in}
 
 \usepackage[utf8]{inputenc}
+\usepackage{mathptmx} % Times in math, too
 \usepackage[T1]{fontenc}
 \usepackage{CJKutf8}
 
@@ -385,10 +386,7 @@ typed links between things in the world.
 The result is oftentimes referred to as the \emph{Web of Data}.
 RDF encodes statements about things in the form of
 \texttt{(subject, predicate, object)} triples.
-% RV: Are namespaces really an issue? I'd remove the following sentence
-If subject and object have URIs from different namespaces,
-Bizer \emph{et~al.}\ speak of \emph{RDF links}
-in~\cite{heath2011linkeddata}.
+\citet{heath2011linkeddata} speak of \emph{RDF links}.
 
 \subsection{Linked Data Fragments}
 Various access mechanisms to Linked Data exist on the Web,
@@ -527,7 +525,7 @@ The current version holds 141,001 different articles.
 
 \begin{figure*}[hbt]
   \centering
-  \includegraphics[width=0.75\linewidth]{link-structure}
+  \includegraphics[width=0.78\linewidth]{link-structure}
   \caption{Extracted Wikipedia link structure (tiny excerpt) starting from the seed article ``Natural disaster''}
   \label{fig:link-structure}
 \end{figure*}
@@ -596,8 +594,7 @@ TwitPic,\footnote{TwitPic: \url{http://twitpic.com/}}
 and Wikimedia Commons.%
 \footnote{Wikimedia Commons: \url{http://commons.wikimedia.org/wiki/Main_Page}}
 In a~first step, it deduplicates exact- and near-duplicate
-social multimedia data based on an algorithm described in%
-~\cite{steiner2013clustering}.
+social multimedia data based on a~previously describe algorithm~\cite{steiner2013clustering}.
 It then ranks social multimedia data by social signals%
 ~\cite{steiner2014thesis} based on an abstraction layer
 on top of the online social networking sites mentioned above
@@ -653,9 +650,9 @@ to Resource Description Format (RDF) and publishing it.
                                                          "http://www.freebase.com/m/0123kcg5";
                                               ex:relatedMediaItems _:video1;
                                               ex:relatedMediaItems _:photo1;
-_:video1 ex:mediaUrl "https://mtc.cdn.vine.co/r/videos/82796227091134303173323251712_2ca88ba5444.5.1.16698738182474199804.mp4" .
+_:video1 ex:mediaUrl "https://mtc.cdn.vine.co/r/videos/82796227091134303173323251712_2ca88ba5444.5.1.16698738182474199804.mp4";
          ex:micropostUrl "http://twitter.com/gpessoao/status/527603540860997632";
-         ex:posterUrl "https://v.cdn.vine.co/r/thumbs/231E0009CF1134303174572797952_2.5.1.16698738182474199804.mp4.jpg" .
+         ex:posterUrl "https://v.cdn.vine.co/r/thumbs/231E0009CF1134303174572797952_2.5.1.16698738182474199804.mp4.jpg";
          ex:publicationDate "2014-10-30T03:15:01Z";
          ex:socialInteractions [ ex:likes 1; ex:shares 0 ];
          ex:timestamp 1414638901000;
@@ -715,6 +712,7 @@ var init = function() {
     }
   };
   
+
   // fired whenever an article is on the monitoring list
   var showCandidateArticle = function(article, language, roles) {
     getGeoData(article, language, function(err, geoData) {
@@ -730,14 +728,15 @@ var init = function() {
     });
   };  
 
+
   getMonitoringList(seedArticle, function(err, data) {
     // get the initial monitoring list
     if (err) {
       return console.log('Error initializing the app.');
     }
     monitoringList = data;
-    console.log('Monitoring ' + Object.keys(monitoringList).length +
-        ' candidate Wikipedia articles.');
+    console.log('Monitoring ' + Object.keys(monitoringList).length
+                + ' candidate Wikipedia articles.');
     
     // start monitoring process once we have a monitoring list
     var wikiSource = new EventSource(wikipediaEdits);
