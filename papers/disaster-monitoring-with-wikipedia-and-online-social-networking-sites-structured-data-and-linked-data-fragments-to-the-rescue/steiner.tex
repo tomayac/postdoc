@@ -425,31 +425,34 @@ Finally, Lin and Mishne examine realtime search query churn on Twitter%
 \subsection{Leveraging Wikipedia Link Structure}
 
 Wikipedia is an international online encyclopedia
-currently available in 287~languages.%
+currently available in 287~languages%
 \footnote{All Wikipedias: \url{http://meta.wikimedia.org/wiki/List_of_Wikipedias}}
-\emph{(i)}~Articles in one language are interlinked with versions of the same article
-in other languages, \emph{e.g.}, the article ``Natural disaster''
-on the English Wikipedia
-(\url{http://en.wikipedia.org/wiki/Natural_disaster})
-links to 74~versions of this article in other languages.%
-\footnote{Article language links:
-\url{http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&titles=Natural_disaster}}
-\emph{(ii)}~Each article can have redirects, \emph{i.e.}, alternative URLs
-that point to the article.
-For the English ``Natural disaster'' article, there are eight redirects,%
-\footnote{Article redirects:
-\url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bllimit=max&bltitle=Natural_disaster}}
-\emph{e.g.}, ``Natural Hazard'' (synonym),
-``Examples of natural disaster'' (refinement), or
-``Natural disasters'' (plural).
-\emph{(iii)}~For each article, the list of back links
-that link to the current article is available, \emph{i.e.},
-inbound links other than redirects.
-The article ``Natural disaster'' has more than 500 articles that link to it.%
-\footnote{Article inbound links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
-Likewise, the list of outbound links, \emph{i.e.}, other articles
-that the current article links to, is available.%
-\footnote{Article outbound links: \url{http://en.wikipedia.org/w/api.php?action=query&prop=links&plnamespace=0&format=json&pllimit=max&titles=Natural_disaster}}
+with these characteristics:
+\begin{enumerate}
+  \item Articles in one language are interlinked with versions of the same article
+  in other languages, \emph{e.g.}, the article ``Natural disaster''
+  on the English Wikipedia
+  (\url{http://en.wikipedia.org/wiki/Natural_disaster})
+  links to 74~versions of this article in other languages.%
+  \footnote{Article language links:
+  \url{http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&titles=Natural_disaster}}
+  \item Each article can have redirects, \emph{i.e.}, alternative URLs
+  that point to the article.
+  For the English ``Natural disaster'' article, there are eight redirects,%
+  \footnote{Article redirects:
+  \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&blfilterredir=redirects&bllimit=max&bltitle=Natural_disaster}}
+  \emph{e.g.}, ``Natural Hazard'' (synonym),
+  ``Examples of natural disaster'' (refinement), or
+  ``Natural disasters'' (plural).
+  \item For each article, the list of back links
+  that link to the current article is available, \emph{i.e.},
+  inbound links other than redirects.
+  The article ``Natural disaster'' has more than 500 articles that link to it.%
+  \footnote{Article inbound links: \url{http://en.wikipedia.org/w/api.php?action=query&list=backlinks&bllimit=max&blnamespace=0&bltitle=Natural_disaster}}
+  Likewise, the list of outbound links, \emph{i.e.}, other articles
+  that the current article links to, is available.%
+  \footnote{Article outbound links: \url{http://en.wikipedia.org/w/api.php?action=query&prop=links&plnamespace=0&format=json&pllimit=max&titles=Natural_disaster}}
+\end{enumerate}
 By combining an article's in- and outbound links,
 we determine the set of mutual links,
 \emph{i.e.}, the set of articles that the current article links to (outbound links)
