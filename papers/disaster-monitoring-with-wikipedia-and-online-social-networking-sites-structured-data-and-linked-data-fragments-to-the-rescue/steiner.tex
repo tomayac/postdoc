@@ -318,8 +318,7 @@ which we introduce in the next section.
   float=*, stringstyle=\color{gray}, ]
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
   <identifier>GDACS_FL_4159_1</identifier>
-  <sender>info@gdacs.org</sender>
-  <sent>2014-07-14T23:59:59-00:00</sent>
+  <sender>info@gdacs.org</sender> <sent>2014-07-14T23:59:59-00:00</sent>
   <status>Actual</status> <msgType>Alert</msgType>
   <scope>Public</scope> <incidents>4159</incidents>
   <info>
@@ -416,7 +415,7 @@ One such interface is \emph{triple pattern fragments}~\cite{verborgh2014ldfiswc}
 which enables users to host Linked Data
 on low-cost servers with higher availability
 than public SPARQL endpoints.
-% RV: I still need to connect this section to the rest of the paper
+Such a~light-weight mechanism is ideal to expose live disaster monitoring data.
 
 \section{Proposed Methodology}
 \label{sec:Methodology}
@@ -637,7 +636,9 @@ additional synergies can be unlocked by leveraging Linked Data sources
 like DBpedia, Wikidata, and Freebase, and interlinking them with detected
 potentially relevant multimedia data from online social networking sites.
 Listing~\ref{listing:linkeddata} shows an early-stage proposal for doing so. 
-A~further to-be-explored approach consists in converting CAP messages to
+The alerts can be exposed as triple pattern fragments
+to enable live querying at low cost.
+A~further approach consists in converting CAP messages to
 Linked Data by transforming the CAP eXtensible Markup Language (XML) format
 to Resource Description Format (RDF) and publishing it.
 
