@@ -642,7 +642,7 @@ A~further approach consists in converting CAP messages to
 Linked Data by transforming the CAP eXtensible Markup Language (XML) format
 to Resource Description Format (RDF) and publishing it.
 
-\begin{lstlisting}[caption={Exemplary Linked Data for \emph{Hurricane Gonzalo using a~yet to-be-defined vocabulary}
+\begin{lstlisting}[caption={Exemplary Linked Data for \emph{Hurricane Gonzalo} using a~yet to-be-defined vocabulary
   that interlinks the disaster with several other Linked Data sources and relates it to
   multimedia content on online social networking sites},
   label=listing:linkeddata,language=xml,float=*t, stringstyle=\color{gray}]
@@ -808,17 +808,17 @@ the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
 \section{Conclusions and Future Work}
 \label{sec:Conclusion}
 
-In this paper, we have presented first steps of our ongoing research
-on the creation of a~Wikipedia-based natural disaster monitoring system,
-in particular, we have finished its underlying code scaffolding
-and have connected the system to several online social networking sites
+In this paper, we have presented the first steps of our ongoing research
+on the creation of a~Wikipedia-based natural disaster monitoring system.
+In particular, we finished its underlying code scaffolding
+and connected the system to several online social networking sites
 allowing for the automatic generation of media galleries.
-Further, we have proposed to publish data about detected
-and monitored natural disasters as Linked Data,
+Further, we propose to publish data about detected
+and monitored natural disasters as live queryable Linked Data,
 which can be made accessible in a~scalable and \emph{ad hoc} manner
-using Linked Data Fragments~\cite{verborgh2014ldfiswc}
-by leveraging free cloud offers~\cite{DBLP:conf/semweb/MatteisV14}.
-While the system itself already works, a~good chunk of work still lies ahead
+using triple pattern fragments~\cite{verborgh2014ldfiswc}
+by leveraging free cloud hosting offers~\cite{DBLP:conf/semweb/MatteisV14}.
+While the system itself already functions, a~good chunk of work still lies ahead
 with the fine-tuning of its parameters.
 A~first examples are the exponential smoothing parameters
 of the revision intervals, responsible for determining whether an article
@@ -833,7 +833,7 @@ We will focus on the evaluation of the system's usefulness, accuracy,
 and timeliness in comparison to other keyword-based approaches.
 An interesting aspect of our work is that the monitoring system
 is not limited to natural disasters.
-Using an analog approach, we can monitor for human-made disasters
+Using an analogous approach, we can monitor for human-made disasters
 (called ``Anthropogenic hazard'' on Wikipedia)
 like terrorism, war, power outages, air disasters, \emph{etc.}
 We have created an exemplary ``monitoring list'' and made it available.%
