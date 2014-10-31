@@ -39,13 +39,14 @@
 \usepackage{verbatim}
 \newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
 \newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
-\newcommand{\smalllistingsize}{\fontsize{6.0pt}{7.0pt}}
+\newcommand{\smalllistingsize}{\fontsize{8.0pt}{9.5pt}}
 \newcommand{\listingsize}{\smalllistingsize}%{\defaultlistingsize}
 \RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
 \RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
 \lstset{frame=lines,captionpos=b,numberbychapter=false,escapechar=§,
-  aboveskip=2em,belowskip=1em,abovecaptionskip=0.5em,belowcaptionskip=0.5em,
+  aboveskip=2em,belowskip=.5em,abovecaptionskip=0.5em,belowcaptionskip=0em,
   framexbottommargin=-1em,basicstyle=\ttfamily\listingsize\selectfont}
+\renewcommand\dblfloatpagefraction{0.9}
 
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \lstdefinelanguage{JavaScript}{
@@ -313,16 +314,13 @@ which we introduce in the next section.
   identifier,sender,sent,status,msgType,scope,incidents,info,
   category,event,urgency,severity,certainty, senderName,headline,
   description,web,parameter,value,valueName,area,areaDesc,polygon},
-  float=*b, stringstyle=\color{gray}, ]
-<?xml version="1.0" encoding="utf-8"?>
+  float=*, stringstyle=\color{gray}, ]
 <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
   <identifier>GDACS_FL_4159_1</identifier>
   <sender>info@gdacs.org</sender>
   <sent>2014-07-14T23:59:59-00:00</sent>
-  <status>Actual</status>
-  <msgType>Alert</msgType>
-  <scope>Public</scope>
-  <incidents>4159</incidents>
+  <status>Actual</status> <msgType>Alert</msgType>
+  <scope>Public</scope> <incidents>4159</incidents>
   <info>
     <category>Geo</category><event>Flood</event>
     <urgency>Past</urgency><severity>Moderate</severity>
@@ -650,36 +648,33 @@ to Resource Description Format (RDF) and publishing it.
   that interlinks the disaster with several other Linked Data sources and relates it to
   multimedia content on online social networking sites},
   label=listing:linkeddata,language=xml,float=*t, stringstyle=\color{gray}]
-<http://ex.org/disaster/en:Hurricane_Gonzalo> <ex:relatedMediaItems> _:b0 .
-<http://ex.org/disaster/en:Hurricane_Gonzalo> <ex:relatedMediaItems> _:b3 .
-<http://ex.org/disaster/en:Hurricane_Gonzalo> <owl:sameAs> "http://en.wikipedia.org/wiki/Hurricane_Gonzalo" .
-<http://ex.org/disaster/en:Hurricane_Gonzalo> <owl:sameAs> "http://live.dbpedia.org/page/Hurricane_Gonzalo" .
-<http://ex.org/disaster/en:Hurricane_Gonzalo> <owl:sameAs> "http://www.freebase.com/m/0123kcg5" .
-_:b0 <ex:mediaUrl> "https://mtc.cdn.vine.co/r/videos/82796227091134303173323251712_2ca88ba5444.5.1.16698738182474199804.mp4?versionId=lQg_XfKqV0RaIuCj.NbGcrF_ZgJXyh_c" .
-_:b0 <ex:micropost> _:b1 .
-_:b0 <ex:micropostUrl> "http://twitter.com/gpessoao/status/527603540860997632" .
-_:b0 <ex:posterUrl> "https://v.cdn.vine.co/r/thumbs/231E0009CF1134303174572797952_2.5.1.16698738182474199804.mp4.jpg?versionId=BqFb7QzroSRabWyfVz0bniPods.rece_" .
-_:b0 <ex:publicationDate> "2014-10-30T03:15:01Z" .
-_:b0 <ex:socialInteractions> _:b2 .
-_:b0 <ex:timestamp> "1414638901000"^^<http://www.w3.org/2001/XMLSchema#integer> .
-_:b0 <ex:type> "video" .
-_:b0 <ex:userProfileUrl> "http://twitter.com/alejandroriano" .
-_:b1 <ex:html> "Here's Hurricane #Gonzalo as seen from the @Space_Station as it orbited above today https://t.co/RpJt0P2bXa" .
-_:b1 <ex:plainText> "Here's Hurricane Gonzalo as seen from the Space_Station as it orbited above today" .
-_:b2 <ex:likes> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
-_:b2 <ex:shares> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
-_:b3 <ex:mediaUrl> "https://upload.wikimedia.org/wikipedia/commons/b/bb/Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_%2822.10.2014%29_01.jpg" .
-_:b3 <ex:micropost> _:b4 .
-_:b3 <ex:micropostUrl> "https://commons.wikimedia.org/wiki/File:Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_(22.10.2014)_01.jpg" .
-_:b3 <ex:posterUrl> "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_%2822.10.2014%29_01.jpg/500px-Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_(22.10.2014)_01.jpg" .
-_:b3 <ex:publicationDate> "2014-10-24T08:40:16Z" .
-_:b3 <ex:socialInteractions> _:b5 .
-_:b3 <ex:timestamp> "1414140016000"^^<http://www.w3.org/2001/XMLSchema#integer> .
-_:b3 <ex:type> "photo" .
-_:b3 <ex:userProfileUrl> "https://commons.wikimedia.org/wiki/User:Huhu Uet" .
-_:b4 <ex:html> "Schiffsanleger Wittenbergen - Orkan Gonzalo (22.10.2014) 01" .
-_:b4 <ex:plainText> "Schiffsanleger Wittenbergen - Orkan Gonzalo (22.10.2014) 01" .
-_:b5 <ex:shares> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://ex.org/disaster/en:Hurricane_Gonzalo> owl:sameAs "http://en.wikipedia.org/wiki/Hurricane_Gonzalo",
+                                                         "http://live.dbpedia.org/page/Hurricane_Gonzalo",
+                                                         "http://www.freebase.com/m/0123kcg5";
+                                              ex:relatedMediaItems _:video1;
+                                              ex:relatedMediaItems _:photo1;
+_:video1 ex:mediaUrl "https://mtc.cdn.vine.co/r/videos/82796227091134303173323251712_2ca88ba5444.5.1.16698738182474199804.mp4" .
+         ex:micropostUrl "http://twitter.com/gpessoao/status/527603540860997632";
+         ex:posterUrl "https://v.cdn.vine.co/r/thumbs/231E0009CF1134303174572797952_2.5.1.16698738182474199804.mp4.jpg" .
+         ex:publicationDate "2014-10-30T03:15:01Z";
+         ex:socialInteractions [ ex:likes 1; ex:shares 0 ];
+         ex:timestamp 1414638901000;
+         ex:type "video";
+         ex:userProfileUrl "http://twitter.com/alejandroriano";
+         ex:micropost [
+             ex:html "Here's Hurricane #Gonzalo as seen from the @Space_Station as it orbited above today https://t.co/RpJt0P2bXa";
+             ex:plainText "Here's Hurricane Gonzalo as seen from the Space_Station as it orbited above today" ].
+_:photo1 ex:mediaUrl "https://upload.wikimedia.org/wikipedia/commons/b/bb/Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo.jpg";
+         ex:micropostUrl "https://commons.wikimedia.org/wiki/File:Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_(22.10.2014)_01.jpg";
+         ex:posterUrl "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_%2822.10.2014%29_01.jpg/500px-Schiffsanleger_Wittenbergen_-_Orkan_Gonzalo_(22.10.2014)_01.jpg" .
+         ex:publicationDate "2014-10-24T08:40:16Z";
+         ex:socialInteractions [ ex:shares 0 ];
+         ex:timestamp 1414140016000;
+         ex:type "photo";
+         ex:userProfileUrl "https://commons.wikimedia.org/wiki/User:Huhu Uet";
+         ex:micropost [
+             ex:html "Schiffsanleger Wittenbergen - Orkan Gonzalo (22.10.2014) 01";
+             ex:plainText "Schiffsanleger Wittenbergen - Orkan Gonzalo (22.10.2014) 01" ].
 \end{lstlisting}
 
 \subsection{Implementation Details}
