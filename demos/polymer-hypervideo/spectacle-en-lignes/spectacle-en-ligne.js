@@ -2,12 +2,12 @@ var CORS_PROXY = document.location.hostname === 'localhost' ?
     document.location.origin + '/cors/' : '';
 
 var LDF_START_FRAGMENT = 'http://spectacleenlignes.fr/ldf/spectacle_en_lignes';
-var LDF_QUERY = 'SELECT DISTINCT ?tag WHERE {
-                   [ a &lt;http://advene.org/ns/cinelab/ld#Annotation&gt; ;
-                     &lt;http://advene.org/ns/cinelab/ld#taggedWith&gt;
-                       [ &lt;http://purl.org/dc/elements/1.1/title&gt;  ?tag ]
-                    ]
-                 }';
+var LDF_QUERY = 'SELECT DISTINCT ?tag WHERE {' +
+                   '[ a <http://advene.org/ns/cinelab/ld#Annotation> ;' +
+                     '<http://advene.org/ns/cinelab/ld#taggedWith>' +
+                       '[ <http://purl.org/dc/elements/1.1/title>  ?tag ]' +
+                    ']' +
+                 '}';
 
 var createHypervideo = function(video, json, transcript) {
   var container = document.querySelector('#container');
@@ -69,7 +69,14 @@ var createHypervideo = function(video, json, transcript) {
     var ldfClient = document.createElement('polymer-ldf-client');
     ldfClient.setAttribute('startFragment', LDF_START_FRAGMENT);
     ldfClient.setAttribute('query', LDF_QUERY);
-    hypervideo.appendChild(ldfClient);
+    container.appendChild(ldfClient);
+    ldfClient.addEventListener('ldf-query-streaming-response-partial',
+        function(e) {
+      var pre = document.createElement('pre');
+      pre.textContent = JSON.stringify(e.detail.response);
+      document.body.appendChild(pre);
+    });
+    ldfClient.executeQuery();
 
     var timeline = document.createElement('polymer-visualization-timeline');
     timeline.setAttribute('orientation', 'landscape');
@@ -216,6 +223,9 @@ var init = (function() {
   var videoSelect = document.querySelector('#videoSelect');
 
   var videoSelectChange = function() {
+    if (videoSelect.selectedIndex < 0) {
+      videoSelect.selectedIndex = 0;
+    }
     var index = videoSelect.options[videoSelect.selectedIndex].value || 0;
     var video = VIDEO_DATA[index].video;
     var json = VIDEO_DATA[index].json;
@@ -261,7 +271,6 @@ var init = (function() {
         console.log('Starting with video ' + videoId);
       }
       videoSelect.selectedIndex = index || 4;
-      alert(videoSelect.selectedIndex)
       return videoSelectChange();
     }
   );

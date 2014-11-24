@@ -1,0 +1,31 @@
+{
+  "name": "spectacle-en-lignes",
+  "version": "0.0.1",
+  "homepage": "https://github.com/tomayac/postdoc",
+  "authors": [
+    "Thomas Steiner <tomac@google.com>"
+  ],
+  "description": "Spectacle en ligne(s)",
+  "main": "index.html",
+  "keywords": [
+    "spectacle",
+    "en",
+    "lignes",
+    "spectacle",
+    "en",
+    "ligne",
+    "spel"
+  ],
+  "license": "Apache 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer-hypervideo": "tomayac/polymer-hypervideo",
+    "polymer-ldf-client": "tomayac/polymer-ldf-client"
+  }
+}
