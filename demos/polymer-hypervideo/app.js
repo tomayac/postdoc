@@ -7,40 +7,9 @@ var server = http.createServer(app);
 var request = require('request');
 var url = require('url');
 
-// start static serving
-// and set default route to index.html
-app.use(express.static(__dirname + '/static'));
-app.get('/', function(req, res) {
-  res.redirect(301, 'polymer-hypervideo/');
-});
-
 app.use(express.static(__dirname + '/spectacle-en-lignes'));
 app.get('/spectacle-en-lignes', function(req, res) {
   res.sendfile(__dirname + '/spectacle-en-lignes/index.html');
-});
-
-app.get(/^\/cors\/(.+)$/, function(req, res) {
-  var pathname = url.parse(req.url).pathname;
-  var uri = decodeURIComponent(pathname.replace(/^\/cors\/(.+)$/, '$1'));
-  res.setHeaders = {
-    'access-control-allow-methods': 'HEAD, POST, GET, PUT, PATCH, DELETE',
-    'access-control-max-age': '86400',
-    'access-control-allow-credentials': 'true',
-    'access-control-allow-origin': req.headers.origin || '*'
-  };
-  try {
-    var headers = req.headers;
-    var options = {
-      url: uri,
-      headers: headers
-    };
-    options.headers.referer = 'https://www.youtube.com/watch';
-    delete options.headers.host;
-    request.get(options).pipe(res);
-  } catch(e) {
-    res.statusCode = 404;
-    res.send('Error 404 File not found.');
-  }
 });
 
 // start the server

@@ -1,6 +1,14 @@
 var CORS_PROXY = document.location.hostname === 'localhost' ?
     document.location.origin + '/cors/' : '';
 
+var LDF_START_FRAGMENT = 'http://spectacleenlignes.fr/ldf/spectacle_en_lignes';
+var LDF_QUERY = 'SELECT DISTINCT ?tag WHERE {
+                   [ a &lt;http://advene.org/ns/cinelab/ld#Annotation&gt; ;
+                     &lt;http://advene.org/ns/cinelab/ld#taggedWith&gt;
+                       [ &lt;http://purl.org/dc/elements/1.1/title&gt;  ?tag ]
+                    ]
+                 }';
+
 var createHypervideo = function(video, json, transcript) {
   var container = document.querySelector('#container');
   container.innerHTML = '';
@@ -57,6 +65,11 @@ var createHypervideo = function(video, json, transcript) {
     hypervideo.setAttribute('height', 450);
     hypervideo.setAttribute('muted', false);
     fragment.appendChild(hypervideo);
+
+    var ldfClient = document.createElement('polymer-ldf-client');
+    ldfClient.setAttribute('startFragment', LDF_START_FRAGMENT);
+    ldfClient.setAttribute('query', LDF_QUERY);
+    hypervideo.appendChild(ldfClient);
 
     var timeline = document.createElement('polymer-visualization-timeline');
     timeline.setAttribute('orientation', 'landscape');

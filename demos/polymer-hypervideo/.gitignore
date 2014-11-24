@@ -1,4 +1,2 @@
 .DS_Store
-*.tmproj
 /node_modules
-/static/polymer-hypervideo/video.mp4
