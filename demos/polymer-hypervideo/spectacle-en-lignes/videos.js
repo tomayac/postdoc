@@ -1,5 +1,15 @@
 var VIDEO_DATA = (function() {
   var urls = [
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment01.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment02.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment03.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment04.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment05.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment06.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment07.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment08.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment09.mp4',
+    'http://spectacleenlignes.fr/data/theatre/scene-17-19/segment10.mp4',
     'http://spectacleenlignes.fr/data/demonstrateur/bout-a-bout-avec-les-enfants_a4c293_SON_SATURE/bout-a-bout-avec-les-enfants_a4c293_SON_SATURE_a1',
     'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a11',
     'http://spectacleenlignes.fr/data/demonstrateur/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96/debut-du-travail-de-precision-sans-texte-a-la-main-de-lacte-1_583a96_a14',

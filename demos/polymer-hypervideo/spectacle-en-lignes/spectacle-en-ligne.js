@@ -8,6 +8,10 @@ var LDF_QUERY = 'SELECT DISTINCT ?tag WHERE {' +
                        '[ <http://purl.org/dc/elements/1.1/title>  ?tag ]' +
                     ']' +
                  '}';
+/*
+subject
+http://spectacleenlignes.fr/plateforme/ldt/cljson/id/d83084a0-b8c0-11e3-b82e-005056ab0020#bout-a-bout-avec-les-enfants_a4c293_SON_SATURE
+*/
 
 var createHypervideo = function(video, json, transcript) {
   var container = document.querySelector('#container');
@@ -69,12 +73,17 @@ var createHypervideo = function(video, json, transcript) {
     var ldfClient = document.createElement('polymer-ldf-client');
     ldfClient.setAttribute('startFragment', LDF_START_FRAGMENT);
     ldfClient.setAttribute('query', LDF_QUERY);
+    ldfClient.setAttribute('responseFormat', 'streaming');
+    ldfClient.setAttribute('auto', false);
     container.appendChild(ldfClient);
     ldfClient.addEventListener('ldf-query-streaming-response-partial',
         function(e) {
       var pre = document.createElement('pre');
       pre.textContent = JSON.stringify(e.detail.response);
       document.body.appendChild(pre);
+    });
+    ldfClient.addEventListener('ldf-query-streaming-response-end', function(e) {
+
     });
     ldfClient.executeQuery();
 
@@ -241,7 +250,8 @@ var init = (function() {
   var lookUp = {};
   VIDEO_DATA.forEach(function(video, i) {
     // check if the .vtt-s exist
-    var url = video.video;
+    var url = /\.mp4$/.test(video.video) ?
+        video.video.replace(/\.mp4$/, '') : video.video;
     functions[url] = function(callback) {
       var xhr = new XMLHttpRequest();
       xhr.onload = function() {
@@ -249,7 +259,8 @@ var init = (function() {
         var id = video.id;
         lookUp[id] = i;
         var option = document.createElement('option');
-        option.textContent = id.replace(/-/g, ' ');
+        option.textContent = /\.mp4$/.test(video.video) ?
+            video.video.split('/')[6].replace('.mp4', '') : id.replace(/-/g, ' ');
         option.value = i;
         videoSelect.appendChild(option);
         return callback(null, url);
