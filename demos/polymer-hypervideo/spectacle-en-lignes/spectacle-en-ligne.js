@@ -2,26 +2,25 @@ var CORS_PROXY = document.location.hostname === 'localhost' ?
     document.location.origin + '/cors/' : '';
 
 var LDF_START_FRAGMENT = 'http://spectacleenlignes.fr/ldf/spectacle_en_lignes';
-var LDF_QUERY =
+
+var ID_LOOKUP_LDF_QUERY =
+    'PREFIX cl: <http://advene.org/ns/cinelab/>\n' +
+    'SELECT ?s WHERE {\n' +
+      '?s cl:id-ref "{{id}}" .\n' +
+    '}';
+
+var ANNOTATIONS_LDF_QUERY =
     'PREFIX cl: <http://advene.org/ns/cinelab/ld#>\n' +
     'PREFIX ma: <http://www.w3.org/ns/ma-ont#>\n' +
     'SELECT * WHERE {\n' +
-      '<http://spectacleenlignes.fr/plateforme/ldt/cljson/id/d83084a0-b8c0-11e3-b82e-005056ab0020#bout-a-bout-avec-les-enfants_a4c293_SON_SATURE>' +
+      '<http://spectacleenlignes.fr/plateforme/ldt/cljson/id/{{id}}#{{title}}>' +
           'cl:represents ?video .\n' +
       '?video ma:hasFragment ?frag .\n' +
       '?a cl:hasFragment ?frag ;\n' +
         'cl:hasContent [ cl:mimetype ?ctype ; cl:data ?cdata ]\n' +
-'}';
+    '}';
 
-/*
-http://spectacleenlignes.fr/query-ui/#startFragment=http%3A%2F%2Fspectacleenlignes.fr%2Fldf%2Fspectacle_en_lignes&query=SELECT%20*%20WHERE%20{%0A%20%20%20%20%3Chttp%3A%2F%2Fspectacleenlignes.fr%2Fplateforme%2Fldt%2Fcljson%2Fid%2Fd83084a0-b8c0-11e3-b82e-005056ab0020%23bout-a-bout-avec-les-enfants_a4c293_SON_SATURE%3E%0A%20%20%20%20%20cl%3Arepresents%20%3Fvideo%20.%0A%20%20%3Fvideo%20ma%3AhasFragment%20%3Ffrag%20.%0A%20%20%20%3Fa%20cl%3AhasFragment%20%3Ffrag%20%3B%0A%20%20%20%20%20%20cl%3AhasContent%20[%20cl%3Amimetype%20%3Fctype%20%3B%20cl%3Adata%20%3Fcdata%20]%0A}
-
-
-subject
-http://spectacleenlignes.fr/plateforme/ldt/cljson/id/d83084a0-b8c0-11e3-b82e-005056ab0020#bout-a-bout-avec-les-enfants_a4c293_SON_SATURE
-*/
-
-var createHypervideo = function(video, json, transcript) {
+var createHypervideo = function(video, json, id, transcript) {
   var container = document.querySelector('#container');
   container.innerHTML = '';
   var createTextTrack = function(transcriptHtml, lines) {
@@ -80,15 +79,20 @@ var createHypervideo = function(video, json, transcript) {
 
     var ldfClient = document.createElement('polymer-ldf-client');
     ldfClient.setAttribute('startFragment', LDF_START_FRAGMENT);
-    ldfClient.setAttribute('query', LDF_QUERY);
+    var query = ID_LOOKUP_LDF_QUERY.replace(/\{\{id\}\}/g, id);
+    alert(query)
+    ldfClient.setAttribute('query', query);
     ldfClient.setAttribute('responseFormat', 'streaming');
     ldfClient.setAttribute('auto', false);
     container.appendChild(ldfClient);
     ldfClient.addEventListener('ldf-query-streaming-response-partial',
         function(e) {
       console.log('Received event (ldf-client): ldf-query-streaming-response-partial');
+      var data = JSON.parse(e.detail.response);
+      /*
       var data = JSON.parse((JSON.parse(e.detail.response))['?cdata']
           .replace(/^"/, '').replace(/"$/, ''));
+      */
       console.log(data);
     });
     ldfClient.addEventListener('ldf-query-streaming-response-end', function(e) {
@@ -251,7 +255,7 @@ var init = (function() {
     var transcript = 'http://spectacleenlignes.fr/plateforme/ctb';
     var title = id.replace(/-/g, ' ').replace(/_.*?$/, '');
     history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + id);
-    return createHypervideo(video, json, transcript);
+    return createHypervideo(video, json, id, transcript);
   };
   videoSelect.addEventListener('change', videoSelectChange);
 
