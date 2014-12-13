@@ -20,7 +20,7 @@ var ANNOTATIONS_LDF_QUERY =
         'cl:hasContent [ cl:mimetype ?ctype ; cl:data ?cdata ]\n' +
     '}';
 
-var createHypervideo = function(video, json, id, transcript) {
+var createHypervideo = function(video, id, transcript) {
   var container = document.querySelector('#container');
   container.innerHTML = '';
   var createTextTrack = function(transcriptHtml, lines) {
@@ -67,10 +67,11 @@ var createHypervideo = function(video, json, id, transcript) {
     return URL.createObjectURL(textTrackBlob);
   };
 
-  var createPolymerElements = function(metadataJson, transcriptHtml, lines) {
+  var createPolymerElements = function(transcriptHtml, lines) {
     var fragment = document.createDocumentFragment();
 
     var hypervideo = document.createElement('polymer-hypervideo');
+
     hypervideo.setAttribute('src', video + '.mp4 ' + video + '.mkv');
     hypervideo.setAttribute('width', 800);
     hypervideo.setAttribute('height', 450);
@@ -103,6 +104,9 @@ var createHypervideo = function(video, json, id, transcript) {
           var end = mediaFragment.hash.t[0].endNormalized / 1000;
           var description = JSON.parse((data)['?cdata']
               .replace(/^"/, '').replace(/"$/, '')).description;
+          if (!description) {
+            return
+          }
           var annotation = document.createElement('polymer-data-annotation');
           annotation.setAttribute('start', start);
           annotation.setAttribute('end', end);
@@ -176,40 +180,7 @@ var createHypervideo = function(video, json, id, transcript) {
     chapters.setAttribute('displaychaptersthumbnails', true);
     chapters.setAttribute('width', 800);
     hypervideo.appendChild(chapters);
-
-    hypervideo.addEventListener('hypervideoloadedmetadata', function(e) {
-      var duration = e.detail.duration;
-
-      metadataJson.annotations.filter(function(annotation) {
-        return annotation.begin / 1000 < duration;
-      }).sort(function(a, b) {
-        // sort annotations by ascending start time
-        return a.begin - b.begin;
-      }).forEach(function(data) {
-/*
-        var start = data.begin / 1000;
-        var end = data.end / 1000;
-        var description = data.content.description;
-        var annotation = document.createElement('polymer-data-annotation');
-        annotation.setAttribute('start', start);
-        annotation.setAttribute('end', end);
-        annotation.textContent = description;
-        hypervideo.appendChild(annotation);
-*/
-      });
-    });
-
     container.appendChild(fragment);
-  };
-
-  var getMetadataJson = function(callback) {
-    // get the metadata json
-    var xhr = new XMLHttpRequest();
-    xhr.onload =  function() {
-      return callback(null, this.responseText);
-    };
-    xhr.open('get', json, true);
-    xhr.send();
   };
 
   var getTranscriptHtml = function(callback) {
@@ -224,7 +195,6 @@ var createHypervideo = function(video, json, id, transcript) {
 
   var start = (function() {
     async.parallel({
-      metadataJson: getMetadataJson,
       transcriptHtml: getTranscriptHtml
     }, function(err, results) {
       if (err) {
@@ -246,8 +216,7 @@ var createHypervideo = function(video, json, id, transcript) {
             end: cue.endTime
           };
         }
-        metadataJson = JSON.parse(results.metadataJson);
-        createPolymerElements(metadataJson, results.transcriptHtml, lines);
+        createPolymerElements(results.transcriptHtml, lines);
       });
       var source1 = document.createElement('source');
       tmpVideo.appendChild(source1);
@@ -270,12 +239,11 @@ var init = (function() {
     }
     var index = videoSelect.options[videoSelect.selectedIndex].value || 0;
     var video = VIDEO_DATA[index].video;
-    var json = VIDEO_DATA[index].json;
     var id = VIDEO_DATA[index].id;
     var transcript = 'http://spectacleenlignes.fr/plateforme/ctb';
     var title = id.replace(/-/g, ' ').replace(/_.*?$/, '');
     history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + id);
-    return createHypervideo(video, json, id, transcript);
+    return createHypervideo(video, id, transcript);
   };
   videoSelect.addEventListener('change', videoSelectChange);
 
