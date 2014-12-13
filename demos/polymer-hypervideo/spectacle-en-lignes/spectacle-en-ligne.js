@@ -13,7 +13,7 @@ var ANNOTATIONS_LDF_QUERY =
     'PREFIX cl: <http://advene.org/ns/cinelab/ld#>\n' +
     'PREFIX ma: <http://www.w3.org/ns/ma-ont#>\n' +
     'SELECT * WHERE {\n' +
-      '<http://spectacleenlignes.fr/plateforme/ldt/cljson/id/{{id}}#{{title}}>' +
+      '<{{url}}#{{title}}> ' +
           'cl:represents ?video .\n' +
       '?video ma:hasFragment ?frag .\n' +
       '?a cl:hasFragment ?frag ;\n' +
@@ -79,21 +79,39 @@ var createHypervideo = function(video, json, id, transcript) {
 
     var ldfClient = document.createElement('polymer-ldf-client');
     ldfClient.setAttribute('startFragment', LDF_START_FRAGMENT);
+    ldfClient.setAttribute('auto', false);
     var query = ID_LOOKUP_LDF_QUERY.replace(/\{\{id\}\}/g, id);
-    alert(query)
     ldfClient.setAttribute('query', query);
     ldfClient.setAttribute('responseFormat', 'streaming');
-    ldfClient.setAttribute('auto', false);
     container.appendChild(ldfClient);
     ldfClient.addEventListener('ldf-query-streaming-response-partial',
         function(e) {
       console.log('Received event (ldf-client): ldf-query-streaming-response-partial');
       var data = JSON.parse(e.detail.response);
-      /*
-      var data = JSON.parse((JSON.parse(e.detail.response))['?cdata']
-          .replace(/^"/, '').replace(/"$/, ''));
-      */
-      console.log(data);
+      try {
+        if (data['?s']) {
+          var url = data['?s'].split('#')[0];
+          var query = ANNOTATIONS_LDF_QUERY.replace(/\{\{url\}\}/g, url)
+              .replace(/\{\{title\}\}/g, id);
+          ldfClient.setAttribute('query', query);
+          ldfClient.executeQuery();
+        } else {
+          var data = JSON.parse(e.detail.response);
+          var frag = data['?frag'];
+          var mediaFragment = MediaFragments.parseMediaFragmentsUri(frag);
+          var start = mediaFragment.hash.t[0].startNormalized / 1000;
+          var end = mediaFragment.hash.t[0].endNormalized / 1000;
+          var description = JSON.parse((data)['?cdata']
+              .replace(/^"/, '').replace(/"$/, '')).description;
+          var annotation = document.createElement('polymer-data-annotation');
+          annotation.setAttribute('start', start);
+          annotation.setAttribute('end', end);
+          annotation.innerHTML = description;
+          hypervideo.appendChild(annotation);
+        }
+      } catch(e) {
+        throw('Could not parse response: ' + e);
+      }
     });
     ldfClient.addEventListener('ldf-query-streaming-response-end', function(e) {
       console.log('Received event (ldf-client): ldf-query-streaming-response-end');
@@ -168,6 +186,7 @@ var createHypervideo = function(video, json, id, transcript) {
         // sort annotations by ascending start time
         return a.begin - b.begin;
       }).forEach(function(data) {
+/*
         var start = data.begin / 1000;
         var end = data.end / 1000;
         var description = data.content.description;
@@ -176,6 +195,7 @@ var createHypervideo = function(video, json, id, transcript) {
         annotation.setAttribute('end', end);
         annotation.textContent = description;
         hypervideo.appendChild(annotation);
+*/
       });
     });
 
