@@ -39,6 +39,10 @@ iframe {
           box-shadow: 5px 5px 5px #111;
 }
 
+select {
+  width: 400px;
+}
+
 polymer-hypervideo::shadow video::cue(v) { color: orange; }
 polymer-hypervideo::shadow video::cue(v[voice="Brick"]) { color: blue; }
 polymer-hypervideo::shadow video::cue(v[voice="Margaret"]) { color: red; }

@@ -23,6 +23,18 @@ var ANNOTATIONS_LDF_QUERY =
 var createHypervideo = function(video, id, transcript) {
   var onHypervideoCueChange;
   var container = document.querySelector('#container');
+  try {
+    var oldVideos = container.querySelector('polymer-hypervideo').shadowRoot
+      .querySelectorAll('video');
+    for (var i = 0, lenI = oldVideos.length; i < lenI; i++) {
+      var oldVideo = oldVideos[i];
+      oldVideo.pause();
+      oldVideo.muted = true;
+      oldVideo.remove();
+    }
+  } catch(e) {
+    // no-op
+  }
   container.innerHTML = '';
 
   var createTextTrack = function(transcriptHtml, lines) {
@@ -106,7 +118,7 @@ var createHypervideo = function(video, id, transcript) {
           var description = JSON.parse((data)['?cdata']
               .replace(/^"/, '').replace(/"$/, '')).description;
           if (!description) {
-//            return
+            description = '(pas disponible)';
           }
           var annotation = document.createElement('polymer-data-annotation');
           annotation.setAttribute('start', start);
@@ -219,6 +231,7 @@ var createHypervideo = function(video, id, transcript) {
             end: cue.endTime
           };
         }
+        tmpVideo.pause();
         tmpVideo.remove();
         createPolymerElements(results.transcriptHtml, lines);
       });
@@ -254,10 +267,14 @@ var init = (function() {
 
   var cueSelectChange = function() {
     var value = cueSelect.options[cueSelect.selectedIndex].value;
+    var cue = value.split('—')[0];
     var start = value.split('—')[1];
     var video = value.split('—')[2];
+    var title = video.replace(/-/g, ' ').replace(/_(.*?)$/, ' ($1)');
     videoSelect.value = videoLookUp[video].index;
     videoSelectChange();
+    history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + video + '/' +
+        cue);
     document.addEventListener('allstillframesreceived', function() {
       var event = new CustomEvent('currenttimeupdate', { detail: {
         currentTime: start
@@ -339,12 +356,26 @@ var init = (function() {
 
       var index = 0;
       if (document.location.hash) {
-        var videoId = document.location.hash.substr(1);
+        var videoId = document.location.hash.substr(1).split('/')[0];
+        var cueId = document.location.hash.substr(1).split('/')[1] || '';
         index = videoLookUp[videoId].index;
-        console.log('Starting with video ' + videoId);
       }
-      videoSelect.value = index;
-      return videoSelectChange();
+      if (cueId) {
+        console.log('Starting with video ' + videoId + ' at cue ' + cueId);
+        var video;
+        for (var i = 0, lenI = cueLookUp[cueId].length; i < lenI; i++) {
+          video = cueLookUp[cueId][i];
+          if (video.id === videoId) {
+            break;
+          }
+        }
+        cueSelect.value = cueId + '—' + video.start + '—' + video.id;
+            return cueSelectChange();
+      } else {
+        console.log('Starting with video ' + videoId);
+        videoSelect.value = index;
+        return videoSelectChange();
+      }
     }
   );
 })();
