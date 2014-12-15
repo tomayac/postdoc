@@ -21,8 +21,10 @@ var ANNOTATIONS_LDF_QUERY =
     '}';
 
 var createHypervideo = function(video, id, transcript) {
+  var onHypervideoCueChange;
   var container = document.querySelector('#container');
   container.innerHTML = '';
+
   var createTextTrack = function(transcriptHtml, lines) {
 
     var toHHMMSSmmm = function(duration) {
@@ -97,15 +99,14 @@ var createHypervideo = function(video, id, transcript) {
           ldfClient.setAttribute('query', query);
           ldfClient.executeQuery();
         } else {
-          var data = JSON.parse(e.detail.response);
           var frag = data['?frag'];
           var mediaFragment = MediaFragments.parseMediaFragmentsUri(frag);
-          var start = mediaFragment.hash.t[0].startNormalized / 1000;
-          var end = mediaFragment.hash.t[0].endNormalized / 1000;
+          var start = mediaFragment.hash.t[0].startNormalized;
+          var end = mediaFragment.hash.t[0].endNormalized;
           var description = JSON.parse((data)['?cdata']
               .replace(/^"/, '').replace(/"$/, '')).description;
           if (!description) {
-            return
+//            return
           }
           var annotation = document.createElement('polymer-data-annotation');
           annotation.setAttribute('start', start);
@@ -167,8 +168,10 @@ var createHypervideo = function(video, id, transcript) {
           if (/^\d+-\d+$/.test(cue.text)) {
             var textLine =
                 contentDocument.querySelector('p[id="' + cue.text + '"]');
-            iframe.contentWindow.scrollTo(0, textLine.offsetTop - 20);
-            textLine.style.color = 'red';
+            if (iframe.contentWindow) {
+              iframe.contentWindow.scrollTo(0, textLine.offsetTop - 20);
+              textLine.style.color = 'red';
+            }
           }
         }
       });
@@ -216,6 +219,7 @@ var createHypervideo = function(video, id, transcript) {
             end: cue.endTime
           };
         }
+        tmpVideo.remove();
         createPolymerElements(results.transcriptHtml, lines);
       });
       var source1 = document.createElement('source');
@@ -232,6 +236,7 @@ var createHypervideo = function(video, id, transcript) {
 
 var init = (function() {
   var videoSelect = document.querySelector('#videoSelect');
+  var cueSelect = document.querySelector('#cueSelect');
 
   var videoSelectChange = function() {
     if (videoSelect.selectedIndex < 0) {
@@ -241,33 +246,76 @@ var init = (function() {
     var video = VIDEO_DATA[index].video;
     var id = VIDEO_DATA[index].id;
     var transcript = 'http://spectacleenlignes.fr/plateforme/ctb';
-    var title = id.replace(/-/g, ' ').replace(/_.*?$/, '');
+    var title = id.replace(/-/g, ' ').replace(/_(.*?)$/, ' ($1)');
     history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + id);
     return createHypervideo(video, id, transcript);
   };
   videoSelect.addEventListener('change', videoSelectChange);
 
+  var cueSelectChange = function() {
+    var value = cueSelect.options[cueSelect.selectedIndex].value;
+    var start = value.split('—')[1];
+    var video = value.split('—')[2];
+    videoSelect.value = videoLookUp[video].index;
+    videoSelectChange();
+    document.addEventListener('allstillframesreceived', function() {
+      var event = new CustomEvent('currenttimeupdate', { detail: {
+        currentTime: start
+      }});
+      document.dispatchEvent(event);
+    });
+  };
+  cueSelect.addEventListener('change', cueSelectChange);
+
   var functions = {};
-  var lookUp = {};
+  var videoLookUp = {};
+  var cueLookUp = {};
+  var webVttParser = new WebVTTParser();
   VIDEO_DATA.forEach(function(video, i) {
     // check if the .vtt-s exist
-    var url = /\.mp4$/.test(video.video) ?
-        video.video.replace(/\.mp4$/, '') : video.video;
+    var url = video.video;
     functions[url] = function(callback) {
       var xhr = new XMLHttpRequest();
       xhr.onload = function() {
         // fill the select box
+        if (xhr.status !== 200) {
+          return callback(null);
+        }
         var id = video.id;
-        lookUp[id] = i;
+        videoLookUp[id] = {
+          index: i,
+          cues: []
+        };
         var option = document.createElement('option');
-        option.textContent = /\.mp4$/.test(video.video) ?
-            video.video.split('/')[6].replace('.mp4', '') : id.replace(/-/g, ' ');
+        option.textContent = id.replace(/-/g, ' ').replace(/_(.*?)$/, ' ($1)');
         option.value = i;
         videoSelect.appendChild(option);
+
+        var webVtt = this.responseText;
+        webVtt = webVttParser.parse(webVtt);
+        if (webVtt.errors.length > 0) {
+          return callback(null);
+        }
+        webVtt.cues.forEach(function(cue) {
+          var cueText = cue.text;
+          videoLookUp[id].cues.push({
+            cue: cueText,
+            start: cue.startTime,
+            end: cue.endTime
+          });
+          if (!cueLookUp[cueText]) {
+            cueLookUp[cueText] = [];
+          }
+          cueLookUp[cueText].push({
+            id: id,
+            start: cue.startTime,
+            end: cue.endTime
+          });
+        });
         return callback(null, url);
       };
       xhr.onerror = function() {
-        return callback(url);
+        return callback(null);
       };
       xhr.open('get', url + '.vtt', true);
       xhr.send();
@@ -276,13 +324,26 @@ var init = (function() {
   async.parallel(
     functions,
     function(err, results) {
-      var index;
+      for (var cue in cueLookUp) {
+        var optgroup = document.createElement('optgroup');
+        optgroup.label = cue;
+        cueSelect.appendChild(optgroup);
+        cueLookUp[cue].forEach(function(video) {
+          var option = document.createElement('option');
+          option.textContent = cue + ': ' + video.id.replace(/-/g, ' ')
+              .replace(/_(.*?)$/, ' ($1)');
+              option.value = cue + '—' + video.start + '—' + video.id;
+          optgroup.appendChild(option);
+        });
+      }
+
+      var index = 0;
       if (document.location.hash) {
         var videoId = document.location.hash.substr(1);
-        index = lookUp[videoId];
+        index = videoLookUp[videoId].index;
         console.log('Starting with video ' + videoId);
       }
-      videoSelect.selectedIndex = index || 4;
+      videoSelect.value = index;
       return videoSelectChange();
     }
   );

@@ -27,6 +27,7 @@
   "dependencies": {
     "polymer-hypervideo": "tomayac/polymer-hypervideo",
     "polymer-ldf-client": "tomayac/polymer-ldf-client",
-    "media-fragments-uri": "tomayac/Media-Fragments-URI"
+    "media-fragments-uri": "tomayac/Media-Fragments-URI",
+    "webvtt-parser": "annevk/webvtt"
   }
 }
