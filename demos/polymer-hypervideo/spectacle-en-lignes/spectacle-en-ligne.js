@@ -255,6 +255,10 @@ var init = (function() {
     if (videoSelect.selectedIndex < 0) {
       videoSelect.selectedIndex = 0;
     }
+    var cueId = document.location.hash.substr(1).split('/')[1] || '';
+    if (!cueId) {
+      cueSelect.selectedIndex = 0;
+    }
     var index = videoSelect.options[videoSelect.selectedIndex].value || 0;
     var video = VIDEO_DATA[index].video;
     var id = VIDEO_DATA[index].id;
@@ -266,6 +270,10 @@ var init = (function() {
   videoSelect.addEventListener('change', videoSelectChange);
 
   var cueSelectChange = function() {
+    console.log(cueSelect.selectedIndex)
+    if (cueSelect.selectedIndex < 0) {
+      cueSelect.selectedIndex = 0;
+    }
     var value = cueSelect.options[cueSelect.selectedIndex].value;
     var cue = value.split('—')[0];
     var start = value.split('—')[1];
@@ -354,6 +362,36 @@ var init = (function() {
         });
       }
 
+      var prevVideo = document.querySelector('#prevVideo');
+      var nextVideo = document.querySelector('#nextVideo');
+      var prevCue = document.querySelector('#prevCue');
+      var nextCue = document.querySelector('#nextCue');
+
+      prevVideo.addEventListener('click', function() {
+        var items = videoSelect.options.length;
+        var index = (videoSelect.selectedIndex + items - 1) % items;
+        videoSelect.value = videoSelect.options[index].value;
+        videoSelectChange();
+      });
+      nextVideo.addEventListener('click', function() {
+        var items = videoSelect.options.length;
+        var index = (videoSelect.selectedIndex + 1) % items;
+        videoSelect.value = videoSelect.options[index].value;
+        videoSelectChange();
+      });
+      prevCue.addEventListener('click', function() {
+        var items = cueSelect.options.length;
+        var index = (cueSelect.selectedIndex + items - 1) % items;
+        cueSelect.value = cueSelect.options[index].value;
+        cueSelectChange();
+      });
+      nextCue.addEventListener('click', function() {
+        var items = cueSelect.options.length;
+        var index = (cueSelect.selectedIndex + 1) % items;
+        cueSelect.value = cueSelect.options[index].value;
+        cueSelectChange();
+      });
+
       var index = 0;
       if (document.location.hash) {
         var videoId = document.location.hash.substr(1).split('/')[0];
@@ -374,6 +412,7 @@ var init = (function() {
       } else {
         console.log('Starting with video ' + videoId);
         videoSelect.value = index;
+        cueSelect.selectedIndex = 0;
         return videoSelectChange();
       }
     }

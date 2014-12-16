@@ -28,6 +28,28 @@ h2 {
   clear: both;
 }
 
+nav {
+  text-align: center;
+  background: none;
+  color: transparent;
+  width: 22em;
+  height: 5em;
+  position: absolute;
+  top: 5em;
+  left: 8px;
+  z-index: 1000;
+}
+
+nav:hover {
+  background: rgba(10,10,10,0.5);
+  color: black;
+}
+
+nav > a:hover {
+  text-shadow: white .5px .5px 5px;
+  cursor: pointer;
+}
+
 iframe {
   overflow-y: auto;
   overflow-x: hidden;
