@@ -1,3 +1,4 @@
+process.env.PWD = process.cwd();
 'use strict';
 
 var express = require('express');
@@ -5,7 +6,6 @@ var app = express();
 var http = require('http');
 var server = http.createServer(app);
 
-process.env.PWD = process.cwd();
 app.use('/webcomponentsjs', express.static(process.env.PWD + '/webcomponentsjs'));
 app.use('/webvtt-parser', express.static(process.env.PWD + '/webvtt-parser'));
 app.use('/polymer-ldf-client', express.static(process.env.PWD + '/polymer-ldf-client'));
@@ -17,6 +17,8 @@ app.use('/spectacle-en-lignes', express.static(process.env.PWD + '/spectacle-en-
 app.use('/', express.static(process.env.PWD + '/spectacle-en-lignes'));
 
 // start the server
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
+console.log(process.env.PWD);
+console.log(__dirname);
 console.log('Polymer-Hypervideo running on ' + port);
 server.listen(port);
