@@ -9,6 +9,8 @@
 \setlength{\pdfpagewidth}{8.5in}
 \setlength{\pdfpageheight}{11in}
 
+\interfootnotelinepenalty=10000
+
 \usepackage[utf8]{inputenc}
 \usepackage{mathptmx} % Times in math, too
 \usepackage[T1]{fontenc}
@@ -129,14 +131,14 @@ redistribution, and evaluation of its usefulness.
 According to a~study~\cite{laframboise2012naturaldisasters}
 % RV: Do we need acronyms for terms we don't reuse?
 published by the \emph{International Monetary Fund} (IMF),
-about 700~natural disasters were registered worldwide between 2010 and 2012,
+about 700~disasters were registered worldwide between 2010 and 2012,
 affecting more than 450~million people.
 According to the study, ``[d]amages have risen
 from an estimated US\$20 billion on average per year
 in the 1990s to about US\$100 billion per year during 2000--10.''
 The authors expect this upward trend to continue
 ``as a~result of the rising concentration of people
-living in areas more exposed to natural disasters,
+living in areas more exposed to disasters,
 and climate change.''
 In consequence, disaster monitoring will
 become more and more crucial in the future.
@@ -155,7 +157,7 @@ and information in a~single place.
 The \emph{United Nations Office for the Coordination of Humanitarian Affairs}
 (OCHA)\footnote{OCHA: \url{http://www.unocha.org/}}
 is a~United Nations (UN) body formed to strengthen the UN's response
-to complex emergencies and natural disasters.
+to complex emergencies and disasters.
 The \emph{Global Disaster Alert and Coordination System}
 (GDACS)\footnote{GDACS: \url{http://www.gdacs.org/}}
 is ``a~cooperation framework between the United Nations,
@@ -172,7 +174,7 @@ Google\footnote{Google Crisis Response:\\\null\hspace{2em}
 have dedicated crisis response teams that work on
 making critical emergency information accessible in times of disaster.
 As can be seen from the (incomprehensive) list above,
-natural disaster detection and response is a~problem
+disaster detection and response is a~problem
 tackled on national, international, and global levels;
 both from the public and private sectors.
 
@@ -181,7 +183,7 @@ both from the public and private sectors.
 In this paper, we present the first results of
 our ongoing early-stage research
 on a~realtime comprehensive Wikipedia-based monitoring system
-for the detection of natural disasters around the globe.
+for the detection of disasters around the globe.
 This system is \emph{language-agnostic} and leverages
 \emph{multimedia content} shared on online social networking sites,
 striving to help disaster responders prioritize their efforts.
@@ -194,10 +196,10 @@ For the present and further extended work, we are steered by the following hypot
 
 \begin{description}
   \itemsep0em
-  \item[$\mathbb{H}1$] Content about natural disasters
+  \item[$\mathbb{H}1$] Content about disasters
     gets added very fast to Wikipedia and online social networking sites
     by people in the neighborhood of the event.
-  \item[$\mathbb{H}2$] Natural disasters being geographically
+  \item[$\mathbb{H}2$] Disasters being geographically
     constrained, textual and multimedia content about them
     on Wikipedia and social networking sites
     appear first in local language,
@@ -205,7 +207,7 @@ For the present and further extended work, we are steered by the following hypot
 % RV: That one sounds (too?) mysterious.
   \item[$\mathbb{H}3$] Link structure dynamics of Wikipedia
     provide for a~meaningful way to detect future
-    natural disasters, \emph{i.e.}, disasters unknown at system creation time.
+    disasters, \emph{i.e.}, disasters unknown at system creation time.
 \end{description}
 
 \noindent These hypotheses lead us to the following research questions
@@ -215,10 +217,10 @@ that we strive to answer in the near future.
   \itemsep0em
   \item[$\mathbb{Q}1$] How timely and accurate is content from Wikipedia
     and online social networking sites
-    for the purpose of natural disaster detection,
+    for the purpose of disaster detection and ongoing monitoring,
     compared to content from authoritative and government sources?
   \item[$\mathbb{Q}2$] To what extent can the disambiguated nature of Wikipedia
-    (things identified by URIs) improve on keyword-based natural disaster detection approaches,
+    (things identified by URIs) improve on keyword-based disaster detection approaches,
     \emph{e.g.}, via online social network sites or search logs?
   \item[$\mathbb{Q}3$] How much noise is introduced by full-text searches
     (which are not based on disambiguated URIs)
@@ -247,7 +249,7 @@ and people continue to search and access information online
 even while traffic and search levels drop temporarily
 during and immediately following the crises.''
 In the following, we provide a~non-exhaustive list of related work
-on digitally crowdsourced natural disaster detection and response.
+on digitally crowdsourced disaster detection and response.
 \citet{sakaki2010earthquake} consider each user
 of the online social networking (OSN) site
 Twitter\footnote{Twitter: \url{https://twitter.com/}} a~sensor
@@ -260,12 +262,12 @@ for the purpose of earthquake detection in Japan.
 how crowdsourced geodata from Wikipedia and
 Wikimapia,\footnote{Wikimapia: \url{http://wikimapia.org/}}
 ``a~multilingual open-content collaborative map'',
-can help complete authoritative data about natural disasters.
+can help complete authoritative data about disasters.
 \citet{abel2012twitcident} describe
 a~crisis monitoring system that extracts relevant content
 about known disasters from Twitter.
 \citet{liu2008search} examine
-common patterns and norms of natural disaster coverage
+common patterns and norms of disaster coverage
 on the photo sharing site Flickr.%
 \footnote{Flickr: \url{https://www.flickr.com/}}
 \citet{ortmann2011disaster} propose
@@ -283,7 +285,7 @@ and auto-generates related multimedia galleries
 based on content from various OSN sites
 and Wikimedia Commons.\footnote{Wikimedia Commons: \url{https://commons.wikimedia.org/}}
 Finally, \citet{lin2012churn} examine realtime search query churn on Twitter,
-including in the context of natural disasters.
+including in the context of disasters.
 
 \subsection{The \emph{Common Alerting Protocol}}
 To facilitate collaboration, a~common protocol is essential.
@@ -426,9 +428,11 @@ with these characteristics:
   in other languages, \emph{e.g.}, the article ``Natural disaster''
   on the English Wikipedia
   (\url{http://en.wikipedia.org/wiki/Natural_disaster})
-  links to 74~versions of this article in other languages.%
+  links to 74~versions of this article in different languages.%
   \footnote{Article language links:
   \url{http://en.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=max&titles=Natural_disaster}}
+  We note that there exist similarities and differences among Wikipedias
+  with ``salient information'' that is unique to each language as well as more widely shared facts~\cite{bao2012omnipedia}.
   \item Each article can have redirects, \emph{i.e.}, alternative URLs
   that point to the article.
   For the English ``Natural disaster'' article, there are eight redirects,%
@@ -457,47 +461,47 @@ and at the same time receives links from (inbound links).
 Starting with the well-curated English seed article ``Natural disaster'',
 we programmatically follow each of the therein contained links of type ``Main article:'',
 which leads to an exhaustive list of English articles
-of concrete types of natural disasters,
+of concrete types of disasters,
 \emph{e.g.}, ``Tsunami'' (\url{http://en.wikipedia.org/wiki/Tsunami}),
 ``Flood'' (\url{http://en.wikipedia.org/wiki/Flood}),
 ``Earthquake'' (\url{http://en.wikipedia.org/wiki/Earthquake}),
 \emph{etc.} In total, we obtain links to 20~English articles
-about different types of natural disasters.%
+about different types of disasters.%
 \footnote{``Avalanche'', ``Blizzard'', ``Cyclone'', ``Drought'', ``Earthquake'',
 ``Epidemic'', ``Extratropical cyclone'', ``Flood'', ``Gamma-ray burst'', ``Hail'',
 ``Heat wave'', ``Impact event'', ``Limnic eruption'', ``Meteorological disaster'',
 ``Solar flare'', ``Tornado'', ``Tropical cyclone'', ``Tsunami'',
 ``Volcanic eruption'', ``Wildfire''}
-For each of these English natural disasters articles,
+For each of these English disasters articles,
 we obtain all versions of each article in different languages
 [step \emph{(i)} above],
 and of the resulting list of international articles
 in turn all their redirect URLs [step \emph{(ii)} above].
 The intermediate result is a~complete list of all (currently~1,270) articles
 in all Wikipedia languages and all their redirects
-that have any type of natural disaster as their subject.
-We call this list the ``natural disasters list''
+that have any type of disaster as their subject.
+We call this list the ``disasters list''
 and make it publicly available in different formats
 (\texttt{.txt}, \texttt{.tsv}, and \texttt{.json}), where the JSON version
 is the most flexible and recommended one.%
-\footnote{``Natural disasters list'':
-\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/natural-disasters-list.json}}
+\footnote{``Disasters list'':
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/disasters-list.json}}
 Finally, we obtain for each of the 1,270~articles
-in the ``natural disasters list''
+in the ``disasters list''
 all their back links, \emph{i.e.}, their inbound links
 [step \emph{(iii)} above], which serves to detect
-instances of natural disasters unknown at system creation time.
+instances of disasters unknown at system creation time.
 For example, the article ``Typhoon Rammasun (2014)''
 (\url{http://en.wikipedia.org/wiki/Typhoon_Rammasun_(2014)})---%
-which, as a~concrete \emph{instance of} a~natural disaster
+which, as a~concrete \emph{instance of} a~disaster
 of type tropical cyclone, is \emph{not} contained in our
-``natural disasters list''---links back to ``Tropical cyclone''
+``disasters list''---links back to ``Tropical cyclone''
 (\url{http://en.wikipedia.org/wiki/Tropical_cyclone}),
 so we can identify ``Typhoon Rammasun (2014)'' as \emph{related to}
 tropical cyclones (but not necessarily \emph{identify as} a~tropical cyclone),
 even if at the system's creation time the typhoon did not exist yet.
 Analog to the inbound links, we obtain all
-outbound links of all articles in the ``natural disasters list'',
+outbound links of all articles in the ``disasters list'',
 \emph{e.g.}, ``Tropical cyclone'' has an outbound link to
 ``2014 Pacific typhoon season''
 (\url{http://en.wikipedia.org/wiki/2014_Pacific_typhoon_season}),
@@ -509,17 +513,17 @@ The end result is a~large list called the ``monitoring list''
 of all articles in all Wikipedia languages
 that are somehow---via a~redirect, inbound, or outbound link (or resulting mutual link)---%
 related to any of the articles
-in the ``natural disasters list''.
+in the ``disasters list''.
 We make a snapshot of this dynamic ``monitoring list'' available for reference,%
 \footnote{``Monitoring list'':
-\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/monitoring-list.json}}
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-disaster-detection/data/monitoring-list.json}}
 but note that it will be out-of-date soon and should be regenerated
 on a~regular basis.
 The current version holds 141,001 different articles.
 
 \begin{figure*}[hbt]
   \centering
-  \includegraphics[width=0.78\linewidth]{link-structure}
+  \includegraphics[width=0.75\linewidth]{link-structure}
   \caption{Extracted Wikipedia link structure (tiny excerpt) starting from the seed article ``Natural disaster''}
   \label{fig:link-structure}
 \end{figure*}
@@ -537,11 +541,11 @@ on our ``monitoring list''.
 We keep track of the historic one-day-window editing activity
 for each article on the ``monitoring list'' including their versions in other languages,
 and, upon a~sudden spike of editing activity,
-trigger an alert about a~potential new instance of a~natural disaster type
+trigger an alert about a~potential new instance of a~disaster type
 that the spiking article is an inbound or outbound link of (or both).
 To illustrate this, if, \emph{e.g.}, the German article
 ``Pazifische Taifunsaison 2014'' including all of its language links is spiking,
-we can infer that this is related to a~natural disaster
+we can infer that this is related to a~disaster
 of type ``Tropical cyclone'' due to the detected
 mutual link structure mentioned earlier (Figure~\ref{fig:link-structure}).
 
@@ -601,7 +605,9 @@ We have ported crucial parts
 of the code of \emph{Social Media Illustrator}
 from the client-side to the server-side,
 enabling us now to create media galleries at scale and on demand,
-based on the titles of spiking Wikipedia articles.
+based on the titles of spiking Wikipedia articles
+that are used as separate search terms for each language.
+The social media content therefore does not have to link to Wikipedia.
 One exemplary media gallery can be seen in Figure~\ref{fig:screenshot},
 each individual media item in the gallery is clickable
 and links back to the original post
@@ -612,11 +618,11 @@ and potentially get in contact with the originator.
 
 \begin{figure}[b!]
   \centering
-  \includegraphics[width=1\linewidth]{natural-disaster-monitor}
-  \caption{Screenshot of the \emph{Natural Disaster Monitor} application
+  \includegraphics[width=0.98\linewidth]{natural-disaster-monitor}
+  \caption{Screenshot of the \emph{Disaster Monitor} application
     prototype available at \url{http://disaster-monitor.herokuapp.com/}
-    showing detected past natural disasters on a~heatmap and a~media gallery for
-    a~currently spiking natural disaster around ``Hurricane Gonzalo''}
+    showing detected past disasters on a~heatmap and a~media gallery for
+    a~currently spiking disaster around ``Hurricane Gonzalo''}
   \label{fig:screenshot}
 \end{figure}
 
@@ -633,11 +639,15 @@ potentially relevant multimedia data from online social networking sites.
 Listing~\ref{listing:linkeddata} shows an early-stage proposal for doing so. 
 The alerts can be exposed as triple pattern fragments
 to enable live querying at low cost.
+This can also include push, pull, and streaming models,
+as Linked Data Fragments~\cite{verborgh2014ldfiswc} allow for all.
 A~further approach consists in converting CAP messages to
 Linked Data by transforming the CAP eXtensible Markup Language (XML) format
 to Resource Description Format (RDF) and publishing it.
 
 \begin{lstlisting}[caption={Exemplary Linked Data for \emph{Hurricane Gonzalo} using a~yet to-be-defined vocabulary
+  (potentially HXL \url{http://hxl.humanitarianresponse.info/ns/index.html} or MOAC
+  \url{http://observedchange.com/moac/ns/})
   that interlinks the disaster with several other Linked Data sources and relates it to
   multimedia content on online social networking sites},
   label=listing:linkeddata,language=xml,float=*t, stringstyle=\color{gray}]
@@ -693,11 +703,10 @@ The core source code of the monitoring loop
 can be seen in Section~\ref{listing:monitoring},
 a~screenshot of the application is shown in Figure~\ref{fig:screenshot}.
 
-\begin{lstlisting}[caption={Monitoring loop of the natural disaster monitor},
+\begin{lstlisting}[caption={Monitoring loop of the disaster monitor},
   label=listing:monitoring, language=JavaScript,
   float=b!, stringstyle=\color{gray},morekeywords={for,if,console,log,addEventListener,JSON,parse,stringify,forEach}]
-var init = function() {
-
+(function() {
   // fired whenever an edit event happens on any Wikipedia
   var parseWikipediaEdit = function(data) {
     var article = data.language + ':' + data.article;
@@ -707,8 +716,7 @@ var init = function() {
       showCandidateArticle(data.article, data.language, disasterObj);
     }
   };
-  
-
+ 
   // fired whenever an article is on the monitoring list
   var showCandidateArticle = function(article, language, roles) {
     getGeoData(article, language, function(err, geoData) {
@@ -724,12 +732,9 @@ var init = function() {
     });
   };  
 
-
   getMonitoringList(seedArticle, function(err, data) {
     // get the initial monitoring list
-    if (err) {
-      return console.log('Error initializing the app.');
-    }
+    if (err) return console.log('Error initializing the app.');
     monitoringList = data;
     console.log('Monitoring ' + Object.keys(monitoringList).length
                 + ' candidate Wikipedia articles.');
@@ -743,17 +748,14 @@ var init = function() {
     // auto-refresh monitoring list every hour
     setInterval(function() {
       getMonitoringList(seedArticle, function(err, data) {
-        if (err) {
-          return console.log('Error refreshing monitoring list.');
-        }
+        if (err) return console.log('Error refreshing monitoring list.');
         monitoringList = data;
         console.log('Monitoring ' + Object.keys(monitoringList).length +
             ' candidate Wikipedia articles.');
       });
     }, 1000 * 60 * 60);
   });
-};
-init();
+})();
 \end{lstlisting}
 
 \section{Proposed Steps Toward an Evaluation}
@@ -761,14 +763,14 @@ init();
 
 We recall our core research questions that were
 $\mathbb{Q}1$ \emph{How timely and accurate for the purpose
-of natural disaster detection is content from Wikipedia
+of disaster detection and ongoing monitoring is content from Wikipedia,
 compared to authoritative sources mentioned above?} and
 $\mathbb{Q}2$ \emph{Does the disambiguated nature of Wikipedia
-surpass keyword-based natural disaster detection approaches,
+surpass keyword-based disaster detection approaches,
 \emph{e.g.}, via online social networking sites or search logs?}
 Regarding $\mathbb{Q}1$, only a~manual comparison
 covering several months worth
-of natural disaster data of the relevant authoritative data sources
+of disaster data of the relevant authoritative data sources
 mentioned in Section~\ref{sec:natural-disaster-detection}
 with the output of our system can help respond to the question.
 Regarding $\mathbb{Q}2$, we propose an evaluation strategy
@@ -804,12 +806,12 @@ the search term's language, \emph{e.g.}, English, as in ``Typhoon Rammasun''.
 \label{sec:Conclusion}
 
 In this paper, we have presented the first steps of our ongoing research
-on the creation of a~Wikipedia-based natural disaster monitoring system.
+on the creation of a~Wikipedia-based disaster monitoring system.
 In particular, we finished its underlying code scaffolding
 and connected the system to several online social networking sites
 allowing for the automatic generation of media galleries.
 Further, we propose to publish data about detected
-and monitored natural disasters as live queryable Linked Data,
+and monitored disasters as live queryable Linked Data,
 which can be made accessible in a~scalable and \emph{ad hoc} manner
 using triple pattern fragments~\cite{verborgh2014ldfiswc}
 by leveraging free cloud hosting offers~\cite{DBLP:conf/semweb/MatteisV14}.
@@ -817,8 +819,8 @@ While the system itself already functions, a~good chunk of work still lies ahead
 with the fine-tuning of its parameters.
 A~first examples are the exponential smoothing parameters
 of the revision intervals, responsible for determining whether an article
-is spiking, and thus a~potential new natural disaster, or not.
-A~second example is the role that natural disasters play with articles:
+is spiking, and thus a~potential new disaster, or not.
+A~second example is the role that disasters play with articles:
 they can be inbound, outbound, or mutual links,
 and their importance for actual occurrences of disasters will vary.
 Future work will mainly focus on finding answers to our research questions
@@ -827,15 +829,19 @@ $\mathbb{H}1$--$\mathbb{H}3$.
 We will focus on the evaluation of the system's usefulness, accuracy,
 and timeliness in comparison to other keyword-based approaches.
 An interesting aspect of our work is that the monitoring system
-is not limited to natural disasters.
+is not limited to disasters.
 Using an analogous approach, we can monitor for human-made disasters
 (called ``Anthropogenic hazard'' on Wikipedia)
 like terrorism, war, power outages, air disasters, \emph{etc.}
 We have created an exemplary ``monitoring list'' and made it available.%
 \footnote{Anthropogenic hazard ``monitoring list'':
-\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-natural-disaster-detection/data/monitoring-list-anthropogenic-hazard.json}}
+\url{https://github.com/tomayac/postdoc/blob/master/papers/comprehensive-wikipedia-monitoring-for-global-and-realtime-disaster-detection/data/monitoring-list-anthropogenic-hazard.json}}
+
 Concluding, we are excited about this research
-and look forward to putting the final system into operational practice.
+and look forward to putting the final system into operational practice
+in the weeks and months to come.
+Be safe!
+
 
 \bibliographystyle{aaai}
 \bibliography{references}
