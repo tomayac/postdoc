@@ -1,27 +1,26 @@
-var CORS_PROXY = document.location.hostname === 'localhost' ?
-    document.location.origin + '/cors/' : '';
-
-var LDF_START_FRAGMENT = 'http://spectacleenlignes.fr/ldf/spectacle_en_lignes';
-
-var ID_LOOKUP_LDF_QUERY =
-    'PREFIX cl: <http://advene.org/ns/cinelab/>\n' +
-    'SELECT ?s WHERE {\n' +
-      '?s cl:id-ref "{{id}}" .\n' +
-    '}';
-
-var ANNOTATIONS_LDF_QUERY =
-    'PREFIX cl: <http://advene.org/ns/cinelab/ld#>\n' +
-    'PREFIX ma: <http://www.w3.org/ns/ma-ont#>\n' +
-    'SELECT * WHERE {\n' +
-      '<{{url}}#{{title}}> ' +
-          'cl:represents ?video .\n' +
-      '?video ma:hasFragment ?frag .\n' +
-      '?a cl:hasFragment ?frag ;\n' +
-        'cl:hasContent [ cl:mimetype ?ctype ; cl:data ?cdata ]\n' +
-    '}';
-
 var createHypervideo = function(video, id, transcript) {
-  var onHypervideoCueChange;
+  'use strict';
+
+  var LDF_START_FRAGMENT =
+      'http://spectacleenlignes.fr/ldf/spectacle_en_lignes';
+
+  var ID_LOOKUP_LDF_QUERY =
+      'PREFIX cl: <http://advene.org/ns/cinelab/>\n' +
+      'SELECT ?s WHERE {\n' +
+        '?s cl:id-ref "{{id}}" .\n' +
+      '}';
+
+  var ANNOTATIONS_LDF_QUERY =
+      'PREFIX cl: <http://advene.org/ns/cinelab/ld#>\n' +
+      'PREFIX ma: <http://www.w3.org/ns/ma-ont#>\n' +
+      'SELECT * WHERE {\n' +
+        '<{{url}}#{{title}}> ' +
+            'cl:represents ?video .\n' +
+        '?video ma:hasFragment ?frag .\n' +
+        '?a cl:hasFragment ?frag ;\n' +
+          'cl:hasContent [ cl:mimetype ?ctype ; cl:data ?cdata ]\n' +
+      '}';
+
   var container = document.querySelector('#container');
   try {
     var oldVideos = container.querySelector('polymer-hypervideo').shadowRoot
@@ -101,7 +100,8 @@ var createHypervideo = function(video, id, transcript) {
     container.appendChild(ldfClient);
     ldfClient.addEventListener('ldf-query-streaming-response-partial',
         function(e) {
-      console.log('Received event (ldf-client): ldf-query-streaming-response-partial');
+      console.log('Received event (ldf-client): ldf-query-streaming-response-' +
+          'partial');
       var data = JSON.parse(e.detail.response);
       try {
         if (data['?s']) {
@@ -130,8 +130,9 @@ var createHypervideo = function(video, id, transcript) {
         throw('Could not parse response: ' + e);
       }
     });
-    ldfClient.addEventListener('ldf-query-streaming-response-end', function(e) {
-      console.log('Received event (ldf-client): ldf-query-streaming-response-end');
+    ldfClient.addEventListener('ldf-query-streaming-response-end', function() {
+      console.log('Received event (ldf-client): ldf-query-streaming-response-' +
+          'end');
     });
     ldfClient.executeQuery();
 
@@ -141,16 +142,14 @@ var createHypervideo = function(video, id, transcript) {
     timeline.setAttribute('height', 150);
     hypervideo.appendChild(timeline);
 
-    var subtitles = document.createElement('polymer-track-subtitles');
-    var textTrackFile = createTextTrack(transcriptHtml, lines);
-    subtitles.setAttribute('src', textTrackFile);
-    subtitles.setAttribute('displaysubtitlesgroup', true);
-    subtitles.setAttribute('width', 800);
-    hypervideo.appendChild(subtitles);
+    hypervideo.appendChild(document.createElement('br'));
 
     var iframe = document.createElement('iframe');
     iframe.style.width = '800px';
-    iframe.style.height = '300px';
+    iframe.style.height = '616px';
+    iframe.style.position = 'absolute';
+    iframe.style.left = '816px';
+    iframe.style.top = '-16px';
     iframe.addEventListener('load', function() {
       var contentDocument = iframe.contentDocument;
       var tmpDiv = contentDocument.createElement('div');
@@ -166,10 +165,13 @@ var createHypervideo = function(video, id, transcript) {
           textLine.style.backgroundColor = 'yellow';
         }
       }
+      var timeout;
       // Highlight the currently active line
       document.addEventListener('hypervideocuechange', function(e) {
         console.log('Received event (document): hypervideocuechange');
         var cues = e.detail.activeCues;
+        var cueSelect = document.querySelector('#cueSelect');
+        var sceneSelect = document.querySelector('#sceneSelect');
         var textLines = contentDocument.querySelectorAll('p[id]');
         for (var i = 0, lenI = textLines.length; i < lenI; i++) {
           var textLine = textLines[i];
@@ -184,17 +186,28 @@ var createHypervideo = function(video, id, transcript) {
               iframe.contentWindow.scrollTo(0, textLine.offsetTop - 20);
               textLine.style.color = 'red';
             }
+            var value = cue.text + '—' + cue.startTime + '—' + id;
+            cueSelect.value = value;
+            sceneSelect.value = value;
           }
         }
       });
     });
     hypervideo.appendChild(iframe);
 
+    var subtitles = document.createElement('polymer-track-subtitles');
+    var textTrackFile = createTextTrack(transcriptHtml, lines);
+    subtitles.setAttribute('src', textTrackFile);
+    subtitles.setAttribute('displaysubtitlesgroup', false);
+    subtitles.style.display = 'none';
+    hypervideo.appendChild(subtitles);
+
     var chapters = document.createElement('polymer-track-chapters');
     chapters.setAttribute('src', video + '.vtt');
-    chapters.setAttribute('displaychaptersthumbnails', true);
+    chapters.setAttribute('displaychaptersthumbnails', false);
     chapters.setAttribute('width', 800);
     hypervideo.appendChild(chapters);
+
     container.appendChild(fragment);
   };
 
@@ -208,7 +221,7 @@ var createHypervideo = function(video, id, transcript) {
     xhr.send();
   };
 
-  var start = (function() {
+  (function() {
     async.parallel({
       transcriptHtml: getTranscriptHtml
     }, function(err, results) {
@@ -247,9 +260,11 @@ var createHypervideo = function(video, id, transcript) {
 };
 
 
-var init = (function() {
+(function() {
+  'use strict';
   var videoSelect = document.querySelector('#videoSelect');
   var cueSelect = document.querySelector('#cueSelect');
+  var sceneSelect = document.querySelector('#sceneSelect');
 
   var videoSelectChange = function() {
     if (videoSelect.selectedIndex < 0) {
@@ -270,7 +285,6 @@ var init = (function() {
   videoSelect.addEventListener('change', videoSelectChange);
 
   var cueSelectChange = function() {
-    console.log(cueSelect.selectedIndex)
     if (cueSelect.selectedIndex < 0) {
       cueSelect.selectedIndex = 0;
     }
@@ -283,7 +297,7 @@ var init = (function() {
     videoSelectChange();
     history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + video + '/' +
         cue);
-    document.addEventListener('allstillframesreceived', function() {
+    document.addEventListener('ldf-query-streaming-response-end', function() {
       var event = new CustomEvent('currenttimeupdate', { detail: {
         currentTime: start
       }});
@@ -291,6 +305,29 @@ var init = (function() {
     });
   };
   cueSelect.addEventListener('change', cueSelectChange);
+
+  var sceneSelectChange = function() {
+    if (sceneSelect.selectedIndex < 0) {
+      sceneSelect.selectedIndex = 0;
+    }
+    var value = sceneSelect.options[sceneSelect.selectedIndex].value;
+    var cue = value.split('—')[0];
+    var start = value.split('—')[1];
+    var video = value.split('—')[2];
+    var title = video.replace(/-/g, ' ').replace(/_(.*?)$/, ' ($1)');
+    videoSelect.value = videoLookUp[video].index;
+    videoSelectChange();
+    history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + video + '/' +
+        cue);
+    document.addEventListener('ldf-query-streaming-response-end', function() {
+      var event = new CustomEvent('currenttimeupdate', { detail: {
+        currentTime: start
+      }});
+      document.dispatchEvent(event);
+    });
+
+  };
+  sceneSelect.addEventListener('change', sceneSelectChange);
 
   var functions = {};
   var videoLookUp = {};
@@ -348,7 +385,7 @@ var init = (function() {
   });
   async.parallel(
     functions,
-    function(err, results) {
+    function() {
       for (var cue in cueLookUp) {
         var optgroup = document.createElement('optgroup');
         optgroup.label = cue;
@@ -357,45 +394,59 @@ var init = (function() {
           var option = document.createElement('option');
           option.textContent = cue + ': ' + video.id.replace(/-/g, ' ')
               .replace(/_(.*?)$/, ' ($1)');
-              option.value = cue + '—' + video.start + '—' + video.id;
+          option.value = cue + '—' + video.start + '—' + video.id;
           optgroup.appendChild(option);
         });
       }
 
-      var prevVideo = document.querySelector('#prevVideo');
-      var nextVideo = document.querySelector('#nextVideo');
+      for (var vid in videoLookUp) {
+        var optgroup = document.createElement('optgroup');
+        optgroup.label = vid.replace(/-/g, ' ').replace(/_(.*?)$/, ' ($1)');
+        sceneSelect.appendChild(optgroup);
+        videoLookUp[vid].cues.forEach(function(cue) {
+          var option = document.createElement('option');
+          option.textContent = cue.cue;
+          option.value = cue.cue + '—' + cue.start + '—' + vid;
+          optgroup.appendChild(option);
+        });
+      }
+
+      var prevIteration = document.querySelector('#prevIteration');
+      var nextIteration = document.querySelector('#nextIteration');
       var prevCue = document.querySelector('#prevCue');
       var nextCue = document.querySelector('#nextCue');
 
-      prevVideo.addEventListener('click', function() {
-        var items = videoSelect.options.length;
-        var index = (videoSelect.selectedIndex + items - 1) % items;
-        videoSelect.value = videoSelect.options[index].value;
-        videoSelectChange();
+      prevIteration.addEventListener('click', function() {
+        if (cueSelect.selectedIndex > 0) {
+          cueSelect.selectedIndex--;
+          cueSelectChange();
+        }
       });
-      nextVideo.addEventListener('click', function() {
-        var items = videoSelect.options.length;
-        var index = (videoSelect.selectedIndex + 1) % items;
-        videoSelect.value = videoSelect.options[index].value;
-        videoSelectChange();
+      nextIteration.addEventListener('click', function() {
+        if (cueSelect.selectedIndex < cueSelect.length) {
+          cueSelect.selectedIndex++;
+          cueSelectChange();
+        }
       });
       prevCue.addEventListener('click', function() {
-        var items = cueSelect.options.length;
-        var index = (cueSelect.selectedIndex + items - 1) % items;
-        cueSelect.value = cueSelect.options[index].value;
-        cueSelectChange();
+        if (sceneSelect.selectedIndex > 0) {
+          sceneSelect.selectedIndex--;
+          sceneSelectChange();
+        }
       });
       nextCue.addEventListener('click', function() {
-        var items = cueSelect.options.length;
-        var index = (cueSelect.selectedIndex + 1) % items;
-        cueSelect.value = cueSelect.options[index].value;
-        cueSelectChange();
+        if (sceneSelect.selectedIndex < sceneSelect.length) {
+          sceneSelect.selectedIndex++;
+          sceneSelectChange();
+        }
       });
 
       var index = 0;
+      var videoId = false;
+      var cueId = false;
       if (document.location.hash) {
-        var videoId = document.location.hash.substr(1).split('/')[0];
-        var cueId = document.location.hash.substr(1).split('/')[1] || '';
+        videoId = document.location.hash.substr(1).split('/')[0];
+        cueId = document.location.hash.substr(1).split('/')[1] || '';
         index = videoLookUp[videoId].index;
       }
       if (cueId) {
@@ -408,7 +459,7 @@ var init = (function() {
           }
         }
         cueSelect.value = cueId + '—' + video.start + '—' + video.id;
-            return cueSelectChange();
+        return cueSelectChange();
       } else {
         console.log('Starting with video ' + videoId);
         videoSelect.value = index;
