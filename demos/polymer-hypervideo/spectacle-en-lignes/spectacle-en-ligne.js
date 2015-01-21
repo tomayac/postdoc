@@ -165,7 +165,6 @@ var createHypervideo = function(video, id, transcript) {
           textLine.style.backgroundColor = 'yellow';
         }
       }
-      var timeout;
       // Highlight the currently active line
       document.addEventListener('hypervideocuechange', function(e) {
         console.log('Received event (document): hypervideocuechange');
@@ -266,6 +265,11 @@ var createHypervideo = function(video, id, transcript) {
   var cueSelect = document.querySelector('#cueSelect');
   var sceneSelect = document.querySelector('#sceneSelect');
 
+  var index = 0;
+  var video = false;
+  var videoId = false;
+  var cueId = false;
+
   var videoSelectChange = function() {
     if (videoSelect.selectedIndex < 0) {
       videoSelect.selectedIndex = 0;
@@ -274,13 +278,13 @@ var createHypervideo = function(video, id, transcript) {
     if (!cueId) {
       cueSelect.selectedIndex = 0;
     }
-    var index = videoSelect.options[videoSelect.selectedIndex].value || 0;
-    var video = VIDEO_DATA[index].video;
-    var id = VIDEO_DATA[index].id;
+    index = videoSelect.options[videoSelect.selectedIndex].value || 0;
+    video = VIDEO_DATA[index].video;
+    videoId = VIDEO_DATA[index].id;
     var transcript = 'http://spectacleenlignes.fr/plateforme/ctb';
-    var title = id.replace(/-/g, ' ').replace(/_(.*?)$/, ' ($1)');
-    history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + id);
-    return createHypervideo(video, id, transcript);
+    var title = videoId.replace(/-/g, ' ').replace(/_(.*?)$/, ' ($1)');
+    history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + videoId);
+    return createHypervideo(video, videoId, transcript);
   };
   videoSelect.addEventListener('change', videoSelectChange);
 
@@ -315,17 +319,27 @@ var createHypervideo = function(video, id, transcript) {
     var start = value.split('—')[1];
     var video = value.split('—')[2];
     var title = video.replace(/-/g, ' ').replace(/_(.*?)$/, ' ($1)');
-    videoSelect.value = videoLookUp[video].index;
-    videoSelectChange();
-    history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + video + '/' +
-        cue);
-    document.addEventListener('ldf-query-streaming-response-end', function() {
+    if (videoId !== video) {
+      // we navigate to a new video
+      videoSelect.value = videoLookUp[video].index;
+      videoSelectChange();
+      history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + video + '/' +
+          cue);
+      document.addEventListener('ldf-query-streaming-response-end', function() {
+        var event = new CustomEvent('currenttimeupdate', { detail: {
+          currentTime: start
+        }});
+        document.dispatchEvent(event);
+      });
+    } else {
+      // we stay on the same video
+      history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + video +
+          '/' + cue);
       var event = new CustomEvent('currenttimeupdate', { detail: {
         currentTime: start
       }});
       document.dispatchEvent(event);
-    });
-
+    }
   };
   sceneSelect.addEventListener('change', sceneSelectChange);
 
@@ -441,9 +455,6 @@ var createHypervideo = function(video, id, transcript) {
         }
       });
 
-      var index = 0;
-      var videoId = false;
-      var cueId = false;
       if (document.location.hash) {
         videoId = document.location.hash.substr(1).split('/')[0];
         cueId = document.location.hash.substr(1).split('/')[1] || '';
