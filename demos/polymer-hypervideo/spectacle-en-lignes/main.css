@@ -37,7 +37,7 @@ nav {
   top: 5em;
   left: 8px;
   z-index: 1000;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 nav:hover {
@@ -63,6 +63,10 @@ iframe {
 
 select {
   width: 400px;
+}
+
+polymer-data-annotation {
+  top: 20px !important;
 }
 
 polymer-hypervideo::shadow video::cue(v) { color: orange; }
