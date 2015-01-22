@@ -32,21 +32,21 @@ nav {
   text-align: center;
   background: none;
   color: transparent;
-  width: 22em;
-  height: 5em;
+  width: 800px;
   position: absolute;
   top: 5em;
   left: 8px;
   z-index: 1000;
+  font-size: 2em;
 }
 
 nav:hover {
-  background: rgba(10,10,10,0.5);
-  color: black;
+  background: rgba(10,10,10,0.75);
+  color: white;
 }
 
 nav > a:hover {
-  text-shadow: white .5px .5px 5px;
+  text-shadow: white .25px .25px 2.5px;
   cursor: pointer;
 }
 
@@ -66,6 +66,6 @@ select {
 }
 
 polymer-hypervideo::shadow video::cue(v) { color: orange; }
-polymer-hypervideo::shadow video::cue(v[voice="Brick"]) { color: blue; }
+polymer-hypervideo::shadow video::cue(v[voice="Brick"]) { color: white; }
 polymer-hypervideo::shadow video::cue(v[voice="Margaret"]) { color: red; }
 polymer-hypervideo::shadow video::cue(v[voice="Grand Maman"]) { color: yellow; }
