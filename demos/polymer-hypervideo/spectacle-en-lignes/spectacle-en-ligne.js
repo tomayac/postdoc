@@ -118,7 +118,7 @@ var createHypervideo = function(video, id, transcript) {
           var description = JSON.parse((data)['?cdata']
               .replace(/^"/, '').replace(/"$/, '')).description;
           if (!description) {
-            description = '(pas disponible)';
+            return;
           }
           var annotation = document.createElement('polymer-data-annotation');
           annotation.setAttribute('start', start);
