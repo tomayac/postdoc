@@ -5,6 +5,8 @@
 \usepackage{amssymb}
 \setcounter{tocdepth}{3}
 \usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \newcommand{\keywords}[1]{\par\addvspace\baselineskip
 \noindent\keywordname\enspace\ignorespaces#1}
@@ -107,25 +109,43 @@
 \maketitle
 
 \begin{abstract}
-For this paper, we have recorded all rehearsals of one theater and one opera production
+For this paper, in the context of the French research project Spectacle en Ligne(s),
+we have recorded the entire set of rehearsals of one theater and one opera production
 using state-of-the-art video equipment.
-The resulting raw video and audio tracks as well as manually generated meta annotation data
+The resulting raw video and audio tracks as well as manually generated annotation data
 were then processed in order to localize actors and detect their dialogues.
-Based on these pre-processing steps, we have built a~Web-based hypervideo application
+Based on these preprocessing steps, we have built a~Web-based hypervideo application
 that allows for navigation through performance time, performance space, and rehearsal time
-using modern Web technologies like the emerging Web Components standard and HTML5
-as well as CSS3 features.
+using modern HTML5 Web technologies like the emerging Web Components standard.
+We publish and consume the annotation data as so-called Linked Data Fragments,
+a~novel way to make triple-based structured data available in a~scalable way. 
 As a direct outcome, researchers interested in the genetic analysis
-and the creation process of live performances can freely zoom in and out of scenes,
+and the creation process of live performances can, thanks to this application,
+freely zoom in and out of scenes,
 rehearsal sessions, and stage locations in order to better understand
 the different stages on the way to a~chef d'œuvre.
+A~live demo of the application is publicly available at the URL
+\url{http://spectacleenlignes.fr/hypervideo/}.
 
-\keywords{Hypervideo, Web Components, video analysis, audio analysis, theater, opera}
+\keywords{Hypervideo, Web Components, Linked Data Fragments, video analysis, audio analysis, theater, opera, rehearsal}
 \end{abstract}
 
 \section{Introduction}
 
-% https://docs.google.com/document/d/1hBjZx4f-d4B4kyQpu1u8MdochdEdPd3KUC8TYmiSB1w/edit#heading=h.k70zfx2zdxtn
+\subsection{Project Background}
+
+The objective of the Spectacle en Ligne(s) project is to create a~video corpus
+of live theater and opera rehearsals and to explore the uses of this archive for
+pedagogic, research and mediation purposes.
+The project is funded by the French National Agency of Research (ANR) as part of the project call
+\textit{``Corpus, data and research tools in human and social sciences''}.%
+\footnote{\textit{``Corpus, données et outils de la recherche en sciences humaines et sociales''}}
+Adopting an interdisciplinary approach, the project is structured around three complementary areas of research:
+\emph{(i)}~sociological research for the study of public and existing performance archives,
+\emph{(ii)}~technological research for the chained capturing and publishing of challenges of Open Access,
+\emph{(iii)}~mediation research of audiences for the design of new usage scenarios of the archive.
+
+\subsection{Hypervideo Background}
 
 The term \emph{hypervideo} is commonly used to refer to
 \textit{``a~displayed video stream that contains embedded user-clickable anchors''}%
@@ -323,24 +343,85 @@ document.addEventListener('hypervideotimeupdate', function(e) {
   \label{fig:screenshot}
 \end{figure}
 
-\section{Linked Data Considerations}
+\section{Linked Data and Linked Data Principles}
 
-The \emph{Frequently Asked Questions} section of the Polymer project states:
-``As Polymer makes use of polyfills, search engines treat Polymer-based
-applications no differently than they do other JavaScript-based Web apps.
-In fact, Google’s crawler understands JavaScript heavy applications.%
-\footnote{Google Web application understanding:
-\url{http://googlewebmastercentral.blogspot.com/2014/05/understanding-web-pages-better.html}}
-Going forward, it is a~reasonable assumption
-that as use of native Shadow DOM~\cite{glazkov2014shadowdom} increases,
-search engine providers will try to adapt to understand it,
-just as they have adapted to other new Web technologies in the past.''%
-\footnote{Polymer FAQ:
-\url{http://www.polymer-project.org/resources/faq.html}}
-In the longterm, this paths the way toward the semantic information
-introduced through Web Components mark-up
-not being lost by search engines and Linked Data crawlers,
-but being understood.
+Linked Data~\cite{bernerslee2006linkeddata} defines a~set of agreed-on
+best practices and principles for interconnecting and publishing structured data on the Web.
+It uses Web technologies like the Hypertext Transfer Protocol~\cite{fielding1999http}
+and Unique Resource Identifiers (URIs,~\cite{bernerslee2005uri})
+to create typed links between different sources.
+The portal \url{LinkedData.org} defines Linked Data as being
+``about using the Web to connect related data that wasn't previously linked,
+or using the Web to lower the barriers to linking data currently linked using other methods.''
+Tim Berners-Lee defined the four rules for Linked Data in a~W3C Design Issue as follows:
+
+\begin{enumerate}
+	\item Use URIs as names for things.
+	\item Use HTTP URIs so that people can look up those names.
+	\item When someone looks up a URI, provide useful information, using the standards (RDF, SPARQL).
+	\item IncludelinkstootherURIs,sothattheycandiscovermore things.
+\end{enumerate}
+
+Linked Data uses the Resource Description Framework (RDF,~\cite{klyne2004rdf})
+to create typed links between things in the world.
+The result is often-times referred to as the Web of Data.
+RDF encodes statements about things in the form of triples that take the form subject, predicate, object. 
+Heath and Bizer~\cite{bizer2009linkeddatastory} also speak of RDF links.
+
+\section{Linked Data Fragments}
+Various access mechanisms to Linked Data exist on the Web,
+each of which comes with its own trade-offs regarding query performance, freshness of data,
+and server cost/availability.
+To retrieve information about a specific subject, you can dereference its URL.
+SPARQL~\cite{prudhommeaux2008sparql} endpoints allow to execute complex queries on RDF data,
+but they are not always available.
+While endpoints are more convenient for clients, individual requests
+are considerably more expensive for servers.
+Alternatively, a data dump allows interested parties to query locally.
+
+Linked Data Fragments~\cite{verborgh2014ldf} provide a~uniform view
+on all such possible interfaces to Linked Data,
+by describing each specific type of interface by the kind of fragments through which
+it allows access to the dataset.
+Each fragment consists of the three following parts:
+
+\begin{description}
+	\item[data:] all triples of this dataset that match a specific selector;
+	\item[metadata:] triples that describe the dataset and/or the Linked Data Fragment;
+	\item[controls:] hypermedia links and/or forms that lead to other Linked Data Fragments.
+\end{description}
+
+This view allows to describe new interfaces with different trade-off combinations.
+One such interface is triple pattern fragments~\cite{verborgh2014triplepatterns},
+which enables users to host Linked Data on low-cost servers with higher availability
+than public SPARQL endpoints.
+Such a~light-weight mechanism is ideal to expose mid-size datasets on commodity hardware
+in a~scalable and ad hoc manner using triple pattern fragments.
+
+\begin{figure}
+        \centering
+        \begin{subfigure}[b]{\textwidth}
+                \includegraphics[width=\textwidth]{spel1}
+                \caption{Day~1, first lecture at the table,
+                	\url{http://spectacleenlignes.fr/hypervideo/\#lecture-a-la-table_4af0d0_a10/7-9}}
+                \label{fig:day1}
+        \end{subfigure}
+        
+        \begin{subfigure}[b]{\textwidth}
+                \includegraphics[width=\textwidth]{spel2}
+                \caption{Day~8, rehearsals of act~1,
+                	\url{http://spectacleenlignes.fr/hypervideo/\#travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_a54/7-9}}
+                \label{fig:day8}
+        \end{subfigure}
+        
+        \begin{subfigure}[b]{\textwidth}
+                \includegraphics[width=\textwidth]{spel3}
+                \caption{Day~40, technical mise en scène,
+                	\url{http://spectacleenlignes.fr/hypervideo/\#filage-technique-jour-40-deuxieme-partie_58b2a6_SON_GRESILLE_a1/7-9}}
+                \label{fig:day40}
+        \end{subfigure}
+        \caption{Evolution of act~1, cue 7.9 of T. Williams' \emph{Chatte Sur Un Toit Brulant}}\label{fig:animals}
+\end{figure}
 
 \section{Conclusions and Future Work}
 
