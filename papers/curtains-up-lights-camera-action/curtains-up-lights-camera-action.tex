@@ -109,11 +109,11 @@
 \maketitle
 
 \begin{abstract}
-For this paper, in the context of the French research project Spectacle en Ligne(s),
+For this paper, in the context of the French research project \emph{Spectacle en Ligne(s)},
 we have recorded the entire set of rehearsals of one theater and one opera production
 using state-of-the-art video equipment.
 The resulting raw video and audio tracks as well as manually generated annotation data
-were then processed in order to localize actors and detect their dialogues.
+were then preprocessed in order to localize actors and detect their dialogues.
 Based on these preprocessing steps, we have built a~Web-based hypervideo application
 that allows for navigation through performance time, performance space, and rehearsal time
 using modern HTML5 Web technologies like the emerging Web Components standard.
@@ -123,7 +123,7 @@ As a direct outcome, researchers interested in the genetic analysis
 and the creation process of live performances can, thanks to this application,
 freely zoom in and out of scenes,
 rehearsal sessions, and stage locations in order to better understand
-the different stages on the way to a~chef d'œuvre.
+the different steps on the way to a~chef d'œuvre.
 A~live demo of the application is publicly available at the URL
 \url{http://spectacleenlignes.fr/hypervideo/}.
 
@@ -134,16 +134,18 @@ A~live demo of the application is publicly available at the URL
 
 \subsection{Project Background}
 
-The objective of the Spectacle en Ligne(s) project is to create a~video corpus
+The objective of the \emph{Spectacle en Ligne(s)}%
+\footnote{Project website: \url{http://spectacleenlignes.fr/}} project is to create a~video corpus
 of live theater and opera rehearsals and to explore the uses of this archive for
-pedagogic, research and mediation purposes.
+pedagogic, research, and mediation purposes.
 The project is funded by the French National Agency of Research (ANR) as part of the project call
 \textit{``Corpus, data and research tools in human and social sciences''}.%
-\footnote{\textit{``Corpus, données et outils de la recherche en sciences humaines et sociales''}}
+\footnote{\textit{French: ``Corpus, données et outils de la recherche en sciences humaines et sociales''}}
 Adopting an interdisciplinary approach, the project is structured around three complementary areas of research:
 \emph{(i)}~sociological research for the study of public and existing performance archives,
 \emph{(ii)}~technological research for the chained capturing and publishing of challenges of Open Access,
 \emph{(iii)}~mediation research of audiences for the design of new usage scenarios of the archive.
+The project ended in December 2014.
 
 \subsection{Hypervideo Background}
 
@@ -162,22 +164,42 @@ editors can add highlights to moving images, use beeps as audible cues,
 or display still images from hyperlinked videos
 next to the clip that is currently playing''}~\cite{economist2006hypervideo}.
 In standard literature, hypervideo is considered a~logical consequence
-of the related concept of \emph{hypertext}.
+of the related concept of \emph{hypertext}~\cite{bernerslee1990hypertext}.
 In contrast to hypertext, hypervideo necessarily includes a~time component,
 as content changes over time.
-In consequence, hypervideo has different technical and aesthetic requirements
+In consequence, hypervideo has other technical and aesthetic requirements
 than hypertext, the most obvious one being appropriate segmentation in scenes
 or even objects.
 The opportunities for feature-rich semantic hypervideos are endless,
-only limited by the feasibility and ease of their creation.
-With this paper, we propose an approach that is solely based on 
-custom HTML elements that anyone coming from an HTML background can grasp.
+only limited by feasibility and ease of their creation.
+In this paper, we share our approach to affordably and practically document
+the creation of theater and opera productions with video and Web technologies.
+
+\subsection{Paper Contributions}
+
+Our contributions with this paper are two-fold.
+First, we show how modern HTML5~\cite{berjon2012html5} Web technologies
+and the emerging Web Components~\cite{cooney2013webcomponents} standard
+can be used for the documentation of theater and opera productions;
+the resulting hypervideo Web Components%
+\footnote{Polymer Hypervideo: \url{https://github.com/tomayac/polymer-hypervideo}}%
+~\cite{steiner2014hypervideo} as well as the demo application%
+\footnote{\emph{Spectacle en Ligne(s)} demo application: \url{spectacleenlignes.fr/hypervideo/}}
+created for \emph{Spectacle en Ligne(s)} based thereon
+are made available publicly as open source.
+Second, we make use of Semantic Web technologies, namely Linked Data Fragments~\cite{verborgh2014ldf},
+to publish \emph{and} consume%
+\footnote{\emph{Spectacle en Ligne(s)} data portal: \url{http://spectacleenlignes.fr/query-ui/}}
+the annotation data that was created during the recording phase.
+This approach allows us to make our structured data reusable
+by others as Linked Data~\cite{bernerslee2006linkeddata} on the one hand,
+and shows its feasibility by ``eating our own dog food'' through using this data ourselves on the other.
 
 \section{Related Work}
 
 Related work can be regarded under the angles
-of online video annotation creation and large-scale Linked Data 
-efforts for video.
+of online video annotation creation, large-scale Linked Data 
+efforts for video, and video documentation of theatrical performances.
 Many have combined Linked Data and video,
 typical examples are~\cite{lambert2010linkeddata} by Lambert \emph{et~al.}\
 and~\cite{hausenblas2009im} by Hausenblas \emph{et~al.}
@@ -211,9 +233,21 @@ PopcornMaker%
 \footnote{PopcornMaker: \url{https://popcorn.webmaker.org/}}
 is an interactive Web authoring environment
 allowing for videos to be annotated on a~timeline.
-%Popcorn video annotations are essentially JavaScript~programs.
+McAuley reports in~\cite{mcauley1994video} findings from ten years of experimentation
+with recording formats and analysis for the documentation of theatrical performances.
+In~\cite{lan2003video}, Lan and Morgan investigate the effects of retroactive and
+focused self-monitoring through videotaping, on children's theater performance
+and found that retroactive self-monitoring enhanced theater performance.
+Giesekam examines in~\cite{giesekam2007staging} the use of film and video in theaters
+and evaluates the impact of such developing multimedia technologies on practices in dramaturgy and performance.
 
-\section{Web Components}
+\section{Hypervideo Web Components}
+
+In this section, we first provide necessary background on the Web Components standard
+and then describe the generic hypervideo Web Components
+that were created in the context of the \emph{Spectacle en Ligne(s)} project.
+
+\subsection{Introduction to Web Components}
 
 Web Components is a~set of specifications, which let Web developers leverage
 their HTML, CSS, and JavaScript knowledge to build widgets
@@ -235,11 +269,11 @@ the component model for the Web (``Web Components'') consists of five pieces:
   \item[Templates] which define chunks of inert markup that can be activated for use.  
 \end{description}
 
-\noindent At time of writing, native support for Web Components
-has just landed in a~number of Web browsers,
+\noindent At time of writing, partial native support for Web Components
+has landed in a~number of Web browsers,
 however, for the majority of browsers,
 a~so-called polyfill solution is still required.
-A~polyfill  is a~piece of code (or plugin) that provides the technology
+A~polyfill  is a~piece of code that provides the technology
 that developers expect the browser to provide natively in the near future.
 We rely on the Polymer project\footnote{Polymer project:
 \url{http://www.polymer-project.org/}}
@@ -247,12 +281,12 @@ that provides Web Components support for older browsers.
 Polymer allows us to create reusable widgets that introduce a~number of new
 custom HTML elements for our task of hypervideo creation.
 
-\section{Implementation Details}
+\subsection{Implementation Details}
 
 We have developed a~number of Web Components for the creation of hypervideos.
 These Web Components are behaviorally grouped together
 by a~common naming convention.
-In Polymer, all element names have to start with ``polymer-''.
+In Polymer, all element names have to start with the prefix \texttt{polymer} and contain a~hyphen.
 
 \begin{description}
   \item[\texttt{<polymer-hypervideo>}] is the parent element of all other elements.
@@ -268,7 +302,7 @@ In Polymer, all element names have to start with ``polymer-''.
     and the generic \texttt{<polymer-data-annotation>} for other annotations.
   \item[\texttt{<polymer-track-*>}] are the two elements
     \texttt{<polymer-track-chapters>} and \texttt{<polymer-track-subtitles>},
-    which internally rely on WebVTT~\cite{pfeiffer2013webvtt} text tracks
+    which rely on WebVTT~\cite{pfeiffer2013webvtt} text tracks
     of the types ``chapters'' and ``subtitles'' that they enrich with
     automatically generated chapter thumbnails and a~full text subtitle view.
   \item[\texttt{<polymer-visualization-*>}] currently provides the
@@ -281,12 +315,11 @@ In Polymer, all element names have to start with ``polymer-''.
 \end{description}
 
 \noindent We have made an online demo application available at
-\url{http://hypervideo.herokuapp.com} and also share its source code.%
-\footnote{Hypervideo Demo:
-\url{https://github.com/tomayac/postdoc/tree/master/demos/polymer-hypervideo}}
+\url{http://hypervideo.herokuapp.com/demo.html} that showcases these Web Components
+and recall that we share their implementation as open source.
 As both native Web Component support in Web browsers and the Polymer project
 are constantly evolving and still in flux, the demo currently works best on
-Opera v22.0.1471.70	(Mac~OS~X).
+the latest versions of the Chrome browser.
 A~screenshot of the application can be seen in \autoref{fig:screenshot},
 the corresponding underlying code sample is shown in \autoref{listing:polymer}.
 These components communicate with each other through standard JavaScript events,
@@ -296,11 +329,22 @@ visualization components like the \texttt{<polymer-visualization-timeline>},
 it fires an event that components can subscribe to and react upon.
 \autoref{listing:events} shows the relevant code snippets.
 
-\begin{lstlisting}[caption={Web Components mark-up for the hypervideo in \autoref{fig:screenshot}, including subtitles, chapters, timeline, and table of contents widgets; the actor annotation contains a spatial fragment
-(\texttt{xywh})~\cite{troncy2012mediafragments} and a~hyperlink (\texttt{url})
+\begin{figure}[p!]
+  \centering
+  \includegraphics[width=0.39\linewidth]{screenshot}
+  \caption{Generated hypervideo based on the mark-up in \autoref{listing:polymer},
+  including subtitles, chapters, timeline, and table of contents;
+  the actor annotation contains a spatial fragment~\cite{troncy2012mediafragments}
+  (owl's head) and a~link
+  to a~Wikimedia Commons page}
+  \label{fig:screenshot}
+\end{figure}
+
+\begin{lstlisting}[caption={Web Components mark-up for the hypervideo in \autoref{fig:screenshot}, including subtitles, chapters, timeline, and table of contents; the actor annotation contains a spatial fragment
+(\texttt{xywh})~\cite{troncy2012mediafragments} and a~link (\texttt{url})
   to Wikimedia Commons},
   label=listing:polymer, language=xml,
-  float=b!, stringstyle=\color{gray},morekeywords={polymer,hypervideo,track,subtitles,chapters,toc,timeline,visualization,data,actor,src,end,start,name,url,width,height,muted,displaysubtitlesgroup,orientation,displaychaptersthumbnails,xywh}]
+  float=p!, stringstyle=\color{gray},morekeywords={polymer,hypervideo,track,subtitles,chapters,toc,timeline,visualization,data,actor,src,end,start,name,url,width,height,muted,displaysubtitlesgroup,orientation,displaychaptersthumbnails,xywh}]
 <polymer-hypervideo src="big_buck_bunny.mp4 big_buck_bunny.webm" width="400" height="225" muted>
   <polymer-data-actor start="10" end="35" name="Chirp (Owl)" xywh="170,20,70,80" 
       url="http://commons.m.wikimedia.org/wiki/File:Chirp1_-_BBB_-_reduced_snapshot.png">
@@ -315,7 +359,7 @@ it fires an event that components can subscribe to and react upon.
 \begin{lstlisting}[caption={Native JavaScript event communication
   between Web Components},
   label=listing:events, language=JavaScript,
-  float=b!, stringstyle=\color{gray},morekeywords={addEventListener,document}]
+  float=p!, stringstyle=\color{gray},morekeywords={addEventListener,document}]
 // === In polymer-hypervideo.js: ===
 // listen to native html5 video timeupdate events
 video.addEventListener('timeupdate', function() {
@@ -332,18 +376,15 @@ document.addEventListener('hypervideotimeupdate', function(e) {
 });
 \end{lstlisting}
 
-\begin{figure}[htb!]
-  \centering
-  \includegraphics[width=0.53\linewidth]{screenshot}
-  \caption{Generated hypervideo based on the mark-up in \autoref{listing:polymer},
-  including subtitles, chapters, timeline, and table of contents widgets;
-  the actor annotation contains a spatial fragment~\cite{troncy2012mediafragments}
-  (owl's head) and a~hyperlink
-  to a~details page on Wikimedia Commons}
-  \label{fig:screenshot}
-\end{figure}
+\section{Linked Data Consumation and Publication}
 
-\section{Linked Data and Linked Data Principles}
+In this section, we first introduce the concept of Linked Data
+and Tim Berners-Lee's Linked Data principles,
+and then Ruben Verborgh's Linked Data Fragments.
+This leads us to the \emph{Spectacle en Ligne(s)} Linked Data portal,
+whose data we consume in our application in an ``eat your own dog food'' manner.
+
+\subsection{Introduction to Linked Data}
 
 Linked Data~\cite{bernerslee2006linkeddata} defines a~set of agreed-on
 best practices and principles for interconnecting and publishing structured data on the Web.
@@ -359,16 +400,18 @@ Tim Berners-Lee defined the four rules for Linked Data in a~W3C Design Issue as 
 	\item Use URIs as names for things.
 	\item Use HTTP URIs so that people can look up those names.
 	\item When someone looks up a URI, provide useful information, using the standards (RDF, SPARQL).
-	\item IncludelinkstootherURIs,sothattheycandiscovermore things.
+	\item Include links to other URIs, so that they can discover more things.
 \end{enumerate}
 
 Linked Data uses the Resource Description Framework (RDF,~\cite{klyne2004rdf})
 to create typed links between things in the world.
 The result is often-times referred to as the Web of Data.
 RDF encodes statements about things in the form of triples that take the form subject, predicate, object. 
-Heath and Bizer~\cite{bizer2009linkeddatastory} also speak of RDF links.
+In this context, Heath and Bizer~\cite{bizer2009linkeddatastory} also speak of RDF links,
+\emph{i.e.}, dereferencing the URI that appears as the destination of a~link
+yields a~description of the linked resource.
 
-\section{Linked Data Fragments}
+\subsection{Linked Data Fragments}
 Various access mechanisms to Linked Data exist on the Web,
 each of which comes with its own trade-offs regarding query performance, freshness of data,
 and server cost/availability.
@@ -378,7 +421,6 @@ but they are not always available.
 While endpoints are more convenient for clients, individual requests
 are considerably more expensive for servers.
 Alternatively, a data dump allows interested parties to query locally.
-
 Linked Data Fragments~\cite{verborgh2014ldf} provide a~uniform view
 on all such possible interfaces to Linked Data,
 by describing each specific type of interface by the kind of fragments through which
