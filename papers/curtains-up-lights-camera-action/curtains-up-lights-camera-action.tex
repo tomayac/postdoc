@@ -331,7 +331,7 @@ it fires an event that components can subscribe to and react upon.
 
 \begin{figure}[p!]
   \centering
-  \includegraphics[width=0.39\linewidth]{screenshot}
+  \includegraphics[width=1\linewidth]{screenshot}
   \caption{Generated hypervideo based on the mark-up in \autoref{listing:polymer},
   including subtitles, chapters, timeline, and table of contents;
   the actor annotation contains a spatial fragment~\cite{troncy2012mediafragments}
@@ -344,7 +344,7 @@ it fires an event that components can subscribe to and react upon.
 (\texttt{xywh})~\cite{troncy2012mediafragments} and a~link (\texttt{url})
   to Wikimedia Commons},
   label=listing:polymer, language=xml,
-  float=p!, stringstyle=\color{gray},morekeywords={polymer,hypervideo,track,subtitles,chapters,toc,timeline,visualization,data,actor,src,end,start,name,url,width,height,muted,displaysubtitlesgroup,orientation,displaychaptersthumbnails,xywh}]
+  float=htb!, stringstyle=\color{gray},morekeywords={polymer,hypervideo,track,subtitles,chapters,toc,timeline,visualization,data,actor,src,end,start,name,url,width,height,muted,displaysubtitlesgroup,orientation,displaychaptersthumbnails,xywh}]
 <polymer-hypervideo src="big_buck_bunny.mp4 big_buck_bunny.webm" width="400" height="225" muted>
   <polymer-data-actor start="10" end="35" name="Chirp (Owl)" xywh="170,20,70,80" 
       url="http://commons.m.wikimedia.org/wiki/File:Chirp1_-_BBB_-_reduced_snapshot.png">
@@ -359,7 +359,7 @@ it fires an event that components can subscribe to and react upon.
 \begin{lstlisting}[caption={Native JavaScript event communication
   between Web Components},
   label=listing:events, language=JavaScript,
-  float=p!, stringstyle=\color{gray},morekeywords={addEventListener,document}]
+  float=htb!, stringstyle=\color{gray},morekeywords={addEventListener,document}]
 // === In polymer-hypervideo.js: ===
 // listen to native html5 video timeupdate events
 video.addEventListener('timeupdate', function() {
@@ -376,7 +376,34 @@ document.addEventListener('hypervideotimeupdate', function(e) {
 });
 \end{lstlisting}
 
-\section{Linked Data Consumation and Publication}
+\subsection{Evaluation of the Web Components Design Choice}
+
+The creation of new Web Components is a~not too difficult task
+for an experienced Web developer.
+Especially Polymer's \texttt{<seed-element>}%
+\footnote{Polymer \texttt{<seed-element>}:
+\url{https://www.polymer-project.org/docs/start/reusableelements.html}}
+makes getting started straight-forward.
+The biggest challenge and at the same time the biggest chance
+is the dynamic nature of Web Component development.
+Support for Web Components partially landed natively in Web browsers,
+which means the polyfill has to do less and less work emulating native support.
+Existing bugs are generally fixed in a~timely manner in the frequent new releases of Polymer.
+Communication between Web Components can be subject to race conditions,
+as event listeners may not yet have been created at the time an event is being sent.
+Especially with dynamically created Web Components this can be an issue,
+also across browsers.
+We had to introduce short timeouts for certain Web Components
+before they propagate their properties up to their parent Web Component.
+Besides that, we ran into common, non-Web-Components-related CSS3 compatibility issues,
+where certain CSS properties were not yet supported in all Web browsers.
+Concluding, Web Components were nevertheless the right design choice.
+The ease of use of the finished Web Components (see \autoref{listing:polymer})
+and the fact that Web Components can be created and interacted with using JavaScript
+just like regular HTML elements greatly outweigh the initial development efforts.
+
+
+\section{Linked Data Publication and Consumption}
 
 In this section, we first introduce the concept of Linked Data
 and Tim Berners-Lee's Linked Data principles,
@@ -430,7 +457,7 @@ Each fragment consists of the three following parts:
 \begin{description}
 	\item[data:] all triples of this dataset that match a specific selector;
 	\item[metadata:] triples that describe the dataset and/or the Linked Data Fragment;
-	\item[controls:] hypermedia links and/or forms that lead to other Linked Data Fragments.
+	\item[controls:] hypermedia links/forms that lead to other Linked Data Fragments.
 \end{description}
 
 This view allows to describe new interfaces with different trade-off combinations.
@@ -439,6 +466,72 @@ which enables users to host Linked Data on low-cost servers with higher availabi
 than public SPARQL endpoints.
 Such a~light-weight mechanism is ideal to expose mid-size datasets on commodity hardware
 in a~scalable and ad hoc manner using triple pattern fragments.
+
+\subsection{Linked Data portal}
+
+We use the Linked Data Fragments server implementation Server.js%
+\footnote{Server.js: \url{https://github.com/LinkedDataFragments/Server.js}} by Ruben Verborgh.
+Installing the server requires Node.js 0.10 or higher and is tested on OSX and Linux.
+We also make a browser interface available based on the Linked Data Fragments
+client implementation Browser.js%
+\footnote{Browser.js: \url{https://github.com/LinkedDataFragments/Browser.js}} by Ruben Verborgh.
+We expose the data at the URL \url{http://spectacleenlignes.fr/query-ui},
+a~user interface that allows for SPARQL queries to be executed.
+A~screenshot of the query interface can be seen in \autoref{fig:ldf}.
+
+\subsection{Linked Data Fragments Web Component}
+
+Verborgh's original \texttt{ldf-client} library was written for a~Node.js environment.
+We have compiled it using browserify,%
+\footnote{Browserify: \url{http://browserify.org/}}
+a~tool that allows modules designed for Node.js to be used from a~Web browser context.
+This allows us to query our Linked Data portal from a~browser context using a~declarative Web Component
+called \texttt{<polymer-ldf-client>}%
+\footnote{\texttt{<polymer-ldf-client>}:
+\url{https://github.com/tomayac/polymer-ldf-client}}
+that we have also released as open source.
+The HTML markup of a Web Component that allows for declaratively accessing the data in the Linked Data Portal is depicted in Figure 3.
+
+\begin{lstlisting}[caption={Linked Data Fragments Web Component \texttt{<polymer-ldf-client>}},
+  label=listing:ldfclient, language=XML,
+  float=htb, showstringspaces=false, stringstyle=\color{gray},morekeywords={polymer,ldf,id,client,responseFormat,query,startFragment}]
+<polymer-ldf-client
+   id="polymer-ldf-client-streaming"
+   responseFormat="streaming"
+   query="SELECT DISTINCT ?frag WHERE {
+        ?a a &lt;http://advene.org/ns/cinelab/ld#Annotation&gt; ;
+         &lt;http://advene.org/ns/cinelab/ld#hasFragment&gt; ?frag ;
+         &lt;http://advene.org/ns/cinelab/ld#taggedWith&gt;
+          [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Margaret'],
+          [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Grand Papa Pollitt'];
+         .
+       }"
+   startFragment="http://spectacleenlignes.fr/ldf/spectacle_en_lignes">
+ </polymer-ldf-client>
+\end{lstlisting}
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=1\textwidth]{linkeddatafragments.png}
+  \caption{Linked Data portal for the project \emph{Spectacle en Ligne(s)}: \url{http://spectacleenlignes.fr/query-ui/}}
+  \label{fig:ldf}
+\end{figure}
+
+\subsection{Evaluation of the Linked Data Fragments Design Choice}
+
+Linked Data Fragments turned out to be a~good design choice.
+Our mid-size dataset fits the use case perfectly well.
+Building upon Linked Data Fragments' promise to keep the server simple
+and enable smart clients, we can support complex queries on our dataset
+even on commodity hardware.
+While the processing speed may not in all cases compete with a~performant
+native SPARQL query engine, the streaming nature of Linked Data Fragments
+results delivery allows the user to see and process partial results as they come,
+or simply to wait for the complete result.
+Our \texttt{<polymer-ldf-client>} Web Component supports both kinds of operation
+through a~\texttt{responseFormat} attribute.
+
+\section{The \emph{Spectacle en Ligne(s)} Demo Applications}
 
 \begin{figure}
         \centering
