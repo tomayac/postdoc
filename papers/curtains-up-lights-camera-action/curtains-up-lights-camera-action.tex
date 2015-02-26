@@ -79,7 +79,7 @@
 \mainmatter  % start of an individual contribution
 
 % first the title is needed
-\title{Curtains Up! Lights, Camera, Action! Documenting the Creation of Theater and Opera Productions with Video and Web Technologies}
+\title{Curtains Up! Lights, Camera, Action! \mbox{\enspace Documenting}~the~Creation~of~Theater~and~Opera \mbox{Productions}~with~Linked~Data~and~Web~\mbox{Technologies}}
 
 % a short form should be given in case it is too long for the running head
 \titlerunning{Curtains Up! Lights, Camera, Action!}
@@ -239,12 +239,12 @@ In~\cite{lan2003video}, Lan and Morgan investigate the effects of retroactive an
 focused self-monitoring through videotaping, on children's theater performance
 and found that retroactive self-monitoring enhanced theater performance.
 Giesekam examines in~\cite{giesekam2007staging} the use of film and video in theaters
-and evaluates the impact of such developing multimedia technologies on practices in dramaturgy and performance.
+and evaluates the impact and effectiveness of such developing multimedia technologies on practices in dramaturgy and performance.
 
 \section{Hypervideo Web Components}
 \label{sec:hypervideo-web-components}
 
-In this section, we first provide necessary background on the Web Components standard
+In this section, we first provide necessary background on the emerging Web Components standard
 and then describe the generic hypervideo Web Components
 that were created in the context of the \emph{Spectacle en Ligne(s)} project.
 
@@ -257,7 +257,8 @@ that can be reused easily and reliably.\footnote{Web Components:
 According to a~(recently discontinued) W3C Working Draft introductory document,%
 \footnote{Discontinued W3C Working Draft document:
 \url{http://www.w3.org/TR/2013/WD-components-intro-20130606/}~\cite{cooney2013webcomponents}}
-the component model for the Web (``Web Components'') consists of five pieces:
+the component model for the Web (``Web Components'') consists of five pieces
+that we will list in the following.
 
 \begin{description}
   \item[Imports] which defines how templates, decorators and custom elements are packaged and loaded as a~resource%
@@ -287,7 +288,10 @@ custom HTML elements for our task of hypervideo creation.
 We have developed a~number of Web Components for the creation of hypervideos.
 These Web Components are behaviorally grouped together
 by a~common naming convention.
-In Polymer, all element names have to start with the prefix \texttt{polymer} and contain a~hyphen.
+In Polymer, all element names have to start with the prefix \texttt{polymer} and contain a~dash
+in order to add a~namespace which avoids conflicts with existing elements.
+However, this requirement is seen as a~bad practice by some,
+as it makes Web Components seem like being ``owned'' by the Polymer framework.
 
 \begin{description}
   \item[\texttt{<polymer-hypervideo>}] is the parent element of all other elements.
@@ -332,7 +336,7 @@ it fires an event that components can subscribe to and react upon.
 
 \begin{figure}[p!]
   \centering
-  \includegraphics[width=1\linewidth]{screenshot}
+  \includegraphics[width=0.95\linewidth]{screenshot}
   \caption{Generated hypervideo based on the mark-up in \autoref{listing:polymer},
   including subtitles, chapters, timeline, and table of contents;
   the actor annotation contains a~spatial fragment~\cite{troncy2012mediafragments}
@@ -347,13 +351,19 @@ it fires an event that components can subscribe to and react upon.
   label=listing:polymer, language=xml,
   float=htb!, stringstyle=\color{gray},morekeywords={polymer,hypervideo,track,subtitles,chapters,toc,timeline,visualization,data,actor,src,end,start,name,url,width,height,muted,displaysubtitlesgroup,orientation,displaychaptersthumbnails,xywh}]
 <polymer-hypervideo src="big_buck_bunny.mp4 big_buck_bunny.webm" width="400" height="225" muted>
+
   <polymer-data-actor start="10" end="35" name="Chirp (Owl)" xywh="170,20,70,80" 
       url="http://commons.m.wikimedia.org/wiki/File:Chirp1_-_BBB_-_reduced_snapshot.png">
   </polymer-data-actor>
+
   <polymer-track-subtitles src="subtitles.vtt" displaysubtitlesgroup></polymer-track-subtitles>
+
   <polymer-track-chapters src="thumbs.vtt" displaychaptersthumbnails></polymer-track-chapters>
+
   <polymer-visualization-timeline orientation="landscape"></polymer-visualization-timeline>
+
   <polymer-visualization-toc></polymer-visualization-toc>
+
 </polymer-hypervideo>
 \end{lstlisting}
 
@@ -368,6 +378,7 @@ video.addEventListener('timeupdate', function() {
   // publish hypervideotimeupdate events
   that.fire('hypervideotimeupdate', { currentTime: that.currentTime });
 });
+
 
 // === In polymer-visualization-timeline.js: ===
 // listen to hypervideotimeupdate events
@@ -387,7 +398,7 @@ Especially Polymer's \texttt{<seed-element>}%
 makes getting started straight-forward.
 The biggest challenge and at the same time the biggest chance
 is the dynamic nature of Web Component development.
-Support for Web Components partially landed natively in Web browsers,
+Support for Web Components has partially landed natively in Web browsers,
 which means the polyfill has to do less and less work emulating native support.
 Existing bugs are generally fixed in a~timely manner in the frequent new releases of Polymer.
 Communication between Web Components can be subject to race conditions,
@@ -396,12 +407,12 @@ Especially with dynamically created Web Components this can be an issue,
 also across browsers.
 We had to introduce short timeouts for certain Web Components
 before they propagate their properties up to their parent Web Component.
-Besides that, we ran into common, non-Web-Components-related CSS3 compatibility issues,
-where certain CSS properties were not yet supported in all Web browsers.
 Concluding, Web Components were nevertheless the right design choice.
 The ease of use of the finished Web Components (see \autoref{listing:polymer})
 and the fact that Web Components can be created and interacted with using JavaScript
-just like regular HTML elements greatly outweigh the initial development efforts.
+(see \autoref{listing:events} and \autoref{listing:ldfclientcode})
+just like regular HTML elements greatly outweigh the initial development efforts
+as we will show in more detail \autoref{sec:evaluationo-of-the-demo-application}.
 
 
 \section{Linked Data Publication and Consumption}
@@ -410,8 +421,7 @@ just like regular HTML elements greatly outweigh the initial development efforts
 In this section, we first introduce the concept of Linked Data
 and Tim Berners-Lee's Linked Data principles,
 and then Ruben Verborgh's Linked Data Fragments.
-This leads us to the \emph{Spectacle en Ligne(s)} Linked Data portal,
-whose data we consume in our application in an ``eat your own dog food'' manner.
+This finally leads us to the \emph{Spectacle en Ligne(s)} Linked Data portal.
 
 \subsection{Introduction to Linked Data}
 
@@ -423,7 +433,7 @@ to create typed links between different sources.
 The portal \url{LinkedData.org} defines Linked Data as being
 ``about using the Web to connect related data that wasn't previously linked,
 or using the Web to lower the barriers to linking data currently linked using other methods.''
-Tim Berners-Lee defined the four rules for Linked Data in a~W3C Design Issue as follows:
+Tim Berners-Lee defined the four rules for Linked Data in a~W3C Design Issue as follows.
 
 \begin{enumerate}
 	\item Use URIs as names for things.
@@ -438,7 +448,7 @@ The result is often-times referred to as the Web of Data.
 RDF encodes statements about things in the form of triples that take the form subject, predicate, object. 
 In this context, Heath and Bizer~\cite{bizer2009linkeddatastory} also speak of RDF links,
 \emph{i.e.}, dereferencing the URI that appears as the destination of a~link
-yields a~description of the linked resource.
+yields a~description of the linked resource in question.
 
 \subsection{Linked Data Fragments}
 Various access mechanisms to Linked Data exist on the Web,
@@ -450,11 +460,14 @@ but they are not always available.
 While endpoints are more convenient for clients, individual requests
 are considerably more expensive for servers.
 Alternatively, a~data dump allows interested parties to query locally.
+However, especially with dynamic datasets, data dumps risk to get outdated quite quickly.
+Users then always have to download the entire updated data dump again
+or work with data diffs.
 Linked Data Fragments~\cite{verborgh2014ldf} provide a~uniform view
 on all such possible interfaces to Linked Data,
 by describing each specific type of interface by the kind of fragments through which
 it allows access to the dataset.
-Each fragment consists of the three following parts:
+Each fragment consists of three parts that we will list in the following.
 
 \begin{description}
 	\item[data:] all triples of this dataset that match a~specific selector;
@@ -465,20 +478,21 @@ Each fragment consists of the three following parts:
 This view allows to describe new interfaces with different trade-off combinations.
 One such interface is triple pattern fragments~\cite{verborgh2014triplepatterns},
 which enables users to host Linked Data on low-cost servers with higher availability
-than public SPARQL endpoints.
+than public SPARQL endpoints, or even for free~\cite{matteis2014ldf}
+on consumer cloud storage products.
 Such a~light-weight mechanism is ideal to expose mid-size datasets on commodity hardware
 in a~scalable and ad hoc manner using triple pattern fragments.
 
-\subsection{Linked Data portal}
+\subsection{Linked Data Portal}
 
 We use the Linked Data Fragments server implementation Server.js%
 \footnote{Server.js: \url{https://github.com/LinkedDataFragments/Server.js}} by Ruben Verborgh.
 Installing the server requires Node.js 0.10 or higher and is tested on OSX and Linux.
-We also make a~browser interface available based on the Linked Data Fragments
+We also make a~browser interface available that is based on the Linked Data Fragments
 client implementation Browser.js%
 \footnote{Browser.js: \url{https://github.com/LinkedDataFragments/Browser.js}} by Ruben Verborgh.
 We expose the data at the URL \url{http://spectacleenlignes.fr/query-ui},
-a~user interface that allows for SPARQL queries to be executed.
+which is host to a~user interface that allows for SPARQL queries to be executed.
 A~screenshot of the query interface can be seen in \autoref{fig:ldf}.
 
 \subsection{Linked Data Fragments Web Component}
@@ -492,7 +506,9 @@ called \texttt{<polymer-ldf-client>}%
 \footnote{\texttt{<polymer-ldf-client>}:
 \url{https://github.com/tomayac/polymer-ldf-client}}
 that we have also released as open source.
-The HTML markup of a~Web Component that allows for declaratively accessing the data in the Linked Data Portal is depicted in Figure 3.
+The HTML markup of a~Web Component that allows for declaratively accessing the data in the Linked Data portal is depicted in \autoref{listing:ldfclient},
+the JavaScript source code for obtaining streaming and polling data
+is shown in \autoref{listing:ldfclientcode}.
 
 \begin{lstlisting}[caption={Linked Data Fragments Web Component \texttt{<polymer-ldf-client>}},
   label=listing:ldfclient, language=XML,
@@ -512,6 +528,38 @@ The HTML markup of a~Web Component that allows for declaratively accessing the d
  </polymer-ldf-client>
 \end{lstlisting}
 
+\begin{lstlisting}[caption={Obtaining streaming and polling data from the Linked Data Fragments Web Component \texttt{<polymer-ldf-client>}},
+  label=listing:ldfclientcode, language=JavaScript,
+  float=htb, showstringspaces=false, stringstyle=\color{gray},morekeywords={document,addEventListener,alert,querySelector,querySelectorAll}]
+var ldfClient = document.querySelector('#polymer-ldf-client-streaming');
+
+/* Streaming example */
+
+// Process data as it appears
+ldfClient.addEventListener('ldf-query-streaming-response-partial', function(e) {
+  alert(e.detail.response);
+});
+
+// Get notified once all data is received
+ldfClient.addEventListener('ldf-query-streaming-response-end', function() {
+  alert('Received all data');
+});
+
+
+/* Polling example */
+
+// Poll for data
+ldfClient.addEventListener('ldf-query-polling-response', function(e) {
+  alert(e.detail.response);
+});
+
+// Manually trigger data polling
+var button = document.querySelector('#button');
+button.addEventListener('click', function() {
+  ldfClient.showNext();
+});
+\end{lstlisting}
+
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=1\textwidth]{linkeddatafragments.png}
@@ -519,6 +567,7 @@ The HTML markup of a~Web Component that allows for declaratively accessing the d
   \label{fig:ldf}
 \end{figure}
 
+\vspace{-2em}
 \subsection{Evaluation of the Linked Data Fragments Design Choice}
 
 Linked Data Fragments turned out to be a~good design choice.
@@ -547,11 +596,11 @@ and uses the project's Linked Data portal described in
 From the recording phase, we have several video tracks for each rehearsal day
 as well as WebVTT text tracks and manual annotations from the preprocessing phase.
 Manual annotations mainly contain act and scene data, sparse mise en scène data,
-and in some cases acting person data.
+and in some cases information on the acting persons in a~particular scene.
 
 \subsection{Data Flow}
 
-Starting with a list of all available videos
+Starting with a~list of all available videos
 (the demo application does not contain the full list of all recordings),
 we first obtain the relevant WebVTT text track for the selected video
 and via JavaScript create an empty \texttt{<polymer-hypervideo>} container.
@@ -563,7 +612,7 @@ All chapters from the \texttt{<polymer-track-chapters} element are automatically
 on a~dynamically inserted \texttt{<polymer-visualization-timeline>} element.
 In continuation, we then query the Linked Data portal for all annotations available for this video
 using a~dynamically inserted \texttt{<polymer-ldf-client>} Web Component.
-All incoming annotations are converted to \texttt{<polymer-data-annotation>} elements
+Incoming annotations are converted to \texttt{<polymer-data-annotation>} elements
 that are then placed on the \texttt{<polymer-visualization-timeline>} element.
 Finally, we obtain a~WebVTT text track of type subtitles (again see~\cite{pfeiffer2013webvtt})
 that contains the spoken text of each text cue of the œuvre in the video in question.
@@ -573,53 +622,124 @@ Using common CSS selectors, we identify text cues in this document and align the
 with the text cue data from the WebVTT subtitles text track.
 This allows us to visually highlight text cues in the human-friendly documents
 upon cue change events that are sent by the \texttt{<polymer-hypervideo>} element.
+\autoref{fig:demoapp} shows all Web Components and the human-readable documents in action
+for three different iterations.
 
 \subsection{Enabled Navigation Patterns}
 
 As outlined earlier, we have several videos for each rehearsal day.
 Actors rehearsed the acts of each œuvre on different days
-and not necessarily in sequential order.
+and not necessarily in chronologically correct order.
+In the simplest form, we allow for consuming the videos in sequential order
+to revive the rehearsal days and to see act by act, scene by scene, text cue by text cue
+how the actors and the metteur en scène worked on them.
+Each annotation, represented through yellow blocks in the timeline beneath the video
+in \autoref{fig:demoapp}, acts as a~hyperlink
+that makes the video jump right to the annotation's time code.
+The same holds true for the chapter annotations that represent the text cues,
+displayed as green blocks in the timeline.
+Most interesting to the user probably is the navigation by text cue,
+where the user can see how a~certain text cue evolved over time.
+\autoref{fig:demoapp} shows act 1, cue 7.9 on three different days,
+starting with the first lecture of the text at a~table on day~1,
+over to an early rehearsal on day~8 on a~private stage,
+and ending with the technical mise en scène on day~40 on the public stage.
+Upon mouse-over on the main video, a~hovering semi-transparent navigation control gets displayed
+that lets the user navigate to the next or previous rehearsal day,
+or the next or previous text cue.
+Additionally, three select boxes on top of the main video allow for focused
+by-text-cue, by-video, and by-rehearsal-day navigation.
 
+\subsection{Evaluation of the Demo Application}
+\label{sec:evaluationo-of-the-demo-application}
 
+Through our groundwork with the hypervideo and Linked Data Fragments Web Components, 
+building the final application was a~rather straight-forward task.
+All that was missing was the application logic that orchestrates the different Web Components.
+The whole application required no more than 500 lines of JavaScript code.%
+\footnote{\emph{Spectacle en Ligne(s)} demo application:
+\url{https://github.com/tomayac/postdoc/tree/master/demos/polymer-hypervideo/spectacle-en-lignes}}
+As we make all source codes of the involved Web Components and the application itself available,
+future reuse of our work in other theater or opera performances is rendered possible.
+The opera and theater partners of the \emph{Spectacle en Ligne(s)} project
+particularly appreciated the complete freedom of navigation in the whole recording archive.
+By dissolving the temporal order of the rehearsals in the application,
+they could analyze and study the progress of the different scenes, acts,
+and even text cues on a~level of detail not seen before. 
 
 \begin{figure}
         \centering
         \begin{subfigure}[b]{\textwidth}
-                \includegraphics[width=\textwidth]{spel1}
+                \centering
+                \includegraphics[width=0.9\textwidth]{spel1}
                 \caption{Day~1, first lecture at the table,
                 	\url{http://spectacleenlignes.fr/hypervideo/\#lecture-a-la-table_4af0d0_a10/7-9}}
                 \label{fig:day1}
         \end{subfigure}
         
         \begin{subfigure}[b]{\textwidth}
-                \includegraphics[width=\textwidth]{spel2}
+                \centering
+                \includegraphics[width=0.9\textwidth]{spel2}
                 \caption{Day~8, rehearsals of act~1,
                 	\url{http://spectacleenlignes.fr/hypervideo/\#travail-sur-lacte-3-et-lacte-1-jour-8_c0d547_a54/7-9}}
                 \label{fig:day8}
         \end{subfigure}
         
         \begin{subfigure}[b]{\textwidth}
-                \includegraphics[width=\textwidth]{spel3}
+                \centering
+                \includegraphics[width=0.9\textwidth]{spel3}
                 \caption{Day~40, technical mise en scène,
                 	\url{http://spectacleenlignes.fr/hypervideo/\#filage-technique-jour-40-deuxieme-partie_58b2a6_SON_GRESILLE_a1/7-9}}
                 \label{fig:day40}
         \end{subfigure}
-        \caption{Evolution of act~1, cue 7.9 of T. Williams' \emph{Chatte Sur Un Toit Brulant}}\label{fig:animals}
+        \caption{Evolution of act~1, cue 7.9 of T. Williams' \emph{Chatte Sur Un Toit Brulant}}\label{fig:demoapp}
 \end{figure}
 
 \section{Conclusions and Future Work}
 
-In this paper, we have introduced a~Web-Components-based approach
-for the generation of hypervideos with nothing more than custom HTML elements.
-We have made both a~demo application and the underlying source code
-as well as the source code of the mentioned Web Components available.
-Immediate next steps are to improve the browser compatibility
-and to migrate the code to the native Web Components implementation
-that will soon be encountered in all major Web browsers.
-Concluding, Web Components radically redefine how we develop applications
-on the Web.
-With our code, we have shown that this certainly holds true for hypervideo
-and are excited about future applications and use cases.
+In this paper, we have first described the objectives of our project \emph{Spectacle en Ligne(s)}.
+Second, we have introduced the concept of hypervideo, followed by a~look at related works
+in the areas of online video annotation creation, large-scale Linked Data efforts for video,
+and video documentation of live theatrical and musical performances.
+In continuation, we provided necessary background on the emerging Web Components standard.
+As the first contribution of our paper, we have implemented and evaluated hypervideo Web Components
+that can be used to create hypervideos in a~declarative way through nothing but custom HTML tags.
+Objects or temporal points of interest in the hypervideos can be annotated,
+such annotations then appear on an interactive timeline.
+We have then looked at Linked Data sharing principles and introduced Linked Data Fragments
+as an appropriate way to share our annotation data for others
+and ourselves to consume in a~scalable manner.
+The second contribution is a~Web Component that allows for interacting with Linked Data Fragments
+in a~streaming or polling way again purely declaratively.
+Finally, we have combined all generated Web Components in a~demo application
+that showcases the power and simplicity of our approach.
+The source codes of all involved Web Components and the application itself
+are available as open source to encourage broad reuse.
+
+Future work will mainly concentrate on the hypervideo Web Components.
+We will evaluate their usefulness for further use cases like,
+for example, Web video courses and improve them accordingly if necessary.
+As we have repeatedly expressed, the Web Components standard is still in flux.
+As more and more Web browsers will gain native support for Web Components,
+existing timing challenges that we encountered occasionally will be resolved.
+Work on more hypervideo features has already started like camera selection
+or inter-hypervideo communication for synchronized hypervideo experiences.
+On the Linked Data side, we want to further improve the retrieval speed
+of Linked Data Fragments in our Web Component by allowing for parallel multiplexed query requests.
+
+Concluding, we are content of how far the limits of the Web have been pushed.
+Tasks like hypervideo creation were a~thing of native applications
+that did not allow for their results to be easily shared on the Web.
+Through our hypervideo Web Components, creating a~basic hypervideo
+has become accessible enough that standard Web developers can do it.
+The promise of Linked Data in the end are synergies between data that was not interlinked before.
+By following Linked Data principles and thanks to our Linked Data Fragments Web Component,
+these synergies can be reached in the context of a~Web application with very reasonable effort,
+as we have shown in this paper.
+We encourage others to reuse our Web Components in their applications,
+to further extend and improve them, and cannot wait to see what they will create.
+Curtains down. And cut.
+
 
 \bibliographystyle{abbrv}
 \bibliography{references}
