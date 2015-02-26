@@ -26,7 +26,7 @@
 \usepackage{verbatim}
 \newcommand{\defaultlistingsize}{\fontsize{8pt}{9.5pt}}
 \newcommand{\inlinelistingsize}{\fontsize{8pt}{11pt}}
-\newcommand{\smalllistingsize}{\fontsize{6.0pt}{7.0pt}}
+\newcommand{\smalllistingsize}{\fontsize{7.0pt}{8.0pt}}
 \newcommand{\listingsize}{\smalllistingsize}%{\defaultlistingsize}
 \RecustomVerbatimCommand{\Verb}{Verb}{fontsize=\inlinelistingsize}
 \RecustomVerbatimEnvironment{Verbatim}{Verbatim}{fontsize=\defaultlistingsize}
@@ -127,7 +127,7 @@ the different steps on the way to a~chef d'œuvre.
 A~live demo of the application is publicly available at the URL
 \url{http://spectacleenlignes.fr/hypervideo/}.
 
-\keywords{Hypervideo, Web Components, Linked Data Fragments, video analysis, audio analysis, theater, opera, rehearsal}
+\keywords{Hypervideo, Web Components, Linked Data Fragments, video analysis, audio analysis, theater, opera, rehearsal, live production}
 \end{abstract}
 
 \section{Introduction}
@@ -257,7 +257,7 @@ that can be reused easily and reliably.\footnote{Web Components:
 According to a~(recently discontinued) W3C Working Draft introductory document,%
 \footnote{Discontinued W3C Working Draft document:
 \url{http://www.w3.org/TR/2013/WD-components-intro-20130606/}~\cite{cooney2013webcomponents}}
-the component model for the Web (``Web Components'') consists of five pieces
+the component model for the Web (``Web Components'') consists of five different pieces
 that we will list in the following.
 
 \begin{description}
@@ -334,7 +334,7 @@ visualization components like the \texttt{<polymer-visualization-timeline>},
 it fires an event that components can subscribe to and react upon.
 \autoref{listing:events} shows the relevant code snippets.
 
-\begin{figure}[p!]
+\begin{figure}[htb!]
   \centering
   \includegraphics[width=0.95\linewidth]{screenshot}
   \caption{Generated hypervideo based on the mark-up in \autoref{listing:polymer},
@@ -349,28 +349,30 @@ it fires an event that components can subscribe to and react upon.
 (\texttt{xywh})~\cite{troncy2012mediafragments} and a~link (\texttt{url})
   to Wikimedia Commons},
   label=listing:polymer, language=xml,
-  float=htb!, stringstyle=\color{gray},morekeywords={polymer,hypervideo,track,subtitles,chapters,toc,timeline,visualization,data,actor,src,end,start,name,url,width,height,muted,displaysubtitlesgroup,orientation,displaychaptersthumbnails,xywh}]
-<polymer-hypervideo src="big_buck_bunny.mp4 big_buck_bunny.webm" width="400" height="225" muted>
-
+  float=b!, stringstyle=\color{gray},morekeywords={polymer,hypervideo,track,subtitles,chapters,toc,timeline,visualization,data,actor,src,end,start,name,url,width,height,muted,displaysubtitlesgroup,orientation,displaychaptersthumbnails,xywh}]
+<polymer-hypervideo src="big_buck_bunny.mp4 big_buck_bunny.webm"
+     width="400" height="225" muted>
+    
   <polymer-data-actor start="10" end="35" name="Chirp (Owl)" xywh="170,20,70,80" 
-      url="http://commons.m.wikimedia.org/wiki/File:Chirp1_-_BBB_-_reduced_snapshot.png">
+       url="http://commons.m.wikimedia.org/wiki/File:Chirp1_-_BBB_-_reduced_snapshot.png">
   </polymer-data-actor>
 
-  <polymer-track-subtitles src="subtitles.vtt" displaysubtitlesgroup></polymer-track-subtitles>
+  <polymer-track-subtitles src="subtitles.vtt" displaysubtitlesgroup>
+  </polymer-track-subtitles>
 
-  <polymer-track-chapters src="thumbs.vtt" displaychaptersthumbnails></polymer-track-chapters>
+  <polymer-track-chapters src="thumbs.vtt" displaychaptersthumbnails>
+  </polymer-track-chapters>
 
-  <polymer-visualization-timeline orientation="landscape"></polymer-visualization-timeline>
-
-  <polymer-visualization-toc></polymer-visualization-toc>
-
+  <polymer-visualization-timeline orientation="landscape">
+  </polymer-visualization-timeline>
+  
 </polymer-hypervideo>
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Native JavaScript event communication
   between Web Components},
   label=listing:events, language=JavaScript,
-  float=htb!, stringstyle=\color{gray},morekeywords={addEventListener,document}]
+  float=b!, stringstyle=\color{gray},morekeywords={addEventListener,document}]
 // === In polymer-hypervideo.js: ===
 // listen to native html5 video timeupdate events
 video.addEventListener('timeupdate', function() {
@@ -512,25 +514,25 @@ is shown in \autoref{listing:ldfclientcode}.
 
 \begin{lstlisting}[caption={Linked Data Fragments Web Component \texttt{<polymer-ldf-client>}},
   label=listing:ldfclient, language=XML,
-  float=htb, showstringspaces=false, stringstyle=\color{gray},morekeywords={polymer,ldf,id,client,responseFormat,query,startFragment}]
+  float=b!, showstringspaces=false, stringstyle=\color{gray},morekeywords={polymer,ldf,id,client,responseFormat,query,startFragment}]
 <polymer-ldf-client
    id="polymer-ldf-client-streaming"
    responseFormat="streaming"
    query="SELECT DISTINCT ?frag WHERE {
-        ?a a &lt;http://advene.org/ns/cinelab/ld#Annotation&gt; ;
-         &lt;http://advene.org/ns/cinelab/ld#hasFragment&gt; ?frag ;
-         &lt;http://advene.org/ns/cinelab/ld#taggedWith&gt;
-          [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Margaret'],
-          [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Grand Papa Pollitt'];
-         .
-       }"
+      ?a a &lt;http://advene.org/ns/cinelab/ld#Annotation&gt; ;
+        &lt;http://advene.org/ns/cinelab/ld#hasFragment&gt; ?frag ;
+        &lt;http://advene.org/ns/cinelab/ld#taggedWith&gt;
+          [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Maggie'],
+          [ &lt;http://purl.org/dc/elements/1.1/title&gt; 'personnages: Brick'];
+        .
+     }"
    startFragment="http://spectacleenlignes.fr/ldf/spectacle_en_lignes">
  </polymer-ldf-client>
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Obtaining streaming and polling data from the Linked Data Fragments Web Component \texttt{<polymer-ldf-client>}},
   label=listing:ldfclientcode, language=JavaScript,
-  float=htb, showstringspaces=false, stringstyle=\color{gray},morekeywords={document,addEventListener,alert,querySelector,querySelectorAll}]
+  float=b!, showstringspaces=false, stringstyle=\color{gray},morekeywords={document,addEventListener,alert,querySelector,querySelectorAll}]
 var ldfClient = document.querySelector('#polymer-ldf-client-streaming');
 
 /* Streaming example */
@@ -567,7 +569,6 @@ button.addEventListener('click', function() {
   \label{fig:ldf}
 \end{figure}
 
-\vspace{-2em}
 \subsection{Evaluation of the Linked Data Fragments Design Choice}
 
 Linked Data Fragments turned out to be a~good design choice.
@@ -582,7 +583,7 @@ or simply to wait for the complete result.
 Our \texttt{<polymer-ldf-client>} Web Component supports both kinds of operation
 through a~\texttt{responseFormat} attribute.
 
-\section{The \emph{Spectacle en Ligne(s)} Demo Applications}
+\section{The \emph{Spectacle en Ligne(s)} Demo Application}
 
 We recall the objective of the \emph{Spectacle en Ligne(s)} project,
 which  is to create a~video corpus of live theater and opera rehearsals
@@ -736,9 +737,15 @@ The promise of Linked Data in the end are synergies between data that was not in
 By following Linked Data principles and thanks to our Linked Data Fragments Web Component,
 these synergies can be reached in the context of a~Web application with very reasonable effort,
 as we have shown in this paper.
-We encourage others to reuse our Web Components in their applications,
-to further extend and improve them, and cannot wait to see what they will create.
-Curtains down. And cut.
+We encourage others to reuse our Web Components in their own applications
+and to further extend and improve them.
+We cannot wait to see what they will create.
+
+\begin{center}
+  ---
+  Curtains down. And cut.	
+\end{center}
+
 
 
 \bibliographystyle{abbrv}
