@@ -14,6 +14,7 @@ app.use('/core-component-page', express.static(process.env.PWD + '/core-componen
 app.use('/media-fragments-uri', express.static(process.env.PWD + '/media-fragments-uri'));
 app.use('/polymer', express.static(process.env.PWD + '/polymer'));
 app.use('/spectacle-en-lignes', express.static(process.env.PWD + '/spectacle-en-lignes'));
+app.use('/digital-heritage', express.static(process.env.PWD + '/digital-heritage'));
 app.use('/', express.static(process.env.PWD + '/spectacle-en-lignes'));
 
 // start the server
