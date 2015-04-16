@@ -220,35 +220,33 @@ var createHypervideo = function(video, id, transcript) {
             sceneSelect.value = value;
           }
         }
+
+        for (var i = 0, lenI = cues.length; i < lenI; i++) {
+          var activeCue = cues[i];
+          var speaker = activeCue.text.replace(/^<v (.+?)>.*?$/, '$1');
+          if (!/\d+-\d+/.test(speaker)) {
+            console.log('Now speaking: ' + speaker);
+            var currentSpeakerVideo = hypervideo.shadowRoot
+                .querySelector('video[title^="' + speaker +
+                '_(full_screen)"]');
+            if (!currentSpeakerVideo) {
+              currentSpeakerVideo = hypervideo.shadowRoot
+                .querySelector('video[title^="Brick_and_Margaret"]');
+            }
+            currentSpeakerVideo.click();
+          }
+        }
+
+
       });
     });
+
+
     hypervideo.appendChild(iframe);
 
     var subtitles = document.createElement('polymer-track-subtitles');
     var textTrackFile = createTextTrack(transcriptHtml, lines);
     subtitles.setAttribute('src', textTrackFile);
-    subtitles.addEventListener('cuechange', function(e) {alert(e)});
-    document.addEventListener('hypervideocuechange', function(e) {
-      var activeCues = e.detail.activeCues;
-      for (var i = 0, lenI = activeCues.length; i < lenI; i++) {
-        var activeCue = activeCues[i];
-        var speaker = activeCue.text.replace(/^<v (.+?)>.*?$/, '$1');
-        if (!/\d+-\d+/.test(speaker)) {
-          console.log('Now speaking: ' + speaker);
-          console.log('video[title^="' + speaker + '"]');
-          var currentSpeakerVideo = hypervideo.shadowRoot
-              .querySelector('video[title^="' + speaker + '"]');
-          if (!currentSpeakerVideo) {
-            currentSpeakerVideo = hypervideo.querySelector('video[title^="' +
-                speaker + '"]');
-          }
-          console.log(currentSpeakerVideo);
-          if (currentSpeakerVideo) {
-            currentSpeakerVideo.click();
-          }
-        }
-      }
-    });
     subtitles.setAttribute('displaysubtitlesgroup', false);
     subtitles.style.display = 'none';
     hypervideo.appendChild(subtitles);
@@ -258,7 +256,7 @@ var createHypervideo = function(video, id, transcript) {
         .replace('videos', 'digital-heritage/vtt')
         .replace('.mp4', '.vtt'));
     chapters.setAttribute('width', 800);
-//    chapters.setAttribute('displaychaptersthumbnails', false);
+    chapters.setAttribute('displaychaptersthumbnails', false);
     chapters.style.position = 'absolute';
     chapters.style.top = '710px';
     hypervideo.appendChild(chapters);
