@@ -112,8 +112,8 @@ var createHypervideo = function(video, id, transcript) {
         }
       }));
     }
-    hypervideo.setAttribute('width', 800);
-    hypervideo.setAttribute('height', 450);
+    hypervideo.setAttribute('width', 398);
+    hypervideo.setAttribute('height', 224);
     hypervideo.setAttribute('muted', false);
     fragment.appendChild(hypervideo);
 /*
@@ -165,18 +165,18 @@ var createHypervideo = function(video, id, transcript) {
     var timeline = document.createElement('polymer-visualization-timeline');
     timeline.setAttribute('orientation', 'landscape');
     timeline.style.position = 'absolute';
-    timeline.style.top = '550px';
-    timeline.setAttribute('width', 800);
+    timeline.style.top = '270px';
+    timeline.setAttribute('width', 810);
     timeline.setAttribute('height', 150);
     hypervideo.appendChild(timeline);
 
     hypervideo.appendChild(document.createElement('br'));
 
     var iframe = document.createElement('iframe');
-    iframe.style.width = '800px';
-    iframe.style.height = '540px';
+    iframe.style.width = '398px';
+    iframe.style.height = '272px';
     iframe.style.position = 'absolute';
-    iframe.style.left = '816px';
+    iframe.style.left = '408px';
     iframe.style.top = '-16px';
     iframe.addEventListener('load', function() {
       var contentDocument = iframe.contentDocument;
@@ -228,7 +228,7 @@ var createHypervideo = function(video, id, transcript) {
             console.log('Now speaking: ' + speaker);
             var currentSpeakerVideo = hypervideo.shadowRoot
                 .querySelector('video[title^="' + speaker +
-                '_(full_screen)"]');
+                '_(medium_screen)"]');
             if (!currentSpeakerVideo) {
               currentSpeakerVideo = hypervideo.shadowRoot
                 .querySelector('video[title^="Brick_and_Margaret"]');
@@ -255,10 +255,10 @@ var createHypervideo = function(video, id, transcript) {
     chapters.setAttribute('src', '../' + video
         .replace('videos', 'digital-heritage/vtt')
         .replace('.mp4', '.vtt'));
-    chapters.setAttribute('width', 800);
+    chapters.setAttribute('width', 398);
     chapters.setAttribute('displaychaptersthumbnails', false);
     chapters.style.position = 'absolute';
-    chapters.style.top = '710px';
+    chapters.style.top = '355px';
     hypervideo.appendChild(chapters);
 
     container.appendChild(fragment);

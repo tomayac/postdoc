@@ -32,12 +32,12 @@ nav {
   text-align: center;
   background: none;
   color: transparent;
-  width: 800px;
+  width: 400px;
   position: absolute;
   top: 5em;
   left: 8px;
   z-index: 1000;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 nav:hover {
