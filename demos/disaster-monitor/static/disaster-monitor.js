@@ -23,7 +23,7 @@
     var cachedMonitoringList = localStorage.getItem('monitoringList');
     if (cachedMonitoringList) {
       cachedMonitoringList = JSON.parse(cachedMonitoringList);
-      if (true/*now - cachedMonitoringList.timestamp <= 1000 * 60 * 60*/) {
+      if (now - cachedMonitoringList.timestamp <= 1000 * 60 * 60) {
         cachedMonitoringList =
             JSON.parse(LZString.decompress(cachedMonitoringList.data));
         console.log('Cached monitoring list still good.');
@@ -132,8 +132,45 @@
     xhr.send();
   };
 
+  var getRedirects = function(article, language, callback) {
+    console.log('Getting redirects for ' + language + ':' + article);
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      var redirects = JSON.parse(this.responseText);
+      return callback(null, redirects);
+    };
+    xhr.onerror = function() {
+      return callback('Not found');
+    };
+    var url = document.location.origin + '/redirects/' + language + '/' +
+        encodeURIComponent(article);
+    xhr.open('get', url, true);
+    xhr.send();
+  };
+
+  var getMediaGallery = function(searchTerms, callback) {
+    console.log('Getting media gallery for ' + searchTerms);
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+      return callback(null, this.responseText);
+    };
+    xhr.onerror = function() {
+      return callback('Not found');
+    };
+    var url = document.location.origin + '/mediagallery/' +
+        encodeURIComponent(searchTerms.map(function(t) {
+          return t.trim();
+        }).join(','));
+    xhr.open('get', url, true);
+    xhr.send();
+  };
+
   var showCandidateArticle = function(article, language, roles) {
     getGeoData(article, language, function(err, geoData) {
+      if (err) {
+        return console.log('Geo coordinates error for ' + language +
+            ':' + article);
+      }
       getRevisionsData(article, language, function(err, revisionsData) {
         while(candidate.childNodes.length >= 6) {
           candidate.firstChild.remove();
@@ -153,8 +190,8 @@
         } else {
           li.appendChild(document.createTextNode(' (not spiking)'));
         }
+        // Static map
         if (geoData.averageCoordinates.lat) {
-          // Static map
           li.appendChild(document.createElement('br'));
           var img = document.createElement('img');
           img.classList.add('static-map');
@@ -189,7 +226,23 @@
           span.textContent = content;
           nestedLi.appendChild(span);
         }
-        candidate.appendChild(fragment);
+        getRedirects(article, language, function(err, searchTerms) {
+          if (err) {
+            return candidate.appendChild(fragment);
+          } else {
+            getMediaGallery(searchTerms, function(err, mediaGalleryHtml) {
+              if (err || mediaGalleryHtml === '') {
+                console.log('Empty media gallery for ' + language + ':' +
+                    article);
+                return candidate.appendChild(fragment);
+              }
+              var mediaGallery = document.createElement('div');
+              mediaGallery.innerHTML = mediaGalleryHtml;
+              li.appendChild(mediaGallery);
+              return candidate.appendChild(fragment);
+            });
+          }
+        });
       });
     });
   };
@@ -238,8 +291,8 @@
       var legend = document.querySelector('#legend');
       var html = '';
       for (var color in heatmapsData.colors) {
-        html += '<span style="background-color:' + heatmapsData.colors[color] + ';">' +
-            color + '</span><br/>';
+        html += '<span style="background-color:' + heatmapsData.colors[color] +
+            ';">' + color + '</span><br/>';
       }
       legend.innerHTML = html;
 

@@ -11,6 +11,7 @@ var cheerio = require('cheerio');
 var async = require('async');
 
 var freebase = require('./freebase-util.js');
+var wikipedia = require('./wikipedia.js');
 var specialNamespaces = (require('./special-namespaces.js')).namespaces;
 
 var DEBUG = true;
@@ -152,7 +153,8 @@ var queryExpander = {
             functions[disaster] = function(innerCallback) {
               var options = {
                 url: url,
-                headers: HEADERS
+                headers: HEADERS,
+                timeout: 5000
               };
               DEBUG && console.log('Get canonical article: ' + options.url);
               request.get(options, function(err, response, body) {
@@ -171,7 +173,8 @@ var queryExpander = {
                   // If singular doesn't work, try the version with plural 's'
                   var options = {
                     url: url + 's',
-                    headers: HEADERS
+                    headers: HEADERS,
+                    timeout: 5000
                   };
                   DEBUG && console.log('Get canonical article (plural): ' +
                       options.url);
@@ -222,10 +225,15 @@ var queryExpander = {
                 functions[disaster] = function(innerCallback) {
                   var options = {
                     url: url,
-                    headers: HEADERS
+                    headers: HEADERS,
+                    timeout: 5000
                   };
                   DEBUG && console.log('Get language links: ' + options.url);
                   request.get(options, function(err, response, body) {
+                    console.log('url '+options.url)
+                    console.log('1 err '+err)
+                    if (response) console.log('status ' +response.statusCode)
+                    console.log('body ' +body)
                     if (!err && response.statusCode === 200) {
                       var data = JSON.parse(body);
                       var langLinks = {};
@@ -294,7 +302,8 @@ var queryExpander = {
                         var options = {
                           url: WIKIDATA_URL + langLinks[baseLanguage].title
                               .replace(/\s/g, '_'),
-                          headers: HEADERS
+                          headers: HEADERS,
+                          timeout: 5000
                         };
                         DEBUG && console.log('Get Wikidata QID: ' +
                             options.url);
@@ -344,107 +353,124 @@ var queryExpander = {
                                   langLinks.en.url);
                               freebase.getFreebaseMid(
                                   'http://en.wikipedia.org/wiki/' +
-                                  encodeURIComponent(langLinks.en.title
-                                  .replace(/\s/g, '_')),
+                                  encodeURIComponent(article.replace(/\s/g, '_')),
                                   function(freebaseErr, mid) {
                                 if (freebaseErr) {
                                   mid = null;
                                 }
-                                // Fifth, get all inbound links
-                                if (INCLUDE_INBOUND_LINKS) {
-                                  var inboundLinksFunctions = {};
-                                  Object.keys(langLinks).forEach(
-                                      function(inboundLinksLang) {
-                                    if (inboundLinksLang !== 'wikidata') {
-                                      inboundLinksFunctions[inboundLinksLang] =
-                                          function(inboundLinksCallback) {
-                                        that.getInboundLinks(
-                                            langLinks[inboundLinksLang].title,
-                                            inboundLinksLang,
-                                            inboundLinksCallback);
-                                      };
-                                    }
-                                  });
-                                  async.parallelLimit(
-                                    inboundLinksFunctions,
-                                    PARALLEL_LIMIT,
-                                    function(err, inboundLinksResults) {
-                                      Object.keys(inboundLinksResults).forEach(
-                                          function(inboundLinksLang) {
-                                        langLinks[inboundLinksLang].inboundLinks =
-                                            inboundLinksResults[inboundLinksLang];
-                                      });
-                                      // Sixth, get all outbound links
-                                      if (INCLUDE_OUTBOUND_LINKS) {
-                                        var outboundLinksFunctions = {};
-                                        Object.keys(langLinks).forEach(
-                                            function(outboundLinksLang) {
-                                          if (outboundLinksLang !== 'wikidata') {
-                                            outboundLinksFunctions[
-                                                outboundLinksLang] = function(
-                                                outboundLinksCallback) {
-                                              that.getOutboundLinks(
-                                                  langLinks[outboundLinksLang]
-                                                      .title,
-                                                  outboundLinksLang,
-                                                  outboundLinksCallback);
-                                            };
-                                          }
-                                        });
-                                        async.parallelLimit(
-                                          outboundLinksFunctions,
-                                          PARALLEL_LIMIT,
-                                          function(err, outboundLinksResults) {
-                                            Object.keys(outboundLinksResults)
-                                                .forEach(
-                                                function(outboundLinksLang) {
-                                              langLinks[outboundLinksLang]
-                                                  .outboundLinks =
-                                                  outboundLinksResults[
-                                                  outboundLinksLang];
-                                              if (INCLUDE_OUTBOUND_LINKS &&
-                                                  INCLUDE_INBOUND_LINKS) {
-                                                langLinks[outboundLinksLang]
-                                                    .mutualLinks =
-                                                        langLinks[outboundLinksLang]
-                                                        .outboundLinks.filter(
-                                                            function(n) {
-                                                          return langLinks[
-                                                              outboundLinksLang]
-                                                              .inboundLinks
-                                                              .indexOf(n) !== -1;
-                                                        });
-                                              }
-                                            });
-                                            return innerCallback(null,  {
-                                              langLinks: langLinks,
-                                              origin: origin,
-                                              freebaseMid: mid
-                                            });
-                                          }
-                                        );
+                                // Fifth, get the geocoordinates
+                                wikipedia.getGeolocation('en', article.replace(/\s/g, '_'), function(wikipediaErr, geocoordinates) {
+                                  if (wikipediaErr || !geocoordinates.averageCoordinates.lat) {
+                                    geocoordinates = null;
+                                  } else {
+                                    geocoordinates = {
+                                      lat: geocoordinates.averageCoordinates.lat,
+                                      lon: geocoordinates.averageCoordinates.lon
+                                    };
+                                  }
+                                  // Sixth, get all inbound links
+                                  if (INCLUDE_INBOUND_LINKS) {
+                                    var inboundLinksFunctions = {};
+                                    Object.keys(langLinks).forEach(
+                                        function(inboundLinksLang) {
+                                      if (inboundLinksLang !== 'wikidata') {
+                                        inboundLinksFunctions[inboundLinksLang] =
+                                            function(inboundLinksCallback) {
+                                          that.getInboundLinks(
+                                              langLinks[inboundLinksLang].title,
+                                              inboundLinksLang,
+                                              inboundLinksCallback);
+                                        };
                                       }
-                                    }
-                                  );
-                                } else {
-                                  return innerCallback(null,  {
-                                    langLinks: langLinks,
-                                    origin: origin,
-                                    freebaseMid: mid
-                                  });
-                                }
+                                    });
+                                    async.parallelLimit(
+                                      inboundLinksFunctions,
+                                      PARALLEL_LIMIT,
+                                      function(err, inboundLinksResults) {
+                                        Object.keys(inboundLinksResults).forEach(
+                                            function(inboundLinksLang) {
+                                          langLinks[inboundLinksLang].inboundLinks =
+                                              inboundLinksResults[inboundLinksLang];
+                                        });
+                                        // Seventh, get all outbound links
+                                        if (INCLUDE_OUTBOUND_LINKS) {
+                                          var outboundLinksFunctions = {};
+                                          Object.keys(langLinks).forEach(
+                                              function(outboundLinksLang) {
+                                            if (outboundLinksLang !== 'wikidata') {
+                                              outboundLinksFunctions[
+                                                  outboundLinksLang] = function(
+                                                  outboundLinksCallback) {
+                                                that.getOutboundLinks(
+                                                    langLinks[outboundLinksLang]
+                                                        .title,
+                                                    outboundLinksLang,
+                                                    outboundLinksCallback);
+                                              };
+                                            }
+                                          });
+                                          async.parallelLimit(
+                                            outboundLinksFunctions,
+                                            PARALLEL_LIMIT,
+                                            function(err, outboundLinksResults) {
+                                              Object.keys(outboundLinksResults)
+                                                  .forEach(
+                                                  function(outboundLinksLang) {
+                                                langLinks[outboundLinksLang]
+                                                    .outboundLinks =
+                                                    outboundLinksResults[
+                                                    outboundLinksLang];
+                                                if (INCLUDE_OUTBOUND_LINKS &&
+                                                    INCLUDE_INBOUND_LINKS &&
+                                                    langLinks[outboundLinksLang].outboundLinks) {
+                                                  langLinks[outboundLinksLang]
+                                                      .mutualLinks =
+                                                          langLinks[outboundLinksLang]
+                                                          .outboundLinks.filter(
+                                                              function(n) {
+                                                            return langLinks[
+                                                                outboundLinksLang]
+                                                                .inboundLinks
+                                                                .indexOf(n) !== -1;
+                                                          });
+                                                }
+                                              });
+                                              return innerCallback(null,  {
+                                                langLinks: langLinks,
+                                                origin: origin,
+                                                freebaseMid: mid,
+                                                geocoordinates: geocoordinates
+                                              });
+                                            }
+                                          );
+                                        }
+                                      }
+                                    );
+                                  } else {
+                                    return innerCallback(null,  {
+                                      langLinks: langLinks,
+                                      origin: origin,
+                                      freebaseMid: mid,
+                                      geocoordinates: geocoordinates
+                                    });
+                                  }
+                                });
                               });
                             }
                           } else {
                             // Fail gracefully without Wikidata QID
                             return innerCallback(null,  {
                               langLinks: langLinks,
-                              origin: origin
+                              origin: origin,
+                              freebaseMid: null,
+                              geocoordinates: null
                             });
                           }
                         });
                       });
                     } else {
+                      console.log(err || 'Error: ' +
+                          response.statusCode)
                       return innerCallback(err || 'Error: ' +
                           response.statusCode);
                     }
@@ -483,7 +509,8 @@ var queryExpander = {
           var options = {
             url: REDIRECTS_URL.replace(/\{\{LANGUAGE\}\}/, innerLang) +
                 langLinks[innerLang].title.replace(/\s/g, '_'),
-            headers: HEADERS
+            headers: HEADERS,
+            timeout: 5000
           };
           DEBUG && console.log('Get redirects: ' + options.url);
           request.get(options, function(err, response, body) {
@@ -519,7 +546,8 @@ var queryExpander = {
   getMainLinks: function(baseLanguage, init, callback) {
     var options = {
       url: WIKI_BASE_URL.replace(/\{\{BASE_LANGUAGE\}\}/, baseLanguage) + init,
-      headers: HEADERS
+      headers: HEADERS,
+      timeout: 5000
     };
     DEBUG && console.log('Get main article: ' + options.url);
     request.get(options, function(err, response, body) {
@@ -557,6 +585,7 @@ var queryExpander = {
     } else {
       url = init;
     }
+    DEBUG && console.log('Get category links: ' + url);
     if (that.seen[url]) {
       DEBUG && console.log('Circle detected, already processed: ' + url);
       that.pending--;
@@ -569,7 +598,8 @@ var queryExpander = {
     DEBUG && console.log('Start category page: ' + url);
     var options = {
       url: url,
-      headers: HEADERS
+      headers: HEADERS,
+      timeout: 5000
     };
     request.get(options, function(err, response, body) {
       that.pending--;
@@ -630,7 +660,8 @@ var queryExpander = {
   getInboundLinks: function(title, language, callback) {
     var options = {
       url: INBOUND_LINKS_URL.replace(/\{\{LANGUAGE\}\}/, language) + title,
-      headers: HEADERS
+      headers: HEADERS,
+      timeout: 5000
     };
     var getInboundLinksRecursive = function(options, inboundLinks, callback) {
       DEBUG && console.log('Get inbound links : ' + options.url);
@@ -666,7 +697,8 @@ var queryExpander = {
   getOutboundLinks: function(title, language, callback) {
     var options = {
       url: OUTBOUND_LINKS_URL.replace(/\{\{LANGUAGE\}\}/, language) + title,
-      headers: HEADERS
+      headers: HEADERS,
+      timeout: 5000
     };
     var getOutboundLinksRecursive = function(options, outboundLinks, callback) {
       DEBUG && console.log('Get outbound links : ' + options.url);

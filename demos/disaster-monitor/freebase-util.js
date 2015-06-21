@@ -73,9 +73,5 @@ var freebase = {
     });
    }
 };
-/*
-freebase.getFreebaseMid('http://en.wikipedia.org/wiki/Parque_de_Espa%C3%B1a', function(err, res) {
-  console.log(res)
-})
-*/
+
 module.exports = freebase;
