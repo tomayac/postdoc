@@ -87,7 +87,7 @@ var createHypervideo = function(video, id, transcript) {
 
     hypervideo.setAttribute('src', video);
     if (video === './videos/segment10.mp4') {
-      hypervideo.setAttribute('alternativeviews', JSON.stringify({
+      hypervideo.setAttribute('alternative-views', JSON.stringify({
         video: {
           1: {
             title: 'Brick_(full_screen)',
@@ -118,11 +118,11 @@ var createHypervideo = function(video, id, transcript) {
     fragment.appendChild(hypervideo);
 /*
     var ldfClient = document.createElement('polymer-ldf-client');
-    ldfClient.setAttribute('startFragment', LDF_START_FRAGMENT);
+    ldfClient.setAttribute('start-fragment', LDF_START_FRAGMENT);
     ldfClient.setAttribute('auto', false);
     var query = ID_LOOKUP_LDF_QUERY.replace(/\{\{id\}\}/g, id);
     ldfClient.setAttribute('query', query);
-    ldfClient.setAttribute('responseFormat', 'streaming');
+    ldfClient.setAttribute('response-format', 'streaming');
     container.appendChild(ldfClient);
     ldfClient.addEventListener('ldf-query-streaming-response-partial',
         function(e) {
@@ -164,9 +164,7 @@ var createHypervideo = function(video, id, transcript) {
 */
     var timeline = document.createElement('polymer-visualization-timeline');
     timeline.setAttribute('orientation', 'landscape');
-    timeline.style.position = 'absolute';
-    timeline.style.top = '270px';
-    timeline.setAttribute('width', 810);
+    timeline.setAttribute('width', 800);
     timeline.setAttribute('height', 150);
     hypervideo.appendChild(timeline);
 
@@ -177,7 +175,7 @@ var createHypervideo = function(video, id, transcript) {
     iframe.style.height = '272px';
     iframe.style.position = 'absolute';
     iframe.style.left = '408px';
-    iframe.style.top = '-16px';
+    iframe.style.top = '60px';
     iframe.addEventListener('load', function() {
       var contentDocument = iframe.contentDocument;
       var tmpDiv = contentDocument.createElement('div');
@@ -194,8 +192,8 @@ var createHypervideo = function(video, id, transcript) {
         }
       }
       // Highlight the currently active line
-      document.addEventListener('hypervideocuechange', function(e) {
-        console.log('Received event (document): hypervideocuechange');
+      document.addEventListener('hypervideo-cue-change', function(e) {
+        console.log('Received event (document): hypervideo-cue-change');
         var cues = e.detail.activeCues;
         var cueSelect = document.querySelector('#cueSelect');
         var sceneSelect = document.querySelector('#sceneSelect');
@@ -226,11 +224,11 @@ var createHypervideo = function(video, id, transcript) {
           var speaker = activeCue.text.replace(/^<v (.+?)>.*?$/, '$1');
           if (!/\d+-\d+/.test(speaker)) {
             console.log('Now speaking: ' + speaker);
-            var currentSpeakerVideo = hypervideo.shadowRoot
+            var currentSpeakerVideo = hypervideo
                 .querySelector('video[title^="' + speaker +
                 '_(medium_screen)"]');
             if (!currentSpeakerVideo) {
-              currentSpeakerVideo = hypervideo.shadowRoot
+              currentSpeakerVideo = hypervideo
                 .querySelector('video[title^="Brick_and_Margaret"]');
             }
             currentSpeakerVideo.click();
@@ -247,7 +245,7 @@ var createHypervideo = function(video, id, transcript) {
     var subtitles = document.createElement('polymer-track-subtitles');
     var textTrackFile = createTextTrack(transcriptHtml, lines);
     subtitles.setAttribute('src', textTrackFile);
-    subtitles.setAttribute('displaysubtitlesgroup', false);
+    subtitles.setAttribute('display-subtitles-group', false);
     subtitles.style.display = 'none';
     hypervideo.appendChild(subtitles);
 
@@ -255,10 +253,10 @@ var createHypervideo = function(video, id, transcript) {
     chapters.setAttribute('src', '../' + video
         .replace('videos', 'digital-heritage/vtt')
         .replace('.mp4', '.vtt'));
-    chapters.setAttribute('width', 398);
-    chapters.setAttribute('displaychaptersthumbnails', false);
+    chapters.setAttribute('width', 800);
+    chapters.setAttribute('display-chapters-thumbnails', false);
     chapters.style.position = 'absolute';
-    chapters.style.top = '355px';
+//    chapters.style.top = '355px';
     hypervideo.appendChild(chapters);
 
     container.appendChild(fragment);

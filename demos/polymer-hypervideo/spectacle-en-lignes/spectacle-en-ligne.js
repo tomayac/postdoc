@@ -92,11 +92,11 @@ var createHypervideo = function(video, id, transcript) {
     fragment.appendChild(hypervideo);
 
     var ldfClient = document.createElement('polymer-ldf-client');
-    ldfClient.setAttribute('startFragment', LDF_START_FRAGMENT);
+    ldfClient.setAttribute('start-fragment', LDF_START_FRAGMENT);
     ldfClient.setAttribute('auto', false);
     var query = ID_LOOKUP_LDF_QUERY.replace(/\{\{id\}\}/g, id);
     ldfClient.setAttribute('query', query);
-    ldfClient.setAttribute('responseFormat', 'streaming');
+    ldfClient.setAttribute('response-format', 'streaming');
     container.appendChild(ldfClient);
     ldfClient.addEventListener('ldf-query-streaming-response-partial',
         function(e) {
@@ -166,7 +166,7 @@ var createHypervideo = function(video, id, transcript) {
         }
       }
       // Highlight the currently active line
-      document.addEventListener('hypervideocuechange', function(e) {
+      document.addEventListener('hypervideo-cue-change', function(e) {
         console.log('Received event (document): hypervideocuechange');
         var cues = e.detail.activeCues;
         var cueSelect = document.querySelector('#cueSelect');
@@ -197,13 +197,13 @@ var createHypervideo = function(video, id, transcript) {
     var subtitles = document.createElement('polymer-track-subtitles');
     var textTrackFile = createTextTrack(transcriptHtml, lines);
     subtitles.setAttribute('src', textTrackFile);
-    subtitles.setAttribute('displaysubtitlesgroup', false);
+    subtitles.setAttribute('display-subtitles-group', false);
     subtitles.style.display = 'none';
     hypervideo.appendChild(subtitles);
 
     var chapters = document.createElement('polymer-track-chapters');
     chapters.setAttribute('src', video + '.vtt');
-    chapters.setAttribute('displaychaptersthumbnails', false);
+    chapters.setAttribute('display-chapters-thumbnails', false);
     chapters.setAttribute('width', 800);
     hypervideo.appendChild(chapters);
 
