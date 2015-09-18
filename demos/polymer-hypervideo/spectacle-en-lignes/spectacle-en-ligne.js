@@ -149,7 +149,7 @@ var createHypervideo = function(video, id, transcript) {
     iframe.style.height = '616px';
     iframe.style.position = 'absolute';
     iframe.style.left = '816px';
-    iframe.style.top = '-16px';
+    iframe.style.top = '60px';
     iframe.addEventListener('load', function() {
       var contentDocument = iframe.contentDocument;
       var tmpDiv = contentDocument.createElement('div');

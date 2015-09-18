@@ -16,19 +16,19 @@
   "license": "Apache 2.0",
   "dependencies": {
     "async": "~0.8.0",
+    "canvas": "~1.1.6",
     "cheerio": "~0.15.0",
     "exponential-smoothing-stream": "~1.0.1",
     "express": "~4.1.2",
-    "node-env-file": "~0.1.4",
-    "numbers": "~0.4.0",
-    "request": "~2.34.0",
-    "jsdom": "~1.0.3",
-    "pos": "~0.1.7",
-    "node-twitter": "~0.5.2",
-    "canvas": "~1.1.6",
     "geolib": "~2.0.14",
+    "jsdom": "^3.1.2",
     "kdt": "~0.1.0",
-    "local-reverse-geocoder": "0.0.12"
+    "local-reverse-geocoder": "0.0.12",
+    "node-env-file": "~0.1.4",
+    "node-twitter": "~0.5.2",
+    "numbers": "~0.4.0",
+    "pos": "~0.1.7",
+    "request": "~2.34.0"
   },
   "engines": {
     "node": "0.10.x"

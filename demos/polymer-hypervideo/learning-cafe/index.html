@@ -1,0 +1,32 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="bower_components/hyper-video/hyper-video.html">
+
+</head>
+<body>
+  <p>Learning Café</p>
+
+  <hyper-video src="repassage.mp4" width="600" height="480"
+               alternative-views='{"repassage.mp4":{"1":{"title":"bw","src":"repassage.bw.mp4"},"2":{"title":"lt","src":"repassage.lt.mp4"}}}'
+               >
+    <track-chapters src="chapters.vtt" display-chapters-thumbnails width="600" ></track-chapters>
+    <track-subtitles src="transcript.vtt" display-subtitles-group width="600" ></track-subtitles>
+    <!-- NB: on ne peut pas mettre une 2e piste subtitles :-(
+         c'est la 1e qui s'affiche
+    <track-subtitles src="panels.vtt" display-subtitles-group width="600" ></track-subtitles>
+    -->
+    <!-- FOR DEBUG ONLY
+    <visualization-timeline orientation="landscape" width="600" height="150"></visualization-timeline>
+    -->
+
+    <!-- IL FAUDRAIT UNE BALISE track 'générqiue' -->
+    <track-annotations src="quizz.vtt" type="quizz"></track-annotations>
+    <hv-quizz on-type="quizz"></hv-quizz>
+  </hyper-video>
+
+</body>
+</html>
