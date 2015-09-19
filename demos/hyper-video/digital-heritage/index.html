@@ -5,11 +5,10 @@
     <link href="main.css" media="all" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>Spectacle en ligne(s)</title>
-    <script src="../webcomponentsjs/webcomponents.min.js"></script>
-    <link rel="import" href="../polymer/polymer.html">
-    <link rel="import" href="../polymer-hypervideo/polymer-hypervideo.html">
-    <link rel="import" href="../polymer-ldf-client/polymer-ldf-client.html">
-    <style>polymer-hypervideo::shadow video {
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../bower_components/hyper-video/hyper-video.html">
+    <link rel="import" href="../bower_components/ldf-client/ldf-client.html">
+    <style>hyper-video::shadow video {
       -webkit-transition: all 0s ease-in-out;
          -moz-transition: all 0s ease-in-out;
            -o-transition: all 0s ease-in-out;
@@ -18,7 +17,7 @@
   </head>
   <body>
     <h1>Hypervideo Demo</h1>
-    <h2>Polymer Hypervideo (Spectacle en Lignes)</h2>
+    <h2>Hypervideo (Spectacle en Lignes)</h2>
     <nobr>
       <select id="videoSelect"></select>
       <select id="cueSelect"></select>
@@ -30,9 +29,9 @@
       <a id="nextIteration">↓ répétition suivante</a>
     </nav>
     <div id="container"></div>
-    <script src="../async.js"></script>
-    <script src="../media-fragments-uri/mediafragments.js"></script>
-    <script src="../webvtt-parser/parser.js"></script>
+    <script src="./async.js"></script>
+    <script src="../bower_components/media-fragments-uri/mediafragments.js"></script>
+    <script src="../bower_components/webvtt-parser/parser.js"></script>
     <script src="./videos.js"></script>
     <script src="./spectacle-en-ligne.js"></script>
   </body>

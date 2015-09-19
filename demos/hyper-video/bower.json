@@ -8,13 +8,9 @@
   "description": "Spectacle en ligne(s)",
   "main": "index.html",
   "keywords": [
-    "spectacle",
-    "en",
-    "lignes",
-    "spectacle",
-    "en",
-    "ligne",
-    "spel"
+    "spectacle en ligne(s)",
+    "learning café",
+    "digital heritage"
   ],
   "license": "Apache 2.0",
   "ignore": [
@@ -25,9 +21,9 @@
     "tests"
   ],
   "dependencies": {
-    "polymer-hypervideo": "tomayac/polymer-hypervideo",
-    "polymer-ldf-client": "tomayac/polymer-ldf-client",
+    "ldf-client": "tomayac/ldf-client",
     "media-fragments-uri": "tomayac/Media-Fragments-URI",
-    "webvtt-parser": "annevk/webvtt"
+    "webvtt-parser": "annevk/webvtt",
+    "hyper-video": "tomayac/hyper-video"
   }
 }

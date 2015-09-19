@@ -32,12 +32,12 @@ nav {
   text-align: center;
   background: none;
   color: transparent;
-  width: 400px;
+  width: 800px;
   position: absolute;
   top: 5em;
   left: 8px;
   z-index: 1000;
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 nav:hover {
@@ -55,21 +55,19 @@ iframe {
   overflow-x: hidden;
   margin-top: 1em;
   padding: 0.1em;
-  border: 3px solid #000;
+  border: 1px solid #000;
   background-color: white;
-  -webkit-box-shadow: 5px 5px 5px #111;
-          box-shadow: 5px 5px 5px #111;
 }
 
 select {
   width: 400px;
 }
 
-polymer-data-annotation {
+data-annotation {
   top: 20px !important;
 }
 
-polymer-hypervideo::shadow video::cue(v) { color: orange; }
-polymer-hypervideo::shadow video::cue(v[voice="Brick"]) { color: white; }
-polymer-hypervideo::shadow video::cue(v[voice="Margaret"]) { color: red; }
-polymer-hypervideo::shadow video::cue(v[voice="Grand Maman"]) { color: yellow; }
+hyper-video::shadow video::cue(v) { color: orange; }
+hyper-video::shadow video::cue(v[voice="Brick"]) { color: white; }
+hyper-video::shadow video::cue(v[voice="Margaret"]) { color: red; }
+hyper-video::shadow video::cue(v[voice="Grand Maman"]) { color: yellow; }

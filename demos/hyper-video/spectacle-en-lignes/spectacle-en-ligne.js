@@ -23,8 +23,8 @@ var createHypervideo = function(video, id, transcript) {
 
   var container = document.querySelector('#container');
   try {
-    var oldVideos = container.querySelector('polymer-hypervideo').shadowRoot
-        .querySelectorAll('video');
+    var oldVideos = container.querySelector('hyper-video').shadowRoot
+      .querySelectorAll('video');
     for (var i = 0, lenI = oldVideos.length; i < lenI; i++) {
       var oldVideo = oldVideos[i];
       oldVideo.pause();
@@ -83,41 +83,15 @@ var createHypervideo = function(video, id, transcript) {
   var createPolymerElements = function(transcriptHtml, lines) {
     var fragment = document.createDocumentFragment();
 
-    var hypervideo = document.createElement('polymer-hypervideo');
+    var hypervideo = document.createElement('hyper-video');
 
-    hypervideo.setAttribute('src', video);
-    if (video === './videos/segment10.mp4') {
-      hypervideo.setAttribute('alternative-views', JSON.stringify({
-        video: {
-          1: {
-            title: 'Brick_(full_screen)',
-            src: './videos/cameras/demo_brick_fs.mp4'
-          },
-          2: {
-            title: 'Brick_and_Margaret',
-            src: './videos/cameras/demo_brick_maggie.mp4'
-          },
-          3: {
-            title: 'Brick_(medium_screen)',
-            src: './videos/cameras/demo_brick_ms.mp4'
-          },
-          4: {
-            title: 'Margaret_(full_screen)',
-            src: './videos/cameras/demo_maggie_fs.mp4'
-          },
-          5: {
-            title: 'Margaret_(medium_screen)',
-            src: './videos/cameras/demo_maggie_ms.mp4'
-          }
-        }
-      }));
-    }
-    hypervideo.setAttribute('width', 398);
-    hypervideo.setAttribute('height', 224);
+    hypervideo.setAttribute('src', video + '.mp4 ' + video + '.mkv');
+    hypervideo.setAttribute('width', 800);
+    hypervideo.setAttribute('height', 450);
     hypervideo.setAttribute('muted', false);
     fragment.appendChild(hypervideo);
-/*
-    var ldfClient = document.createElement('polymer-ldf-client');
+
+    var ldfClient = document.createElement('ldf-client');
     ldfClient.setAttribute('start-fragment', LDF_START_FRAGMENT);
     ldfClient.setAttribute('auto', false);
     var query = ID_LOOKUP_LDF_QUERY.replace(/\{\{id\}\}/g, id);
@@ -146,7 +120,7 @@ var createHypervideo = function(video, id, transcript) {
           if (!description) {
             return;
           }
-          var annotation = document.createElement('polymer-data-annotation');
+          var annotation = document.createElement('data-annotation');
           annotation.setAttribute('start', start);
           annotation.setAttribute('end', end);
           annotation.innerHTML = description;
@@ -161,8 +135,8 @@ var createHypervideo = function(video, id, transcript) {
           'end');
     });
     ldfClient.executeQuery();
-*/
-    var timeline = document.createElement('polymer-visualization-timeline');
+
+    var timeline = document.createElement('visualization-timeline');
     timeline.setAttribute('orientation', 'landscape');
     timeline.setAttribute('width', 800);
     timeline.setAttribute('height', 150);
@@ -171,10 +145,10 @@ var createHypervideo = function(video, id, transcript) {
     hypervideo.appendChild(document.createElement('br'));
 
     var iframe = document.createElement('iframe');
-    iframe.style.width = '398px';
-    iframe.style.height = '272px';
+    iframe.style.width = '800px';
+    iframe.style.height = '616px';
     iframe.style.position = 'absolute';
-    iframe.style.left = '408px';
+    iframe.style.left = '816px';
     iframe.style.top = '60px';
     iframe.addEventListener('load', function() {
       var contentDocument = iframe.contentDocument;
@@ -188,12 +162,12 @@ var createHypervideo = function(video, id, transcript) {
         textLine.style.opacity = 0.25;
         if (lines[textLine.id]) {
           textLine.style.opacity = 1;
-          // textLine.style.backgroundColor = 'yellow';
+          textLine.style.backgroundColor = 'yellow';
         }
       }
       // Highlight the currently active line
       document.addEventListener('hypervideo-cue-change', function(e) {
-        console.log('Received event (document): hypervideo-cue-change');
+        console.log('Received event (document): hypervideocuechange');
         var cues = e.detail.activeCues;
         var cueSelect = document.querySelector('#cueSelect');
         var sceneSelect = document.querySelector('#sceneSelect');
@@ -210,53 +184,27 @@ var createHypervideo = function(video, id, transcript) {
             if (iframe.contentWindow) {
               iframe.contentWindow.scrollTo(0, textLine.offsetTop - 20);
               textLine.style.color = 'red';
-              textLine.style.opacity = 1;
-              // textLine.style.backgroundColor = 'yellow';
             }
             var value = cue.text + '—' + cue.startTime + '—' + id;
             cueSelect.value = value;
             sceneSelect.value = value;
           }
         }
-
-        for (var i = 0, lenI = cues.length; i < lenI; i++) {
-          var activeCue = cues[i];
-          var speaker = activeCue.text.replace(/^<v (.+?)>.*?$/, '$1');
-          if (!/\d+-\d+/.test(speaker)) {
-            console.log('Now speaking: ' + speaker);
-            var currentSpeakerVideo = hypervideo
-                .querySelector('video[title^="' + speaker +
-                '_(medium_screen)"]');
-            if (!currentSpeakerVideo) {
-              currentSpeakerVideo = hypervideo
-                .querySelector('video[title^="Brick_and_Margaret"]');
-            }
-            currentSpeakerVideo.click();
-          }
-        }
-
-
       });
     });
-
-
     hypervideo.appendChild(iframe);
 
-    var subtitles = document.createElement('polymer-track-subtitles');
+    var subtitles = document.createElement('track-subtitles');
     var textTrackFile = createTextTrack(transcriptHtml, lines);
     subtitles.setAttribute('src', textTrackFile);
     subtitles.setAttribute('display-subtitles-group', false);
     subtitles.style.display = 'none';
     hypervideo.appendChild(subtitles);
 
-    var chapters = document.createElement('polymer-track-chapters');
-    chapters.setAttribute('src', '../' + video
-        .replace('videos', 'digital-heritage/vtt')
-        .replace('.mp4', '.vtt'));
-    chapters.setAttribute('width', 800);
+    var chapters = document.createElement('track-chapters');
+    chapters.setAttribute('src', video + '.vtt');
     chapters.setAttribute('display-chapters-thumbnails', false);
-    chapters.style.position = 'absolute';
-//    chapters.style.top = '355px';
+    chapters.setAttribute('width', 800);
     hypervideo.appendChild(chapters);
 
     container.appendChild(fragment);
@@ -284,13 +232,13 @@ var createHypervideo = function(video, id, transcript) {
       tmpVideo.setAttribute('crossorigin', 'Anonymous');
       tmpVideo.style.display = 'none';
       tmpVideo.appendChild(tmpTrack);
-      tmpTrack.src = video.replace('/videos/', '/srt/').replace('.mp4', '.srt');
+      tmpTrack.src = video + '.vtt';
       tmpTrack.track.mode = 'showing';
       tmpTrack.addEventListener('load', function() {
         var lines = {};
         for (var i = 0, lenI = tmpTrack.track.cues.length; i < lenI; i++) {
           var cue = tmpTrack.track.cues[i];
-          lines[cue.text.replace(/^(\d+-\d+).*?$/, '$1')] = {
+          lines[cue.text] = {
             start: cue.startTime,
             end: cue.endTime
           };
@@ -301,7 +249,10 @@ var createHypervideo = function(video, id, transcript) {
       });
       var source1 = document.createElement('source');
       tmpVideo.appendChild(source1);
-      source1.src = video;
+      source1.src = video + '.mp4';
+      var source2 = document.createElement('source');
+      tmpVideo.appendChild(source2);
+      source2.src = video + '.mkv';
       container.appendChild(tmpVideo);
     });
   })();
@@ -398,8 +349,7 @@ var createHypervideo = function(video, id, transcript) {
   var webVttParser = new WebVTTParser();
   VIDEO_DATA.forEach(function(video, i) {
     // check if the .vtt-s exist
-    var url =  video.video.replace('.mp4', '.srt')
-        .replace('./videos/', './srt/');
+    var url = video.video;
     functions[url] = function(callback) {
       var xhr = new XMLHttpRequest();
       xhr.onload = function() {
@@ -443,7 +393,7 @@ var createHypervideo = function(video, id, transcript) {
       xhr.onerror = function() {
         return callback(null);
       };
-      xhr.open('get', url, true);
+      xhr.open('get', url + '.vtt', true);
       xhr.send();
     };
   });
