@@ -1,0 +1,11 @@
+#container {
+  display: flex;
+}
+
+html /deep/ track-chapters ul.track-chapters {
+  margin-top: -0;
+}
+
+html /deep/ track-chapters ul.track-chapters img {
+  width: 150px !important;
+}
