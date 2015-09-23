@@ -173,8 +173,8 @@ var createHypervideo = function(video, id, transcript) {
     var subtitles = document.createElement('track-subtitles');
     var textTrackFile = createTextTrack(transcriptHtml, lines);
     subtitles.setAttribute('src', textTrackFile);
-    subtitles.setAttribute('display-subtitles-group', false);
-    subtitles.style.display = 'none';
+    subtitles.width = 800;
+    subtitles.setAttribute('display-subtitles-group', true);
     hypervideo.appendChild(subtitles);
 
     var chapters = document.createElement('track-chapters');
