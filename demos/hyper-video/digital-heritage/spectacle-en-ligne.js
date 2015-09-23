@@ -1,29 +1,9 @@
 var createHypervideo = function(video, id, transcript) {
   'use strict';
 
-  var LDF_START_FRAGMENT =
-      'http://spectacleenlignes.fr/ldf/spectacle_en_lignes';
-
-  var ID_LOOKUP_LDF_QUERY =
-      'PREFIX cl: <http://advene.org/ns/cinelab/>\n' +
-      'SELECT ?s WHERE {\n' +
-        '?s cl:id-ref "{{id}}" .\n' +
-      '}';
-
-  var ANNOTATIONS_LDF_QUERY =
-      'PREFIX cl: <http://advene.org/ns/cinelab/ld#>\n' +
-      'PREFIX ma: <http://www.w3.org/ns/ma-ont#>\n' +
-      'SELECT * WHERE {\n' +
-        '<{{url}}#{{title}}> ' +
-            'cl:represents ?video .\n' +
-        '?video ma:hasFragment ?frag .\n' +
-        '?a cl:hasFragment ?frag ;\n' +
-          'cl:hasContent [ cl:mimetype ?ctype ; cl:data ?cdata ]\n' +
-      '}';
-
   var container = document.querySelector('#container');
   try {
-    var oldVideos = container.querySelector('hyper-video').shadowRoot
+    var oldVideos = container.querySelector('hyper-video')
         .querySelectorAll('video');
     for (var i = 0, lenI = oldVideos.length; i < lenI; i++) {
       var oldVideo = oldVideos[i];
@@ -32,7 +12,6 @@ var createHypervideo = function(video, id, transcript) {
       oldVideo.remove();
     }
   } catch(e) {
-    console.log(e)
     // no-op
   }
   container.innerHTML = '';
@@ -115,61 +94,13 @@ var createHypervideo = function(video, id, transcript) {
     }
     hypervideo.setAttribute('width', 398);
     hypervideo.setAttribute('height', 224);
-    hypervideo.setAttribute('muted', false);
     fragment.appendChild(hypervideo);
-/*
-    var ldfClient = document.createElement('ldf-client');
-    ldfClient.setAttribute('start-fragment', LDF_START_FRAGMENT);
-    ldfClient.setAttribute('auto', false);
-    var query = ID_LOOKUP_LDF_QUERY.replace(/\{\{id\}\}/g, id);
-    ldfClient.setAttribute('query', query);
-    ldfClient.setAttribute('response-format', 'streaming');
-    container.appendChild(ldfClient);
-    ldfClient.addEventListener('ldf-query-streaming-response-partial',
-        function(e) {
-      console.log('Received event (ldf-client): ldf-query-streaming-response-' +
-          'partial');
-      var data = JSON.parse(e.detail.response);
-      try {
-        if (data['?s']) {
-          var url = data['?s'].split('#')[0];
-          var query = ANNOTATIONS_LDF_QUERY.replace(/\{\{url\}\}/g, url)
-              .replace(/\{\{title\}\}/g, id);
-          ldfClient.setAttribute('query', query);
-          ldfClient.executeQuery();
-        } else {
-          var frag = data['?frag'];
-          var mediaFragment = MediaFragments.parseMediaFragmentsUri(frag);
-          var start = mediaFragment.hash.t[0].startNormalized;
-          var end = mediaFragment.hash.t[0].endNormalized;
-          var description = JSON.parse((data)['?cdata']
-              .replace(/^"/, '').replace(/"$/, '')).description;
-          if (!description) {
-            return;
-          }
-          var annotation = document.createElement('data-annotation');
-          annotation.setAttribute('start', start);
-          annotation.setAttribute('end', end);
-          annotation.innerHTML = description;
-          hypervideo.appendChild(annotation);
-        }
-      } catch(e) {
-        throw('Could not parse response: ' + e);
-      }
-    });
-    ldfClient.addEventListener('ldf-query-streaming-response-end', function() {
-      console.log('Received event (ldf-client): ldf-query-streaming-response-' +
-          'end');
-    });
-    ldfClient.executeQuery();
-*/
+
     var timeline = document.createElement('visualization-timeline');
     timeline.setAttribute('orientation', 'landscape');
     timeline.setAttribute('width', 800);
     timeline.setAttribute('height', 150);
     hypervideo.appendChild(timeline);
-
-    hypervideo.appendChild(document.createElement('br'));
 
     var iframe = document.createElement('iframe');
     iframe.style.width = '398px';
@@ -189,10 +120,9 @@ var createHypervideo = function(video, id, transcript) {
         textLine.style.opacity = 0.25;
         if (lines[textLine.id]) {
           textLine.style.opacity = 1;
-          // textLine.style.backgroundColor = 'yellow';
         }
       }
-      // Highlight the currently active line
+      // Highlight the currently active line and make the speaker video big
       document.addEventListener('hypervideo-cue-change', function(e) {
         console.log('Received event (document): hypervideo-cue-change');
         var cues = e.detail.activeCues;
@@ -203,6 +133,7 @@ var createHypervideo = function(video, id, transcript) {
           var textLine = textLines[i];
           textLine.style.color = 'black';
         }
+        // Highlight active cue
         for (var i = 0, lenI = cues.length; i < lenI; i++) {
           var cue = cues[i];
           if (/^\d+-\d+$/.test(cue.text)) {
@@ -212,14 +143,13 @@ var createHypervideo = function(video, id, transcript) {
               iframe.contentWindow.scrollTo(0, textLine.offsetTop - 20);
               textLine.style.color = 'red';
               textLine.style.opacity = 1;
-              // textLine.style.backgroundColor = 'yellow';
             }
             var value = cue.text + '—' + cue.startTime + '—' + id;
             cueSelect.value = value;
             sceneSelect.value = value;
           }
         }
-
+        // Make speaker video big
         for (var i = 0, lenI = cues.length; i < lenI; i++) {
           var activeCue = cues[i];
           var speaker = activeCue.text.replace(/^<v (.+?)>.*?$/, '$1');
@@ -235,8 +165,6 @@ var createHypervideo = function(video, id, transcript) {
             currentSpeakerVideo.click();
           }
         }
-
-
       });
     });
 
@@ -254,9 +182,7 @@ var createHypervideo = function(video, id, transcript) {
         .replace('videos', 'digital-heritage/vtt')
         .replace('.mp4', '.vtt'));
     chapters.setAttribute('width', 800);
-    chapters.setAttribute('display-chapters-thumbnails', false);
     chapters.style.position = 'absolute';
-//    chapters.style.top = '355px';
     hypervideo.appendChild(chapters);
 
     container.appendChild(fragment);
@@ -372,8 +298,8 @@ var createHypervideo = function(video, id, transcript) {
       // we navigate to a new video
       videoSelect.value = videoLookUp[video].index;
       videoSelectChange();
-      history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + video + '/' +
-          cue);
+      history.pushState({}, 'Spectacle en Ligne(s)—' + title, '#' + video +
+          '/' + cue);
       document.addEventListener('ldf-query-streaming-response-end', function() {
         var event = new CustomEvent('currenttimeupdate', { detail: {
           currentTime: start
