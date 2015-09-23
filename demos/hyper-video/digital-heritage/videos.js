@@ -1,5 +1,6 @@
 var VIDEO_DATA = (function() {
   var urls = [
+    /*
     './videos/segment01.mp4',
     './videos/segment02.mp4',
     './videos/segment03.mp4',
@@ -9,6 +10,7 @@ var VIDEO_DATA = (function() {
     './videos/segment07.mp4',
     './videos/segment08.mp4',
     './videos/segment09.mp4',
+    */
     './videos/segment10.mp4'
   ];
 

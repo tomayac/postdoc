@@ -67,7 +67,7 @@ data-annotation {
   top: 20px !important;
 }
 
-hyper-video::shadow video::cue(v) { color: orange; }
-hyper-video::shadow video::cue(v[voice="Brick"]) { color: white; }
-hyper-video::shadow video::cue(v[voice="Margaret"]) { color: red; }
-hyper-video::shadow video::cue(v[voice="Grand Maman"]) { color: yellow; }
+html /deep/ hyper-video video::cue(v) { color: orange; }
+html /deep/ hyper-video video::cue(v[voice="Brick"]) { color: white; }
+html /deep/ hyper-video video::cue(v[voice="Margaret"]) { color: red; }
+html /deep/ hyper-video video::cue(v[voice="Grand Maman"]) { color: yellow; }

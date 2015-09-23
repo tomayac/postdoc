@@ -32,6 +32,7 @@ var createHypervideo = function(video, id, transcript) {
       oldVideo.remove();
     }
   } catch(e) {
+    console.log(e)
     // no-op
   }
   container.innerHTML = '';
@@ -238,7 +239,6 @@ var createHypervideo = function(video, id, transcript) {
 
       });
     });
-
 
     hypervideo.appendChild(iframe);
 
