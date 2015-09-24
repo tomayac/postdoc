@@ -53,7 +53,9 @@ var createHypervideo = function(video, id, transcript) {
             line + ':\n' + // id
             toHHMMSSmmm(lines[line].start * 1000) + ' --> ' + // start
             toHHMMSSmmm(lines[line].end * 1000) + '\n' + // end
-            text + '\n\n'; // payload
+            (text.split(/\s/g).length > 15 ?
+                text.split(/\s/g).slice(0, 15).join(' ') + '…\n\n' :
+                text.split(/\s/g).slice(0, 15).join(' ') + '\n\n'); // payload
       }
     }
     var textTrackBlob = new Blob([textTrack], {type: 'text/plain'});
@@ -207,6 +209,7 @@ var createHypervideo = function(video, id, transcript) {
       }
       var tmpTrack = document.createElement('track');
       var tmpVideo = document.createElement('video');
+      tmpVideo.muted = true;
       tmpVideo.setAttribute('crossorigin', 'Anonymous');
       tmpVideo.style.display = 'none';
       tmpVideo.appendChild(tmpTrack);
