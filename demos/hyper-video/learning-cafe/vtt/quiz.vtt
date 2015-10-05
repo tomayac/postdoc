@@ -1,0 +1,36 @@
+WEBVTT
+
+1
+00:00:10.150 --> 00:00:29.202
+<form>
+  <p>Dans quel sens faut-il positionner le pantalon ?</p>
+  <p>
+    <input type="radio" name="sense" id="radio-largeur"><label for="radio-largeur">Dans la largeur.</label><br>
+    <input type="radio" name="sense" id="radio-longueur"><label for="radio-longueur">Dans la longueur.</label>
+  </p>
+</form>
+
+2
+00:00:30.202 --> 00:01:12.015
+<form>
+  <p>À quoi sert le chiffon ?</p>
+  <p><input name="chiffon" placeholder="Le chiffon sert à…"></p>
+</form>
+
+3
+00:01:14.015 --> 00:01:52.259
+<form>
+  <p>Que faire après être arrivé à la ceinture ?</p>
+  <p>
+    <input type="checkbox" name="ceinture" id="check-ceinture"><label for="check-ceinture">Donner un coup de vapeur sur la ceinture.</label><br>
+    <input type="checkbox" name="ceinture" id="check-poches"><label for="check-poches">Donner un coup de vapeur sur les poches.</label><br>
+    <input type="checkbox" name="ceinture" id="check-ceinture-et-poches"><label for="check-ceinture-et-poches">Donner un coup de vapeur sur la ceinture et les poches.</label>
+  </p>
+</form>
+
+4
+00:01:54.259 --> 00:02:33.131
+<form>
+  <p>Sur quoi faut-il ranger le pantalon ?</p>
+  <p><input name="ranger" placeholder="Il faut ranger le pantalon sur…"></p>
+</form>

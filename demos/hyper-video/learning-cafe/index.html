@@ -14,16 +14,7 @@
     >
       <track-chapters src="vtt/chapters.vtt" display-chapters-thumbnails width="300" height="300"></track-chapters>
       <track-subtitles src="vtt/transcript.vtt" display-subtitles-group width="300" height="300"></track-subtitles>
-      <!-- NB: on ne peut pas mettre une 2e piste subtitles :-(
-           c'est la 1e qui s'affiche
-      <track-subtitles src="panels.vtt" display-subtitles-group width="600"></track-subtitles>
-      -->
-      <!-- FOR DEBUG ONLY
-      <visualization-timeline orientation="landscape" width="600" height="150"></visualization-timeline>
-      -->
-      <!-- IL FAUDRAIT UNE BALISE track 'générqiue' -->
-      <track-annotations src="vtt/quizz.vtt" type="quizz"></track-annotations>
-      <hv-quizz on-type="quizz"></hv-quizz>
+      <gadget-quiz src="vtt/quiz.vtt"></gadget-quiz>
     </hyper-video>
   </div>
 </body>
