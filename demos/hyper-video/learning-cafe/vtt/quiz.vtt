@@ -2,7 +2,7 @@ WEBVTT
 
 1
 00:00:10.150 --> 00:00:29.202
-<form>
+<form action="http://www.apple.com/library/test/success.html">
   <p>Dans quel sens faut-il positionner le pantalon ?</p>
   <p>
     <input type="radio" name="sense" id="radio-largeur"><label for="radio-largeur">Dans la largeur.</label><br>
@@ -11,15 +11,15 @@ WEBVTT
 </form>
 
 2
-00:00:30.202 --> 00:01:12.015
-<form>
+00:00:30.202 --> 00:01:11.015
+<form action="http://www.apple.com/library/test/success.html">
   <p>À quoi sert le chiffon ?</p>
   <p><input name="chiffon" placeholder="Le chiffon sert à…"></p>
 </form>
 
 3
 00:01:14.015 --> 00:01:52.259
-<form>
+<form action="http://www.apple.com/library/test/success.html">
   <p>Que faire après être arrivé à la ceinture ?</p>
   <p>
     <input type="checkbox" name="ceinture" id="check-ceinture"><label for="check-ceinture">Donner un coup de vapeur sur la ceinture.</label><br>
@@ -30,7 +30,7 @@ WEBVTT
 
 4
 00:01:54.259 --> 00:02:33.131
-<form>
+<form action="http://www.apple.com/library/test/success.html">
   <p>Sur quoi faut-il ranger le pantalon ?</p>
   <p><input name="ranger" placeholder="Il faut ranger le pantalon sur…"></p>
 </form>
