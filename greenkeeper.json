@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "demos/disaster-monitor/package.json",
+        "demos/hyper-video/package.json"
+      ]
+    }
+  }
+}
