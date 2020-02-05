@@ -15,20 +15,20 @@
   "author": "Thomas Steiner (tomac@google.com)",
   "license": "Apache 2.0",
   "dependencies": {
-    "async": "~0.8.0",
-    "canvas": "~1.1.6",
-    "cheerio": "~0.15.0",
-    "exponential-smoothing-stream": "~1.0.1",
-    "express": "~4.1.2",
-    "geolib": "~2.0.14",
-    "jsdom": "^3.1.2",
+    "async": "~3.1.1",
+    "canvas": "~2.6.1",
+    "cheerio": "~0.22.0",
+    "exponential-smoothing-stream": "~3.0.0",
+    "express": "~4.17.1",
+    "geolib": "~3.2.1",
+    "jsdom": "^16.1.0",
     "kdt": "~0.1.0",
-    "local-reverse-geocoder": "0.0.12",
+    "local-reverse-geocoder": "0.8.0",
     "node-env-file": "~0.1.4",
     "node-twitter": "~0.5.2",
-    "numbers": "~0.4.0",
-    "pos": "~0.1.7",
-    "request": "~2.34.0"
+    "numbers": "~0.7.0",
+    "pos": "~0.4.2",
+    "request": "~2.88.0"
   },
   "engines": {
     "node": "0.10.x"
